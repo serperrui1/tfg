@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthRoutingModule } from './auth/auth.routing';
-import { PagesRoutingModule } from './pages/pages.routing';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
+  { path: 'register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent},
+  { path: '**', pathMatch: 'full', redirectTo: ''},
 
 ];
 
@@ -18,8 +22,6 @@ const routes: Routes = [
   declarations: [],
   imports: [
     RouterModule.forRoot( routes ),
-    AuthRoutingModule,
-    PagesRoutingModule
   ],
   exports: [ RouterModule ]
 })
