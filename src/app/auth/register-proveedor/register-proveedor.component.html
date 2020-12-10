@@ -1,0 +1,38 @@
+<div class="wrapper">
+    <form class="form-signin" autocomplete="off" [formGroup]="registrarProveedorForm" (ngSubmit)="crearProveedor()" id="loginform">
+        <h2 class="form-signin-heading">Registrar como proveedor</h2>
+        <input type="text" class="form-control" placeholder="Nombre/ Empresa" formControlName="nombreEmpresa" />
+        <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="autonomo" formControlName="autonomo"> Autónomo
+          </label>
+        <input type="email" class="form-control" placeholder="Correo electrónico" formControlName="email" />
+        <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
+        <input type="password" class="form-control" placeholder="Repite contraseña" formControlName="password2" />
+        <input type="text" class="form-control" placeholder="sector/es: textil, informatica, ...  " formControlName="sector" />
+        <input type="text" class="form-control" placeholder="Registro mercantil" formControlName="registroMercantil" [hidden]="autonomo" />
+        <input type="text" class="form-control" placeholder="nif" formControlName="nif" [hidden]="!autonomo" />
+        <input type="text" class="form-control" placeholder="direccion" formControlName="direccion" />
+        <input type="text" class="form-control" placeholder="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" />
+        <input type="text" class="form-control" placeholder="titularCuenta" formControlName="titularCuenta" />
+        <label class="checkbox">
+        <input type="checkbox" formControlName="terminos"> Aceptar los <a href="#">Terminos</a>
+      </label>
+        <div class="row">
+            <div class="col text-danger">
+                <p *ngIf="campoNoValido('nombreEmpresa')">*El nombre es obligatorio</p>
+                <p *ngIf="campoNoValido('email')">*El email es obligatorio y tiene que ser válido</p>
+                <p *ngIf="contrasenasNoValidas()">*Las contraseñas deben ser iguales</p>
+                <p *ngIf="campoNoValido('sector')">*El sector es obligatorio</p>
+                <p *ngIf="campoNoValido('direccion')">*La dirección es obligatoria</p>
+                <p *ngIf="campoNoValido('cuentaBancariaIBAN')">*La cuenta bancaria es obligatoria</p>
+                <p *ngIf="campoNoValido('titularCuenta')">*El titular de la cuenta es obligatorio</p>
+                <p *ngIf="campoNoValido('registroMercantil') &&!autonomo">*El registro mercantil es obligatorio</p>
+                <p *ngIf="campoNoValido('nif')">*El nif es obligatorio</p>
+                <p *ngIf="aceptaTerminos()">*Debes aceptar los términos de uso</p>
+            </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar</button>
+
+    </form>
+</div>
