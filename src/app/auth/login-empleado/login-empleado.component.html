@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <form class="form-signin" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()" id="loginform">
+
+        <h2 class="form-signin-heading">Iniciar sesión</h2>
+
+        <select class="form-control form-control-sm" id="usuario" formControlName="usuario">
+            <option value="administrador" selected="selected">Administrador</option> 
+            <option value="asistente">Asistente Técnico</option>
+        </select><br>
+
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" />
+        <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me" id="rememberMe" formControlName="remember">Recuérdame
+        </label>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button>
+
+    </form>
+</div>

@@ -1,4 +1,4 @@
-export interface asistente {
+export interface administrador {
     nombre: string;
     apellidos: string;
     email: string;
