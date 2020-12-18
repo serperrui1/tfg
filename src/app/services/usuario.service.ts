@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { RegisterCompradorComponent } from '../auth/register-comprador/register-comprador.component';
 import { RegisterProveedorComponent } from '../auth/register-proveedor/register-proveedor.component';
+import { Comprador } from '../models/comprador';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -16,6 +17,7 @@ declare const gapi: any;
 })
 export class UsuarioService {
   public auth2: any;
+  public comprador: Comprador;
 
   constructor( private http: HttpClient,
     private ngZone: NgZone,
@@ -24,7 +26,11 @@ export class UsuarioService {
       this.googleInit();
      }
 
-
+     get token(): string {
+      return localStorage.getItem('token') || '';
+    }
+  
+    
   login( formData: LoginForm ) {
     
     return this.http.post(`${ base_url }/login/${formData.usuario}`, formData ).pipe(
@@ -38,6 +44,7 @@ export class UsuarioService {
   logout() {
 
     localStorage.removeItem('token');
+    localStorage.removeItem('usuario'); 
     this.router.navigateByUrl('/login');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
@@ -91,6 +98,35 @@ export class UsuarioService {
                 localStorage.setItem('token', resp.token )
               })
             );
+
+  }
+
+
+  actualizarCompradorPerfil( data: Comprador , uid:string) {
+
+    return this.http.put(`${ base_url }/compradores/${ uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+
+  }
+
+  getComprador():Promise<Comprador>{
+
+    return new Promise<Comprador> (resolve=> {
+
+      this.http.get(`${ base_url }/compradores/perfil`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data =>{
+        const comprador:Comprador = data["compradores"];
+        resolve(comprador);
+      });
+    } )
+    
+    
 
   }
 
