@@ -1,16 +1,25 @@
-export interface comprador {
 
-    nombre: string;
-    apellidos: string;
-    fechaNacimiento: string;
-    email: string;
-    password: string;
-    nacionalidad: string;
-    paisResidencia: string;
-    ciudad: string;
-    localidad: string;
-    direccionResidencia: string;
-    tarjetaCredito: string;
-    cuentaPaypal: string;
+
+export class Comprador {
+
+    constructor(
+
+    public nombre: string,
+    public apellidos: string,
+    public fechaNacimiento: string,
+    public email: string,
+    public password: string,
+    public paisResidencia: string,
+    public ciudad: string,
+    public localidad: string,
+    public direccionResidencia: string,
+    public tarjetaCredito?: string,
+    public cuentaPaypal?: string,
+    public img?: string,
+    public google?: boolean,
+    public uid?: string
+    ){}
+
+
 
 }

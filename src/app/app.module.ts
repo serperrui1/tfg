@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
 
 
 
@@ -34,7 +35,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     PaginaComponent,
     NavbarComponent,
     RegisterCompradorComponent,
-    RegisterProveedorComponent
+    RegisterProveedorComponent,
+    CompradorPerfilComponent
 
 
   ],
