@@ -1,4 +1,4 @@
-export interface proveedor {
+export interface Proveedor {
 
     nombreEmpresa: string;
     autonomo: boolean;
@@ -9,8 +9,7 @@ export interface proveedor {
     direccion: string;
     cuentaBancaria: string;
     titularCuenta: string;
-    paypal?: string;
-    tarjetaCredito?: string;
     productosId: string[];
-
+    uid?: string;
+    img?:string
 }

@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
 import { environment } from 'src/environments/environment'
+import { Proveedor } from 'src/app/models/proveedor';
 const base_url = environment.base_url;
 
 @Component({
@@ -15,7 +16,9 @@ const base_url = environment.base_url;
 })
 export class CompradorPerfilComponent implements OnInit {
   public perfilCompradorForm: FormGroup;
+  public perfilProveedorForm: FormGroup;
   public comprador: Comprador;
+  public proveedor: Proveedor;
   public imagenSubir: File;
   public imgTemp: any = null;
   public usuario:string;
@@ -26,13 +29,14 @@ export class CompradorPerfilComponent implements OnInit {
 
    this.usuario =localStorage.getItem('usuario') || "";
 
-   console.log(this.comprador)
+
    
   }
 
   async ngOnInit() {
     if(this.usuario==="comprador"){
     this.comprador = await this.usuarioService.getComprador();
+   
 
      this.perfilCompradorForm = this.fb.group({
       nombre: [ this.comprador.nombre , Validators.required ],
@@ -47,6 +51,22 @@ export class CompradorPerfilComponent implements OnInit {
       cuentaPaypal: [ this.comprador.cuentaPaypal ]
 
     });
+  }else if(this.usuario==="proveedor"){
+    this.proveedor = await this.usuarioService.getProveedor();
+    console.log(this.proveedor);
+
+     this.perfilProveedorForm = this.fb.group({
+      nombreEmpresa: [ this.proveedor.nombreEmpresa , Validators.required ],
+      autonomo: [ this.proveedor.autonomo , Validators.required ],
+      sector: [ this.proveedor.sector , Validators.required ],
+      email: [ this.proveedor.email , Validators.required ],
+      registroMercantil:[ this.proveedor.nombreEmpresa ],
+      nif: [ this.proveedor.nombreEmpresa ],
+      direccion: [ this.proveedor.direccion , Validators.required ],
+      cuentaBancaria: [ this.proveedor.cuentaBancaria , Validators.required ],
+      titularCuenta: [ this.proveedor.titularCuenta , Validators.required ]
+
+    });
   }
   }
   actualizarCompradorPerfil() {
@@ -57,6 +77,15 @@ export class CompradorPerfilComponent implements OnInit {
     this.comprador.email = email;
     
 
+    Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+  }, (err) => {
+    console.log(err)
+    Swal.fire('Error', err.error.msg, 'error');
+  });
+}
+actualizarProveedorPerfil() {
+  this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid )
+  .subscribe( () => {
     Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
   }, (err) => {
     console.log(err)
@@ -79,8 +108,8 @@ export class CompradorPerfilComponent implements OnInit {
   }
 
   subirImagen() {
-    
-    this.fileUploadService
+    if(this.usuario==="comprador"){
+      this.fileUploadService
       .actualizarFoto( this.imagenSubir, 'compradores', this.comprador.uid )
       .then( img => {
         this.comprador.img = img;
@@ -89,18 +118,45 @@ export class CompradorPerfilComponent implements OnInit {
         console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
+    }
+
+    else if(this.usuario==="proveedor"){
+      this.fileUploadService
+      .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
+      .then( img => {
+        this.proveedor.img = img;
+        Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
+      }).catch( err => {
+        console.log(err);
+        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      })
+    }
+    
+   
     
   }
 
   get imagenUrl(){
-    if(this.comprador.img.includes('http')){
+    if(this.usuario==="comprador"){
+      if(this.comprador.img.includes('http')){
         return this.comprador.img;
+      }
+      if(this.comprador.img){
+          return `${base_url}/upload/compradores/${ this.comprador.img }`;
+      }
+      else{
+          return `${base_url}/upload/compradrores/no-image`;
+      }
+    }else if( this.usuario==="proveedor"){
+      if(this.proveedor.img.includes('http')){
+        return this.proveedor.img;
+      }
+      if(this.proveedor.img){
+          return `${base_url}/upload/proveedores/${ this.proveedor.img }`;
+      }
+      else{
+          return `${base_url}/upload/proovedores/no-image`;
+      }
     }
-    if(this.comprador.img){
-        return `${base_url}/upload/compradores/${ this.comprador.img }`;
-    }
-    else{
-        return `${base_url}/upload/no-image`;
-    }
-}
+  }
 }

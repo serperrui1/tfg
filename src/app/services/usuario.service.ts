@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { RegisterCompradorComponent } from '../auth/register-comprador/register-comprador.component';
 import { RegisterProveedorComponent } from '../auth/register-proveedor/register-proveedor.component';
 import { Comprador } from '../models/comprador';
+import { Proveedor } from '../models/proveedor';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -59,7 +60,8 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/compradores`, formData )
           .pipe(
             tap( (resp: any) => {
-              localStorage.setItem('token', resp.token )
+              localStorage.setItem('token', resp.token );
+              localStorage.setItem('usuario', "comprador" );
             })
            )
 
@@ -69,7 +71,8 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/proveedores`, formData )
           .pipe(
             tap( (resp: any) => {
-              localStorage.setItem('token', resp.token )
+              localStorage.setItem('token', resp.token );
+              localStorage.setItem('usuario', "proveedor" );
             })
            )
 
@@ -123,6 +126,34 @@ export class UsuarioService {
       }).subscribe(data =>{
         const comprador:Comprador = data["compradores"];
         resolve(comprador);
+      });
+    } )
+    
+    
+
+  }
+
+  actualizarProveedorPerfil( data: Proveedor , uid:string) {
+
+    return this.http.put(`${ base_url }/proveedores/${ uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+
+  }
+
+  getProveedor():Promise<Proveedor>{
+
+    return new Promise<Proveedor> (resolve=> {
+
+      this.http.get(`${ base_url }/proveedores/perfil`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data =>{
+        const proveedor:Proveedor = data["proveedor"];
+        resolve(proveedor);
       });
     } )
     
