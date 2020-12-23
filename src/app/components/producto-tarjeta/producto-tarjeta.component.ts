@@ -1,12 +1,37 @@
-import { Component} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
+import { environment } from 'src/environments/environment';
+
+const base_url = environment.base_url;
 
 @Component({
   selector: 'app-producto-tarjeta',
   templateUrl: './producto-tarjeta.component.html',
   styleUrls: ['./producto-tarjeta.component.css']
 })
-export class ProductoTarjetaComponent {
+export class ProductoTarjetaComponent implements OnInit{ 
   
+  
+  public producto: Producto;
+  @Input() id: string;
+  public direccionImagen = base_url+"/upload/productos/"
+  
+  constructor(private activatedRoute: ActivatedRoute,
+    private productoService: ProductoService,
+    private http: HttpClient){
+
+
+  }
+
+  async ngOnInit() {
+    this.producto= await this.productoService.getProductoPorID(this.id);
+
+
+    
+  }
 }
 
 

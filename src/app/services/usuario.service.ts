@@ -160,5 +160,25 @@ export class UsuarioService {
     
 
   }
+  
+  getProveedorNombre(id:string):Promise<string>{
+
+    return new Promise<string> (resolve=> {
+
+      this.http.get(`${ base_url }/proveedores/nombre`,
+      {
+        headers: {
+          'id': id
+        }
+      })
+      .subscribe(data =>{
+        const proveedor:string= data["nombreEmpresa"];
+        resolve(proveedor);
+      });
+    } )
+    
+    
+
+  }
 
 }

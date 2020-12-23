@@ -13,12 +13,13 @@ import { RegisterCompradorComponent } from './auth/register-comprador/register-c
 import { RegisterProveedorComponent } from './auth/register-proveedor/register-proveedor.component';
 import { ProductoTarjetaComponent } from './components/producto-tarjeta/producto-tarjeta.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProductoComponent } from './components/producto/producto.component';
+import { ProductoComponent } from './paginas/producto/producto.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
+import { MisproductosComponent } from './paginas/misproductos/misproductos.component';
 
 
 
@@ -36,7 +37,8 @@ import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
     NavbarComponent,
     RegisterCompradorComponent,
     RegisterProveedorComponent,
-    CompradorPerfilComponent
+    CompradorPerfilComponent,
+    MisproductosComponent
 
 
   ],

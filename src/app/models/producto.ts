@@ -11,6 +11,6 @@ export interface Producto {
     precio: number;
     datosTecnicos: DatosTecnicos[];
     proveedorNombre: string;
-    proveedorId: string;
+    proveedor: string;
 
 }
