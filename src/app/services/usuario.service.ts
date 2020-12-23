@@ -165,12 +165,7 @@ export class UsuarioService {
 
     return new Promise<string> (resolve=> {
 
-      this.http.get(`${ base_url }/proveedores/nombre`,
-      {
-        headers: {
-          'id': id
-        }
-      })
+      this.http.get(`${ base_url }/proveedores/nombre/${ id }`)
       .subscribe(data =>{
         const proveedor:string= data["nombreEmpresa"];
         resolve(proveedor);

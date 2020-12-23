@@ -1,11 +1,11 @@
 import { DatosTecnicos } from './datosTecnicos';
 export interface Producto {
-
+    _id: string;
     titulo: string;
     descripcion: string;
     categoria: string;
     subcategoria?: string;
-    undMinimas: number;
+    unidadesMinimas: number;
     stock: number;
     imagenes: string[];
     precio: number;
