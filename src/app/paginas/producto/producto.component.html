@@ -1,0 +1,34 @@
+<div class="wrapper" *ngIf="producto">
+
+    <div class="row">
+        <div class="col-md-3 producto-izquierda">
+
+            <div *ngFor="let imagen of producto.imagenes">
+
+                <img src="{{direccionImagen + imagen}}" width="100%">
+            </div>
+
+        </div>
+        <div class="col-md-4 producto-derecha">
+            <h3 style="text-align: center;">{{producto.titulo}}</h3>
+            <h6>{{producto.proveedorNombre}}</h6>
+            <p>
+                {{producto.descripcion}}
+            </p>
+
+            <div>
+                {{producto.precio}}€
+                <br> {{producto.undMinimas}}
+                <br>
+
+            </div>
+            <h4>Detalles técnicos</h4>
+            <table class="table table-bordered">
+                <tr *ngFor="let datos of producto.datosTecnicos">
+                    <td>{{datos.titulo}}</td>
+                    <td>{{datos.descripcion}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
