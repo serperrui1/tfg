@@ -9,10 +9,20 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class NavbarComponent {
 
+  public existeTokenYProveedor= false;
+  constructor(private usuarioService: UsuarioService) { 
+      this.proveedor();
 
-  constructor(private usuarioService: UsuarioService) { }
+  }
   logout(){
     this.usuarioService.logout();
   }
 
+  proveedor(){
+    if(localStorage.getItem('usuario')==="proveedor" && localStorage.getItem('token')){
+      this.existeTokenYProveedor=true;
+    }
+  }
+
+  
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';;
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { environment } from 'src/environments/environment';
@@ -18,12 +18,21 @@ export class ProductoTarjetaComponent implements OnInit{
   public producto: Producto;
   @Input() id: string;
   public direccionImagen = base_url+"/upload/productos/"
+  @Output() productoSeleccionado: EventEmitter<string>;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
-    private http: HttpClient){
+    private http: HttpClient,
+    private router: Router
+    ){
+      this.productoSeleccionado = new EventEmitter();
 
 
+  }
+
+  verProducto(){
+    this.productoSeleccionado.emit(this.id);
+ 
   }
 
   async ngOnInit() {

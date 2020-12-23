@@ -9,6 +9,10 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class ProductoService {
+  
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
 
   constructor(private http: HttpClient,
     private router: Router) { }
@@ -23,4 +27,20 @@ export class ProductoService {
        });
    })
 }
+
+
+getMisProductos():Promise<Producto[]>{
+  return new Promise<Producto[]>(
+    resolve=> {
+    this.http.get(`${base_url}/productos/misproductos`,{
+      headers: {
+        'x-token': this.token
+      }
+    }).subscribe(data=>{
+      const productos = data["productos"];
+      resolve(productos);
+    });
+})
+}
+
 }
