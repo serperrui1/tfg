@@ -1,5 +1,3 @@
-
-
 export class Comprador {
 
     constructor(
@@ -19,7 +17,5 @@ export class Comprador {
     public google?: boolean,
     public uid?: string
     ){}
-
-
 
 }

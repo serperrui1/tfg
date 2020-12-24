@@ -5,8 +5,9 @@ import { NgModule } from '@angular/core';
 import { PaginaComponent } from './pagina.component';
 import { HomeComponent } from '../components/home/home.component';
 import { ProductoComponent } from './producto/producto.component';
-import { CompradorPerfilComponent } from './perfil/perfil.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { MisproductosComponent } from './misproductos/misproductos.component';
+
 const routes: Routes = [
     { 
         path: '', 
@@ -15,7 +16,7 @@ const routes: Routes = [
             { path: '', component: HomeComponent},
             { path: 'home', component: HomeComponent},
             { path: 'producto/:id', component: ProductoComponent},
-            { path: 'mi-perfil', component: CompradorPerfilComponent},
+            { path: 'mi-perfil', component: PerfilComponent},
             { path: 'misproductos', component: MisproductosComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]

@@ -1,4 +1,4 @@
-export class Administrador {
+export class AsistenteTecnico {
     constructor(
     public nombre: string,
     public apellidos: string,

@@ -9,6 +9,8 @@ import { RegisterCompradorComponent } from '../auth/register-comprador/register-
 import { RegisterProveedorComponent } from '../auth/register-proveedor/register-proveedor.component';
 import { Comprador } from '../models/comprador';
 import { Proveedor } from '../models/proveedor';
+import { Administrador } from '../models/administrador';
+import { AsistenteTecnico } from '../models/asistenteTecnico';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -18,6 +20,7 @@ declare const gapi: any;
 })
 export class UsuarioService {
   public auth2: any;
+  //Por qué comprador aquí?
   public comprador: Comprador;
 
   constructor( private http: HttpClient,
@@ -161,6 +164,7 @@ export class UsuarioService {
 
   }
   
+
   getProveedorNombre(id:string):Promise<string>{
 
     return new Promise<string> (resolve=> {
@@ -171,9 +175,61 @@ export class UsuarioService {
         resolve(proveedor);
       });
     } )
-    
-    
 
   }
+
+
+  actualizarAdministradorPerfil( data: Administrador , uid:string) {
+
+    return this.http.put(`${ base_url }/administradores/${ uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
+
+  getAdministrador():Promise<Administrador>{
+
+    return new Promise<Administrador> (resolve=> {
+
+      this.http.get(`${ base_url }/administradores/perfil`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data =>{
+        const administrador:Administrador = data["administradores"];
+        resolve(administrador);
+      });
+    } )
+  }
+
+
+  actualizarAsistenteTecnicoPerfil( data: AsistenteTecnico , uid:string) {
+
+    return this.http.put(`${ base_url }/asistentesTecnicos/${ uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
+
+  getAsistenteTecnico():Promise<AsistenteTecnico>{
+
+    return new Promise<AsistenteTecnico> (resolve=> {
+
+      this.http.get(`${ base_url }/asistentesTecnicos/perfil`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data =>{
+        const asistenteTecnico:AsistenteTecnico = data["asistentesTecnicos"];
+        resolve(asistenteTecnico);
+      });
+    } )
+  }
+
+
 
 }

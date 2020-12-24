@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
+import { PerfilComponent } from './paginas/perfil/perfil.component';
 import { MisproductosComponent } from './paginas/misproductos/misproductos.component';
 
 
@@ -37,7 +37,7 @@ import { MisproductosComponent } from './paginas/misproductos/misproductos.compo
     NavbarComponent,
     RegisterCompradorComponent,
     RegisterProveedorComponent,
-    CompradorPerfilComponent,
+    PerfilComponent,
     MisproductosComponent
 
 
