@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { FormGroup } from '@angular/forms';
 
 
 const base_url = environment.base_url;
@@ -17,10 +18,15 @@ const base_url = environment.base_url;
   styleUrls: ['./producto.component.css']
 })
 export class ProductoComponent implements OnInit {
+  
+  public productoForm: FormGroup;
   public producto: Producto;
+  public imagenSubir: File;
+  public imgTemp: any = null;
   public proveedor:string;
   public id: string;
   public direccionImagen = base_url+"/upload/productos/"
+
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
     private http: HttpClient,

@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 
-
 import { AppComponent} from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LoginEmpleadoComponent } from './auth/login-empleado/login-empleado.component';
@@ -19,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
-import { MisproductosComponent } from './paginas/misproductos/misproductos.component';
+import { MisProductosComponent } from './paginas/mis-productos/mis-productos.component';
+import { CrearProductoComponent } from './paginas/crear-producto/crear-producto.component';
 
 
 
@@ -38,7 +38,8 @@ import { MisproductosComponent } from './paginas/misproductos/misproductos.compo
     RegisterCompradorComponent,
     RegisterProveedorComponent,
     CompradorPerfilComponent,
-    MisproductosComponent
+    MisProductosComponent,
+    CrearProductoComponent
 
 
   ],
