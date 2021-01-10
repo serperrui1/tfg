@@ -8,6 +8,7 @@ import { ProductoComponent } from './producto/producto.component';
 import { CompradorPerfilComponent } from './perfil/perfil.component';
 import { MisProductosComponent } from './mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './crear-producto/crear-producto.component';
+import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component';
 const routes: Routes = [
     { 
         path: '', 
@@ -19,6 +20,7 @@ const routes: Routes = [
             { path: 'mi-perfil', component: CompradorPerfilComponent},
             { path: 'mis-productos', component: MisProductosComponent},
             { path: 'crear-producto', component: CrearProductoComponent},
+            { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },

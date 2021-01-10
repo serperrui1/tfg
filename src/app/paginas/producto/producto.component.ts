@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 const base_url = environment.base_url;
@@ -28,6 +29,7 @@ export class ProductoComponent implements OnInit {
   public direccionImagen = base_url+"/upload/productos/"
 
   constructor(private activatedRoute: ActivatedRoute,
+    private router: Router,
     private productoService: ProductoService,
     private http: HttpClient,
     private usuarioService: UsuarioService){
@@ -41,9 +43,15 @@ export class ProductoComponent implements OnInit {
     this.producto= await this.productoService.getProductoPorID(this.id);
     this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
     this.producto.proveedorNombre = this.proveedor;
-
-    
   }
+
+  
+  goEditIfProveedor() {
+    this.router.navigate(['/actualizar-producto', this.id]);
+  };
 
 
 }
+
+
+
