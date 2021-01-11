@@ -20,6 +20,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
 import { MisProductosComponent } from './paginas/mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './paginas/crear-producto/crear-producto.component';
+import { SerCompradorComponent } from './paginas/ser-comprador/ser-comprador.component';
 
 
 
@@ -39,7 +40,8 @@ import { CrearProductoComponent } from './paginas/crear-producto/crear-producto.
     RegisterProveedorComponent,
     CompradorPerfilComponent,
     MisProductosComponent,
-    CrearProductoComponent
+    CrearProductoComponent,
+    SerCompradorComponent
 
 
   ],

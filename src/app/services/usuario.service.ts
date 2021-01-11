@@ -176,4 +176,16 @@ export class UsuarioService {
 
   }
 
+  getCompradorEmail(email:string):Promise<string>{
+
+    return new Promise<string> (resolve=> {
+
+      this.http.get(`${ base_url }/compradores/email/${ email }`)
+      .subscribe(data =>{
+        const comprador:string= data["email"];
+        resolve(comprador);
+      });
+    } )
+  }
+
 }
