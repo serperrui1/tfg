@@ -12,8 +12,8 @@ export class NavbarComponent {
   public existeTokenYProveedor= false;
   constructor(private usuarioService: UsuarioService) { 
       this.proveedor();
-
   }
+  
   logout(){
     this.usuarioService.logout();
   }
