@@ -11,7 +11,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { RegisterCompradorComponent } from './auth/register-comprador/register-comprador.component';
 import { RegisterProveedorComponent } from './auth/register-proveedor/register-proveedor.component';
 import { ProductoTarjetaComponent } from './components/producto-tarjeta/producto-tarjeta.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './paginas/home/home.component';
 import { ProductoComponent } from './paginas/producto/producto.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,7 +45,7 @@ import { CrearFaqComponent } from './paginas/crear-faq/crear-faq.component';
     CompradorPerfilComponent,
     MisProductosComponent,
     CrearProductoComponent,
-    ActualizarProductoComponent
+    ActualizarProductoComponent,
     SerCompradorComponent,
     FaqsComponent,
     CrearFaqComponent

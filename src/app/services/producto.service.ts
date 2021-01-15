@@ -58,14 +58,24 @@ export class ProductoService {
       })
   }
 
-  cargarProductos() {
+  getProductos():Promise<Producto[]>{
+    return new Promise<Producto[]>(
+      resolve => {
+        this.http.get(`${base_url}/productos/`,{
+        }).subscribe(data=>{
+          const productos = data["productos"];
+          resolve(productos);
+        });
+      })
+  }
 
-    const url = `${ base_url }/productos/mis-productos`;
+  /* getProductos() {
+    const url = `${ base_url }/productos/`;
     return this.http.get( url, this.headers )
               .pipe(
                 map( (resp: {ok: boolean, productos: Producto[] }) => resp.productos )
               );
-  }
+  } */
 
   
 

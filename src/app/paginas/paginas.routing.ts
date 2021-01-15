@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { PaginaComponent } from './pagina.component';
-import { HomeComponent } from '../components/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { ProductoComponent } from './producto/producto.component';
 import { CompradorPerfilComponent } from './perfil/perfil.component';
 import { MisProductosComponent } from './mis-productos/mis-productos.component';
