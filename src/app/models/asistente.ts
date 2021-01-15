@@ -1,5 +1,12 @@
-export interface asistente {
-    nombre: string;
-    apellidos: string;
-    email: string;
+export class AsistenteTecnico {
+
+    constructor(
+
+    public nombre: string,
+    public apellidos: string,
+    public email: string,
+    public password: string,
+    public img?: string,
+    public uid?: string
+    ){}
 }

@@ -1,0 +1,60 @@
+<div *ngIf="usuario === 'administrador' || usuario === 'asistenteTecnico'">
+
+    <form class="form p-t-20" autocomplete="off" [formGroup]="faqForm" (submit)="crearFaq()">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Administrador: {{usuario}}</h4>
+                        <h6 class="card-subtitle">Nuevo FAQ</h6>
+
+                        <div class="form-group">
+                            <label for="pregunta">Pregunta</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="pregunta" placeholder="¿Ejemplo de pregunta?" formControlName="pregunta">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="respuesta">Respuesta</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="respuesta" placeholder="Ejemplo de respuesta" formControlName="respuesta">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tematica">Temática</label>
+                            <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
+                                <option value="Login" selected="selected">Login</option> 
+                                <option value="Registro">Registro</option>
+                                <option value="Compras">Compras</option>
+                                <option value="Ventas">Ventas</option>
+                                <option value="Devoluciones">Devoluciones</option>
+                                <option value="Empleo">Empleo</option>
+                                <option value="Contacto">Contacto</option>
+                                <option value="Carrito de compra">Carrito de compra</option>
+                                <option value="Compras">Compras</option>
+                                <option value="Soporte">Soporte</option>
+                                <option value="Legal">Legal</option>
+                                <option value="Mi Cuenta">Mi cuenta</option>
+                                <option value="Productos">Productos</option>
+                                <option value="Envío">Envío</option>
+                                <option value="Pago">Pago</option>
+                            </select>
+                            <!-- <br> -->
+                            <!-- <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="tematica" placeholder="Informática, Deporte, ..." formControlName="tematica">
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="faqForm.invalid">
+                    <i class="fa fa-save"></i>
+                    Publicar FAQ
+            </button>
+        </div>
+    </form>
+
+</div>

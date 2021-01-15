@@ -20,7 +20,11 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
 import { MisProductosComponent } from './paginas/mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './paginas/crear-producto/crear-producto.component';
+import { ActualizarProductoComponent } from './paginas/actualizar-producto/actualizar-producto.component';
 import { SerCompradorComponent } from './paginas/ser-comprador/ser-comprador.component';
+import { FaqsComponent } from './paginas/faqs/faqs.component';
+import { CrearFaqComponent } from './paginas/crear-faq/crear-faq.component';
+
 
 
 
@@ -41,7 +45,10 @@ import { SerCompradorComponent } from './paginas/ser-comprador/ser-comprador.com
     CompradorPerfilComponent,
     MisProductosComponent,
     CrearProductoComponent,
-    SerCompradorComponent
+    ActualizarProductoComponent
+    SerCompradorComponent,
+    FaqsComponent,
+    CrearFaqComponent
 
 
   ],

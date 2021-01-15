@@ -79,10 +79,18 @@ export class ProductoService {
   }
 
 
-  borrarProducto( _id: string ) {
+  /* borrarProducto( _id: string ) {
     const url = `${ base_url }/productos/mis-productos/${ _id }`;
     return this.http.delete( url, this.headers );
+  } */
+
+  borrarProducto( _id: string ) {
+    const url = `${ base_url }/productos/${ _id }`;
+    return this.http.delete( url, this.headers );
   }
+
+  
+
 
   crearProducto( formData: CrearProductoComponent):Promise<string>{
 
