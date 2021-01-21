@@ -9,6 +9,7 @@ import { RegisterCompradorComponent } from '../auth/register-comprador/register-
 import { RegisterProveedorComponent } from '../auth/register-proveedor/register-proveedor.component';
 import { Comprador } from '../models/comprador';
 import { Proveedor } from '../models/proveedor';
+import { Administrador } from '../models/administrador';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -133,6 +134,24 @@ export class UsuarioService {
 
   }
 
+  /* getAdministrador():Promise<Administrador>{
+
+    return new Promise<Administrador> (resolve=> {
+
+      this.http.get(`${ base_url }/administradores/perfil`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data =>{
+        const comprador:Comprador = data["compradores"];
+        resolve(comprador);
+      });
+    } )
+    
+    
+
+  } */
+
   actualizarProveedorPerfil( data: Proveedor , uid:string) {
 
     return this.http.put(`${ base_url }/proveedores/${ uid }`, data, {
@@ -174,6 +193,18 @@ export class UsuarioService {
     
     
 
+  }
+
+  getCompradorEmail(email:string):Promise<string>{
+
+    return new Promise<string> (resolve=> {
+
+      this.http.get(`${ base_url }/compradores/email/${ email }`)
+      .subscribe(data =>{
+        const comprador:string= data["email"];
+        resolve(comprador);
+      });
+    } )
   }
 
 }

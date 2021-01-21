@@ -38,6 +38,7 @@ export class LoginEmpleadoComponent implements OnInit{
       }else{
         localStorage.removeItem('email');
       }
+      localStorage.setItem('usuario', this.loginForm.get('usuario').value)
       // Navegar al Dashboard
       this.router.navigateByUrl('/');
       console.log(resp)

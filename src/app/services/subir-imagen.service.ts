@@ -6,13 +6,13 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class FileUploadService {
+export class SubirImagenService {
 
   constructor() { }
 
-  async actualizarFoto(
+  async postearImagen(
     archivo: File,
-    tipo: 'compradores' |'proveedores'|'administradores' | 'asistentes' | 'productos',
+    tipo: 'productos',
     id: string
   ) {
 
@@ -23,7 +23,7 @@ export class FileUploadService {
       formData.append('imagen', archivo);
 
       const resp = await fetch( url, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'x-token': localStorage.getItem('token') || ''   
         },
