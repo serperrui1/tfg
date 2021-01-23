@@ -12,6 +12,7 @@ import { ActualizarProductoComponent } from './actualizar-producto/actualizar-pr
 import { SerCompradorComponent } from './ser-comprador/ser-comprador.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { CrearFaqComponent } from './crear-faq/crear-faq.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 const routes: Routes = [
     { 
         path: '', 
@@ -27,6 +28,7 @@ const routes: Routes = [
             { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
             { path: 'crear-faq', component: CrearFaqComponent},
             { path: 'faqs', component: FaqsComponent},
+            { path: 'buscador/:producto', component: BuscadorComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },
