@@ -24,6 +24,11 @@ import { ActualizarProductoComponent } from './paginas/actualizar-producto/actua
 import { SerCompradorComponent } from './paginas/ser-comprador/ser-comprador.component';
 import { FaqsComponent } from './paginas/faqs/faqs.component';
 import { CrearFaqComponent } from './paginas/crear-faq/crear-faq.component';
+import { IncidenciasComponent } from './paginas/incidencias/incidencias.component';
+import { IncidenciaComponent } from './paginas/incidencia/incidencia.component';
+import { IncidenciaTarjetaComponent } from './components/incidencia-tarjeta/incidencia-tarjeta.component';
+import { CrearIncidenciaComponent } from './paginas/crear-incidencia/crear-incidencia.component';
+import { MisIncidenciasComponent } from './paginas/mis-incidencias/mis-incidencias.component';
 
 
 
@@ -48,7 +53,12 @@ import { CrearFaqComponent } from './paginas/crear-faq/crear-faq.component';
     ActualizarProductoComponent,
     SerCompradorComponent,
     FaqsComponent,
-    CrearFaqComponent
+    CrearFaqComponent,
+    IncidenciasComponent,
+    IncidenciaTarjetaComponent,
+    IncidenciaComponent,
+    CrearIncidenciaComponent,
+    MisIncidenciasComponent
 
 
   ],
