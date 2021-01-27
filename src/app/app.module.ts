@@ -24,6 +24,7 @@ import { ActualizarProductoComponent } from './paginas/actualizar-producto/actua
 import { SerCompradorComponent } from './paginas/ser-comprador/ser-comprador.component';
 import { FaqsComponent } from './paginas/faqs/faqs.component';
 import { CrearFaqComponent } from './paginas/crear-faq/crear-faq.component';
+import { CarritoComponent } from './paginas/carrito/carrito.component';
 
 
 
@@ -48,7 +49,8 @@ import { CrearFaqComponent } from './paginas/crear-faq/crear-faq.component';
     ActualizarProductoComponent,
     SerCompradorComponent,
     FaqsComponent,
-    CrearFaqComponent
+    CrearFaqComponent,
+    CarritoComponent
 
 
   ],

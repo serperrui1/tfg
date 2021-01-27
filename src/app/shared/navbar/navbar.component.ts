@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +10,14 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class NavbarComponent {
 
+  public cuant:number;
   public existeTokenYProveedor= false;
-  constructor(private usuarioService: UsuarioService) { 
+  
+  constructor(private usuarioService: UsuarioService, 
+    private CarritoService: CarritoService) { 
+
       this.proveedor();
+
   }
   
   logout(){
