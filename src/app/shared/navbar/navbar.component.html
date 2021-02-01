@@ -12,10 +12,12 @@
             <li class="nav-item" *ngIf="existeTokenYProveedor">
                 <a class="nav-link" routerLink="/mis-productos">Mis Productos</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" routerLink="/faqs">FAQs</a>
             </li>
-            <li class="nav-item dropdown">
+
+            <li class="nav-item dropdown  ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                 </a>
@@ -31,13 +33,20 @@
         </ul>
 
 
-        <ul>
-            <!-- <i class="fa" style="font-size:24px">&#xf07a;</i>
-            <span class='badge badge-warning' id='lblCartCount'> {{res}} </span> -->
-            <a routerLink="/mi-carrito" class="nav-link navbar-link-2 waves-effect">
-                <span class="badge badge-pill red">{{ res }}</span>
-                <i class="fas fa-shopping-cart pl-0"></i>
-            </a>
-        </ul>
+
+        <form class="form-signin form-inline" style="width: 70%; margin: auto;" autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
+            <input type="text" class="form-control " formControlName="producto" style="width: 70%;" />
+            <button class="btn btn-outline-white " style="width: 10%;" type="submit">Search</button>
+        </form>
     </div>
+
+    <ul>
+        <!-- <i class="fa" style="font-size:24px">&#xf07a;</i>
+        <span class='badge badge-warning' id='lblCartCount'> {{res}} </span> -->
+        <a routerLink="/mi-carrito" class="nav-link navbar-link-2 waves-effect">
+            <span class="badge badge-pill red">{{ res }}</span>
+            <i class="fas fa-shopping-cart pl-0"></i>
+        </a>
+    </ul>
+
 </nav>

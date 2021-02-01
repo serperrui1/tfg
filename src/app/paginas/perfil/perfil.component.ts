@@ -121,6 +121,7 @@ actualizarProveedorPerfil() {
     }
 
     else if(this.usuario==="proveedor"){
+      console.log(this.imagenSubir)
       this.fileUploadService
       .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
       .then( img => {

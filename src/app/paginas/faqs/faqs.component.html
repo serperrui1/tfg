@@ -1,54 +1,101 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="row" *ngIf="(usuario === 'asistenteTecnico' || usuario === 'administrador') && (token != null || token !='') ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="row animated fadeIn fast" *ngIf="cargando">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <h4 class="alert-heading">Cargando</h4>
-            <i class="fa fa-spin fa-refresh fa-2x"></i>
-            <p class="mb-0">Por favor espere</p>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h4 class="alert-heading">Cargando</h4>
+                <i class="fa fa-spin fa-refresh fa-2x"></i>
+                <p class="mb-0">Por favor espere</p>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row" *ngIf="!cargando">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">¿Tienes alguna duda?, ¡aquí encontrarás la respuesta que buscas!</h4>
-                <h6 class="card-subtitle">Actualmente existen {{ faqs.length }} FAQs</h6>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
+    <div class="row" *ngIf="!cargando">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">¿Tienes alguna duda?, ¡aquí encontrarás la respuesta que buscas!</h4>
+                    <h6 class="card-subtitle">Actualmente existen {{ faqs.length }} FAQs</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
 
-                            <tr>
-                                <th>Pregunta</th>
-                                <th>Respuesta</th>
-                                <th>Temática</th>
-                                <th class="text-nowrap text-center">Borrar</th>
-                            </tr>
+                                <tr>
+                                    <th>Pregunta</th>
+                                    <th>Respuesta</th>
+                                    <th>Temática</th>
+                                    <th class="text-nowrap text-center">Borrar</th>
+                                </tr>
 
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
 
-                            <tr *ngFor="let faq of faqs">
-                                <td>{{ faq.pregunta }}</td>
-                                <td>{{ faq.respuesta }}</td>
-                                <td>{{ faq.tematica }}</td>
+                                <tr *ngFor="let faq of faqs">
+                                    <td>{{ faq.pregunta }}</td>
+                                    <td>{{ faq.respuesta }}</td>
+                                    <td>{{ faq.tematica }}</td>
 
-                                <td class="text-nowrap text-center">
-                                    <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarFaq(faq)">
-                                        <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                    <td class="text-nowrap text-center">
+                                        <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarFaq(faq)">
+                                            <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
+                                        </a>
+                                    </td>
+                                </tr>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="btn btn-secondary" (click)="nuevoFAQ();">Nuevo FAQ</button>
+
                 </div>
-
-                <button class="btn btn-secondary" (click)="nuevoFAQ();">Nuevo FAQ</button>
-
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="row" *ngIf="(usuario != 'administrador' && usuario != 'asistenteTecnico') || (usuario === null) || (token === null)">
+
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h4 class="alert-heading">Cargando</h4>
+                <i class="fa fa-spin fa-refresh fa-2x"></i>
+                <p class="mb-0">Por favor espere</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!cargando">
+        <div class="faq-header">FAQs (Preguntas frecuentes)
+
+            <div class="faq-content" *ngFor="let faq of grouped | keyvalue; let i = index">
+                <div id="{{faq.key}}">
+                    <h3>{{faq.key}}</h3>
+                    <div class="faq" *ngFor="let value of faq.value; let j = index">
+                        <div class="faq-question">
+                            <input id="{{i}}{{j}}" type="checkbox" class="panel">
+                            <div class="plus">+</div>
+                            <label for="{{i}}{{j}}" class="panel-title">{{ value.pregunta }}</label>
+                            <div class="panel-content">{{ value.respuesta }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- <div *ngFor="let faq of grouped | keyvalue">
+    <div id="{{faq.key}}">
+        {{faq.key}}
+        <div class="faq" *ngFor="let value of faq.value">
+            <div>{{value.pregunta}}</div>
+            <div>{{value.respuesta}}</div>
+            <br>
+        </div>
+    </div>
+</div> -->

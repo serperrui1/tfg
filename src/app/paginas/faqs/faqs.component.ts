@@ -7,33 +7,42 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-faqs',
   templateUrl: './faqs.component.html',
-  styles: [
-  ]
+  styleUrls: ['./faqs.component.css']
 })
 export class FaqsComponent implements OnInit {
 
   public faqs: Faq[] = [];
+  public grouped: Faq[] = [];
   public cargando: boolean = true;
+  public usuario:string;
+  public token: string;
 
   constructor(private faqService : FaqService,
-    private router:Router) { }
+    private router:Router) { 
+      this.usuario =localStorage.getItem('usuario');
+      this.token =localStorage.getItem('token');
+    }
 
   /* async ngOnInit() {
     this.faqs = await (this.faqService.getFaqs());
   } */
 
-  ngOnInit(): void {
-    this.getFaqs();
+  async ngOnInit() {
+    /* this.getFaqs(); */
+    this.faqs = await (this.faqService.getFaqs());
+    this.cargando = false;
+    console.log(this.faqs)
+    this.grouped  = this.groupByTematica(this.faqs);
   }
 
-  getFaqs() {
+  /* getFaqs() {
     this.cargando = true;
     this.faqService.getFaqs()
         .then( faqs => {
           this.cargando = false;
           this.faqs = faqs;
         })
-  }
+  } */
 
   nuevoFAQ() {
     this.router.navigate(['/crear-faq/']);
@@ -48,6 +57,14 @@ export class FaqsComponent implements OnInit {
         });
   } */
 
+  groupByTematica(array){
+    return array.reduce((r, a) => {
+          r[a.tematica] = r[a.tematica] || [];
+          r[a.tematica].push(a);
+          return r;
+      }, Object.create(null));
+  }
+
   borrarFaq(faq: Faq) {
     Swal.fire({
       title: '¿Borrar FAQ?',
@@ -59,7 +76,8 @@ export class FaqsComponent implements OnInit {
       if (result.value) {
         this.faqService.borrarFaq( faq._id )
           .subscribe( resp => {
-            this.getFaqs();
+            /* this.getFaqs(); */
+            this.faqService.getFaqs()
             Swal.fire(
               'FAQ borrado',
               `El FAQ fue borrado correctamente`,

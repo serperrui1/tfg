@@ -69,6 +69,17 @@ export class ProductoService {
       })
   }
 
+  getBuscadorProductos(nombre:string):Promise<Producto[]>{
+    return new Promise<Producto[]>(
+      resolve => {
+        this.http.get(`${base_url}/productos/buscador/${nombre}`,{
+        }).subscribe(data=>{
+          const productos = data["productos"];
+          resolve(productos);
+        });
+      })
+  }
+
   /* getProductos() {
     const url = `${ base_url }/productos/`;
     return this.http.get( url, this.headers )

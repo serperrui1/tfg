@@ -15,8 +15,9 @@ const base_url = environment.base_url;
 export class ProductoTarjetaComponent implements OnInit{ 
   
   
-  public producto: Producto;
-  @Input() id: string;
+  // public producto: Producto;
+  // @Input() id: string;
+  @Input() producto: Producto
   public direccionImagen = base_url+"/upload/productos/"
   @Output() productoSeleccionado: EventEmitter<string>;
   
@@ -30,12 +31,12 @@ export class ProductoTarjetaComponent implements OnInit{
   }
 
   verProducto(){
-    this.productoSeleccionado.emit(this.id);
+    this.productoSeleccionado.emit(this.producto._id);
  
   }
 
   async ngOnInit() {
-    this.producto= await this.productoService.getProductoPorID(this.id);
+    //this.producto= await this.productoService.getProductoPorID(this.id);
 
 
     

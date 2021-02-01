@@ -55,7 +55,7 @@ import { MisIncidenciasComponent } from './paginas/mis-incidencias/mis-incidenci
     SerCompradorComponent,
     FaqsComponent,
     CrearFaqComponent,
-    CarritoComponent
+    CarritoComponent,
     IncidenciasComponent,
     IncidenciaTarjetaComponent,
     IncidenciaComponent,
