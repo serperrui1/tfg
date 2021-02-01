@@ -10,6 +10,7 @@ import { RegisterProveedorComponent } from '../auth/register-proveedor/register-
 import { Comprador } from '../models/comprador';
 import { Proveedor } from '../models/proveedor';
 import { Administrador } from '../models/administrador';
+import { AsistenteTecnico } from '../models/asistente';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -136,6 +137,24 @@ export class UsuarioService {
 
   }
 
+  getAsistenteTecnico():Promise<AsistenteTecnico>{
+
+    return new Promise<AsistenteTecnico> (resolve=> {
+
+      this.http.get(`${ base_url }/asistentesTecnicos/perfil`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data =>{
+        const asistenteTecnico:AsistenteTecnico = data["asistentesTecnicos"];
+        resolve(asistenteTecnico);
+      });
+    } )
+    
+    
+
+  }
+
   /* getAdministrador():Promise<Administrador>{
 
     return new Promise<Administrador> (resolve=> {
@@ -192,9 +211,30 @@ export class UsuarioService {
         resolve(proveedor);
       });
     } )
-    
-    
+  }
 
+  getCompradorNombre(id:string):Promise<string>{
+
+    return new Promise<string> (resolve=> {
+
+      this.http.get(`${ base_url }/compradores/nombre/${ id }`)
+      .subscribe(data =>{
+        const comprador:string= data["nombre"];
+        resolve(comprador);
+      });
+    } )
+  }
+
+  getAsistenteTecnicoNombre(id:string):Promise<string>{
+
+    return new Promise<string> (resolve=> {
+
+      this.http.get(`${ base_url }/asistentesTecnicos/nombre/${ id }`)
+      .subscribe(data =>{
+        const asistenteTecnico:string= data["nombre"];
+        resolve(asistenteTecnico);
+      });
+    } )
   }
 
   getCompradorEmail(email:string):Promise<string>{

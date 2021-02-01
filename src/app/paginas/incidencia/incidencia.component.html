@@ -1,0 +1,92 @@
+<div *ngIf="usuario != 'administrador'">
+
+    <form class="form p-t-20" autocomplete="off" [formGroup]="incidenciaForm" (submit)="actualizarIncidencia()">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Actualizar incidencia</h3>
+                        <h5 class="card-subtitle">Dueño (comprador): {{compradorNombre}}</h5>
+                        <h5 class="card-subtitle" *ngIf="compradorNombre === ''">Dueño (proveedor): {{proveedorNombre}}</h5>
+                        <h5 class="card-subtitle">Asistente asignado: {{asistenteTecnicoNombre}}</h5>
+
+                        <div class="form-group">
+                            <label for="fechaPublicacion">Fecha de publicación</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="string" class="form-control" id="fechaPublicacion" formControlName="fechaPublicacion" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="titulo">Título</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="titulo" formControlName="titulo" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="descripcion" formControlName="descripcion" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tematica">Temática</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="tematica" formControlName="tematica" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensajes">Añade un mensaje:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="asignado">¿Ya está asignada?</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="asignado" formControlName="asignado" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group" *ngIf="usuario === 'comprador' || usuario === 'proveedor'">
+                            <label for="resuelto">¿Incidencia resuelta?</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="checkbox" class="form-control" id="resuelto" formControlName="resuelto">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="usuario === 'asistenteTecnico'">
+                            <label for="resuelto">¿Incidencia resuelta?</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="resuelto" formControlName="resuelto" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="incidenciaForm.invalid || !puedesActualizar">
+                    <i class="fa fa-save"></i>
+                    Actualizar incidencia
+            </button>
+
+            <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="borrarIncidencia(incidencia)" [disabled]="!puedesBorrar">
+                <i class="fa fa-save"></i>
+                Borrar incidencia
+            </button>
+
+        </div>
+    </form>
+    <div *ngFor="let mensaje of incidencia.mensajes">
+        <p>
+            {{mensaje}}
+        </p>
+    </div>
+</div>
