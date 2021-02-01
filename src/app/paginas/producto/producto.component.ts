@@ -67,6 +67,9 @@ export class ProductoComponent implements OnInit {
     if(this.items === null){ // producto nuevo en cesta vacía -> no se comprueba nada
       this.carritoService.alCarrito(producto, this.cantidad);
       window.alert('¡El producto se ha añadido al carrito!');
+      this.cantidades = this.carritoService.getCantidades();
+      location.reload();
+      
     }
 
     else if(this.items != null){
@@ -81,11 +84,16 @@ export class ProductoComponent implements OnInit {
         this.new = this.cantidades[this.contains] + this.cantidad; //dame el valor viejo y el nuevo que quiero meter del mismo producto y los sumamos
         this.cantidades.splice(this.contains, 1, this.new); //borramos su valor viejo y la actualizamos con la suma
         localStorage.setItem('cantidades',JSON.stringify(this.cantidades));
+        window.alert('¡Ahora tienes '+ this.new +' artículos de este producto en el carrito!');
+        this.cantidades = this.carritoService.getCantidades();
+        location.reload();
       }
 
       else { //añade la cantidad del nuevo producto al carrito
         this.carritoService.alCarrito(producto, this.cantidad);
         window.alert('¡El producto se ha añadido al carrito!');
+        this.cantidades = this.carritoService.getCantidades();
+        location.reload();
       }
 
     }
