@@ -1,3 +1,4 @@
+<!-- <app-navbar [cuant]=(cantidades)></app-navbar> -->
 <div class="wrapper" *ngIf="producto">
 
     <div class="row">
@@ -31,6 +32,14 @@
                     <td>{{datos.descripcion}}</td>
                 </tr>
             </table>
+            <div>
+                <h6>Cantidad</h6>
+                <input type="number" id="cantidad" value="{{producto.unidadesMinimas}}" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1">
+            </div>
+            <a class="btn btn-info btn-lg" (click)="alCarrito(producto)">
+                Añadir al carrito
+            </a>
+
         </div>
     </div>
 </div>
