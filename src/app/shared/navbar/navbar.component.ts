@@ -1,3 +1,5 @@
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { CarritoService } from '../../services/carrito.service';
@@ -5,7 +7,7 @@ import { CarritoService } from '../../services/carrito.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styles: [
+  styleUrls: ['./navbar.component.css'
   ]
 })
 export class NavbarComponent implements OnInit{
@@ -16,10 +18,16 @@ export class NavbarComponent implements OnInit{
   public flag:number = 0;
   public existeTokenYProveedor= false;
   
-  constructor(private usuarioService: UsuarioService, 
+  constructor(private fb:FormBuilder,
+    private usuarioService: UsuarioService,
+    private router:Router,
     private carritoService: CarritoService) { 
       this.proveedor();
   }
+  public buscadorForm = this.fb.group({
+   
+    producto:['']
+  })
   
   async ngOnInit() {
   
@@ -81,5 +89,7 @@ export class NavbarComponent implements OnInit{
     }
   }
 
-  
+  buscarProducto( ){
+    this.router.navigate( ['/buscador',this.buscadorForm.value['producto']] );
+  }
 }

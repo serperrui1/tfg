@@ -1,6 +1,8 @@
-<div class="card" style="width: 18rem;" (click)="verProducto()">
-    <img class="card-img-top" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">{{producto.titulo}}</h5>
+<div class="col mb-4 animated fadeIn " (click)="verProducto()">
+    <div class="card h-100">
+        <img class="card-img-top img-hover-zoom" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+        <div class="card-body nombre">
+            <h5 class="card-title">{{producto.titulo}}</h5>
+        </div>
     </div>
 </div>
