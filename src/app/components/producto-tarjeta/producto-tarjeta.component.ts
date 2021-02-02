@@ -28,6 +28,7 @@ export class ProductoTarjetaComponent implements OnInit{
     ){
       this.productoSeleccionado = new EventEmitter();
 
+
   }
 
   verProducto(){
@@ -42,7 +43,3 @@ export class ProductoTarjetaComponent implements OnInit{
     
   }
 }
-
-
-
-

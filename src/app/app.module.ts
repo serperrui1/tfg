@@ -30,6 +30,7 @@ import { IncidenciaComponent } from './paginas/incidencia/incidencia.component';
 import { IncidenciaTarjetaComponent } from './components/incidencia-tarjeta/incidencia-tarjeta.component';
 import { CrearIncidenciaComponent } from './paginas/crear-incidencia/crear-incidencia.component';
 import { MisIncidenciasComponent } from './paginas/mis-incidencias/mis-incidencias.component';
+import { BuscadorComponent } from './paginas/buscador/buscador.component';
 
 
 
@@ -60,7 +61,8 @@ import { MisIncidenciasComponent } from './paginas/mis-incidencias/mis-incidenci
     IncidenciaTarjetaComponent,
     IncidenciaComponent,
     CrearIncidenciaComponent,
-    MisIncidenciasComponent
+    MisIncidenciasComponent,
+    BuscadorComponent
 
 
   ],

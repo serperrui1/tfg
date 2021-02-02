@@ -9,10 +9,10 @@
                 <img src="{{direccionImagen + imagen}}" width="100%">
             </div>
 
-            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
+
 
         </div>
-        <div class="col-md-4 producto-derecha">
+        <div class="col-md-5 producto-derecha">
             <h3 style="text-align: center;">{{producto.titulo}}</h3>
             <h6>{{producto.proveedorNombre}}</h6>
             <p>
@@ -20,26 +20,45 @@
             </p>
 
             <div>
-                <strong>Precio por unidad: </strong>{{producto.precio}}€
-                <br> <strong>Unidades mínimas: </strong>{{producto.unidadesMinimas}}
+                <strong>Precio por unidad: {{producto.precio}}€  </strong>| Unidades mínimas: {{producto.unidadesMinimas}}
+
                 <br>
 
             </div>
-            <h4>Detalles técnicos</h4>
-            <table class="table table-bordered">
-                <tr *ngFor="let datos of producto.datosTecnicos">
-                    <td>{{datos.titulo}}</td>
-                    <td>{{datos.descripcion}}</td>
-                </tr>
-            </table>
+
             <div>
-                <h6>Cantidad</h6>
-                <input type="number" id="cantidad" value="{{producto.unidadesMinimas}}" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1">
+                <form [formGroup]="productoForm">
+                    <label for="cantidad"><strong>Cantidad : </strong></label>
+                    <!-- <input type="number" value="{{producto.unidadesMinimas}}" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadForm"> -->
+                    <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
+
+                </form>
             </div>
-            <a class="btn btn-info btn-lg" (click)="alCarrito(producto)">
-                Añadir al carrito
-            </a>
+
 
         </div>
+        <div class="col-md-2 infoFinal">
+            <div class="contenido-infoFinal">
+                <strong>Precio actual : </strong> {{producto.precio * cantidadProducto}}€ con unidades {{cantidadProducto}}
+                <a class="btn btn-info boton-carrito" (click)="alCarrito(producto)">
+                Añadir al carrito
+            </a>
+                <br>
+                <a class="btn btn-success boton-carrito">
+                Comprar
+            </a>
+            </div>
+        </div>
     </div>
+    <br>
+    <div class="col-md-3 producto-izquierda">
+        <h4>Detalles técnicos</h4>
+        <table class="table table-bordered">
+            <tr *ngFor="let datos of producto.datosTecnicos">
+                <td>{{datos.titulo}}</td>
+                <td>{{datos.descripcion}}</td>
+            </tr>
+        </table>
+    </div>
+    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
 </div>

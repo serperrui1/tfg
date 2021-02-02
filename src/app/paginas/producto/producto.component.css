@@ -1,3 +1,23 @@
-.producto-izquierda {
-    margin-left: 5%;
-}
+    .producto-izquierda {
+        margin-left: 5%;
+    }
+    
+    .infoFinal {
+        border: 1px solid #000;
+        border-radius: 1%
+    }
+    
+    .contenido-infoFinal {
+        padding-top: 20%;
+        margin: auto;
+    }
+    
+    .boton-carrito {
+        margin: auto;
+        margin-top: 5%;
+        font-weight: 6000;
+    }
+    
+    #cantidad {
+        margin-left: 10px;
+    }
