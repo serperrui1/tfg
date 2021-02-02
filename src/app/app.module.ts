@@ -61,6 +61,7 @@ import { BuscadorComponent } from './paginas/buscador/buscador.component';
     IncidenciaTarjetaComponent,
     IncidenciaComponent,
     CrearIncidenciaComponent,
+    MisIncidenciasComponent,
     MisIncidenciasComponent, 
     BuscadorComponent
 

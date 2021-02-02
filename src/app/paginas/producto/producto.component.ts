@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { Producto } from '../../models/producto';
 import { DatosTecnicos } from '../../models/datosTecnicos';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -6,9 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup ,FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
+import { Subscription } from 'rxjs';
 
 
 const base_url = environment.base_url;
@@ -20,7 +21,7 @@ const base_url = environment.base_url;
   styleUrls: ['./producto.component.css']
 })
 export class ProductoComponent implements OnInit {
-  
+
   public productoForm: FormGroup;
   public producto: Producto;
   public imagenSubir: File;
@@ -34,12 +35,18 @@ export class ProductoComponent implements OnInit {
   public new: number;
   public contains:number = -1;
 
+  
+
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private productoService: ProductoService,
     private carritoService: CarritoService,
     private http: HttpClient,
-    private usuarioService: UsuarioService){
+    private usuarioService: UsuarioService,
+   ){
+
+    
+      
 
   }
 
@@ -48,10 +55,20 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto= await this.productoService.getProductoPorID(this.id);
+    this.productoForm = new FormGroup({
+      cantidadProducto: new FormControl(this.producto.unidadesMinimas)
+    });
     this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
     this.producto.proveedorNombre = this.proveedor;
-  }
 
+
+    this.productoForm.get('cantidadProducto').valueChanges.subscribe(val => {
+      const formattedMessage = val;
+      console.log(formattedMessage);
+    });
+    
+  }
+  get cantidadProducto() { return this.productoForm.get('cantidadProducto').value; }
   
   goEditIfProveedor() {
     this.router.navigate(['/actualizar-producto', this.id]);
