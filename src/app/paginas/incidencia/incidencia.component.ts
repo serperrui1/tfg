@@ -33,6 +33,8 @@ export class IncidenciaComponent implements OnInit {
   public compradorNombre: string = "";
   public proveedorNombre: string = "";
   public asistenteTecnicoNombre: string = "";
+  public autor: string = "";
+  public message: string = "";
 
 
   constructor(private fb:FormBuilder,
@@ -59,17 +61,26 @@ export class IncidenciaComponent implements OnInit {
         fechaPublicacion: [ this.incidencia.fechaPublicacion],
         descripcion: [ this.incidencia.descripcion],
         tematica: [ this.incidencia.tematica],
-        mensajes: [ this.incidencia.mensajes],
+        mensajes: ['', Validators.required ],
+        /* mensajes: [this.incidencia.mensajes], */
         asignado: [ this.incidencia.asignado],
         resuelto: [ this.incidencia.resuelto],
     });
 
       this.aT = await this.usuarioService.getAsistenteTecnico();
-
+      if(this.aT != null){
+        this.autor = this.aT.nombre + ": ";
+      }
       if(this.aT === null){
         this.comp = await this.usuarioService.getComprador();
+        if(this.comp != null){
+          this.autor = this.comp.nombre + ": ";
+        }
         if(this.comp === null){
           this.prov = await this.usuarioService.getProveedor();
+          if(this.prov != null){
+            this.autor = this.prov.nombreEmpresa + ": ";
+          }
         }
       }
 
@@ -104,6 +115,8 @@ export class IncidenciaComponent implements OnInit {
 
   actualizarIncidencia() {
     if(this.puedesActualizar === true){
+      this.message = this.incidenciaForm.controls['mensajes'].value;
+      this.incidenciaForm.controls['mensajes'].setValue(this.autor + this.message);
       this.incidenciaService.actualizarIncidencia( this.incidenciaForm.value, this.incidencia._id )
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
