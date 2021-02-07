@@ -85,7 +85,30 @@
 
                     </div>
                 </div>
+                <div formArrayName="datosTecnicos">
+                    <h4> Datos técnicos</h4>
+                    <table class="table table-bordered">
+                        <tr *ngFor="let datos of producto.datosTecnicos">
+                            <td>{{datos.datosTecnicosTitulo}}</td>
+                            <td>{{datos.datosTecnicosDescripcion}}</td>
+                            <td class="text-nowrap text-center">
+                                <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarDatosTecnicos(datos)">
+                                    <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                    <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
+                            <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Descripción del dato técnico" formControlName="datosTecnicosDescripcion">
+                        </div>
+                        <button type="button" class="btn btn-danger waves-effect waves-light m-r-10" (click)="deleteDatosTecnicos(pointIndex)">Borrar Datos Técnicos</button>
+                    </div>
+                    <button type="button" class="btn btn-success waves-effect waves-light m-r-10" (click)="addDatosTecnicos()">Añadir Datos Técnicos</button>
+                </div>
             </div>
+
             <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="productoForm.invalid">
                     <i class="fa fa-save"></i>
                     Actualizar producto

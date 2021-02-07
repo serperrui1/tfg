@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { FileUploadService } from '../../services/file-upload.service';
 
@@ -60,18 +60,59 @@ export class ActualizarProductoComponent implements OnInit {
         unidadesMinimas: [ this.producto.unidadesMinimas,  Validators.required ],
         stock: [ this.producto.stock,  Validators.required ],
         precio: [ this.producto.precio,  Validators.required ],
-        subcategoria:[ this.producto.subcategoria ]
-       /*  datosTecnicosTitulo:['', Validators.required ],
-        datosTecnicosDescripcion:['', Validators.required ], */
+        subcategoria:[ this.producto.subcategoria ],
+        datosTecnicos: this.fb.array([this.fb.group({
+          datosTecnicosTitulo:[],
+          datosTecnicosDescripcion:[]
+      })])
       });
 
     }else{
       console.log("Acceso denegado para actualizar este producto");
     };
   }
+  
+  get datosTecnicos() {
+    return this.productoForm.get('datosTecnicos') as FormArray;
+  }
+
+  addDatosTecnicos() {
+    this.datosTecnicos.push(this.fb.group({
+      datosTecnicosTitulo:['' ],
+      datosTecnicosDescripcion:['']}));
+
+  }
+
+  deleteDatosTecnicos(index) {
+    this.datosTecnicos.removeAt(index);
+  }
+
+  borrarDatosTecnicos(datos:DatosTecnicos) {
+  Swal.fire({
+      title: '¿Borrar el Dato Técnico?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrarlo'
+    }).then((result) => {
+      if (result.value) {
+
+    const index = this.producto.datosTecnicos.indexOf(datos);
+    if (index > -1) {
+      this.producto.datosTecnicos.splice(index, 1);
+    }
+  }
+})
+}
+
+
 
   actualizarProducto() {
-    this.productoService.actualizarProducto( this.productoForm.value, this.producto._id )
+    let productoActualizar = this.productoForm.value
+    if(productoActualizar.datosTecnicos[0].datosTecnicosTitulo== null){
+      productoActualizar.datosTecnicos.splice(0, 1);
+    }
+    productoActualizar.datosTecnicosAntiguos = this.producto.datosTecnicos;
+    this.productoService.actualizarProducto( productoActualizar, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
     }, (err) => {
