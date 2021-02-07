@@ -41,12 +41,19 @@
             <div class="contenido-infoFinal">
                 <strong>Precio actual : </strong> {{producto.precio * cantidadProducto}}€ con unidades {{cantidadProducto}}
                 <a class="btn btn-info boton-carrito" (click)="alCarrito(producto)">
-                Añadir al carrito
-            </a>
+                    Añadir al carrito
+                </a>
                 <br>
                 <a class="btn btn-success boton-carrito">
-                Comprar
-            </a>
+                    Comprar
+                </a>
+                <br>
+                <br> <strong>¿Quieres proponer una oferta?,</strong>
+                <br> <strong>¿tienes dudas sobre el producto?, ...</strong>
+                <br>
+                <a class="btn btn-success boton-carrito" routerLink="/crear-chat">
+                    ¡Chatea con el proveedor!
+                </a>
             </div>
         </div>
     </div>

@@ -17,7 +17,10 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { IncidenciasComponent } from './incidencias/incidencias.component';
 import { IncidenciaComponent } from './incidencia/incidencia.component';
 import { MisIncidenciasComponent } from './mis-incidencias/mis-incidencias.component';
+import { MisChatsComponent } from './mis-chats/mis-chats.component';
 import { CrearIncidenciaComponent } from './crear-incidencia/crear-incidencia.component';
+import { CrearChatComponent } from './crear-chat/crear-chat.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
     { 
@@ -32,14 +35,17 @@ const routes: Routes = [
             { path: 'mis-productos', component: MisProductosComponent},
             { path: 'crear-producto', component: CrearProductoComponent},
             { path: 'crear-incidencia', component: CrearIncidenciaComponent},
+            { path: 'crear-chat', component: CrearChatComponent},
             { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
             { path: 'crear-faq', component: CrearFaqComponent},
             { path: 'faqs', component: FaqsComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},
             { path: 'incidencia/:id', component: IncidenciaComponent},
+            { path: 'chat/:id', component: ChatComponent},
             { path: 'incidencias', component: IncidenciasComponent},
             { path: 'mis-incidencias', component: MisIncidenciasComponent},
+            { path: 'mis-chats', component: MisChatsComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },
