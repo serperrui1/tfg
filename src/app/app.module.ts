@@ -31,6 +31,10 @@ import { IncidenciaTarjetaComponent } from './components/incidencia-tarjeta/inci
 import { CrearIncidenciaComponent } from './paginas/crear-incidencia/crear-incidencia.component';
 import { MisIncidenciasComponent } from './paginas/mis-incidencias/mis-incidencias.component';
 import { BuscadorComponent } from './paginas/buscador/buscador.component';
+import { MisChatsComponent } from './paginas/mis-chats/mis-chats.component';
+import { CrearChatComponent } from './paginas/crear-chat/crear-chat.component';
+import { ChatComponent } from './paginas/chat/chat.component';
+import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
 
 
 
@@ -61,9 +65,9 @@ import { BuscadorComponent } from './paginas/buscador/buscador.component';
     IncidenciaTarjetaComponent,
     IncidenciaComponent,
     CrearIncidenciaComponent,
-    MisIncidenciasComponent,
     MisIncidenciasComponent, 
-    BuscadorComponent
+    BuscadorComponent, 
+    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent,
 
 
   ],

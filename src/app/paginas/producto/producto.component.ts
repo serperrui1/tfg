@@ -43,36 +43,46 @@ export class ProductoComponent implements OnInit {
     private carritoService: CarritoService,
     private http: HttpClient,
     private usuarioService: UsuarioService,
-   ){
+   ){}
 
-    
-      
 
-  }
+  async ngOnInit() {
 
-   async ngOnInit() {
     this.activatedRoute.params.subscribe( params => {
       this.id = params['id']; 
     });
+
     this.producto= await this.productoService.getProductoPorID(this.id);
+
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
-    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
-    this.producto.proveedorNombre = this.proveedor;
 
+    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
+    this.producto.proveedorNombre = this.proveedor;
 
     this.productoForm.get('cantidadProducto').valueChanges.subscribe(val => {
       const formattedMessage = val;
       console.log(formattedMessage);
     });
-    
+
+    localStorage.setItem('productoId',JSON.stringify(this.producto._id));
+    localStorage.setItem('proveedorId',JSON.stringify(this.producto.proveedor));
+    localStorage.setItem('proveedorNombre',JSON.stringify(this.proveedor));
   }
-  get cantidadProducto() { return this.productoForm.get('cantidadProducto').value; }
+
+
+  get cantidadProducto() {
+     return this.productoForm.get('cantidadProducto').value; 
+  }
   
+
+
   goEditIfProveedor() {
     this.router.navigate(['/actualizar-producto', this.id]);
   };
+
+
 
   alCarrito(producto) {
     this.cantidad = Number((document.getElementById("cantidad") as HTMLInputElement).value);
