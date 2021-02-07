@@ -39,6 +39,7 @@ export class ProductoService {
          this.http.get(`${base_url}/productos/producto/${id}`).subscribe(data=>{
            const producto = data["producto"];
            resolve(producto);
+
          });
       })
   }

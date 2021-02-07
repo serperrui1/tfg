@@ -73,18 +73,28 @@
                             <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
                         </div>
 
-                        <input type="file" class="form-control" (change)="prepararImagen($event.target.files[0])">
+                        <!-- <input type="file" class="form-control" multiple (change)="prepararImagen($event.target.files[0])"> -->
+                        <input type="file" class="form-control" multiple (change)="multiplesImagenes($event.target.files)">
 
                         <br>
                         <br>
-
-                        <!-- <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="!imagenSubir">
-                            <i class="fa fa-save"></i>
-                            Subir foto
-                        </button> -->
                     </div>
                 </div>
+
+                <div formArrayName="datosTecnicos">
+                    <h4> Datos técnicos</h4>
+                    <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
+                            <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Descripción del dato técnico" formControlName="datosTecnicosDescripcion">
+                        </div>
+                        <button type="button" class="btn btn-danger waves-effect waves-light m-r-10" (click)="deleteDatosTecnicos(pointIndex)">Borrar Datos Técnicos</button>
+                    </div>
+                    <button type="button" class="btn btn-success waves-effect waves-light m-r-10" (click)="addDatosTecnicos()">Añadir Datos Técnicos</button>
+                </div>
+
             </div>
+
             <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="crearProductoForm.invalid">
                     <i class="fa fa-save"></i>
                     Subir producto

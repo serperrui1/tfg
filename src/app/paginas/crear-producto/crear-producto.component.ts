@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Proveedor } from 'src/app/models/proveedor';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -23,9 +23,10 @@ export class CrearProductoComponent implements OnInit{
   public proveedor: Proveedor;
   public producto: Producto;
   public token: string;
-  public imagenSubir: File;
+  public imagenesSubir: File[];
   public imgTemp: any = null;
   formSubmited:boolean = false;
+
   
 
   constructor(private fb:FormBuilder,
@@ -41,8 +42,7 @@ export class CrearProductoComponent implements OnInit{
 
   async ngOnInit() {
     if(this.usuario === "proveedor" && this.token != null){
-      this.proveedor = await this.usuarioService.getProveedor();
-        console.log(this.proveedor);
+
       this.crearProductoForm = this.fb.group({
         titulo:['', Validators.required],
         descripcion:['', Validators.required],
@@ -50,26 +50,47 @@ export class CrearProductoComponent implements OnInit{
         unidadesMinimas:['', Validators.required],
         stock:['', Validators.required],
         precio:['', Validators.required],
-        /* imagenes:['', Validators.required], */
-       /*  datosTecnicosTitulo:['', Validators.required ],
-        datosTecnicosDescripcion:['', Validators.required ], */
+        datosTecnicos: this.fb.array([this.fb.group({
+          datosTecnicosTitulo:['' ],
+          datosTecnicosDescripcion:['' ]
+      })]),
+      
         subcategoria:[''],
       });
+
+      this.proveedor = await this.usuarioService.getProveedor();
+
     }else{
       console.log("El usuario no es un proveedor");
     };
   }
 
+  get datosTecnicos() {
+    return this.crearProductoForm.get('datosTecnicos') as FormArray;
+  }
+
+  addDatosTecnicos() {
+    this.datosTecnicos.push(this.fb.group({
+      datosTecnicosTitulo:[' ' ],
+      datosTecnicosDescripcion:[' ']}));
+
+  }
+
+  deleteDatosTecnicos(index) {
+    this.datosTecnicos.removeAt(index);
+  }
+  
   async crearProducto(){
     this.formSubmited = true;
-    console.log(this.crearProductoForm.value);
     if(this.crearProductoForm.invalid){
       return;
     }
+    console.log(this.crearProductoForm.value)
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
     
-    console.log(productoId);
-    this.subirImagenService.postearImagen(this.imagenSubir, 'productos', productoId)
+    console.log(this.imagenesSubir);
+    for(let imagen of this.imagenesSubir)
+    this.subirImagenService.postearImagen(imagen, 'productos', productoId)
     .then( () => {
       Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
     }).catch( err => {
@@ -86,34 +107,50 @@ export class CrearProductoComponent implements OnInit{
     }
   }
 
-  prepararImagen( file: File ) {
-    this.imagenSubir = file;
-    if ( !file ) { 
-      return this.imgTemp = null;
+  // prepararImagen( file: File ) {
+  //   this.imagenSubir = file;
+  //   if ( !file ) { 
+  //     return this.imgTemp = null;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL( file );
+  //   reader.onloadend = () => {
+  //     this.imgTemp = reader.result;
+  //   }
+  // }
+
+  // async subirImagen() {
+  //   if(this.usuario === "proveedor"){
+  //     this.subirImagenService
+  //     .postearImagen( this.imagenesSubir, 'productos', this.producto._id)
+  //     .then( () => {
+  //       Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
+  //     }).catch( err => {
+  //       console.log(err);
+  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+  //     })
+  //   }
+  // }
+
+  get imagenUrl(){
+    if( this.usuario === "proveedor"){
+      return `${base_url}/upload/productos/no-image`;
     }
+  }
+
+  multiplesImagenes(files: File[]){
+
+    this.imagenesSubir = files;
+    
+    for(let file of files){
+      if ( !file ) { 
+        return this.imgTemp = null;
+      }  
     const reader = new FileReader();
     reader.readAsDataURL( file );
     reader.onloadend = () => {
       this.imgTemp = reader.result;
     }
-  }
-
-  async subirImagen() {
-    if(this.usuario === "proveedor"){
-      this.subirImagenService
-      .postearImagen( this.imagenSubir, 'productos', this.producto._id)
-      .then( () => {
-        Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
-      }).catch( err => {
-        console.log(err);
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      })
-    }
-  }
-
-  get imagenUrl(){
-    if( this.usuario === "proveedor"){
-      return `${base_url}/upload/productos/no-image`;
     }
   }
 
