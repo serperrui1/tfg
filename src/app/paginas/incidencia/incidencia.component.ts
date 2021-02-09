@@ -35,6 +35,8 @@ export class IncidenciaComponent implements OnInit {
   public asistenteTecnicoNombre: string = "";
   public autor: string = "";
   public message: string = "";
+  public lastMessage: string = "";
+  public cont: number;
 
 
   constructor(private fb:FormBuilder,
@@ -48,6 +50,7 @@ export class IncidenciaComponent implements OnInit {
   }
 
   async ngOnInit() {
+
     if((this.usuario != "administrador") && this.token != null) {
 
       this.activatedRoute.params.subscribe( params => {
@@ -55,6 +58,10 @@ export class IncidenciaComponent implements OnInit {
       });
 
       this.incidencia = await this.incidenciaService.getIncidenciaPorID(this.incidenciaId);
+
+      if(this.incidencia.mensajes.length === 0){ // si nunca se ha añadido un mensaje
+        localStorage.setItem(this.incidencia._id, JSON.stringify(0));
+      }
     
       this.incidenciaForm = this.fb.group({
         titulo: [ this.incidencia.titulo],
@@ -104,6 +111,8 @@ export class IncidenciaComponent implements OnInit {
       if(this.aT != null && this.aT.uid === this.incidencia.asistenteId && this.incidencia.asistenteId != "" && this.incidencia.resuelto === true && this.incidencia.asignado === true){
         this.puedesBorrar = true;
       }
+
+      this.borradoNotificacion();
       
         
 
@@ -117,6 +126,16 @@ export class IncidenciaComponent implements OnInit {
     if(this.puedesActualizar === true){
       this.message = this.incidenciaForm.controls['mensajes'].value;
       this.incidenciaForm.controls['mensajes'].setValue(this.autor + this.message);
+      
+      //--------------------------------------------------------------------------------
+      if(this.incidencia.asistenteId != "" || (this.incidencia.asistenteId === "" && this.aT)){
+        this.cont = JSON.parse(localStorage.getItem(this.incidencia._id));
+        this.cont = this.cont + 1;
+        localStorage.setItem(this.incidencia._id, JSON.stringify(this.cont));
+      }
+      //--------------------------------------------------------------------------------
+
+
       this.incidenciaService.actualizarIncidencia( this.incidenciaForm.value, this.incidencia._id )
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
@@ -125,6 +144,37 @@ export class IncidenciaComponent implements OnInit {
         Swal.fire('Error', err.error.msg, 'error');
       });
     }
+  }
+
+  borradoNotificacion(){
+    
+    console.log("alguien")
+    if(this.comp){
+      console.log("comp")
+      this.lastMessage = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
+      if((this.lastMessage.indexOf(this.comp.nombre) != 0) && (JSON.parse(localStorage.getItem(this.incidencia._id)) != 0)){
+        localStorage.setItem(this.incidencia._id, JSON.stringify(0));
+        location.reload();
+      }
+    }
+
+    if(this.prov){
+      this.lastMessage = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
+      if((this.lastMessage.indexOf(this.prov.nombreEmpresa) != 0) && (JSON.parse(localStorage.getItem(this.incidencia._id)) != 0)){
+        localStorage.setItem(this.incidencia._id, JSON.stringify(0));
+        location.reload();
+      }
+    }
+
+    if(this.aT && (this.incidencia.asistenteId === this.aT.uid)){
+      this.lastMessage = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
+      if((this.lastMessage.indexOf(this.aT.nombre) != 0) && (JSON.parse(localStorage.getItem(this.incidencia._id)) != 0)){
+        localStorage.setItem(this.incidencia._id, JSON.stringify(0));
+        location.reload();
+      }
+    }
+
+
   }
 
   borrarIncidencia( incidencia: Incidencia ) {
