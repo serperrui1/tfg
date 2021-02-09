@@ -148,9 +148,7 @@ export class IncidenciaComponent implements OnInit {
 
   borradoNotificacion(){
     
-    console.log("alguien")
     if(this.comp){
-      console.log("comp")
       this.lastMessage = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
       if((this.lastMessage.indexOf(this.comp.nombre) != 0) && (JSON.parse(localStorage.getItem(this.incidencia._id)) != 0)){
         localStorage.setItem(this.incidencia._id, JSON.stringify(0));

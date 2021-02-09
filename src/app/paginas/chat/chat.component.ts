@@ -28,6 +28,8 @@ export class ChatComponent implements OnInit {
   public producto: Producto;
   public autor: string = "";
   public message: string = "";
+  public cont: number;
+  public lastMessage: string = "";
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -67,6 +69,7 @@ export class ChatComponent implements OnInit {
         mensajes: ['', Validators.required ],
         fechaPublicacion: [ this.chat.fechaPublicacion ]
       });
+      this.borradoNotificacion();
     }
 
     if (this.token != null && (this.usuario === "proveedor" && this.prov != null)){
@@ -80,6 +83,7 @@ export class ChatComponent implements OnInit {
         mensajes: ['', Validators.required ],
         fechaPublicacion: [ this.chat.fechaPublicacion ]
       });
+      this.borradoNotificacion();
     }
 
     else{
@@ -94,6 +98,11 @@ export class ChatComponent implements OnInit {
   actualizarChat() {
       this.message = this.chatForm.controls['mensajes'].value;
       this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
+      //--------------------------------------------------------------------------------
+      this.cont = JSON.parse(localStorage.getItem(this.chat._id));
+      this.cont = this.cont + 1;
+      localStorage.setItem(this.chat._id, JSON.stringify(this.cont));
+      //--------------------------------------------------------------------------------
       this.chatService.actualizarChat( this.chatForm.value, this.chat._id )
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
@@ -101,6 +110,26 @@ export class ChatComponent implements OnInit {
         console.log(err)
         Swal.fire('Error', err.error.msg, 'error');
       });
+  }
+
+  borradoNotificacion(){
+    
+    if(this.comp){
+      this.lastMessage = this.chat.mensajes[this.chat.mensajes.length-1];
+      if((this.lastMessage.indexOf(this.comp.nombre) != 0) && (JSON.parse(localStorage.getItem(this.chat._id)) != 0)){
+        localStorage.setItem(this.chat._id, JSON.stringify(0));
+        location.reload();
+      }
+    }
+
+    if(this.prov){
+      this.lastMessage = this.chat.mensajes[this.chat.mensajes.length-1];
+      if((this.lastMessage.indexOf(this.prov.nombreEmpresa) != 0) && (JSON.parse(localStorage.getItem(this.chat._id)) != 0)){
+        localStorage.setItem(this.chat._id, JSON.stringify(0));
+        location.reload();
+      }
+    }
+
   }
 
   borrarChat( chat: Chat ) {

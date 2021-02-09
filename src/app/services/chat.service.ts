@@ -77,8 +77,21 @@ export class ChatService {
   }
 
 
-  crearChat( formData: CrearChatComponent) {
+  /* crearChat( formData: CrearChatComponent) {
     return this.http.post(`${ base_url }/chats/`, formData, this.headers );
+  } */
+
+  crearChat( formData: CrearChatComponent):Promise<string>{
+
+    return new Promise<string> (resolve=> {
+
+      this.http.post(`${ base_url }/chats/`, formData, this.headers )
+      .subscribe(data =>{
+        const chatId:string= data["chat"]["_id"];
+        console.log(chatId);
+        resolve(chatId);
+      });
+    } )
   }
 
 }

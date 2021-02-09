@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Producto } from '../../models/producto';
 import { ProductoService } from '../../services/producto.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-crear-chat',
@@ -28,6 +29,7 @@ export class CrearChatComponent implements OnInit {
   public producto: Producto;
   public autor: string = "";
   public message: string = "";
+  public chatId: string = "";
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -78,13 +80,16 @@ export class CrearChatComponent implements OnInit {
     this.message = this.chatForm.controls['mensajes'].value;
     this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
     console.log(this.chatForm.value);
-    await this.chatService.crearChat(this.chatForm.value)
-    .subscribe( () => {
+
+    const chatId = await this.chatService.crearChat(this.chatForm.value);
+    localStorage.setItem(chatId, JSON.stringify(1));
+    /* location.reload(); */
+    if (chatId){
       Swal.fire('Guardado', 'Chat creado', 'success');
-    }, (err) => {
-      console.log(err)
-      Swal.fire('Error', err.error.msg, 'error');
-    });
+    }else{
+      Swal.fire('Error', 'Error al crear chat', 'error');
+    }
+    location.reload();
   }
 
   campoNoValido (campo:string) :boolean{
