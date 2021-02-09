@@ -8,6 +8,8 @@ import { IncidenciaService } from '../../services/incidencia.service';
 import { AsistenteTecnico } from '../../models/asistente';
 import { Comprador } from '../../models/comprador';
 import { Proveedor } from '../../models/proveedor';
+import { ChatService } from '../../services/chat.service';
+import { Chat } from 'src/app/models/chat';
 
 @Component({
   selector: 'app-navbar',
@@ -20,11 +22,16 @@ export class NavbarComponent implements OnInit{
   public cuant:number[] = [];
   public temp:number = 0;
   public res:number = 0;
+  public res1:number = 0;
   public res2:number = 0;
   public excl:number = 0;
+  public exch:number = 0;
   public misIncidencias: Incidencia[];
+  public misChats: Chat[];
   public incidencia: Incidencia;
+  public chat: Chat;
   public notiIndiv:number = 0;
+  public notiIndivChat:number = 0;
   public existeTokenYProveedor= false;
   public usuario:string;
   public token: string;
@@ -32,12 +39,14 @@ export class NavbarComponent implements OnInit{
   public comp: Comprador;
   public prov: Proveedor;
   public ultimoMensaje:string;
+  public ultimoMensajeChat:string;
   
   constructor(private fb:FormBuilder,
     private usuarioService: UsuarioService,
     private router:Router,
     private carritoService: CarritoService,
-    private incidenciaService: IncidenciaService) { 
+    private incidenciaService: IncidenciaService,
+    private chatService: ChatService) { 
       this.proveedor();
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
@@ -51,6 +60,8 @@ export class NavbarComponent implements OnInit{
     this.notifica();
     this.sumaNotiInci();
     this.noMiNotiGene();
+    await this.sumaNotiChat();
+    this.noMiNotiChat();
   }
 
   notifica(){
@@ -88,7 +99,10 @@ export class NavbarComponent implements OnInit{
         this.incidencia = this.misIncidencias[i];
         this.ultimoMensaje = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
         if(this.ultimoMensaje.indexOf(this.comp.nombre) === 0){
-          this.res2 = this.res2 - 1;
+          this.res2 = this.res2 - JSON.parse(localStorage.getItem(this.misIncidencias[i]._id));
+          if(this.res2 < 0){
+            this.res2 = 0;
+          }
         }
       }
     }
@@ -97,7 +111,10 @@ export class NavbarComponent implements OnInit{
         this.incidencia = this.misIncidencias[i];
         this.ultimoMensaje = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
         if(this.ultimoMensaje.indexOf(this.prov.nombreEmpresa) === 0){
-          this.res2 = this.res2 - 1;
+          this.res2 = this.res2 - JSON.parse(localStorage.getItem(this.misIncidencias[i]._id));
+          if(this.res2 < 0){
+            this.res2 = 0;
+          }
         }
       }
     }
@@ -106,7 +123,57 @@ export class NavbarComponent implements OnInit{
         this.incidencia = this.misIncidencias[i];
         this.ultimoMensaje = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
         if(this.ultimoMensaje.indexOf(this.aT.nombre) === 0){
-          this.res2 = this.res2 - 1;
+          this.res2 = this.res2 - JSON.parse(localStorage.getItem(this.misIncidencias[i]._id));
+          if(this.res2 < 0){
+            this.res2 = 0;
+          }
+        }
+      }
+    }
+  }
+
+  async sumaNotiChat(){
+    console.log("suma");
+    this.misChats = await (this.chatService.getMisChats());
+    console.log(this.misChats);
+    for (let i = 0; i < this.misChats.length; i++) {
+      this.chat = this.misChats[i];
+      this.notiIndivChat = JSON.parse(localStorage.getItem(this.chat._id));//vemos si tiene notificaciones en localstorage
+      if(this.notiIndivChat != 0 && this.notiIndivChat != null){ //si existe y es mayor de cero, sumamos
+        this.exch = this.exch + this.notiIndivChat;
+      }
+    }
+    this.res1 = this.exch;
+    console.log("termina suma")
+  }
+
+  async noMiNotiChat(){
+    console.log("resta");
+    this.comp = await this.usuarioService.getComprador();
+    if(this.comp === null){
+      this.prov = await this.usuarioService.getProveedor();
+    }
+    if(this.comp){
+      for (let i = 0; i < this.misChats.length; i++) {
+        this.chat = this.misChats[i];
+        this.ultimoMensajeChat = this.chat.mensajes[this.chat.mensajes.length-1];
+        if(this.ultimoMensajeChat.indexOf(this.comp.nombre) === 0){
+          this.res1 = this.res1 - JSON.parse(localStorage.getItem(this.misChats[i]._id));
+          if(this.res1 < 0){
+            this.res1 = 0;
+          }
+        }
+      }
+    }
+    if(this.prov){
+      for (let i = 0; i < this.misChats.length; i++) {
+        this.chat = this.misChats[i];
+        this.ultimoMensajeChat = this.chat.mensajes[this.chat.mensajes.length-1];
+        if(this.ultimoMensajeChat.indexOf(this.prov.nombreEmpresa) === 0){
+          this.res1 = this.res1 - JSON.parse(localStorage.getItem(this.misChats[i]._id));
+          if(this.res1 < 0){
+            this.res1 = 0;
+          }
         }
       }
     }
@@ -118,6 +185,9 @@ export class NavbarComponent implements OnInit{
     }
     if (changes['misIncidencias']) {
       this.sumaNotiInci();
+    }
+    if (changes['misChats']) {
+      this.sumaNotiChat();
     }
   }
 
