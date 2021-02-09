@@ -29,6 +29,18 @@
                     <a class="dropdown-item" *ngIf="existeTokenYProveedor" routerLink="ser-comprador">Crear cuenta de comprador</a>
                 </div>
             </li>
+            <li class="nav-item dropdown  ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Incidencia
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" *ngIf="aT || comp || prov" routerLink="mis-incidencias">Mis incidencias</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" *ngIf="aT" routerLink="incidencias">Incidencias libres</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" *ngIf="comp || prov" routerLink="crear-incidencia">Nueva incidencia</a>
+                </div>
+            </li>
 
         </ul>
 
@@ -39,7 +51,14 @@
             <button class="btn btn-outline-white " style="width: 10%;" type="submit">Search</button>
         </form>
     </div>
-
+    <ul>
+        <span class="badge badge-pill red">2</span>
+        <i class="fas fa-comments"></i>
+    </ul>
+    <ul *ngIf="usuario != 'administrador' && token">
+        <span class="badge badge-pill red" *ngIf="res2 !=0">{{res2}}</span>
+        <i class="fas fa-exclamation-triangle" routerLink="/mis-incidencias"></i>
+    </ul>
     <ul>
         <!-- <i class="fa" style="font-size:24px">&#xf07a;</i>
         <span class='badge badge-warning' id='lblCartCount'> {{res}} </span> -->
