@@ -46,6 +46,8 @@ export class CompradorPerfilComponent implements OnInit {
       paisResidencia: [ this.comprador.paisResidencia , Validators.required ],
       ciudad: [ this.comprador.ciudad , Validators.required ],
       localidad: [ this.comprador.localidad , Validators.required ],
+      codigoPostal: [ this.comprador.codigoPostal , Validators.required ],
+      numeroTelefono: [ this.comprador.numeroTelefono],
       direccionResidencia: [ this.comprador.direccionResidencia , Validators.required ],
       tarjetaCredito: [ this.comprador.tarjetaCredito  ],
       cuentaPaypal: [ this.comprador.cuentaPaypal ]

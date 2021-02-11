@@ -69,6 +69,10 @@
         </div>
     </div>
 
-    <button class="checkout">¡Comprar!</button>
-
+    <div *ngIf="esComprador ; else noEsComprador">
+        <button class="checkout" routerLink="/compra">¡Comprar!</button>
+    </div>
+    <ng-template #noEsComprador>
+        <button class="checkout" routerLink="/login-comprador">¡Comprar!</button>
+    </ng-template>
 </div>

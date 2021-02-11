@@ -35,7 +35,9 @@ import { MisChatsComponent } from './paginas/mis-chats/mis-chats.component';
 import { CrearChatComponent } from './paginas/crear-chat/crear-chat.component';
 import { ChatComponent } from './paginas/chat/chat.component';
 import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
-
+import { LoginCompradorComponent } from './auth/login-comprador/login-comprador.component';
+import { CompraComponent } from './paginas/compra/compra.component';
+ 
 
 
 
@@ -67,7 +69,7 @@ import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.com
     CrearIncidenciaComponent,
     MisIncidenciasComponent, 
     BuscadorComponent, 
-    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent,
+    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent, LoginCompradorComponent, CompraComponent,
 
 
   ],

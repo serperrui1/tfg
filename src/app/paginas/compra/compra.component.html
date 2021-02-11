@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <h3>Datos para el envio</h3>
+    <h5>{{comprador.nombre }} {{comprador.apellidos}}</h5>
+    <h5>Dirección de envio</h5>
+    <p>
+        {{direccionEnvio}}
+        <!-- {{comprador.direccionResidencia }}, {{comprador.localidad}}, {{comprador.ciudad}}, {{comprador.paisResidencia}}, {{comprador.codigoPostal}} -->
+    </p>
+    <strong>Número de teléfono :</strong> {{comprador.numeroTelefono}} <br><br>
+
+    <h3>Resumen de compra</h3>
+    <div *ngFor="let producto of productos; let i=index">
+        {{producto.titulo}} : {{cantidades[i]}} unidades ==> {{producto.precio * cantidades[i]}}€
+    </div>
+    <button class="btn btn-lg btn-primary " (click)="comprar()">
+        Pagar
+    </button>
+
+</div>
