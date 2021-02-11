@@ -1,0 +1,32 @@
+<div *ngIf="spam">
+    <div *ngIf="usuario === 'administrador'">
+        <form class="form p-t-20" autocomplete="off" [formGroup]="spamForm" (submit)="actualizarSpam()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">SPAM </h4>
+                            <div class="form-group">
+                                <label for="expresiones">Expresiones SPAM:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <textarea type="text" class="form-control" id="expresiones" formControlName="expresiones"></textarea>
+                                    <span *ngIf="spamForm.get('expresiones').errors?.spamError">Contiene palabras spam</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10">
+                    <i class="fa fa-save"></i>
+                    Actualizar
+            </button>
+            </div>
+        </form>
+        <div *ngFor="let expresion of spam.expresiones">
+            <p>
+                {{expresion}}
+            </p>
+        </div>
+    </div>
+</div>
