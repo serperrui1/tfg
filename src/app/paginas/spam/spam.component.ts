@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { Administrador } from '../../models/administrador';
 import { SpamService } from '../../services/spam.service';
 import { UsuarioService } from '../../services/usuario.service';
@@ -22,6 +22,9 @@ export class SpamComponent implements OnInit {
   public expresionesSpam: string[];
   public flag: boolean = false;
 
+  datos: any = {}
+
+
   constructor(private fb:FormBuilder,
     private spamService: SpamService,
     private usuarioService: UsuarioService) {
@@ -31,20 +34,16 @@ export class SpamComponent implements OnInit {
 
   async ngOnInit() {
     this.spam = (await this.spamService.getSpam())[0];
-    if(this.usuario === "administrador" && this.token != null){
-      this.spamForm = this.fb.group({
-        /* expresiones: new FormControl([this.spam.expresiones,this.spamService.spamValidator]) */
-        /* expresiones: new FormControl(null, [Validators.required]) */
-        expresiones: [this.spam.expresiones, this.spamService.spamValidator]
-        /* expresiones: new FormControl(null, [Validators.required, Validators.maxLength(8)]), */
-      });
-    }else{
-      console.log("El usuario no es administrador");
-    };
+    this.datos.expresiones = this.spam.expresiones;
+    console.log(this.spam);
+    
   }
 
-  actualizarSpam() {
-    this.spamService.actualizarSpam( this.spamForm.value,)
+  actualizarSpam(form:NgForm) {
+    let expresiones = form.value["expresiones"];
+    let nuevoArrayExpresiones = expresiones.split(",")
+    this.spam.expresiones = nuevoArrayExpresiones
+    this.spamService.actualizarSpam( this.spam)
     .subscribe( () => {
       Swal.fire('Guardado', 'SPAM actualizado', 'success');
     }, (err) => {

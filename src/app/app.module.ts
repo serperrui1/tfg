@@ -13,7 +13,7 @@ import { RegisterProveedorComponent } from './auth/register-proveedor/register-p
 import { ProductoTarjetaComponent } from './components/producto-tarjeta/producto-tarjeta.component';
 import { HomeComponent } from './paginas/home/home.component';
 import { ProductoComponent } from './paginas/producto/producto.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -77,7 +77,8 @@ import { SpamComponent } from './paginas/spam/spam.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
   providers: [],

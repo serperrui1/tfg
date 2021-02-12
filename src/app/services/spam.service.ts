@@ -53,8 +53,8 @@ export class SpamService {
       })
   }
 
-  actualizarSpam( formData: SpamComponent) {
-    return this.http.put(`${ base_url }/spam/`, formData, this.headers);
+  actualizarSpam( spam:Spam) {
+    return this.http.put(`${ base_url }/spam/`, spam, this.headers);
   }
 
   /* async spamChecker( posibleSpam: string ){
