@@ -24,7 +24,6 @@ export class SpamComponent implements OnInit {
 
   datos: any = {}
 
-
   constructor(private fb:FormBuilder,
     private spamService: SpamService,
     private usuarioService: UsuarioService) {
@@ -34,11 +33,12 @@ export class SpamComponent implements OnInit {
 
   async ngOnInit() {
     this.spam = (await this.spamService.getSpam())[0];
+    /* console.log(this.spam.expresiones); */
     this.datos.expresiones = this.spam.expresiones;
-    console.log(this.spam);
-    
+    /* console.log(this.spam); */
   }
 
+  
   actualizarSpam(form:NgForm) {
     let expresiones = form.value["expresiones"];
     let nuevoArrayExpresiones = expresiones.split(",")

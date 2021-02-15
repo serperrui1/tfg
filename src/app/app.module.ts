@@ -36,6 +36,7 @@ import { CrearChatComponent } from './paginas/crear-chat/crear-chat.component';
 import { ChatComponent } from './paginas/chat/chat.component';
 import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
 import { SpamComponent } from './paginas/spam/spam.component';
+/* import { SpamValidator } from './validator.component'; */
 
 
 
