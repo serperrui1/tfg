@@ -13,7 +13,7 @@ import { RegisterProveedorComponent } from './auth/register-proveedor/register-p
 import { ProductoTarjetaComponent } from './components/producto-tarjeta/producto-tarjeta.component';
 import { HomeComponent } from './paginas/home/home.component';
 import { ProductoComponent } from './paginas/producto/producto.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -35,6 +35,8 @@ import { MisChatsComponent } from './paginas/mis-chats/mis-chats.component';
 import { CrearChatComponent } from './paginas/crear-chat/crear-chat.component';
 import { ChatComponent } from './paginas/chat/chat.component';
 import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
+import { SpamComponent } from './paginas/spam/spam.component';
+/* import { SpamValidator } from './validator.component'; */
 
 
 
@@ -67,7 +69,7 @@ import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.com
     CrearIncidenciaComponent,
     MisIncidenciasComponent, 
     BuscadorComponent, 
-    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent,
+    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent, SpamComponent,
 
 
   ],
@@ -76,7 +78,8 @@ import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.com
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
   providers: [],
