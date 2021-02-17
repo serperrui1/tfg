@@ -196,10 +196,17 @@ export class UsuarioService {
         resolve(proveedor);
       });
     } )
-    
-    
-
   }
+
+  getProveedorPorID(id:string):Promise<Proveedor>{
+    return new Promise<Proveedor>(
+      resolve=> {
+        this.http.get(`${base_url}/proveedores/escaparate/${id}`).subscribe(data=>{
+          const proveedor = data["proveedor"];
+          resolve(proveedor);
+        });
+     })
+ }
   
   getProveedorNombre(id:string):Promise<string>{
 

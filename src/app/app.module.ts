@@ -36,6 +36,7 @@ import { CrearChatComponent } from './paginas/crear-chat/crear-chat.component';
 import { ChatComponent } from './paginas/chat/chat.component';
 import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
 import { SpamComponent } from './paginas/spam/spam.component';
+import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
 /* import { SpamValidator } from './validator.component'; */
 
 
@@ -69,7 +70,12 @@ import { SpamComponent } from './paginas/spam/spam.component';
     CrearIncidenciaComponent,
     MisIncidenciasComponent, 
     BuscadorComponent, 
-    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent, SpamComponent,
+    MisChatsComponent,
+    CrearChatComponent,
+    ChatComponent,
+    ChatTarjetaComponent,
+    SpamComponent,
+    EscaparateComponent,
 
 
   ],
