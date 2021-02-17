@@ -22,6 +22,7 @@ import { CrearIncidenciaComponent } from './crear-incidencia/crear-incidencia.co
 import { CrearChatComponent } from './crear-chat/crear-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { SpamComponent } from './spam/spam.component';
+import { EscaparateComponent } from './escaparate/escaparate.component';
 
 const routes: Routes = [
     { 
@@ -48,6 +49,7 @@ const routes: Routes = [
             { path: 'incidencias', component: IncidenciasComponent},
             { path: 'mis-incidencias', component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
+            { path: 'escaparate/:id', component: EscaparateComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },
