@@ -1,30 +1,47 @@
-<div *ngIf="usuario === 'administrador' || usuario === 'asistenteTecnico'">
+<div *ngIf="expresionesSpam">
+    <div *ngIf="usuario === 'administrador' || usuario === 'asistenteTecnico'">
 
-    <form class="form p-t-20" autocomplete="off" [formGroup]="faqForm" (submit)="crearFaq()">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Administrador: {{usuario}}</h4>
-                        <h6 class="card-subtitle">Nuevo FAQ</h6>
+        <form class="form p-t-20" autocomplete="off" [formGroup]="faqForm" (submit)="crearFaq()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Administrador: {{usuario}}</h4>
+                            <h6 class="card-subtitle">Nuevo FAQ</h6>
 
-                        <div class="form-group">
-                            <label for="pregunta">Pregunta</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="pregunta" placeholder="¿Ejemplo de pregunta?" formControlName="pregunta">
+                            <div class="form-group">
+                                <label for="pregunta">Pregunta</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" id="pregunta" placeholder="¿Ejemplo de pregunta?" formControlName="pregunta">
+                                </div>
+                                <div *ngIf="pregunta.invalid && (pregunta.dirty || pregunta.touched)" class="alert alert-danger">
+                                    <div *ngIf="pregunta.errors.required">
+                                        La pregunta no puede estar vacía.
+                                    </div>
+                                    <div *ngIf="pregunta.errors.esSpam">
+                                        No pueden usarse términos o palabras que poseen connotaciones negativas.
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="respuesta">Respuesta</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="respuesta" placeholder="Ejemplo de respuesta" formControlName="respuesta">
+                            <div class="form-group">
+                                <label for="respuesta">Respuesta</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" id="respuesta" placeholder="Ejemplo de respuesta" formControlName="respuesta">
+                                </div>
+                                <div *ngIf="respuesta.invalid && (respuesta.dirty || respuesta.touched)" class="alert alert-danger">
+                                    <div *ngIf="respuesta.errors.required">
+                                        La respuesta no puede estar vacía.
+                                    </div>
+                                    <div *ngIf="respuesta.errors.esSpam">
+                                        No pueden usarse términos o palabras que poseen connotaciones negativas.
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tematica">Temática</label>
-                            <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
+                            <div class="form-group">
+                                <label for="tematica">Temática</label>
+                                <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
                                 <option value="Login" selected="selected">Login</option> 
                                 <option value="Registro">Registro</option>
                                 <option value="Compras">Compras</option>
@@ -41,20 +58,21 @@
                                 <option value="Envío">Envío</option>
                                 <option value="Pago">Pago</option>
                             </select>
-                            <!-- <br> -->
-                            <!-- <div class="input-group">
+                                <!-- <br> -->
+                                <!-- <div class="input-group">
                                 <div class="input-group-addon"><i class="ti-user"></i></div>
                                 <input type="text" class="form-control" id="tematica" placeholder="Informática, Deporte, ..." formControlName="tematica">
                             </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="faqForm.invalid">
+                <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="faqForm.invalid">
                     <i class="fa fa-save"></i>
                     Publicar FAQ
             </button>
-        </div>
-    </form>
+            </div>
+        </form>
 
+    </div>
 </div>

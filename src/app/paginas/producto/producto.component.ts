@@ -24,6 +24,7 @@ export class ProductoComponent implements OnInit {
 
   public productoForm: FormGroup;
   public producto: Producto;
+  public proveedorId: string;
   public imagenSubir: File;
   public imgTemp: any = null;
   public proveedor:string;
@@ -53,6 +54,8 @@ export class ProductoComponent implements OnInit {
     });
 
     this.producto= await this.productoService.getProductoPorID(this.id);
+
+    this.proveedorId = this.producto.proveedor;
 
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)

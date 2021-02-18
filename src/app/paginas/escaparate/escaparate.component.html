@@ -1,0 +1,36 @@
+<div class="row" *ngIf="proveedor && productosProveedor">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Tienda de: {{proveedor.nombreEmpresa}}</h3>
+                <br>
+                <br>
+                <h5 class="card-title">{{proveedor.email}}</h5>
+                <h5 class="card-title">{{proveedor.direccion}}</h5>
+                <h5 class="card-title">{{proveedor.sector}}</h5>
+                <h5 class="card-title" *ngIf="proveedor.autonomo">{{proveedor.nif}}</h5>
+                <h5 class="card-title" *ngIf="!proveedor.autonomo">{{proveedor.registroMercantil}}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Foto del proveedor/Logo de la empresa</h5>
+                <div>
+                    <img src="{{ direccionImagen + proveedor.img }}" class="img-avatar">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="row" *ngIf="proveedor && productosProveedor">
+    <div class="row row-cols-1 row-cols-md-3 ">
+        <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosProveedor "></app-producto-tarjeta>
+    </div>
+</div>

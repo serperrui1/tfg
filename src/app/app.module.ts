@@ -13,7 +13,7 @@ import { RegisterProveedorComponent } from './auth/register-proveedor/register-p
 import { ProductoTarjetaComponent } from './components/producto-tarjeta/producto-tarjeta.component';
 import { HomeComponent } from './paginas/home/home.component';
 import { ProductoComponent } from './paginas/producto/producto.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -37,7 +37,8 @@ import { ChatComponent } from './paginas/chat/chat.component';
 import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
 import { LoginCompradorComponent } from './auth/login-comprador/login-comprador.component';
 import { CompraComponent } from './paginas/compra/compra.component';
- 
+import { SpamComponent } from './paginas/spam/spam.component';
+import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
 
 
 
@@ -69,7 +70,14 @@ import { CompraComponent } from './paginas/compra/compra.component';
     CrearIncidenciaComponent,
     MisIncidenciasComponent, 
     BuscadorComponent, 
-    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent, LoginCompradorComponent, CompraComponent,
+    LoginCompradorComponent,
+    CompraComponent,
+    MisChatsComponent,
+    CrearChatComponent,
+    ChatComponent,
+    ChatTarjetaComponent,
+    SpamComponent,
+    EscaparateComponent
 
 
   ],
@@ -78,7 +86,8 @@ import { CompraComponent } from './paginas/compra/compra.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
   providers: [],

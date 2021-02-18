@@ -22,6 +22,8 @@ import { CrearIncidenciaComponent } from './crear-incidencia/crear-incidencia.co
 import { CrearChatComponent } from './crear-chat/crear-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { CompraComponent } from './compra/compra.component';
+import { SpamComponent } from './spam/spam.component';
+import { EscaparateComponent } from './escaparate/escaparate.component';
 
 const routes: Routes = [
     { 
@@ -40,6 +42,7 @@ const routes: Routes = [
             { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
             { path: 'crear-faq', component: CrearFaqComponent},
             { path: 'faqs', component: FaqsComponent},
+            { path: 'spam', component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},
             { path: 'incidencia/:id', component: IncidenciaComponent},
@@ -48,7 +51,7 @@ const routes: Routes = [
             { path: 'mis-incidencias', component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
             { path: 'compra', component: CompraComponent},
-
+            { path: 'escaparate/:id', component: EscaparateComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },

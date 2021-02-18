@@ -3,6 +3,9 @@
         <h5 class="card-title">{{chat.productoId}}</h5>
         <h6 class="card-subtitle">{{chat.fechaPublicacion}}</h6>
         <h6 class="card-subtitle">{{chat.proveedorNombre}}</h6>
-        <!-- <h6 class="card-subtitle">{{chat.asignado}}</h6> -->
+        <ul *ngIf="res != 0">
+            <span class="badge badge-pill red">{{res}}</span>
+            <i class="fas fa-exclamation-triangle"></i>
+        </ul>
     </div>
 </div>
