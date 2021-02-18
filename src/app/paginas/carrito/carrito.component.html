@@ -10,7 +10,7 @@
 
 <h1>Carrito</h1>
 
-<div class="shopping-cart" *ngIf="!cargando">
+<div class="shopping-cart" *ngIf="!cargando && subtotal!=0 ; else noHayProductos">
 
     <div class="column-labels">
         <label class="product-image">Imagenes</label>
@@ -76,3 +76,9 @@
         <button class="checkout" routerLink="/login-comprador">¡Comprar!</button>
     </ng-template>
 </div>
+
+<ng-template #noHayProductos>
+    <div class="alert alert-info text-center">
+        No hay productos en la cesta de compra
+    </div>
+</ng-template>
