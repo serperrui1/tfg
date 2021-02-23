@@ -1,0 +1,28 @@
+<div class="col mb-4 animated fadeIn ">
+    <div class="row row-cols-1 row-cols-md-3">
+        <div class="col-md-1">
+            <img class="card-img-top img-hover-zoom" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+        </div>
+        <div class="col-md-4">
+            <div class="nombre">
+                <h5 class="card-title">{{producto.titulo}}</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text"> Compra realizada el : {{pedido.fechaCompra | date: 'M/d/yy'}}</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class=" nombre">
+                <h5 class="card-title">{{pedido.unidades}} unidades </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{pedido.precio }} €</p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button>Valorar el producto</button>
+            <button>Problema con el pedido</button>
+            <button>Devolver producto</button>
+        </div>
+    </div>
+</div>

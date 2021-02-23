@@ -39,6 +39,8 @@ import { LoginCompradorComponent } from './auth/login-comprador/login-comprador.
 import { CompraComponent } from './paginas/compra/compra.component';
 import { SpamComponent } from './paginas/spam/spam.component';
 import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
+import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component';
+import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
 
 
 
@@ -77,7 +79,9 @@ import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
     ChatComponent,
     ChatTarjetaComponent,
     SpamComponent,
-    EscaparateComponent
+    EscaparateComponent,
+    MisPedidosComponent,
+    PedidoTarjetaComponent
 
 
   ],
