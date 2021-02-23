@@ -22,6 +22,10 @@ import { CrearIncidenciaComponent } from './crear-incidencia/crear-incidencia.co
 import { CrearChatComponent } from './crear-chat/crear-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { SpamComponent } from './spam/spam.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { TerminosComponent } from './terminos/terminos.component';
+import { LegalComponent } from './legal/legal.component';
+import { ComercialComponent } from './comercial/comercial.component';
 
 const routes: Routes = [
     { 
@@ -48,6 +52,10 @@ const routes: Routes = [
             { path: 'incidencias', component: IncidenciasComponent},
             { path: 'mis-incidencias', component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
+            { path: 'sobre-nosotros', component: AboutUsComponent},
+            { path: 'terminos-registro', component: TerminosComponent},
+            { path: 'legal', component: LegalComponent},
+            { path: 'comercial', component: ComercialComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },
