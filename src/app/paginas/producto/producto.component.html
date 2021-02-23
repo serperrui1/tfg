@@ -71,5 +71,36 @@
             </tr>
         </table>
     </div>
+    <br>
+    <div class="col-md-6">
+        <div formArrayName="valoraciones">
+            <h4> Valoraciones </h4>
+
+            <table class="table table-bordered">
+                <tr *ngFor="let valoracion of producto.valoraciones">
+                    <td>{{valoracion.comentario}}</td>
+                    <td>{{valoracion.puntuacion}}</td>
+                    <td class="text-nowrap text-center">
+                        <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarValoracion(valoracion)">
+                            <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+            <div *ngFor="let item of valoracion.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                <div class="input-group" *ngIf="flag === true">
+                    <input type="text" class="form-control" id="comentario" formControlName="comentario">
+                    <input type="number" class="form-control" id="puntuacion" min="1" max="5" formControlName="puntuacion">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="valoracionForm.invalid" *ngIf="flag === true">
+        <i class="fa fa-save"></i>
+        Publicar valoración
+    </button>
     <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
 </div>

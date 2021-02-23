@@ -6,10 +6,15 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FormGroup ,FormControl} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
 import { Subscription } from 'rxjs';
+import { PedidosService } from '../../services/pedidos.service';
+import { Comprador } from '../../models/comprador';
+import { Pedido } from 'src/app/models/pedido';
+import { Valoracion } from 'src/app/models/valoracion';
+import Swal from 'sweetalert2';
 
 
 const base_url = environment.base_url;
@@ -23,8 +28,11 @@ const base_url = environment.base_url;
 export class ProductoComponent implements OnInit {
 
   public productoForm: FormGroup;
+  public valoracionForm: FormGroup;
   public producto: Producto;
   public proveedorId: string;
+  public misPedidos: Pedido[] = [];
+  public compradorId: string;
   public imagenSubir: File;
   public imgTemp: any = null;
   public proveedor:string;
@@ -35,6 +43,10 @@ export class ProductoComponent implements OnInit {
   public cantidades: number[] = [];
   public new: number;
   public contains:number = -1;
+  public comp: Comprador;
+  public token: string;
+  public usuario:string;
+  public flag: boolean = false;
 
   
 
@@ -44,7 +56,13 @@ export class ProductoComponent implements OnInit {
     private carritoService: CarritoService,
     private http: HttpClient,
     private usuarioService: UsuarioService,
-   ){}
+    private pedidosService: PedidosService,
+    private fb:FormBuilder,){
+
+     this.usuario =localStorage.getItem('usuario');
+     this.token =localStorage.getItem('token');
+
+  }
 
 
   async ngOnInit() {
@@ -72,14 +90,61 @@ export class ProductoComponent implements OnInit {
     localStorage.setItem('productoId',JSON.stringify(this.producto._id));
     localStorage.setItem('proveedorId',JSON.stringify(this.producto.proveedor));
     localStorage.setItem('proveedorNombre',JSON.stringify(this.proveedor));
-  }
 
+    this.comp = await this.usuarioService.getComprador();
+    if(this.comp != null){ //si el usuario viendo el producto es un comprador
+      this.misPedidos = await this.pedidosService.getMisPedidos();
+      this.compradorId = this.comp.uid;
+      for(let pedido of this.misPedidos){
+        if (pedido.producto === this.producto._id){
+          this.flag = true; // si yo he comprado este producto alguna vez
+          this.valoracionForm = this.fb.group({
+            valoracion: this.fb.array([this.fb.group({
+              comentario:[],
+              puntuacion: Number
+          })])
+          });
+        }
+      }
+    }
+}
 
   get cantidadProducto() {
      return this.productoForm.get('cantidadProducto').value; 
   }
-  
 
+  get valoracion() {
+    return this.valoracionForm.get('valoracion') as FormArray;
+  }
+  
+  borrarValoracion(valoracion:Valoracion) {
+    Swal.fire({
+        title: '¿Borrar esta valoración?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, borrarla'
+      }).then((result) => {
+        if (result.value) {
+  
+      const index = this.producto.valoraciones.indexOf(valoracion);
+      if (index > -1) {
+        this.producto.valoraciones.splice(index, 1);
+      }
+    }
+  })
+  }
+
+  publicarValoracion() {
+    let productoActualizar = this.valoracionForm.value;
+    productoActualizar.valoracionesAntiguas = this.producto.valoraciones;
+    this.productoService.actualizarProducto( productoActualizar, this.producto._id )
+    .subscribe( () => {
+      Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+    }, (err) => {
+      console.log(err)
+      Swal.fire('Error', err.error.msg, 'error');
+    });
+  }
 
   goEditIfProveedor() {
     this.router.navigate(['/actualizar-producto', this.id]);

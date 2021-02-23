@@ -1,4 +1,5 @@
 import { DatosTecnicos } from './datosTecnicos';
+import { Valoracion } from './valoracion';
 
 export class Producto {
     constructor(
@@ -10,6 +11,7 @@ export class Producto {
     public imagenes: string[],
     public precio: number,
     public datosTecnicos: DatosTecnicos[],
+    public valoraciones: Valoracion[],
     public proveedorNombre: string,
     public proveedor: string,
     public _id?: string,
