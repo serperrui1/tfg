@@ -24,6 +24,7 @@ import { ChatComponent } from './chat/chat.component';
 import { CompraComponent } from './compra/compra.component';
 import { SpamComponent } from './spam/spam.component';
 import { EscaparateComponent } from './escaparate/escaparate.component';
+import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
 
 const routes: Routes = [
     { 
@@ -52,6 +53,7 @@ const routes: Routes = [
             { path: 'mis-chats', component: MisChatsComponent},
             { path: 'compra', component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
+            { path: 'mis-pedidos', component: MisPedidosComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },
