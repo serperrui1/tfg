@@ -23,6 +23,10 @@ import { CrearChatComponent } from './crear-chat/crear-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { CompraComponent } from './compra/compra.component';
 import { SpamComponent } from './spam/spam.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { TerminosComponent } from './terminos/terminos.component';
+import { LegalComponent } from './legal/legal.component';
+import { ComercialComponent } from './comercial/comercial.component';
 import { EscaparateComponent } from './escaparate/escaparate.component';
 import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
 
@@ -51,6 +55,10 @@ const routes: Routes = [
             { path: 'incidencias', component: IncidenciasComponent},
             { path: 'mis-incidencias', component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
+            { path: 'sobre-nosotros', component: AboutUsComponent},
+            { path: 'terminos-registro', component: TerminosComponent},
+            { path: 'legal', component: LegalComponent},
+            { path: 'comercial', component: ComercialComponent},
             { path: 'compra', component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
             { path: 'mis-pedidos', component: MisPedidosComponent},
