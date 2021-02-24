@@ -1,0 +1,46 @@
+<div class="wrapper">
+    <h3>Datos para el envio</h3>
+    <h5>{{comprador.nombre }} {{comprador.apellidos}}</h5>
+    <h5>Dirección de envio</h5>
+    <p>
+        {{direccionEnvio}}
+        <!-- {{comprador.direccionResidencia }}, {{comprador.localidad}}, {{comprador.ciudad}}, {{comprador.paisResidencia}}, {{comprador.codigoPostal}} -->
+    </p>
+    <strong>Número de teléfono :</strong> {{comprador.numeroTelefono}} <br><br>
+
+
+    <form class="form-signin" autocomplete="off" [formGroup]="datosPedidoForm" id="loginform">
+
+        <label class="checkbox">
+            <br>
+            <input type="checkbox" [(ngModel)]="nuevoComprador" formControlName="nuevoComprador"> <strong > ¿Quieres enviar a otra dirección ? </strong>
+          </label>
+        <input type="nombre" class="form-control" placeholder="Nombre" formControlName="nombre" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="Apellidos" formControlName="apellidos" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="País de residencia" formControlName="paisResidencia" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="Ciudad" formControlName="ciudad" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="Localidad" formControlName="localidad" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="Código Postal" formControlName="codigoPostal" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="Direccion de residencia" formControlName="direccionResidencia" [hidden]="!nuevoComprador" />
+        <input type="text" class="form-control" placeholder="Número de teléfono" formControlName="numeroTelefono" [hidden]="!nuevoComprador" />
+        <label class="checkbox">
+      </label>
+
+
+    </form>
+    <br>
+
+
+    <h3>Resumen de compra</h3>
+    <div *ngFor="let producto of productos; let i=index">
+        {{producto.titulo}} : {{cantidades[i]}} unidades ==> {{producto.precio * cantidades[i]}}€
+    </div>
+
+    <br>
+    <!-- <button class="btn btn-lg btn-primary " (click)="comprar()">
+        Pagar
+    </button> -->
+
+    <div #paypal></div>
+
+</div>

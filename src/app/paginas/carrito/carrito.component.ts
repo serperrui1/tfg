@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { Producto } from '../../models/producto';
 import { environment } from 'src/environments/environment';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 const base_url = environment.base_url;
 
@@ -11,6 +12,7 @@ const base_url = environment.base_url;
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit{
+  public esComprador = false;
 
   public costeLinea: number;
   public cantidad: number;
@@ -31,7 +33,8 @@ export class CarritoComponent implements OnInit{
   cantidades = this.carritoService.getCantidades(); */
   
   
-  constructor(private carritoService: CarritoService) {
+  constructor(private carritoService: CarritoService,
+    private usuarioService: UsuarioService) {
     this.subtotal = 0;
     this.envio = 15;
 
@@ -40,6 +43,8 @@ export class CarritoComponent implements OnInit{
   async ngOnInit() {
 
     this.getEverything();
+
+    this.esComprador = (localStorage.getItem('usuario')==="comprador" && this.usuarioService.getComprador()!==null)
 
     /* for (let i = 0; i < this.items.length; i++) {
         this.cantidad = Number(this.cantidades[i]);

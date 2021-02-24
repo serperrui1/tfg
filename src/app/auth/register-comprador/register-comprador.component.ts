@@ -26,6 +26,7 @@ export class RegisterCompradorComponent {
     ciudad:['',[ Validators.required] ],
     localidad:['',[ Validators.required] ],
     direccionResidencia:['',[ Validators.required] ],
+    codigoPostal:['',[ Validators.required] ],
     terminos:['', Validators.required]
   },{
     validators: this.passwordsIguales('password', 'password2')

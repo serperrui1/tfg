@@ -1,0 +1,26 @@
+<div class="wrapper">
+    <form class="form-signin" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()" id="loginform">
+        <h2 class="form-signin-heading">Iniciar sesion</h2>
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" />
+        <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
+        <label class="checkbox">
+        <input type="checkbox" value="remember-me" id="rememberMe" formControlName="remember"> Recuerdame
+      </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar</button>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 mb-4 text-center" id="google-btn">
+
+                <div id="my-signin2"></div>
+
+            </div>
+        </div>
+
+        <div class="form-group m-b-0">
+            <div class="col-sm-12 text-center">
+                No tienes cuenta? <a routerLink="/register/comprador" class="text-primary m-l-5"><b>Regístrate</b></a>
+            </div>
+        </div>
+
+    </form>
+</div>

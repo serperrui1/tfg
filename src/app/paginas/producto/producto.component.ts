@@ -24,6 +24,7 @@ export class ProductoComponent implements OnInit {
 
   public productoForm: FormGroup;
   public producto: Producto;
+  public proveedorId: string;
   public imagenSubir: File;
   public imgTemp: any = null;
   public proveedor:string;
@@ -54,6 +55,8 @@ export class ProductoComponent implements OnInit {
 
     this.producto= await this.productoService.getProductoPorID(this.id);
 
+    this.proveedorId = this.producto.proveedor;
+
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
@@ -82,7 +85,45 @@ export class ProductoComponent implements OnInit {
     this.router.navigate(['/actualizar-producto', this.id]);
   };
 
+  comprar(producto){
+    this.cantidad = Number((document.getElementById("cantidad") as HTMLInputElement).value);
+    console.log((document.getElementById("cantidad") as HTMLInputElement).value);
 
+    this.items = this.carritoService.getCarrito();
+    this.cantidades = this.carritoService.getCantidades();
+    
+    if(this.items === null){ // producto nuevo en cesta vacía -> no se comprueba nada
+      this.carritoService.alCarrito(producto, this.cantidad);
+      window.alert('¡El producto se ha añadido al carrito!');
+      this.cantidades = this.carritoService.getCantidades();
+      location.reload();
+      
+    }
+
+    else if(this.items != null){
+       //hay algo en el carrito
+      for (let i = 0; i < this.items.length; i++) {
+        if((this.items[i]._id) === (this.producto._id)){
+          this.contains = i;
+        }
+      }
+
+      if(this.contains != -1){ //ya existe este producto en el carrito -> actualizamos su cantidad
+        this.new = this.cantidades[this.contains] + this.cantidad; //dame el valor viejo y el nuevo que quiero meter del mismo producto y los sumamos
+        this.cantidades.splice(this.contains, 1, this.new); //borramos su valor viejo y la actualizamos con la suma
+        localStorage.setItem('cantidades',JSON.stringify(this.cantidades));
+        window.alert('¡Ahora tienes '+ this.new +' artículos de este producto en el carrito!');
+        this.cantidades = this.carritoService.getCantidades();
+      }
+
+      else { //añade la cantidad del nuevo producto al carrito
+        this.carritoService.alCarrito(producto, this.cantidad);
+        window.alert('¡El producto se ha añadido al carrito!');
+        this.cantidades = this.carritoService.getCantidades();
+      }
+    this.router.navigateByUrl('/compra');
+    }
+  }
 
   alCarrito(producto) {
     this.cantidad = Number((document.getElementById("cantidad") as HTMLInputElement).value);

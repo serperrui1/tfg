@@ -70,6 +70,17 @@ export class ProductoService {
       })
   }
 
+  getProductosPorProveedorId(id:string):Promise<Producto[]>{
+    return new Promise<Producto[]>(
+      resolve => {
+        this.http.get(`${base_url}/productos/productos-de/${id}`,{
+        }).subscribe(data=>{
+          const productos = data["productos"];
+          resolve(productos);
+        });
+      })
+  }
+
   getBuscadorProductos(nombre:string):Promise<Producto[]>{
     return new Promise<Producto[]>(
       resolve => {

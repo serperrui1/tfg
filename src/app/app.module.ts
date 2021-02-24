@@ -35,14 +35,17 @@ import { MisChatsComponent } from './paginas/mis-chats/mis-chats.component';
 import { CrearChatComponent } from './paginas/crear-chat/crear-chat.component';
 import { ChatComponent } from './paginas/chat/chat.component';
 import { ChatTarjetaComponent } from './components/chat-tarjeta/chat-tarjeta.component';
+import { LoginCompradorComponent } from './auth/login-comprador/login-comprador.component';
+import { CompraComponent } from './paginas/compra/compra.component';
 import { SpamComponent } from './paginas/spam/spam.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LegalComponent } from './paginas/legal/legal.component';
 import { ComercialComponent } from './paginas/comercial/comercial.component';
 import { TerminosComponent } from './paginas/terminos/terminos.component';
 import { AboutUsComponent } from './paginas/about-us/about-us.component';
-/* import { SpamValidator } from './validator.component'; */
-
+import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
+import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component';
+import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
 
 
 
@@ -74,7 +77,21 @@ import { AboutUsComponent } from './paginas/about-us/about-us.component';
     CrearIncidenciaComponent,
     MisIncidenciasComponent, 
     BuscadorComponent, 
-    MisChatsComponent, CrearChatComponent, ChatComponent, ChatTarjetaComponent, SpamComponent, FooterComponent, LegalComponent, ComercialComponent, TerminosComponent, AboutUsComponent,
+    MisChatsComponent, 
+    CrearChatComponent, 
+    ChatComponent, 
+    ChatTarjetaComponent, 
+    SpamComponent, 
+    FooterComponent, 
+    LegalComponent, 
+    ComercialComponent, 
+    TerminosComponent, 
+    AboutUsComponent,
+    LoginCompradorComponent,
+    CompraComponent,
+    EscaparateComponent,
+    MisPedidosComponent,
+    PedidoTarjetaComponent
 
 
   ],

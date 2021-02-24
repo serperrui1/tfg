@@ -44,7 +44,7 @@
                     Añadir al carrito
                 </a>
                 <br>
-                <a class="btn btn-success boton-carrito">
+                <a class="btn btn-success boton-carrito" (click)="comprar(producto)">
                     Comprar
                 </a>
                 <br>
@@ -53,6 +53,10 @@
                 <br>
                 <a class="btn btn-success boton-carrito" routerLink="/crear-chat">
                     ¡Chatea con el proveedor!
+                </a>
+                <br>
+                <a class="btn btn-success boton-carrito" routerLink="/escaparate/{{proveedorId}}">
+                    Tienda del {{producto.proveedorNombre}}
                 </a>
             </div>
         </div>
