@@ -144,4 +144,24 @@ export class ProductoService {
 
   } */
 
+
+  
+  crearValoracion( data: FormData, pid:string) {
+
+    return this.http.put(`${ base_url }/productos/valoracion/${ pid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
+  borrarValoracion( data:any, pid:string) {
+
+    console.log(data);
+    return this.http.put(`${ base_url }/productos/borrar-valoracion/${ pid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
 }

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ import { Comprador } from '../../models/comprador';
 import { Pedido } from 'src/app/models/pedido';
 import { Valoracion } from 'src/app/models/valoracion';
 import Swal from 'sweetalert2';
+import { Proveedor } from 'src/app/models/proveedor';
 
 
 const base_url = environment.base_url;
@@ -47,7 +48,9 @@ export class ProductoComponent implements OnInit {
   public token: string;
   public usuario:string;
   public flag: boolean = false;
-
+  public prov:Proveedor;
+  public yaValorado = false;
+  public miValoracion :Valoracion;
   
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -66,14 +69,28 @@ export class ProductoComponent implements OnInit {
 
 
   async ngOnInit() {
-
+    if (this.usuario =="proveedor"){
+    this.prov = await this.usuarioService.getProveedor();
+  }
+  if (this.usuario =="comprador"){
+  this.comp = await this.usuarioService.getComprador();
+  }
     this.activatedRoute.params.subscribe( params => {
       this.id = params['id']; 
     });
 
     this.producto= await this.productoService.getProductoPorID(this.id);
+    for(let val of this.producto.valoraciones){
+      
+      if(val.comprador == this.comp.uid) {
+        this.miValoracion = val;
+        this.yaValorado= true      
+      }
+    };
+    
 
     this.proveedorId = this.producto.proveedor;
+          
 
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
@@ -91,18 +108,16 @@ export class ProductoComponent implements OnInit {
     localStorage.setItem('proveedorId',JSON.stringify(this.producto.proveedor));
     localStorage.setItem('proveedorNombre',JSON.stringify(this.proveedor));
 
-    this.comp = await this.usuarioService.getComprador();
+   
     if(this.comp != null){ //si el usuario viendo el producto es un comprador
       this.misPedidos = await this.pedidosService.getMisPedidos();
-      this.compradorId = this.comp.uid;
       for(let pedido of this.misPedidos){
         if (pedido.producto === this.producto._id){
           this.flag = true; // si yo he comprado este producto alguna vez
           this.valoracionForm = this.fb.group({
-            valoracion: this.fb.array([this.fb.group({
-              comentario:[],
-              puntuacion: Number
-          })])
+
+              comentario:[ ,[Validators.required]],
+              puntuacion: [ , [Validators.required]]
           });
         }
       }
@@ -113,9 +128,6 @@ export class ProductoComponent implements OnInit {
      return this.productoForm.get('cantidadProducto').value; 
   }
 
-  get valoracion() {
-    return this.valoracionForm.get('valoracion') as FormArray;
-  }
   
   borrarValoracion(valoracion:Valoracion) {
     Swal.fire({
@@ -125,19 +137,37 @@ export class ProductoComponent implements OnInit {
         confirmButtonText: 'Sí, borrarla'
       }).then((result) => {
         if (result.value) {
+          let index= -1
+         
+          for(let i =0; i<this.producto.valoraciones.length; i++){
+            if(this.producto.valoraciones[i].comprador == this.comp.uid){
+                index = i;
+              break;
+            }
+          }
   
-      const index = this.producto.valoraciones.indexOf(valoracion);
-      if (index > -1) {
-        this.producto.valoraciones.splice(index, 1);
+      if (index != -1) {
+        console.log(index);
+
+        let data = {
+          index
+        }
+        console.log(this.producto._id);
+        this.productoService.borrarValoracion(data,this.producto._id)    .subscribe( () => {
+          Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+        }, (err) => {
+          console.log(err)
+          Swal.fire('Error', err.error.msg, 'error');
+        });
+        
       }
     }
   })
   }
 
   publicarValoracion() {
-    let productoActualizar = this.valoracionForm.value;
-    productoActualizar.valoracionesAntiguas = this.producto.valoraciones;
-    this.productoService.actualizarProducto( productoActualizar, this.producto._id )
+    
+    this.productoService.crearValoracion( this.valoracionForm.value, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
     }, (err) => {
