@@ -119,6 +119,16 @@ export class UsuarioService {
 
   }
 
+  actualizarContrasenaComprador( data: any) {
+
+    return this.http.put(`${ base_url }/compradores/actualizar/contrasena`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+
+  }
+
   getComprador():Promise<Comprador>{
 
     return new Promise<Comprador> (resolve=> {

@@ -29,6 +29,8 @@ import { LegalComponent } from './legal/legal.component';
 import { ComercialComponent } from './comercial/comercial.component';
 import { EscaparateComponent } from './escaparate/escaparate.component';
 import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
+import { MiCuentaComponent} from './mi-cuenta/mi-cuenta.component'
+import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrasena.component'
 
 const routes: Routes = [
     { 
@@ -62,6 +64,8 @@ const routes: Routes = [
             { path: 'compra', component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
             { path: 'mis-pedidos', component: MisPedidosComponent},
+            { path: 'mi-cuenta', component: MiCuentaComponent},
+            { path: 'perfil/cambiar-contrasena', component: CambiarContrasenaComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },

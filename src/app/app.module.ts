@@ -46,6 +46,8 @@ import { AboutUsComponent } from './paginas/about-us/about-us.component';
 import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
 import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component';
 import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
+import { MiCuentaComponent } from './paginas/mi-cuenta/mi-cuenta.component';
+import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar-contrasena.component';
 
 
 
@@ -91,7 +93,9 @@ import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarje
     CompraComponent,
     EscaparateComponent,
     MisPedidosComponent,
-    PedidoTarjetaComponent
+    PedidoTarjetaComponent,
+    MiCuentaComponent,
+    CambiarContrasenaComponent
 
 
   ],

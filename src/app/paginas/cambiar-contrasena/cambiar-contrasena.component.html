@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <form class="form-signin" autocomplete="off" [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()" id="loginform">
+        <h2 class="form-signin-heading">Cambiar contraseña</h2>
+
+        <input type="password" class="form-control" placeholder="Contraseña actual" formControlName="password" />
+        <input type="password" class="form-control" placeholder="Nueva contraseña" formControlName="nuevaPassword" />
+        <input type="password" class="form-control" placeholder="Repite la nueva contraseña" formControlName="nuevaPassword2" />
+
+        <div class="row">
+            <div class="col text-danger">
+                <p *ngIf="contrasenasNoValidas()">*Las contraseñas deben ser iguales</p>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="contrasenaForm.invalid">Cambiar contraseña</button>
+
+    </form>
+</div>

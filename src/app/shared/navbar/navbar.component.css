@@ -19,3 +19,7 @@
     vertical-align: top;
     margin-left: -10px;
 }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

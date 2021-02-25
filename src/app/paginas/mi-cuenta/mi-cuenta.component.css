@@ -1,0 +1,21 @@
+.fila-cuenta {
+    margin: auto;
+    width: 80%;
+    padding-top: 2%;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.contenedor-card {
+    font-size: 12px;
+}
+
+.card-title {
+    font-size: 14px;
+}
+
+.card-body {
+    padding-bottom: 10px;
+}
