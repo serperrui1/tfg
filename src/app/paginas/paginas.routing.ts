@@ -32,6 +32,9 @@ import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
 import { MiCuentaComponent} from './mi-cuenta/mi-cuenta.component'
 import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrasena.component'
 
+//Guards
+import { AuthGuard } from '../guards/auth.guard';
+
 const routes: Routes = [
     { 
         path: '', 
@@ -64,7 +67,7 @@ const routes: Routes = [
             { path: 'compra', component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
             { path: 'mis-pedidos', component: MisPedidosComponent},
-            { path: 'mi-cuenta', component: MiCuentaComponent},
+            { path: 'mi-cuenta', canActivate: [AuthGuard] , component: MiCuentaComponent},
             { path: 'perfil/cambiar-contrasena', component: CambiarContrasenaComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
