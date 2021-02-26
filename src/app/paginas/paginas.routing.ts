@@ -34,6 +34,7 @@ import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrase
 
 //Guards
 import { AuthGuard } from '../guards/auth.guard';
+import { CompradorGuard } from '../guards/comprador.guard';
 
 const routes: Routes = [
     { 
@@ -43,7 +44,7 @@ const routes: Routes = [
             { path: '', component: HomeComponent},
             { path: 'home', component: HomeComponent},
             { path: 'producto/:id', component: ProductoComponent},
-            { path: 'mi-perfil', component: CompradorPerfilComponent},
+            { path: 'mi-perfil', canActivate: [AuthGuard] , component: CompradorPerfilComponent},
             { path: 'ser-comprador', component: SerCompradorComponent},
             { path: 'mis-productos', component: MisProductosComponent},
             { path: 'crear-producto', component: CrearProductoComponent},
@@ -55,18 +56,18 @@ const routes: Routes = [
             { path: 'spam', component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},
-            { path: 'incidencia/:id', component: IncidenciaComponent},
-            { path: 'chat/:id', component: ChatComponent},
-            { path: 'incidencias', component: IncidenciasComponent},
-            { path: 'mis-incidencias', component: MisIncidenciasComponent},
+            { path: 'incidencia/:id', canActivate: [AuthGuard] ,component: IncidenciaComponent},
+            { path: 'chat/:id', canActivate: [AuthGuard] ,component: ChatComponent},
+            { path: 'incidencias', canActivate: [AuthGuard] ,component: IncidenciasComponent},
+            { path: 'mis-incidencias',canActivate: [AuthGuard] , component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
             { path: 'sobre-nosotros', component: AboutUsComponent},
             { path: 'terminos-registro', component: TerminosComponent},
             { path: 'legal', component: LegalComponent},
             { path: 'comercial', component: ComercialComponent},
-            { path: 'compra', component: CompraComponent},
+            { path: 'compra', canActivate: [CompradorGuard], component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
-            { path: 'mis-pedidos', component: MisPedidosComponent},
+            { path: 'mis-pedidos',canActivate: [CompradorGuard], component: MisPedidosComponent},
             { path: 'mi-cuenta', canActivate: [AuthGuard] , component: MiCuentaComponent},
             { path: 'perfil/cambiar-contrasena', component: CambiarContrasenaComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},

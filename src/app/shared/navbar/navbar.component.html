@@ -13,7 +13,7 @@
                 <a class="nav-link" routerLink="/mis-productos">Mis Productos</a>
             </li>
 
-            <li class="nav-item dropdown  ">
+            <li class="nav-item dropdown  " *ngIf="aT || comp || prov">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Incidencia
                 </a>
@@ -36,7 +36,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown  ">
+                <li class="nav-item dropdown  " *ngIf="token">
                     <a class="nav-link dropdown-toggle" routerLink="mi-cuenta" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Mi cuenta
             </a>
