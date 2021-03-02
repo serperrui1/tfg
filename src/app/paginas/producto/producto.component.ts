@@ -28,12 +28,14 @@ const base_url = environment.base_url;
 })
 export class ProductoComponent implements OnInit {
 
+  starRating = 0; 
   public productoForm: FormGroup;
   public valoracionForm: FormGroup;
   public producto: Producto;
   public proveedorId: string;
   public misPedidos: Pedido[] = [];
   public compradorId: string;
+  public valoradoPor: string;
   public imagenSubir: File;
   public imgTemp: any = null;
   public proveedor:string;
@@ -42,7 +44,9 @@ export class ProductoComponent implements OnInit {
   public direccionImagen = base_url+"/upload/productos/"
   public items: Producto[] = [];
   public cantidades: number[] = [];
+  public nombres: string[] = [];
   public new: number;
+  public estrellas: number;
   public contains:number = -1;
   public comp: Comprador;
   public token: string;
@@ -70,18 +74,19 @@ export class ProductoComponent implements OnInit {
 
   async ngOnInit() {
     if (this.usuario =="proveedor"){
-    this.prov = await this.usuarioService.getProveedor();
-  }
-  if (this.usuario =="comprador"){
-  this.comp = await this.usuarioService.getComprador();
-  }
+      this.prov = await this.usuarioService.getProveedor();
+    }
+    if (this.usuario =="comprador"){
+      this.comp = await this.usuarioService.getComprador();
+    }
     this.activatedRoute.params.subscribe( params => {
       this.id = params['id']; 
     });
-
     this.producto= await this.productoService.getProductoPorID(this.id);
     for(let val of this.producto.valoraciones){
-      
+      this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
+      this.nombres.push(this.valoradoPor);
+      /* console.log(this.nombres); */
       if(val.comprador == this.comp.uid) {
         this.miValoracion = val;
         this.yaValorado= true      
@@ -117,7 +122,7 @@ export class ProductoComponent implements OnInit {
           this.valoracionForm = this.fb.group({
 
               comentario:[ ,[Validators.required]],
-              puntuacion: [ , [Validators.required]]
+              puntuacion: ["0" , [Validators.required]]
           });
         }
       }
@@ -165,11 +170,20 @@ export class ProductoComponent implements OnInit {
   })
   }
 
+  getRating(rating :number) {
+    this.estrellas = rating;      
+  } 
+
   publicarValoracion() {
-    
+    /* if(this.comp){
+      this.valoradoPor = this.valoracionForm.controls['comprador'].value;
+      console.log(this.valoradoPor);
+    } */
+    this.valoracionForm.controls['puntuacion'].setValue(this.estrellas);
     this.productoService.crearValoracion( this.valoracionForm.value, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+      
     }, (err) => {
       console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
