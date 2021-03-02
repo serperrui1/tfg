@@ -80,7 +80,6 @@ export class ActualizarProductoComponent implements OnInit {
     this.datosTecnicos.push(this.fb.group({
       datosTecnicosTitulo:['' ],
       datosTecnicosDescripcion:['']}));
-
   }
 
   deleteDatosTecnicos(index) {

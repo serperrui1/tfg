@@ -46,6 +46,7 @@ import { AboutUsComponent } from './paginas/about-us/about-us.component';
 import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
 import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component';
 import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -101,7 +102,8 @@ import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarje
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
 
   ],
   providers: [],

@@ -29,7 +29,6 @@
             <div>
                 <form [formGroup]="productoForm">
                     <label for="cantidad"><strong>Cantidad : </strong></label>
-                    <!-- <input type="number" value="{{producto.unidadesMinimas}}" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadForm"> -->
                     <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
 
                 </form>
@@ -58,6 +57,7 @@
                 <a class="btn btn-success boton-carrito" routerLink="/escaparate/{{proveedorId}}">
                     Tienda del {{producto.proveedorNombre}}
                 </a>
+
             </div>
         </div>
     </div>
@@ -71,5 +71,74 @@
             </tr>
         </table>
     </div>
-    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
+    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" *ngIf="prov" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6 titulo-valorar">
+
+            <h4 *ngIf="yaValorado"> Todas las valoraciones </h4>
+            <h4 *ngIf="!yaValorado"> Valoraciones </h4>
+
+
+            <div class="alert alert-success" *ngFor="let item of producto.valoraciones; let i = index">
+                <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
+                <p>Comentario:
+                    <br> "{{item.comentario}}"
+                </p>
+                <p>Publicado por:
+                    <br> {{this.nombres[i]}}
+                </p>
+            </div>
+
+        </div>
+
+        <div class="col-md-6" *ngIf="flag && !yaValorado">
+            <h5>Valorar el producto</h5>
+            <form class="form p-t-20" autocomplete="off" [formGroup]="valoracionForm">
+                <div class="form-group">
+                    <label for="comentario">Comentario</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                        <input type="text" class="form-control" id="comentario" formControlName="comentario">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="puntuacion">Puntuación</label>
+                    <div class="input-group">
+                        <ngb-rating [max]="5" [(rate)]="starRating" [resettable]="true" [readonly]="false" (hover)="isRating = true; hovered = $event" (leave)="isRating = false; hovered = 0" (rateChange)="getRating($event)"></ngb-rating>
+                        <br>👉 Si quiere puntuar con 0 estrellas, haga
+                        <br>click sobre la última estrella seleccionada
+                    </div>
+                </div>
+            </form>
+            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="valoracionForm.invalid" (click)="publicarValoracion()">
+            <i class="fa fa-save"></i>
+            Publicar valoración
+        </button>
+        </div>
+
+        <div class="col-md-6 titulo-valorar" *ngIf="yaValorado">
+            <h4> Mi valoración </h4>
+
+
+            <div class="alert alert-success">
+                <ngb-rating [max]="5" [(rate)]="miValoracion.puntuacion" [readonly]="true"></ngb-rating>
+                <p>Comentario:
+                    <br> "{{miValoracion.comentario}}"
+                </p>
+
+                <td class="text-nowrap text-center">
+                    <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarValoracion()">
+                        <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
+                    </a>
+                </td>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
 </div>

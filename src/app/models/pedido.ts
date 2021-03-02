@@ -10,6 +10,7 @@ export class Pedido {
         precio: number;
         numeroTelefono:number;        
         proveedor: string;
+        comprador: string;
         _id?: string;   
     
 }
