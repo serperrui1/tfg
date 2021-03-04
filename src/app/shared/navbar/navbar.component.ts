@@ -133,9 +133,7 @@ export class NavbarComponent implements OnInit{
   }
 
   async sumaNotiChat(){
-    console.log("suma");
     this.misChats = await (this.chatService.getMisChats());
-    console.log(this.misChats);
     for (let i = 0; i < this.misChats.length; i++) {
       this.chat = this.misChats[i];
       this.notiIndivChat = JSON.parse(localStorage.getItem(this.chat._id));//vemos si tiene notificaciones en localstorage
@@ -144,11 +142,9 @@ export class NavbarComponent implements OnInit{
       }
     }
     this.res1 = this.exch;
-    console.log("termina suma")
   }
 
   async noMiNotiChat(){
-    console.log("resta");
     this.comp = await this.usuarioService.getComprador();
     if(this.comp === null){
       this.prov = await this.usuarioService.getProveedor();

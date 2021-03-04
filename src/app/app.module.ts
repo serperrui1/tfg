@@ -48,6 +48,7 @@ import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component
 import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
 import { MiCuentaComponent } from './paginas/mi-cuenta/mi-cuenta.component';
 import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar-contrasena.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -105,7 +106,8 @@ import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
 
   ],
   providers: [],
