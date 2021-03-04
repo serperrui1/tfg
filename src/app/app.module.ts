@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
+import { perfilComponent } from './paginas/perfil/perfil.component';
 import { MisProductosComponent } from './paginas/mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './paginas/crear-producto/crear-producto.component';
 import { ActualizarProductoComponent } from './paginas/actualizar-producto/actualizar-producto.component';
@@ -46,6 +46,8 @@ import { AboutUsComponent } from './paginas/about-us/about-us.component';
 import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
 import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component';
 import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
+import { MiCuentaComponent } from './paginas/mi-cuenta/mi-cuenta.component';
+import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar-contrasena.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -64,7 +66,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     RegisterCompradorComponent,
     RegisterProveedorComponent,
-    CompradorPerfilComponent,
+    perfilComponent,
     MisProductosComponent,
     CrearProductoComponent,
     ActualizarProductoComponent,
@@ -92,7 +94,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CompraComponent,
     EscaparateComponent,
     MisPedidosComponent,
-    PedidoTarjetaComponent
+    PedidoTarjetaComponent,
+    MiCuentaComponent,
+    CambiarContrasenaComponent
 
 
   ],
