@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { PaginaComponent } from './pagina.component';
 import { HomeComponent } from './home/home.component';
 import { ProductoComponent } from './producto/producto.component';
-import { CompradorPerfilComponent } from './perfil/perfil.component';
+import { perfilComponent } from './perfil/perfil.component';
 import { MisProductosComponent } from './mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './crear-producto/crear-producto.component';
 import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component';
@@ -44,7 +44,7 @@ const routes: Routes = [
             { path: '', component: HomeComponent},
             { path: 'home', component: HomeComponent},
             { path: 'producto/:id', component: ProductoComponent},
-            { path: 'mi-perfil', canActivate: [AuthGuard] , component: CompradorPerfilComponent},
+            { path: 'mi-perfil', canActivate: [AuthGuard] , component: perfilComponent},
             { path: 'ser-comprador', component: SerCompradorComponent},
             { path: 'mis-productos', component: MisProductosComponent},
             { path: 'crear-producto', component: CrearProductoComponent},

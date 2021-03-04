@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mi-cuenta.component.css']
 })
 export class MiCuentaComponent implements OnInit {
+  comprador = localStorage.getItem("usuario") === "comprador"
 
   constructor() { }
 

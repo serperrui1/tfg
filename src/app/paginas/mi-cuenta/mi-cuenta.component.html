@@ -53,3 +53,40 @@
 
 
 </div>
+
+<div class="row fila-cuenta">
+    <div *ngIf="comprador" class="col-md-4 contenedor-card">
+        <div class="card border-1" routerLink="/mis-pedidos">
+            <div class="row ">
+                <div class="col-md-4">
+                    <img src="../../../assets/images/mis pedidos.png" class="card-img img-hover-zoom">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h3 class="card-title">Mis pedidos</h3>
+                    </div>
+                    <div>
+                        <p class="card-text">Lista de mis pedidos realizados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 contenedor-card">
+        <div class="card border-1" routerLink="/mis-incidencias">
+            <div class="row ">
+                <div class="col-md-4">
+                    <img src="../../../assets/images/incidencia icono.jpg" class="card-img img-hover-zoom">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h3 class="card-title">Mis incidencias</h3>
+                    </div>
+                    <div>
+                        <p class="card-text">Lista de mis incidencias</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

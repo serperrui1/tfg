@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginaComponent } from './paginas/pagina.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { CompradorPerfilComponent } from './paginas/perfil/perfil.component';
+import { perfilComponent } from './paginas/perfil/perfil.component';
 import { MisProductosComponent } from './paginas/mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './paginas/crear-producto/crear-producto.component';
 import { ActualizarProductoComponent } from './paginas/actualizar-producto/actualizar-producto.component';
@@ -65,7 +65,7 @@ import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar
     NavbarComponent,
     RegisterCompradorComponent,
     RegisterProveedorComponent,
-    CompradorPerfilComponent,
+    perfilComponent,
     MisProductosComponent,
     CrearProductoComponent,
     ActualizarProductoComponent,

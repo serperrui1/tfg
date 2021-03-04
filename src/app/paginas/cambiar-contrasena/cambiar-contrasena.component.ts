@@ -68,7 +68,7 @@ export class CambiarContrasenaComponent implements OnInit {
       return;
     }
 
-    this.usuarioService.actualizarContrasenaComprador(this.contrasenaForm.value).subscribe( resp => {
+    this.usuarioService.actualizarContrasena(this.contrasenaForm.value).subscribe( resp => {
       this.router.navigateByUrl('/');
       }, (err)=> {
         Swal.fire('Error', err.error.msg, 'error');
