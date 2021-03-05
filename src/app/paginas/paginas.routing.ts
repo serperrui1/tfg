@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { PaginaComponent } from './pagina.component';
 import { HomeComponent } from './home/home.component';
 import { ProductoComponent } from './producto/producto.component';
-import { CompradorPerfilComponent } from './perfil/perfil.component';
+import { perfilComponent } from './perfil/perfil.component';
 import { MisProductosComponent } from './mis-productos/mis-productos.component';
 import { CrearProductoComponent } from './crear-producto/crear-producto.component';
 import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component';
@@ -31,6 +31,12 @@ import { EscaparateComponent } from './escaparate/escaparate.component';
 import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
 import { GarantiaComponent } from './garantia/garantia.component';
 import { DevolucionReclamacionComponent } from './devolucion-reclamacion/devolucion-reclamacion.component';
+import { MiCuentaComponent} from './mi-cuenta/mi-cuenta.component'
+import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrasena.component'
+
+//Guards
+import { AuthGuard } from '../guards/auth.guard';
+import { CompradorGuard } from '../guards/comprador.guard';
 
 const routes: Routes = [
     { 
@@ -40,7 +46,7 @@ const routes: Routes = [
             { path: '', component: HomeComponent},
             { path: 'home', component: HomeComponent},
             { path: 'producto/:id', component: ProductoComponent},
-            { path: 'mi-perfil', component: CompradorPerfilComponent},
+            { path: 'mi-perfil', canActivate: [AuthGuard] , component: perfilComponent},
             { path: 'ser-comprador', component: SerCompradorComponent},
             { path: 'mis-productos', component: MisProductosComponent},
             { path: 'crear-producto', component: CrearProductoComponent},
@@ -54,18 +60,20 @@ const routes: Routes = [
             { path: 'spam', component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},
-            { path: 'incidencia/:id', component: IncidenciaComponent},
-            { path: 'chat/:id', component: ChatComponent},
-            { path: 'incidencias', component: IncidenciasComponent},
-            { path: 'mis-incidencias', component: MisIncidenciasComponent},
+            { path: 'incidencia/:id', canActivate: [AuthGuard] ,component: IncidenciaComponent},
+            { path: 'chat/:id', canActivate: [AuthGuard] ,component: ChatComponent},
+            { path: 'incidencias', canActivate: [AuthGuard] ,component: IncidenciasComponent},
+            { path: 'mis-incidencias',canActivate: [AuthGuard] , component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
             { path: 'sobre-nosotros', component: AboutUsComponent},
             { path: 'terminos-registro', component: TerminosComponent},
             { path: 'legal', component: LegalComponent},
             { path: 'comercial', component: ComercialComponent},
-            { path: 'compra', component: CompraComponent},
+            { path: 'compra', canActivate: [CompradorGuard], component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
-            { path: 'mis-pedidos', component: MisPedidosComponent},
+            { path: 'mis-pedidos',canActivate: [CompradorGuard], component: MisPedidosComponent},
+            { path: 'mi-cuenta', canActivate: [AuthGuard] , component: MiCuentaComponent},
+            { path: 'perfil/cambiar-contrasena', component: CambiarContrasenaComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },

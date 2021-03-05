@@ -119,6 +119,32 @@ export class UsuarioService {
 
   }
 
+  actualizarContrasena( data: any) {
+    let usuario = localStorage.getItem("usuario")
+    let usuarioUrl:string;
+    switch ( usuario ){
+      case "comprador":
+        usuarioUrl = "compradores";
+        break;
+      case "proveedor":
+        usuarioUrl = "proveedores";
+        break;
+      case "administrador":
+        usuarioUrl = "administradores";
+        break;
+      case "asistenteTecnico":
+        usuarioUrl = "asistentesTecnicos";
+        break;
+    }
+
+    return this.http.put(`${ base_url }/${ usuarioUrl }/actualizar/contrasena`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+
+  }
+
   getComprador():Promise<Comprador>{
 
     return new Promise<Comprador> (resolve=> {
@@ -155,7 +181,7 @@ export class UsuarioService {
 
   }
 
-  /* getAdministrador():Promise<Administrador>{
+  getAdministrador():Promise<Administrador>{
 
     return new Promise<Administrador> (resolve=> {
 
@@ -164,14 +190,12 @@ export class UsuarioService {
           'x-token': this.token
         }
       }).subscribe(data =>{
-        const comprador:Comprador = data["compradores"];
-        resolve(comprador);
+        const administrador:Administrador = data["administrador"];
+        resolve(administrador);
       });
     } )
-    
-    
+  }
 
-  } */
 
   actualizarProveedorPerfil( data: Proveedor , uid:string) {
 
@@ -254,6 +278,26 @@ export class UsuarioService {
         resolve(comprador);
       });
     } )
+  }
+
+
+  actualizarAsistenteTecnicoPerfil( data: AsistenteTecnico , uid:string) {
+
+    return this.http.put(`${ base_url }/asistentesTecnicos/${ uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
+
+  actualizarAdministradorPerfil( data: Administrador , uid:string) {
+
+    return this.http.put(`${ base_url }/administradores/${ uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
   }
 
 }
