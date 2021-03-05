@@ -1,12 +1,14 @@
-<div *ngIf="prov || comp">
+<div *ngIf="prov || comp || (prov && flag) || (comp && flag) ">
     <form class="form p-t-20" autocomplete="off" [formGroup]="chatForm" (submit)="actualizarChat()">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Chat room del producto </h4>
-                        <h5 class="card-subtitle" *ngIf="comp">Chatear con: {{chat.proveedorNombre}} con id: {{chat.proveedorId}}</h5>
-                        <h5 class="card-subtitle" *ngIf="prov">Chatear con: {{compradorNombre}} con id: {{chat.compradorId}}</h5>
+                        <h4 class="card-title" *ngIf="!flag">Chat room de producto {{producto._id}} </h4>
+                        <h4 class="card-title" *ngIf="flag">Devolución/reclamación de producto {{producto._id}} del pedido {{pedidoId}}</h4>
+                        <h5 class="card-subtitle" *ngIf="comp">Chateando con {{chat.proveedorNombre}} cuyo id: {{chat.proveedorId}}</h5>
+                        <h5 class="card-subtitle" *ngIf="prov && !flag">Chateando con {{compradorNombre}} cuyo id: {{chat.compradorId}}</h5>
+                        <h5 class="card-subtitle" *ngIf="prov && flag">Cliente: {{compradorNombre}} cuyo id: {{chat.compradorId}}</h5>
                         <div class="form-group">
                             <label for="fechaPublicacion">Fecha de publicación</label>
                             <div class="input-group">
@@ -25,9 +27,33 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 infoFinal">
+            <div class="col-md-2 infoFinal" *ngIf="!flag">
                 <div class="contenido-infoFinal">
                     <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)"></app-producto-tarjeta>
+
+                </div>
+            </div>
+            <div class="col mb-4 animated fadeIn" *ngIf="flag">
+                <div class="row row-cols-1 row-cols-md-3">
+                    <div class="col-md-2">
+                        <img class="card-img-top" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="nombre">
+                            <h5 class="card-title">{{producto.titulo}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"> Compra realizada el : {{unPedido.fechaCompra | date: 'M/d/yy'}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class=" nombre">
+                            <h5 class="card-title">{{unPedido.unidades}} unidades </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{unPedido.precio }} €</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="chatForm.invalid">
@@ -35,14 +61,19 @@
                     Enviar mensaje
             </button>
 
-            <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="borrarChat(chat)">
+            <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" *ngIf="!flag" (click)="borrarChat(chat)">
                 <i class="fa fa-save"></i>
                 Borrar chat
             </button>
 
+            <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" *ngIf="flag" (click)="borrarChat(chat)">
+                <i class="fa fa-save"></i>
+                Borrar solicitud
+            </button>
+
         </div>
     </form>
-    <div *ngFor="let mensaje of chat.mensajes">
+    <div *ngFor="let mensaje of todosMensajes">
         <p>
             {{mensaje}}
         </p>

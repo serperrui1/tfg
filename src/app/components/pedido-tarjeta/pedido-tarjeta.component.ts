@@ -16,6 +16,8 @@ export class PedidoTarjetaComponent implements OnInit {
 
   
   public producto: Producto;
+  public productoId: string = "";
+  public pedidoId: string = "";
   @Input() pedido: Pedido;
   public direccionImagen = base_url+"/upload/productos/"
   
@@ -27,6 +29,8 @@ export class PedidoTarjetaComponent implements OnInit {
 
   async ngOnInit() {
     this.producto= await this.productoService.getProductoPorID(this.pedido.producto);
+    this.productoId = this.producto._id;
+    this.pedidoId = this.pedido._id;
 
 
     

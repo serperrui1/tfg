@@ -49,6 +49,8 @@ import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarje
 import { MiCuentaComponent } from './paginas/mi-cuenta/mi-cuenta.component';
 import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar-contrasena.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GarantiaComponent } from './paginas/garantia/garantia.component';
+import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion/devolucion-reclamacion.component';
 
 
 
@@ -95,8 +97,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EscaparateComponent,
     MisPedidosComponent,
     PedidoTarjetaComponent,
+    garantiaDevolucionesReclamaciones
+    GarantiaComponent,
+    DevolucionReclamacionComponent
     MiCuentaComponent,
     CambiarContrasenaComponent
+
 
 
   ],

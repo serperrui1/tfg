@@ -1,0 +1,32 @@
+<div class="row" *ngIf="(usuario != 'administrador' && usuario != 'asistenteTecnico') || (usuario === null) || (token === null)">
+
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h4 class="alert-heading">Cargando</h4>
+                <i class="fa fa-spin fa-refresh fa-2x"></i>
+                <p class="mb-0">Por favor espere</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!cargando">
+        <div class="faq-header">¿Dudas sobre la garantía?
+
+            <div class="faq-content" *ngFor="let faq of grouped | keyvalue; let i = index">
+                <div id="{{faq.key}}">
+                    <!-- <h3>{{faq.key}}</h3> -->
+                    <div class="faq" *ngFor="let value of faq.value; let j = index">
+                        <div class="faq-question">
+                            <input id="{{i}}{{j}}" type="checkbox" class="panel">
+                            <div class="plus">+</div>
+                            <label for="{{i}}{{j}}" class="panel-title">{{ value.pregunta }}</label>
+                            <div class="panel-content">{{ value.respuesta }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div *ngIf="usuario === 'comprador' && producto && flag">
+
+    <form class="form p-t-20" autocomplete="off" [formGroup]="chatForm" (submit)="crearChat()">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Solicitar devolución/reclamación</h4>
+                        <h5 class="card-subtitle">Cliente: {{compradorNombre}}</h5>
+                        <h5 class="card-subtitle">Proveedor: {{proveedorNombre}}</h5>
+                        <h5 class="card-subtitle">Para el pedido: {{pedidoId}}</h5>
+                        <h5 class="card-subtitle">Del producto: {{productoId}}</h5>
+
+                        <div class="form-group">
+                            <label for="mensajes">Describe tu problema:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 infoFinal">
+                <div class="contenido-infoFinal">
+                    <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)"></app-producto-tarjeta>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="chatForm.invalid">
+                <i class="fa fa-save"></i>
+                Enviar solicitud
+            </button>
+        </div>
+    </form>
+</div>

@@ -20,9 +20,10 @@
             </div>
         </div>
         <div class="col-md-2">
-            <button>Valorar el producto</button>
-            <button>Problema con el pedido</button>
-            <button>Devolver producto</button>
+            <button routerLink="/producto/{{productoId}}">Valorar el producto</button>
+            <button>Seguimiento del pedido</button>
+            <button routerLink="/crear-chat/{{productoId}}">¿Alguna duda sobre el producto?</button>
+            <button routerLink="/devolver-reclamar/{{pedidoId}}">Solicitar devolución/reclamación</button>
         </div>
     </div>
 </div>

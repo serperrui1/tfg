@@ -45,4 +45,18 @@ export class PedidosService {
       })
   }
 
+  getPedidoPorID(id:string):Promise<Pedido>{
+    return new Promise<Pedido>(
+      resolve=> {
+        this.http.get(`${base_url}/pedidos/pedido/${id}`,{
+         headers: { 
+           'x-token': this.token
+         }
+        }).subscribe(data=>{
+          const pedido = data["pedido"];
+          resolve(pedido);
+        });
+     })
+   }
+
 }
