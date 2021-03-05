@@ -16,6 +16,8 @@ import { Pedido } from 'src/app/models/pedido';
 import { Valoracion } from 'src/app/models/valoracion';
 import Swal from 'sweetalert2';
 import { Proveedor } from 'src/app/models/proveedor';
+import { ChatService } from '../../services/chat.service';
+import { Chat } from '../../models/chat';
 
 
 const base_url = environment.base_url;
@@ -46,6 +48,7 @@ export class ProductoComponent implements OnInit {
   public items: Producto[] = [];
   public cantidades: number[] = [];
   public nombres: string[] = [];
+  /* public misChats: Chat[]; */
   public new: number;
   public estrellas: number;
   public contains:number = -1;
@@ -53,6 +56,7 @@ export class ProductoComponent implements OnInit {
   public token: string;
   public usuario:string;
   public flag: boolean = false;
+  /* public noValora: boolean = false; */
   public prov:Proveedor;
   public yaValorado = false;
   public miValoracion :Valoracion;
@@ -65,7 +69,8 @@ export class ProductoComponent implements OnInit {
     private http: HttpClient,
     private usuarioService: UsuarioService,
     private pedidosService: PedidosService,
-    private fb:FormBuilder,){
+    private fb:FormBuilder,
+    private chatService: ChatService){
 
      this.usuario =localStorage.getItem('usuario');
      this.token =localStorage.getItem('token');
@@ -129,11 +134,22 @@ export class ProductoComponent implements OnInit {
         }
       }
     }
-}
+
+    /* this.yaExisteDevolucion(); */
+  }
 
   get cantidadProducto() {
      return this.productoForm.get('cantidadProducto').value; 
   }
+
+  /* async yaExisteDevolucion(){
+    this.misChats = await this.chatService.getMisChats();
+    for(let chat of this.misChats){
+      if(chat.mensajes[0].includes(" - DEV/RCL: "+this.pedidoId)){ //es una devolución
+        this.noValora = true;
+      }
+    }
+  } */
 
   
   borrarValoracion(valoracion:Valoracion) {
