@@ -47,6 +47,8 @@ import { EscaparateComponent } from './paginas/escaparate/escaparate.component';
 import { MisPedidosComponent } from './paginas/mis-pedidos/mis-pedidos.component';
 import { PedidoTarjetaComponent } from './components/pedido-tarjeta/pedido-tarjeta.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GarantiaComponent } from './paginas/garantia/garantia.component';
+import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion/devolucion-reclamacion.component';
 
 
 
@@ -92,7 +94,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CompraComponent,
     EscaparateComponent,
     MisPedidosComponent,
-    PedidoTarjetaComponent
+    PedidoTarjetaComponent,
+    GarantiaComponent,
+    DevolucionReclamacionComponent
 
 
   ],

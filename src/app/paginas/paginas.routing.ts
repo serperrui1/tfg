@@ -29,6 +29,8 @@ import { LegalComponent } from './legal/legal.component';
 import { ComercialComponent } from './comercial/comercial.component';
 import { EscaparateComponent } from './escaparate/escaparate.component';
 import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
+import { GarantiaComponent } from './garantia/garantia.component';
+import { DevolucionReclamacionComponent } from './devolucion-reclamacion/devolucion-reclamacion.component';
 
 const routes: Routes = [
     { 
@@ -43,10 +45,12 @@ const routes: Routes = [
             { path: 'mis-productos', component: MisProductosComponent},
             { path: 'crear-producto', component: CrearProductoComponent},
             { path: 'crear-incidencia', component: CrearIncidenciaComponent},
-            { path: 'crear-chat', component: CrearChatComponent},
+            { path: 'crear-chat/:id', component: CrearChatComponent},
+            { path: 'devolver-reclamar/:id', component: DevolucionReclamacionComponent},
             { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
             { path: 'crear-faq', component: CrearFaqComponent},
             { path: 'faqs', component: FaqsComponent},
+            { path: 'garantia', component: GarantiaComponent},
             { path: 'spam', component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},

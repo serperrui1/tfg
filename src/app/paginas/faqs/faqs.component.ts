@@ -31,7 +31,6 @@ export class FaqsComponent implements OnInit {
     /* this.getFaqs(); */
     this.faqs = await (this.faqService.getFaqs());
     this.cargando = false;
-    console.log(this.faqs)
     this.grouped  = this.groupByTematica(this.faqs);
   }
 

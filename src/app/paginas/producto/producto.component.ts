@@ -33,6 +33,7 @@ export class ProductoComponent implements OnInit {
   public valoracionForm: FormGroup;
   public producto: Producto;
   public proveedorId: string;
+  public pedidoId: string;
   public misPedidos: Pedido[] = [];
   public compradorId: string;
   public valoradoPor: string;
@@ -119,6 +120,7 @@ export class ProductoComponent implements OnInit {
       for(let pedido of this.misPedidos){
         if (pedido.producto === this.producto._id){
           this.flag = true; // si yo he comprado este producto alguna vez
+          this.pedidoId = pedido._id;
           this.valoracionForm = this.fb.group({
 
               comentario:[ ,[Validators.required]],
