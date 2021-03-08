@@ -14,58 +14,55 @@
         </div>
         <div class="col-md-5 producto-derecha">
             <h3 style="text-align: center;">{{producto.titulo}}</h3>
-            <h6>{{producto.proveedorNombre}}</h6>
-            <p>
-                {{producto.descripcion}}
-            </p>
+            <a routerLink="/escaparate/{{proveedorId}}">{{producto.proveedorNombre}} </a> <br>
 
             <div>
-                <strong>Precio por unidad: {{producto.precio}}€  </strong>| Unidades mínimas: {{producto.unidadesMinimas}}
+                <p class="precio-unidades">Precio por unidad: {{producto.precio}}€ </p>
+                <p class="precio-unidades">Unidades mínimas: {{producto.unidadesMinimas}}</p>
 
                 <br>
 
             </div>
+            <p>
+                {{producto.descripcion}}
+            </p>
 
-            <div>
-                <form [formGroup]="productoForm">
-                    <label for="cantidad"><strong>Cantidad : </strong></label>
-                    <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
-
-                </form>
-            </div>
-            <div class="form-group m-b-0">
-                <div class="col-sm-12 text-left">
-                    <a routerLink="/garantia" class="text-primary m-l-5"><b>Garantía de productos</b></a>
-                </div>
-            </div>
 
 
         </div>
         <div class="col-md-2 infoFinal">
             <div class="contenido-infoFinal">
-                <strong>Precio actual : </strong> {{producto.precio * cantidadProducto}}€ con unidades {{cantidadProducto}}
-                <a class="btn btn-info boton-carrito" (click)="alCarrito(producto)">
+                <strong style="color:red">{{producto.precio * cantidadProducto}}€</strong> con {{cantidadProducto}} unidades
+                <div>
+                    <strong style="color: green;">En stock</strong>
+                    <form [formGroup]="productoForm">
+                        <label for="cantidad"><a>Cantidad : </a></label>
+                        <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
+
+                    </form>
+                </div>
+                <a class="botones" (click)="alCarrito(producto)">
                     Añadir al carrito
                 </a>
                 <br>
-                <a class="btn btn-success boton-carrito" (click)="comprar(producto)">
+                <a class="botones" (click)="comprar(producto)">
                     Comprar
                 </a>
-                <br>
+                <!-- <br>
                 <br> <strong>¿Quieres proponer una oferta?,</strong>
                 <br> <strong>¿tienes dudas sobre el producto?, ...</strong>
-                <br>
-                <a class="btn btn-success boton-carrito" routerLink="/crear-chat/{{producto._id}}">
-                    ¡Chatea con el proveedor!
+                <br> -->
+                <a class="botones" routerLink="/crear-chat/{{producto._id}}">
+                    Contacta con el proveedor
                 </a>
+                <div class="garantia">
+                    <a routerLink="/garantia" class="text-primary m-l-5"> Ver la garantía de los productos</a>
+                </div>
                 <br>
                 <a *ngIf="flag" class="btn btn-success boton-carrito" routerLink="/devolver-reclamar/{{pedidoId}}">
                     Solicitar devolución/reclamación
                 </a>
-                <br>
-                <a class="btn btn-success boton-carrito" routerLink="/escaparate/{{proveedorId}}">
-                    Tienda del {{producto.proveedorNombre}}
-                </a>
+
 
             </div>
         </div>
@@ -92,12 +89,9 @@
 
             <div class="alert alert-success" *ngFor="let item of producto.valoraciones; let i = index">
                 <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
-                <p>Comentario:
-                    <br> "{{item.comentario}}"
-                </p>
-                <p>Publicado por:
-                    <br> {{this.nombres[i]}}
-                </p>
+                <p>Publicado por: {{this.nombres[i]}}</p>
+                <p> {{item.comentario}}</p>
+
             </div>
 
         </div>

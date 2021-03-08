@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.productos = await (this.productoService.getProductos());
+
   }
 
   verProducto(id: number ){

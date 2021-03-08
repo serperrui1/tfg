@@ -97,9 +97,8 @@ import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion
     EscaparateComponent,
     MisPedidosComponent,
     PedidoTarjetaComponent,
-    garantiaDevolucionesReclamaciones
     GarantiaComponent,
-    DevolucionReclamacionComponent
+    DevolucionReclamacionComponent,
     MiCuentaComponent,
     CambiarContrasenaComponent
 

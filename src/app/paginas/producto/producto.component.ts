@@ -9,7 +9,6 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
-import { Subscription } from 'rxjs';
 import { PedidosService } from '../../services/pedidos.service';
 import { Comprador } from '../../models/comprador';
 import { Pedido } from 'src/app/models/pedido';
@@ -17,7 +16,6 @@ import { Valoracion } from 'src/app/models/valoracion';
 import Swal from 'sweetalert2';
 import { Proveedor } from 'src/app/models/proveedor';
 import { ChatService } from '../../services/chat.service';
-import { Chat } from '../../models/chat';
 
 
 const base_url = environment.base_url;
@@ -88,15 +86,19 @@ export class ProductoComponent implements OnInit {
     this.activatedRoute.params.subscribe( params => {
       this.id = params['id']; 
     });
-    this.producto= await this.productoService.getProductoPorID(this.id);
+    this.producto = await this.productoService.getProductoPorID(this.id);
+    console.log(this.producto)
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
       this.nombres.push(this.valoradoPor);
       /* console.log(this.nombres); */
-      if(val.comprador == this.comp.uid) {
+      if(this.comp){
+        if(val.comprador == this.comp.uid) {
         this.miValoracion = val;
         this.yaValorado= true      
       }
+    }
+      
     };
     
 
