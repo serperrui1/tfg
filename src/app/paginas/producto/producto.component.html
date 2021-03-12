@@ -1,14 +1,15 @@
 <!-- <app-navbar [cuant]=(cantidades)></app-navbar> -->
-<div class="wrapper" *ngIf="producto">
+<div class="wrapper w-75" style="margin: auto; padding-top: 20px;" *ngIf="producto">
 
     <div class="row">
         <div class="col-md-3 producto-izquierda">
+            <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
+            <div class="row">
+                <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
 
-            <div *ngFor="let imagen of producto.imagenes">
-
-                <img src="{{direccionImagen + imagen}}" width="100%">
+                    <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                </div>
             </div>
-
 
 
         </div>
@@ -23,31 +24,50 @@
                 <br>
 
             </div>
-            <p>
+            <p style="white-space: pre-wrap">
                 {{producto.descripcion}}
             </p>
+            <br>
+            <div class="detalles-tecnicos" *ngIf="producto.datosTecnicos[0]">
+                <h4 class="titulo-detalles">Detalles técnicos</h4>
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr *ngFor="let datos of producto.datosTecnicos">
+                            <td>{{datos.datosTecnicosTitulo}}</td>
+                            <td>{{datos.datosTecnicosDescripcion}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
 
         </div>
         <div class="col-md-2 infoFinal">
             <div class="contenido-infoFinal">
-                <strong style="color:red">{{producto.precio * cantidadProducto}}€</strong> con {{cantidadProducto}} unidades
-                <div>
-                    <strong style="color: green;">En stock</strong>
-                    <form [formGroup]="productoForm">
-                        <label for="cantidad"><a>Cantidad : </a></label>
-                        <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
+                <div *ngIf="!(producto.unidadesMinimas >= producto.stock); else noStock">
+                    <strong style="color:red">{{producto.precio * cantidadProducto}}€</strong> con {{cantidadProducto}} unidades
+                    <div>
+                        <strong style="color: green;">En stock</strong>
+                        <form [formGroup]="productoForm">
+                            <label for="cantidad"><a>Cantidad : </a></label>
+                            <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
 
-                    </form>
-                </div>
-                <a class="botones" (click)="alCarrito(producto)">
+                        </form>
+                    </div>
+                    <a class="botones" (click)="alCarrito(producto)">
                     Añadir al carrito
                 </a>
-                <br>
-                <a class="botones" (click)="comprar(producto)">
+                    <br>
+                    <a class="botones" (click)="comprar(producto)">
                     Comprar
                 </a>
+                </div>
+                <ng-template #noStock>
+                    <strong style="color: red; ">No hay stock</strong>
+                    <br><br>
+                </ng-template>
+
                 <!-- <br>
                 <br> <strong>¿Quieres proponer una oferta?,</strong>
                 <br> <strong>¿tienes dudas sobre el producto?, ...</strong>
@@ -59,7 +79,7 @@
                     <a routerLink="/garantia" class="text-primary m-l-5"> Ver la garantía de los productos</a>
                 </div>
                 <br>
-                <a *ngIf="flag" class="btn btn-success boton-carrito" routerLink="/devolver-reclamar/{{pedidoId}}">
+                <a *ngIf="flag" class="botones" routerLink="/devolver-reclamar/{{pedidoId}}">
                     Solicitar devolución/reclamación
                 </a>
 
@@ -68,15 +88,17 @@
         </div>
     </div>
     <br>
-    <div class="col-md-3 producto-izquierda">
+    <!-- <div class="col-md-3 producto-izquierda" *ngIf="producto.datosTecnicos[0]">
         <h4>Detalles técnicos</h4>
-        <table class="table table-bordered">
-            <tr *ngFor="let datos of producto.datosTecnicos">
-                <td>{{datos.datosTecnicosTitulo}}</td>
-                <td>{{datos.datosTecnicosDescripcion}}</td>
-            </tr>
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr *ngFor="let datos of producto.datosTecnicos">
+                    <td>{{datos.datosTecnicosTitulo}}</td>
+                    <td>{{datos.datosTecnicosDescripcion}}</td>
+                </tr>
+            </tbody>
         </table>
-    </div>
+    </div> -->
     <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" *ngIf="prov" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
     <br>
 
@@ -84,10 +106,10 @@
         <div class="col-md-6 titulo-valorar">
 
             <h4 *ngIf="yaValorado"> Todas las valoraciones </h4>
-            <h4 *ngIf="!yaValorado"> Valoraciones </h4>
+            <h4 *ngIf="!yaValorado && producto.valoraciones.length>0"> Valoraciones </h4>
 
 
-            <div class="alert alert-success" *ngFor="let item of producto.valoraciones; let i = index">
+            <div class="alert" *ngFor="let item of producto.valoraciones; let i = index">
                 <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
                 <p>Publicado por: {{this.nombres[i]}}</p>
                 <p> {{item.comentario}}</p>
@@ -100,20 +122,19 @@
             <h5>Valorar el producto</h5>
             <form class="form p-t-20" autocomplete="off" [formGroup]="valoracionForm">
                 <div class="form-group">
+                    <div class="input-group">
+                        <ngb-rating [max]="5" [(rate)]="starRating" [resettable]="true" [readonly]="false" (hover)="isRating = true; hovered = $event" (leave)="isRating = false; hovered = 0" (rateChange)="getRating($event)"></ngb-rating>
+
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="comentario">Comentario</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="ti-user"></i></div>
                         <input type="text" class="form-control" id="comentario" formControlName="comentario">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="puntuacion">Puntuación</label>
-                    <div class="input-group">
-                        <ngb-rating [max]="5" [(rate)]="starRating" [resettable]="true" [readonly]="false" (hover)="isRating = true; hovered = $event" (leave)="isRating = false; hovered = 0" (rateChange)="getRating($event)"></ngb-rating>
-                        <br>👉 Si quiere puntuar con 0 estrellas, haga
-                        <br>click sobre la última estrella seleccionada
-                    </div>
-                </div>
+
             </form>
             <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="valoracionForm.invalid" (click)="publicarValoracion()">
             <i class="fa fa-save"></i>
@@ -125,7 +146,7 @@
             <h4> Mi valoración </h4>
 
 
-            <div class="alert alert-success">
+            <div class="alert">
                 <ngb-rating [max]="5" [(rate)]="miValoracion.puntuacion" [readonly]="true"></ngb-rating>
                 <p>Comentario:
                     <br> "{{miValoracion.comentario}}"

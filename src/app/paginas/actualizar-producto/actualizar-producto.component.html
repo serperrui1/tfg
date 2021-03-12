@@ -21,8 +21,8 @@
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion">
+                                <textarea class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion"></textarea>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -73,12 +73,12 @@
                             <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
                         </div>
 
-                        <input type="file" class="form-control" (change)="cambiarImagen($event.target.files[0])">
+                        <input type="file" class="form-control" multiple (change)="multiplesImagenes($event.target.files)">
 
                         <br>
                         <br>
 
-                        <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="!imagenSubir" (click)="subirImagen()">
+                        <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="!imagenesSubir" (click)="subirImagenes()">
                             <i class="fa fa-save"></i>
                             Cambiar foto
                         </button>

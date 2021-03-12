@@ -58,7 +58,7 @@ export class ProductoComponent implements OnInit {
   public prov:Proveedor;
   public yaValorado = false;
   public miValoracion :Valoracion;
-  
+  public imagenMostrar :string;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -87,7 +87,9 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
+    this.producto.descripcion = this.producto.descripcion.replace(/(?:\r\n|\r|\n)/g, '\n');
     console.log(this.producto)
+    this.imagenMostrar = this.producto.imagenes[0];
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
       this.nombres.push(this.valoradoPor);

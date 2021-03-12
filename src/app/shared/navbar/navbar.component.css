@@ -23,3 +23,20 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.navbar-nav {
+    width: 45%;
+}
+
+.nav-item {
+    margin-left: 10px;
+}
+
+.navbar {
+    background-color: rgb(138, 138, 138);
+}
+
+.boton-search {
+    width: 10%;
+    margin-left: 10px;
+}

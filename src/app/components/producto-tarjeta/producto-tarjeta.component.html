@@ -1,8 +1,15 @@
 <div class="col mb-4 animated fadeIn " (click)="verProducto()">
-    <div class="card h-100">
-        <img class="card-img-top img-hover-zoom" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+    <div class="card h-100 ">
+        <div class="container">
+
+            <img class="card-img-top img-hover-zoom" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+        </div>
         <div class="card-body nombre">
             <h5 class="card-title">{{producto.titulo}}</h5>
+            <div>
+                <strong>{{producto.precio}}€ </strong>({{producto.unidadesMinimas}} unidades mínimas) <br>
+                <ngb-rating [max]="5" [(rate)]="mediaEstrellas" [readonly]="true"></ngb-rating> ({{producto.valoraciones.length}} valoraciones)
+            </div>
         </div>
     </div>
 </div>

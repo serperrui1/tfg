@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
         </ul>
         <form class="form-signin form-inline" style="width: 100%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
             <input type="text" class="form-control " formControlName="producto" style="width: 70%;" />
-            <button class="btn btn-outline-white " style="width: 10%;" type="submit">Search</button>
+            <button class="btn btn-outline-light boton-search" type="submit">Buscar</button>
         </form>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -62,18 +62,18 @@
     </div>
     <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token">
         <span class="badge badge-pill red" *ngIf="res1 !=0">{{res1}}</span>
-        <i class="fas fa-comments" routerLink="/mis-chats"></i>
+        <i class="fas fa-comments" style="color: white;" routerLink="/mis-chats"></i>
     </ul>
     <ul *ngIf="usuario != 'administrador' && token">
         <span class="badge badge-pill red" *ngIf="res2 !=0">{{res2}}</span>
-        <i class="fas fa-exclamation-triangle" routerLink="/mis-incidencias"></i>
+        <i class="fas fa-exclamation-triangle " style="color: white;" routerLink="/mis-incidencias"></i>
     </ul>
     <ul>
         <!-- <i class="fa" style="font-size:24px">&#xf07a;</i>
         <span class='badge badge-warning' id='lblCartCount'> {{res}} </span> -->
         <a routerLink="/mi-carrito" class="nav-link navbar-link-2 waves-effect">
-            <span class="badge badge-pill red">{{ res }}</span>
-            <i class="fas fa-shopping-cart pl-0"></i>
+            <span class="badge badge-pill red" style="color: white;">{{ res }}</span>
+            <i class="fas fa-shopping-cart pl-0" style="color: white;"> </i>
         </a>
     </ul>
 

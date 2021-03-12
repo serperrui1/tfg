@@ -20,6 +20,8 @@ export class ProductoTarjetaComponent implements OnInit{
   @Input() producto: Producto
   public direccionImagen = base_url+"/upload/productos/"
   @Output() productoSeleccionado: EventEmitter<string>;
+  mediaEstrellas= 0;
+  numeroValoraciones = 0;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
@@ -39,6 +41,9 @@ export class ProductoTarjetaComponent implements OnInit{
   async ngOnInit() {
     //this.producto= await this.productoService.getProductoPorID(this.id);
 
+    for(let valoracion of this.producto.valoraciones){
+      this.mediaEstrellas = this.mediaEstrellas + valoracion.puntuacion;
+    }
 
     
   }

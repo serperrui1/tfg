@@ -4,7 +4,8 @@
     
     .infoFinal {
         border: 1px solid rgb(207, 207, 207);
-        border-radius: 1%
+        border-radius: 1%;
+        max-height: 600px;
     }
     
     .contenido-infoFinal {
@@ -46,14 +47,14 @@
         text-decoration: none;
         font-family: 'Roboto', sans-serif;
         font-weight: 300;
-        color: #FFFFFF;
-        background-color: #4eb5f1;
+        color: #000000;
+        background-color: rgb(235, 235, 235);
         text-align: center;
         transition: all 0.2s;
     }
     
     a.botones:hover {
-        background-color: #4095c6;
+        background-color: #afe2ff;
     }
     
     @media all and (max-width:30em) {
@@ -61,4 +62,36 @@
             display: block;
             margin: 0.2em auto;
         }
+    }
+    
+    .imagen {
+        max-height: 300px;
+        max-width: 300px;
+        object-fit: contain;
+    }
+    
+    .alert {
+        background-color: rgb(235, 235, 235);
+    }
+    
+    .imagen-miniatura {
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+    
+    .imagenes-container {
+        max-height: 100px;
+        max-width: 100px;
+        margin-top: 10px;
+        border-radius: 1px;
+    }
+    
+    .detalles-tecnicos {
+        padding-right: 20px;
+    }
+    
+    .titulo-detalles {
+        text-align: center;
     }

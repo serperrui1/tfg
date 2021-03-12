@@ -10,10 +10,10 @@ export class Producto {
     public stock: number,
     public imagenes: string[],
     public precio: number,
-    public datosTecnicos: DatosTecnicos[],
     public valoraciones: Valoracion[],
     public proveedorNombre: string,
     public proveedor: string,
+    public datosTecnicos?: DatosTecnicos[],
     public _id?: string,
     public subcategoria?: string,
     ){}
