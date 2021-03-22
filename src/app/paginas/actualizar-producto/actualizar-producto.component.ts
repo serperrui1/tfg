@@ -9,6 +9,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { FileUploadService } from '../../services/file-upload.service';
+import { SubirImagenService } from 'src/app/services/subir-imagen.service';
 
 
 const base_url = environment.base_url;
@@ -30,13 +31,15 @@ export class ActualizarProductoComponent implements OnInit {
   public token: string;
   public usuario:string;
   public direccionImagen = base_url+"/upload/productos/"
+  public imagenesSubir: File[];
 
   constructor(private activatedRoute: ActivatedRoute,
     private fb:FormBuilder,
     private productoService: ProductoService,
     private fileUploadService: FileUploadService,
     private http: HttpClient,
-    private usuarioService: UsuarioService){
+    private usuarioService: UsuarioService,
+    private subirImagenService: SubirImagenService){
 
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
@@ -132,17 +135,16 @@ export class ActualizarProductoComponent implements OnInit {
     }
   }
 
-  async subirImagen() {
+  async subirImagenes() {
     if(this.usuario === "proveedor"){
-      this.fileUploadService
-      .actualizarFoto( this.imagenSubir, 'productos', this.producto._id)
-      .then( img => {
-        this.producto.imagenes = img;
-        Swal.fire('Guardado', 'Foto de producto actualizada', 'success');
+      for(let imagen of this.imagenesSubir)
+      this.subirImagenService.postearImagen(imagen, 'productos', this.producto._id)
+      .then( () => {
+        Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
       }).catch( err => {
         console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      })
+      });
     }
   }
 
@@ -169,7 +171,21 @@ export class ActualizarProductoComponent implements OnInit {
 
   }
 
+  multiplesImagenes(files: File[]){
 
+    this.imagenesSubir = files;
+    
+    for(let file of files){
+      if ( !file ) { 
+        return this.imgTemp = null;
+      }  
+    const reader = new FileReader();
+    reader.readAsDataURL( file );
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+    }
+    }
+  }
 
 
 }
