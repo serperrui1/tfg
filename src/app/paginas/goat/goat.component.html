@@ -1,0 +1,17 @@
+<div class="neon">
+    <span class="text" data-text="G.O.A.T">G.O.A.T</span>
+    <span class="gradient"></span>
+    <span class="spotlight"></span>
+</div>
+<div class="w-75 centrado">
+    <div class="row row-cols-1 row-cols-md-3">
+        <app-producto-tarjeta *ngIf="bestValued.length > 0" [producto]="primero" (productoSeleccionado)="verProducto($event)"></app-producto-tarjeta>
+        <app-producto-tarjeta *ngIf="bestValued.length > 1" [producto]="segundo" (productoSeleccionado)="verProducto($event)"></app-producto-tarjeta>
+        <app-producto-tarjeta *ngIf="bestValued.length > 2" [producto]="tercero" (productoSeleccionado)="verProducto($event)"></app-producto-tarjeta>
+    </div>
+</div>
+<ol class="podium">
+    <li>1º</li>
+    <li>2º</li>
+    <li>3º</li>
+</ol>

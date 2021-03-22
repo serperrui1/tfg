@@ -37,6 +37,7 @@ import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrase
 //Guards
 import { AuthGuard } from '../guards/auth.guard';
 import { CompradorGuard } from '../guards/comprador.guard';
+import { GOATComponent } from './goat/goat.component';
 
 const routes: Routes = [
     { 
@@ -55,6 +56,7 @@ const routes: Routes = [
             { path: 'devolver-reclamar/:id', component: DevolucionReclamacionComponent},
             { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
             { path: 'crear-faq', component: CrearFaqComponent},
+            { path: 'GOAT', component: GOATComponent},
             { path: 'faqs', component: FaqsComponent},
             { path: 'garantia', component: GarantiaComponent},
             { path: 'spam', component: SpamComponent},

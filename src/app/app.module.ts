@@ -51,6 +51,7 @@ import { CambiarContrasenaComponent } from './paginas/cambiar-contrasena/cambiar
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GarantiaComponent } from './paginas/garantia/garantia.component';
 import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion/devolucion-reclamacion.component';
+import { GOATComponent } from './paginas/goat/goat.component';
 
 
 
@@ -100,7 +101,8 @@ import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion
     GarantiaComponent,
     DevolucionReclamacionComponent,
     MiCuentaComponent,
-    CambiarContrasenaComponent
+    CambiarContrasenaComponent,
+    GOATComponent
 
 
 
