@@ -17,33 +17,26 @@ export class ChatTarjetaComponent implements OnInit {
   @Output() chatSeleccionado: EventEmitter<string>;
   public comp: Comprador;
   public prov: Proveedor;
-  public ultimoMensaje:string;
-  public res:number = 0;
+  public notificacion: boolean = false;
 
-  constructor(private chatService: ChatService,
-    private usuarioService: UsuarioService) {
+  constructor(private usuarioService: UsuarioService) {
     this.chatSeleccionado = new EventEmitter();
-   }
+  }
 
   async ngOnInit() {
     this.chat = this.data;
+
     this.comp = await this.usuarioService.getComprador();
     if(this.comp === null){
       this.prov = await this.usuarioService.getProveedor();
     }
-    
-    if(this.comp){
-      this.ultimoMensaje = this.chat.mensajes[this.chat.mensajes.length-1];
-      if(this.ultimoMensaje.indexOf(this.comp.nombre) != 0){
-        this.res = JSON.parse(localStorage.getItem(this.chat._id));
-      }
+
+    if(this.comp && this.chat.ultimoEmisor != this.comp.uid && !this.chat.leido){
+      this.notificacion = true;
     }
 
-    if(this.prov){
-      this.ultimoMensaje = this.chat.mensajes[this.chat.mensajes.length-1];
-      if(this.ultimoMensaje.indexOf(this.prov.nombreEmpresa) != 0){
-        this.res = JSON.parse(localStorage.getItem(this.chat._id));
-      }
+    if(this.prov && this.chat.ultimoEmisor != this.prov.uid && !this.chat.leido){
+      this.notificacion = true;
     }
   }
 

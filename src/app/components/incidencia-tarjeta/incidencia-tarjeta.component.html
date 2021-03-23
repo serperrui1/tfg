@@ -4,10 +4,8 @@
         <h6 class="card-subtitle">{{incidencia.fechaPublicacion}}</h6>
         <h6 class="card-subtitle">{{incidencia.tematica}}</h6>
         <h6 class="card-subtitle">{{incidencia.asignado}}</h6>
-
-        <ul *ngIf="res != 0">
-            <span class="badge badge-pill red">{{res}}</span>
-            <i class="fas fa-exclamation-triangle"></i>
+        <ul *ngIf="notificacion">
+            <i class="fas fa-exclamation-triangle" style="color: rgb(243, 207, 0);"></i>
         </ul>
     </div>
 </div>

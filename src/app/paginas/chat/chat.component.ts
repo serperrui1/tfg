@@ -51,14 +51,13 @@ export class ChatComponent implements OnInit {
     private router: Router) {
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
-     }
+  }
 
   async ngOnInit() {
 
     this.activatedRoute.params.subscribe( params => {
       this.chatId = params['id']; 
     });
-    
     //Para diferenciar si es un chat o una devolución/reclamación-----
     this.chat = await this.chatService.getChatPorID(this.chatId);
     for(let mensaje of this.chat.mensajes){
@@ -69,24 +68,15 @@ export class ChatComponent implements OnInit {
       }
     }
     //----------------------------------------------------------------
-
     this.producto = await this.productoService.getProductoPorID(this.chat.productoId);
-
     this.compradorNombre = await this.usuarioService.getCompradorNombre(this.chat.compradorId);
-
     this.comp = await this.usuarioService.getComprador();
         if(this.comp === null){
           this.prov = await this.usuarioService.getProveedor();
         }
-
-    /* if(this.prov){
-      this.lastMessage = this.chat.mensajes[this.chat.mensajes.length-1];
-      if(this.lastMessage.includes(this.solicitud)){
-      }
-    } */
     
     if (this.token != null && (this.usuario === "comprador" && this.comp != null)){
-      this.autor = this.comp.nombre + ": ";
+      this.autor = this.comp.nombre.trim() + ": ";
       this.chatForm = this.fb.group({
         compradorId: [ this.chat.compradorId ],
         proveedorId: [ this.chat.proveedorId ],
@@ -96,7 +86,7 @@ export class ChatComponent implements OnInit {
         mensajes: ['', Validators.required ],
         fechaPublicacion: [ this.chat.fechaPublicacion ]
       });
-      this.borradoNotificacion();
+      this.chat = await this.chatService.chatLeido(this.chatId);
     }
 
     if (this.token != null && (this.usuario === "proveedor" && this.prov != null)){
@@ -110,10 +100,9 @@ export class ChatComponent implements OnInit {
         mensajes: ['', Validators.required ],
         fechaPublicacion: [ this.chat.fechaPublicacion ]
       });
-      this.borradoNotificacion();
+      this.chat = await this.chatService.chatLeido(this.chatId);
     }
-
-    //No mostrar que es una devolución en el primer mensaje------------------------
+    //No mostrar que es una devolución en el primer mensaje--------------------
     this.todosMensajes = this.chat.mensajes;
     this.firstMessage = this.chat.mensajes[0];
     if(this.firstMessage.includes(" - DEV/RCL: "+this.unPedido._id)){
@@ -130,11 +119,6 @@ export class ChatComponent implements OnInit {
   actualizarChat() {
       this.message = this.chatForm.controls['mensajes'].value;
       this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
-      //--------------------------------------------------------------------------------
-      this.cont = JSON.parse(localStorage.getItem(this.chat._id));
-      this.cont = this.cont + 1;
-      localStorage.setItem(this.chat._id, JSON.stringify(this.cont));
-      //--------------------------------------------------------------------------------
       this.chatService.actualizarChat( this.chatForm.value, this.chat._id )
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
@@ -142,26 +126,6 @@ export class ChatComponent implements OnInit {
         console.log(err)
         Swal.fire('Error', err.error.msg, 'error');
       });
-  }
-
-  borradoNotificacion(){
-    
-    if(this.comp){
-      this.lastMessage = this.chat.mensajes[this.chat.mensajes.length-1];
-      if((this.lastMessage.indexOf(this.comp.nombre) != 0) && (JSON.parse(localStorage.getItem(this.chat._id)) != 0)){
-        localStorage.setItem(this.chat._id, JSON.stringify(0));
-        location.reload();
-      }
-    }
-
-    if(this.prov){
-      this.lastMessage = this.chat.mensajes[this.chat.mensajes.length-1];
-      if((this.lastMessage.indexOf(this.prov.nombreEmpresa) != 0) && (JSON.parse(localStorage.getItem(this.chat._id)) != 0)){
-        localStorage.setItem(this.chat._id, JSON.stringify(0));
-        location.reload();
-      }
-    }
-
   }
 
   borrarChat( chat: Chat ) {
