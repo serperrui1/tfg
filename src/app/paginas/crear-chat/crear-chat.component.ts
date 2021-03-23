@@ -50,7 +50,7 @@ export class CrearChatComponent implements OnInit {
       this.proveedorId = JSON.parse(localStorage.getItem('proveedorId'));
       this.productoId = JSON.parse(localStorage.getItem('productoId'));
       this.producto = await this.productoService.getProductoPorID(this.productoId);
-      this.autor = this.compradorNombre + ": ";
+      this.autor = this.compradorNombre.trim() + ": ";
 
 
       this.chatForm = this.fb.group({
@@ -82,8 +82,6 @@ export class CrearChatComponent implements OnInit {
     console.log(this.chatForm.value);
 
     const chatId = await this.chatService.crearChat(this.chatForm.value);
-    localStorage.setItem(chatId, JSON.stringify(1));
-    /* location.reload(); */
     if (chatId){
       Swal.fire('Guardado', 'Chat creado', 'success');
     }else{

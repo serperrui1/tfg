@@ -17,20 +17,15 @@ export class IncidenciaTarjetaComponent implements OnInit {
   public incidencia: Incidencia;
   @Input() data: Incidencia;
   @Output() incidenciaSeleccionada: EventEmitter<string>;
-  public res:number = 0;
-  public token: string;
-  public usuario:string;
-  public ultimoMensaje:string;
   public aT: AsistenteTecnico;
   public comp: Comprador;
   public prov: Proveedor;
+  public notificacion: boolean = false;
 
   constructor(private incidenciaService: IncidenciaService,
     private usuarioService: UsuarioService) {
-    this.incidenciaSeleccionada = new EventEmitter();
-    this.usuario =localStorage.getItem('usuario');
-    this.token =localStorage.getItem('token');
-   }
+      this.incidenciaSeleccionada = new EventEmitter();
+  }
   
   async ngOnInit() {
     this.incidencia = this.data;
@@ -42,33 +37,18 @@ export class IncidenciaTarjetaComponent implements OnInit {
         this.prov = await this.usuarioService.getProveedor();
       }
     }
-    
-    if(this.comp){
-      this.ultimoMensaje = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
-      if(this.ultimoMensaje.indexOf(this.comp.nombre) != 0){ //si el último mensaje de la incidencia no contiene mi nombre en la posición 0
-        this.res = JSON.parse(localStorage.getItem(this.incidencia._id)); //significa que me ha escrito el asistente
-        //por tanto me muestro el número almacenado en localstorage para esta incidencia
-      }
+
+    if(this.comp && this.incidencia.ultimoEmisor != this.comp.uid && !this.incidencia.leida){
+      this.notificacion = true;
     }
 
-    if(this.prov){
-      this.ultimoMensaje = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
-      if(this.ultimoMensaje.indexOf(this.prov.nombreEmpresa) != 0){ //si el último mensaje de la incidencia no contiene mi nombre en la posición 0
-        this.res = JSON.parse(localStorage.getItem(this.incidencia._id)); //significa que me ha escrito el asistente
-        //por tanto me muestro el número almacenado en localstorage para esta incidencia
-      }
+    if(this.prov && this.incidencia.ultimoEmisor != this.prov.uid && !this.incidencia.leida){
+      this.notificacion = true;
     }
 
-    if(this.aT && (this.incidencia.asistenteId === this.aT.uid)){
-      this.ultimoMensaje = this.incidencia.mensajes[this.incidencia.mensajes.length-1];
-      if(this.ultimoMensaje.indexOf(this.aT.nombre) != 0){ //si el último mensaje de la incidencia no contiene mi nombre en la posición 0
-        this.res = JSON.parse(localStorage.getItem(this.incidencia._id)); //significa que me ha escrito el dueño de la incidencia
-        //por tanto me muestro el número almacenado en localstorage para esta incidencia
-      }
+    if(this.aT && this.incidencia.ultimoEmisor != this.aT.uid && !this.incidencia.leida && this.incidencia.asistenteId === this.aT.uid){
+      this.notificacion = true;
     }
-
-    //si no se cumple alguna de esas condiciones no se me muestra nada, pues el último mensaje de esta incidencia es mío.
-
   }
 
   verIncidencia(){

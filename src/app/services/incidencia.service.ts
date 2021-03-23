@@ -49,7 +49,6 @@ export class IncidenciaService {
       })
   }
 
-
   getMisIncidencias():Promise<Incidencia[]>{
     return new Promise<Incidencia[]>(
       resolve => {
@@ -78,60 +77,35 @@ export class IncidenciaService {
       })
   }
 
-  /* getProductos() {
-    const url = `${ base_url }/productos/`;
-    return this.http.get( url, this.headers )
-              .pipe(
-                map( (resp: {ok: boolean, productos: Producto[] }) => resp.productos )
-              );
-  } */
-
-  
-
   actualizarIncidencia( data: Incidencia , id:string) {
-
-    return this.http.put(`${ base_url }/incidencias/${ id }`, data, {
+    return this.http.put(`${ base_url }/incidencias/actualizar/${ id }`, data, {
       headers: {
         'x-token': this.token
       }
     });
   }
 
-
-  /* borrarProducto( _id: string ) {
-    const url = `${ base_url }/productos/mis-productos/${ _id }`;
-    return this.http.delete( url, this.headers );
-  } */
+  incidenciaLeida(id:string):Promise<Incidencia>{
+    return new Promise<Incidencia>(
+      resolve=> {
+        this.http.put(`${base_url}/incidencias/leida/${id}`,{},{
+         headers: { 
+           'x-token': this.token
+         }
+        }).subscribe(data=>{
+          const incidencia = data["incidencia"];
+          resolve(incidencia);
+        });
+      })
+  }
 
   borrarIncidencia( _id: string ) {
     const url = `${ base_url }/incidencias/${ _id }`;
     return this.http.delete( url, this.headers );
   }
 
-  
-
-
-  /* crearIncidencia( formData: CrearIncidenciaComponent):Promise<string>{
-
-    return new Promise<string> (resolve=> {
-
-      this.http.post(`${ base_url }/incidencias/`, formData, this.headers )
-      .subscribe(data =>{
-        const incidenciaId:string= data["incidencia"]["_id"];
-        console.log(incidenciaId);
-        resolve(incidenciaId);
-      });
-    } )
-  } */
-
   crearIncidencia( formData: CrearIncidenciaComponent) {
     return this.http.post(`${ base_url }/incidencias/`, formData, this.headers );
   }
-
-  /* crearProducto( formData: CrearProductoComponent) {
-
-    return this.http.post(`${ base_url }/productos`, formData, this.headers );
-
-  } */
 
 }

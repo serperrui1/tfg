@@ -9,6 +9,8 @@ export class Incidencia {
     public resuelto?: boolean,
     public _id?: string,
     public asistenteId?: string,
+    public leida?: boolean,
+    public ultimoEmisor?: string,
     public mensajes?: string[]
     ){}
 }

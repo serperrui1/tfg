@@ -63,23 +63,31 @@ export class ChatService {
 
 
   actualizarChat( data: Chat , id:string) {
-    return this.http.put(`${ base_url }/chats/${ id }`, data, {
+    return this.http.put(`${ base_url }/chats/actualizar/${ id }`, data, {
       headers: {
         'x-token': this.token
       }
     });
   }
 
-
+  chatLeido(id:string):Promise<Chat>{
+    return new Promise<Chat>(
+      resolve=> {
+        this.http.put(`${base_url}/chats/leido/${id}`,{},{
+         headers: { 
+           'x-token': this.token
+         }
+        }).subscribe(data=>{
+          const chat = data["chat"];
+          resolve(chat);
+        });
+     })
+   }
+  
   borrarChat( _id: string ) {
     const url = `${ base_url }/chats/${ _id }`;
     return this.http.delete( url, this.headers );
   }
-
-
-  /* crearChat( formData: CrearChatComponent) {
-    return this.http.post(`${ base_url }/chats/`, formData, this.headers );
-  } */
 
   crearChat( formData: CrearChatComponent):Promise<string>{
 
