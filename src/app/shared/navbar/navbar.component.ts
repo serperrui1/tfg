@@ -10,6 +10,7 @@ import { Comprador } from '../../models/comprador';
 import { Proveedor } from '../../models/proveedor';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from 'src/app/models/chat';
+import { Administrador } from '../../models/administrador';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit{
   public usuario:string;
   public token: string;
   public aT: AsistenteTecnico;
+  public admin: Administrador;
   public comp: Comprador;
   public prov: Proveedor;
   
@@ -51,6 +53,7 @@ export class NavbarComponent implements OnInit{
   })
   
   async ngOnInit() {
+    this.admin = await this.usuarioService.getAdministrador();
     this.notifica();
     await this.hayChatsSinLeer();
     await this.hayIncidenciasSinLeer();
