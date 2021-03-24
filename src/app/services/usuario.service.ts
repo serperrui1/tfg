@@ -11,6 +11,7 @@ import { Comprador } from '../models/comprador';
 import { Proveedor } from '../models/proveedor';
 import { Administrador } from '../models/administrador';
 import { AsistenteTecnico } from '../models/asistente';
+import { RegisterAsistenteTecnicoComponent } from '../auth/register-asistente-tecnico/register-asistente-tecnico.component';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -70,6 +71,22 @@ export class UsuarioService {
            )
 
   }
+
+  crearAsistenteTecnico( formData: RegisterAsistenteTecnicoComponent) {
+    return this.http.post(`${ base_url }/administradores`, formData ,{
+      headers: { 
+        'x-token': this.token
+      }
+    })
+          .pipe(
+            tap( (resp: any) => {
+              localStorage.setItem('token', resp.token );
+              localStorage.setItem('usuario', "asistenteTecnico" );
+            })
+           )
+
+  }
+
   crearProveedor( formData: RegisterProveedorComponent) {
     
     return this.http.post(`${ base_url }/proveedores`, formData )
