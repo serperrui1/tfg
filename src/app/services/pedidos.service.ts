@@ -45,6 +45,34 @@ export class PedidosService {
       })
   }
 
+  getMisPedidosProveedor():Promise<Pedido[]>{
+    return new Promise<Pedido[]>(
+      resolve => {
+        this.http.get(`${base_url}/pedidos/mis-pedidos-proveedor`,{
+          headers: { 
+            'x-token': this.token
+          }
+        }).subscribe(data=>{
+          const pedidos = data["pedidos"];
+          resolve(pedidos);
+        });
+      })
+  }
+
+  getPedidos():Promise<Pedido[]>{
+    return new Promise<Pedido[]>(
+      resolve => {
+        this.http.get(`${base_url}/pedidos/todos`,{
+          headers: { 
+            'x-token': this.token
+          }
+        }).subscribe(data=>{
+          const pedidos = data["pedidos"];
+          resolve(pedidos);
+        });
+      })
+  }
+
   getPedidoPorID(id:string):Promise<Pedido>{
     return new Promise<Pedido>(
       resolve=> {

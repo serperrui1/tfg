@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -53,6 +54,7 @@ import { GarantiaComponent } from './paginas/garantia/garantia.component';
 import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion/devolucion-reclamacion.component';
 import { GOATComponent } from './paginas/goat/goat.component';
 import { RegisterAsistenteTecnicoComponent } from './auth/register-asistente-tecnico/register-asistente-tecnico.component';
+import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 
 
 
@@ -104,7 +106,8 @@ import { RegisterAsistenteTecnicoComponent } from './auth/register-asistente-tec
     MiCuentaComponent,
     CambiarContrasenaComponent,
     GOATComponent,
-    RegisterAsistenteTecnicoComponent
+    RegisterAsistenteTecnicoComponent,
+    DashboardComponent
 
 
 
@@ -116,7 +119,8 @@ import { RegisterAsistenteTecnicoComponent } from './auth/register-asistente-tec
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    MDBBootstrapModule.forRoot(),
 
   ],
   providers: [],

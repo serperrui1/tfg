@@ -38,6 +38,7 @@ import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrase
 import { AuthGuard } from '../guards/auth.guard';
 import { CompradorGuard } from '../guards/comprador.guard';
 import { GOATComponent } from './goat/goat.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
     { 
@@ -70,6 +71,7 @@ const routes: Routes = [
             { path: 'sobre-nosotros', component: AboutUsComponent},
             { path: 'terminos-registro', component: TerminosComponent},
             { path: 'legal', component: LegalComponent},
+            { path: 'dashboard', component: DashboardComponent},
             { path: 'comercial', component: ComercialComponent},
             { path: 'compra', canActivate: [CompradorGuard], component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},

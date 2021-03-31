@@ -1,0 +1,26 @@
+<div *ngIf="administrador">
+    <table border='1'>
+        <tr>
+            <th (click)='sortColumn("precio")' ng-class='sortClass("precio")'>Precio</th>
+            <th (click)='sortColumn("unidades")' ng-class='sortClass("unidades")'>Unidades</th>
+        </tr>
+        <!-- <tr ng-repeat="let pedido in todosPedidos | orderBy:column:reverse"> -->
+        <tr *ngFor="let pedido of sortBy('column')">
+            <td width='20%' align='center'>{{pedido.precio}}</td>
+            <td width='35%' align='center'>{{pedido.unidades}}</td>
+        </tr>
+    </table>
+</div>
+
+<div style="display: block" *ngIf="administrador">
+    <h5 class="card-title">Compradores y Proveedores registrados este año</h5>
+    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+    </canvas>
+</div>
+<br>
+<div style="display: block">
+    <h5 class="card-title" *ngIf="administrador">Pedidos realizados este año</h5>
+    <h5 class="card-title" *ngIf="proveedor">Pedidos que me han realizado este año</h5>
+    <canvas mdbChart [chartType]="chartTypeB" [datasets]="chartDatasetsB" [labels]="chartLabels" [colors]="chartColorsB" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+    </canvas>
+</div>
