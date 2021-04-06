@@ -1,5 +1,60 @@
-<div class="w-75 centrado">
-    <div class="row row-cols-1 row-cols-md-3 ">
-        <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productos "></app-producto-tarjeta>
+<div class="row">
+    <div class="col-md-3 filtro">
+        <form class="form-signin my-3 mx-3 " autocomplete="off" [formGroup]="filtro" id="buscadorform">
+
+            <h5>Categoria</h5>
+            <select class="form-control form-control-sm" id="categoria" formControlName="categoria" (change)="buscar()">
+                <option value="" selected="selected" >Seleccione una categoría</option> 
+                <option value="categoria1" >Categoria</option>
+            </select><br>
+            <h5>Subcategoria</h5>
+            <select class="form-control form-control-sm" id="subcategoria" formControlName="subcategoria" (change)="buscar()">
+                <option value="" selected="selected">Seleccione una subcategoría</option> 
+                <option value="" >subcategoria1</option> 
+            </select><br>
+            <h5>Precio Mínimo</h5>
+            <div class="row ">
+                <div class="input-group col-md-5">
+                    <input type="number" class="form-control precio" id="precioMinimo" placeholder="0" min="0" formControlName="precioMinimo">
+                </div>
+                <a class="botones col-md-2" (click)="buscar()">✔</a><br>
+            </div>
+            <h5>Precio Máximo</h5>
+            <div class="row ">
+                <div class="input-group col-md-5 ">
+                    <input type="number" class="form-control precio" id="precioMaximo" max="10000000" placeholder="1000" formControlName="precioMaximo">
+
+                </div>
+                <div class="col-mb-2"> </div>
+                <a class="botones col-md-2" (click)="buscar()">✔</a><br>
+            </div>
+            <h5>Estrellas</h5>
+            <select class="form-control form-control-sm" id="categoria" formControlName="valoraciones" (change)="buscar()">
+                <option value=0 selected="selected">0</option> 
+                <option value=1 >★</option>
+                <option value=2 >★★</option>
+                <option value=3 >★★★</option>
+                <option value=4 >★★★★</option>
+                <option value=5 >★★★★★</option>
+            </select><br>
+
+        </form>
     </div>
+    <div class="col-md-9  centrado">
+        <div class="row">
+            <form [formGroup]="orden" id="buscadorform" class="orden">
+                <select formControlName="orden" (change)="ordenar()">
+                    <option value="masValorados" selected="selected" >Más valorados</option> 
+                    <option value="precioAscendente" >Precio(de más bajo a más alto)</option>
+                    <option value="precioDescendente" >Precio(de más alto a más bajo)</option>
+                </select>
+            </form>
+        </div>
+        <div class="">
+            <div class="row row-cols-1 row-cols-md-3 ">
+                <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productos "></app-producto-tarjeta>
+            </div>
+        </div>
+    </div>
+
 </div>

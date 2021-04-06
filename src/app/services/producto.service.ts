@@ -81,10 +81,11 @@ export class ProductoService {
       })
   }
 
-  getBuscadorProductos(nombre:string):Promise<Producto[]>{
+  getBuscadorProductos(data:any):Promise<Producto[]>{
+    console.log(data);
     return new Promise<Producto[]>(
       resolve => {
-        this.http.get(`${base_url}/productos/buscador/${nombre}`,{
+        this.http.post(`${base_url}/productos/buscador/`,data,{
         }).subscribe(data=>{
           const productos = data["productos"];
           resolve(productos);
