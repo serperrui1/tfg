@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Administrador } from '../../models/administrador';
 import { Proveedor } from '../../models/proveedor';
 import { UsuarioService } from '../../services/usuario.service';
@@ -7,7 +7,10 @@ import { PedidosService } from '../../services/pedidos.service';
 import { Producto } from '../../models/producto';
 import { Pedido } from 'src/app/models/pedido';
 import { Comprador } from '../../models/comprador';
-import Chart from 'chart.js' 
+import {Sort} from '@angular/material/sort';
+import { ProductoConVenta } from 'src/app/models/productoConVenta.interface';
+declare var $: any;
+
 
 @Component({
   selector: 'app-dashboard',
@@ -18,9 +21,21 @@ export class DashboardComponent implements OnInit {
 
   public administrador: Administrador;
   public proveedor: Proveedor;
+  public compName: string;
+  public provName: string;
+  public producto: Producto;
+  public productoId: string;
+  public productoId2: string;
+  public productoTitulo: string;
   public todosProductos: Producto[] = [];
   public misProductos: Producto[] = [];
   public pedidos: Pedido[] = [];
+  public todosPedidos: Pedido[] = [];
+  public sortedData: Pedido[];
+  public sortedData2: Producto[];
+  public datosTablaProductos: Producto[] = [];
+  public sortedData3: ProductoConVenta[] = [];
+  public data3: ProductoConVenta[] = [];
   public pedidosProveedor: Pedido[] = [];
   public column = 'precio';
   public reverse = false;
@@ -34,6 +49,8 @@ export class DashboardComponent implements OnInit {
   public Julio: Pedido[] = [];
   public Agosto: Pedido[] = [];
   public Septiembre: Pedido[] = [];
+  public colProd: Producto[];
+  public colVent: number[];
   public Octubre: Pedido[] = [];
   public Noviembre: Pedido[] = [];
   public Diciembre: Pedido[] = [];
@@ -68,8 +85,6 @@ export class DashboardComponent implements OnInit {
   public chartTypeB: string = 'bar';
   public chartDatasets: Array<any> = [{ data: [] }, { data: [] }];
   public chartDatasetsB: Array<any> = [{ data: [] }];
-  /* public chartDatasets: any[] = [{ data: [] }, { data: [] }]; */
-  /* public chartDatasets: any[] = [{ data: [] }]; */
   public chartLabels: Array<any> = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   public chartColors: Array<any> = [
@@ -99,11 +114,50 @@ export class DashboardComponent implements OnInit {
   constructor(private usuarioService: UsuarioService,
     private productoService: ProductoService,
     private pedidoService: PedidosService
-    ) { }
+    ) {
+      /* this.sortedData = this.todosPedidos.slice();
+      this.sortedData2 = this.todosProductos.slice(); */
+    }
 
   async ngOnInit(){
     this.administrador = await this.usuarioService.getAdministrador();
     this.proveedor = await this.usuarioService.getProveedor();
+    
+    if(this.administrador){
+      this.todosPedidos = await this.pedidoService.getPedidos();
+      this.todosProductos = await this.productoService.getProductos();
+      this.datosTablaProductos = this.todosProductos.slice();
+      for(let producto of this.datosTablaProductos){
+        let data1: ProductoConVenta = new ProductoConVenta(null, null);
+        let numVentas = 0;
+        for(let pedido of this.todosPedidos){
+          if(pedido.producto == producto._id){
+            numVentas = numVentas + 1;
+          }
+        }
+        data1.producto = producto;
+        data1.ventas = numVentas;
+        this.data3.push(data1);
+      } 
+    }
+
+    if(this.proveedor){
+      this.pedidosProveedor = await this.pedidoService.getMisPedidosProveedor();
+      this.misProductos = await this.productoService.getMisProductos();
+      this.datosTablaProductos = this.misProductos.slice();
+      for(let producto of this.datosTablaProductos){
+        let data1: ProductoConVenta = new ProductoConVenta(null, null);
+        let numVentas = 0;
+        for(let pedido of this.pedidosProveedor){
+          if(pedido.producto == producto._id){
+            numVentas = numVentas + 1;
+          }
+        }
+        data1.producto = producto;
+        data1.ventas = numVentas;
+        this.data3.push(data1);
+      } 
+    }
     
     if(this.administrador || this.proveedor){
       if(this.administrador){
@@ -182,18 +236,18 @@ export class DashboardComponent implements OnInit {
           { data: [this.EneroC.length, this.FebreroC.length, this.MarzoC.length,
              this.AbrilC.length, this.MayoC.length, this.JunioC.length, this.JulioC.length,
             this.AgostoC.length, this.SeptiembreC.length, this.OctubreC.length, this.NoviembreC.length, this.DiciembreC.length
-          ], label: 'Compradores registrados este año' },
+          ], label: 'Compradores' },
           { data: [this.EneroP.length, this.FebreroP.length, this.MarzoP.length,
             this.AbrilP.length, this.MayoP.length, this.JunioP.length, this.JulioP.length,
            this.AgostoP.length, this.SeptiembreP.length, this.OctubreP.length, this.NoviembreP.length, this.DiciembreP.length
-         ], label: 'Proveedores registrados este año' }
+         ], label: 'Proveedores' }
         ];
         
 
       }
 
       else if(this.proveedor){
-        this.pedidosProveedor = await this.pedidoService.getMisPedidosProveedor();
+        this.sortedData = this.pedidosProveedor.slice(); 
         for(let pedido of this.pedidosProveedor){
           this.pedidos.push(pedido);
         }
@@ -236,7 +290,7 @@ export class DashboardComponent implements OnInit {
         { data: [this.Enero.length, this.Febrero.length, this.Marzo.length,
            this.Abril.length, this.Mayo.length, this.Junio.length, this.Julio.length,
           this.Agosto.length, this.Septiembre.length, this.Octubre.length, this.Noviembre.length, this.Diciembre.length
-        ], label: 'Pedidos realizados este año' }
+        ], label: 'Pedidos' }
       ];
     }
   }
@@ -244,36 +298,75 @@ export class DashboardComponent implements OnInit {
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
 
+  async sortData(sort: Sort) {
 
-  
-
-  sortColumn(col:string){
-    this.column = col;
-    if(this.reverse){
-      this.reverse = false;
-      this.reverseclass = 'arrow-up';
-    }else{
-      this.reverse = true;
-      this.reverseclass = 'arrow-down';
-     }
-  }
-
-  sortClass(col:string){
-    if(this.column == col ){
-     if(this.reverse){
-      return 'arrow-down'; 
-     }else{
-      return 'arrow-up';
-     }
-    }else{
-     return '';
+    var data = this.todosPedidos.slice();
+    if(this.proveedor){
+      data = this.pedidosProveedor.slice();
     }
-   } 
 
-   sortBy(prop: string) {
-    return this.pedidos.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'precio': return compare(a.precio, b.precio, isAsc);
+        case 'unidades': return compare(a.unidades, b.unidades, isAsc);
+        default: return 0;
+      }
+    });
+
+    for(let i = 0; i< this.sortedData.length; i++){
+      if(this.administrador){
+        this.provName = await this.usuarioService.getProveedorNombre(this.sortedData[i].proveedor);
+        document.getElementById('proveedor'+i).innerHTML = this.provName;
+      }
+      this.producto = await this.productoService.getProductoPorID(this.sortedData[i].producto);
+      document.getElementById('producto'+i).innerHTML = this.producto.titulo;
+    }
+    
   }
 
-  
+  sortData2(sort: Sort) {
+    this.datosTablaProductos = this.todosProductos.slice();
+    if(this.proveedor){
+      this.datosTablaProductos = this.misProductos.slice();
+    }
 
+    if (!sort.active || sort.direction === '') {
+      this.sortedData3 = this.data3;
+      return;
+    }
+
+    this.sortedData3 = this.data3.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'precio': return compare(a.producto.precio, b.producto.precio, isAsc);
+        case 'stock': return compare(a.producto.stock, b.producto.stock, isAsc);
+        case 'numValoraciones': return compare(a.producto.valoraciones.length, b.producto.valoraciones.length, isAsc);
+        case 'numeroVentas': return compare(a.ventas, b.ventas, isAsc);
+        default: return 0;
+      }
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

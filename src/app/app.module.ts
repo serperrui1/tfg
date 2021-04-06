@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -118,7 +121,10 @@ import { DashboardComponent } from './paginas/dashboard/dashboard.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatTableModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatSortModule,
     NgbModule,
     MDBBootstrapModule.forRoot(),
 
