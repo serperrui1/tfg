@@ -1,0 +1,41 @@
+/*table */
+
+table {
+    border-collapse: collapse;
+}
+
+.mat-sort-header-container {
+    align-items: center;
+}
+
+table th,
+table td {
+    padding: 3px;
+}
+
+table th:hover {
+    cursor: pointer;
+}
+
+.arrow-down:after,
+.arrow-up:after {
+    content: ' ';
+    position: relative;
+    left: 2px;
+    border: 8px solid transparent;
+}
+
+.arrow-down:after {
+    top: 10px;
+    border-top-color: black;
+}
+
+.arrow-up:after {
+    bottom: 15px;
+    border-bottom-color: black;
+}
+
+.arrow-down,
+.arrow-up {
+    padding-right: 10px;
+}

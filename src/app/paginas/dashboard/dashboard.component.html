@@ -1,0 +1,113 @@
+<div *ngIf="administrador">
+    <h5 class="card-title">Pedidos</h5>
+    <table matSort (matSortChange)="sortData($event)">
+        <tr>
+            <th>ID del Producto</th>
+            <th>Título del Producto</th>
+            <th mat-sort-header="precio">Precio</th>
+            <th mat-sort-header="unidades">Unidades</th>
+            <th>Comprador</th>
+            <th>Nombre</th>
+            <th>Proveedor</th>
+            <th>Nombre </th>
+        </tr>
+        <tr *ngFor="let pedido of sortedData; let i=index">
+            <td>{{pedido.producto}}</td>
+            <td id="producto{{i}}"></td>
+            <td>{{pedido.precio}}</td>
+            <td>{{pedido.unidades}}</td>
+            <td>{{pedido.comprador}}</td>
+            <td>{{pedido.nombreComprador}}</td>
+            <td>{{pedido.proveedor}}</td>
+            <td id="proveedor{{i}}"></td>
+        </tr>
+    </table>
+</div>
+
+<div *ngIf="administrador">
+    <h5 class="card-title">Productos</h5>
+    <table matSort (matSortChange)="sortData2($event)">
+        <tr>
+            <th>ID del Producto</th>
+            <th>Título del Producto</th>
+            <th mat-sort-header="precio">Precio</th>
+            <th mat-sort-header="stock">Stock</th>
+            <th mat-sort-header="numValoraciones">Nº de valoraciones</th>
+            <th mat-sort-header="numeroVentas">Nº de ventas (pedidos)</th>
+            <th>Proveedor</th>
+            <th>Nombre </th>
+        </tr>
+        <tr *ngFor="let productoConVentas of sortedData3; let i=index">
+            <td>{{productoConVentas.producto._id}}</td>
+            <td>{{productoConVentas.producto.titulo}}</td>
+            <td>{{productoConVentas.producto.precio}}</td>
+            <td>{{productoConVentas.producto.stock}}</td>
+            <td>{{productoConVentas.producto.valoraciones.length}}</td>
+            <td>{{productoConVentas.ventas}}</td>
+            <td>{{productoConVentas.producto.proveedor}}</td>
+            <td>{{productoConVentas.producto.proveedorNombre}}</td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+<div *ngIf="proveedor">
+    <h5 class="card-title">Mis pedidos</h5>
+    <table matSort (matSortChange)="sortData($event)">
+        <tr>
+            <th>ID del Producto</th>
+            <th>Título del Producto</th>
+            <th mat-sort-header="precio">Precio</th>
+            <th mat-sort-header="unidades">Unidades</th>
+            <th>Comprador</th>
+            <th>Nombre</th>
+        </tr>
+        <tr *ngFor="let pedido of sortedData; let i=index">
+            <td>{{pedido.producto}}</td>
+            <td id="producto{{i}}"></td>
+            <td>{{pedido.precio}}</td>
+            <td>{{pedido.unidades}}</td>
+            <td>{{pedido.comprador}}</td>
+            <td>{{pedido.nombreComprador}}</td>
+        </tr>
+    </table>
+</div>
+
+<div *ngIf="proveedor">
+    <h5 class="card-title">Mis productos</h5>
+    <table matSort (matSortChange)="sortData2($event)">
+        <tr>
+            <th>ID del Producto</th>
+            <th>Título del Producto</th>
+            <th mat-sort-header="precio">Precio</th>
+            <th mat-sort-header="stock">Stock</th>
+            <th mat-sort-header="numValoraciones">Nº de valoraciones</th>
+            <th mat-sort-header="numeroVentas">Nº de ventas (pedidos)</th>
+        </tr>
+        <tr *ngFor="let productoConVentas of sortedData3; let i=index">
+            <td>{{productoConVentas.producto._id}}</td>
+            <td>{{productoConVentas.producto.titulo}}</td>
+            <td>{{productoConVentas.producto.precio}}</td>
+            <td>{{productoConVentas.producto.stock}}</td>
+            <td>{{productoConVentas.producto.valoraciones.length}}</td>
+            <td>{{productoConVentas.ventas}}</td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div style="display: block" *ngIf="administrador">
+    <h5 class="card-title">Compradores y Proveedores registrados este año</h5>
+    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+    </canvas>
+</div>
+<br>
+<div style="display: block">
+    <h5 class="card-title" *ngIf="administrador">Pedidos realizados este año</h5>
+    <h5 class="card-title" *ngIf="proveedor">Pedidos que me han realizado este año</h5>
+    <canvas mdbChart [chartType]="chartTypeB" [datasets]="chartDatasetsB" [labels]="chartLabels" [colors]="chartColorsB" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+    </canvas>
+</div>

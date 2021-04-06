@@ -4,7 +4,7 @@ export class Pedido {
         direccionEnvio: string;
         codigoPostal: number;
         nombreComprador: string;
-        fechaCompra: string;
+        fechaCompra: Date;
         producto: string;
         unidades: number;
         precio: number;

@@ -19,7 +19,8 @@ export class Comprador {
     public numeroTelefono?: number,
     public img?: string,
     public google?: boolean,
-    public uid?: string
+    public uid?: string,
+    public fechaRegistro?: Date
     ){}
 
 

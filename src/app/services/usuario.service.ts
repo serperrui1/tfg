@@ -248,6 +248,34 @@ export class UsuarioService {
         });
      })
  }
+
+ getCompradores():Promise<Comprador[]>{
+  return new Promise<Comprador[]>(
+    resolve => {
+      this.http.get(`${base_url}/compradores/`,{
+        headers: {
+          'x-token': this.token
+        }
+      }).subscribe(data=>{
+        const compradores = data["compradores"];
+        resolve(compradores);
+      });
+    })
+  }
+
+  getProveedores():Promise<Proveedor[]>{
+    return new Promise<Proveedor[]>(
+      resolve => {
+        this.http.get(`${base_url}/proveedores/`,{
+          headers: {
+            'x-token': this.token
+          }
+        }).subscribe(data=>{
+          const proveedores = data["proveedores"];
+          resolve(proveedores);
+        });
+      })
+    }
   
   getProveedorNombre(id:string):Promise<string>{
 
