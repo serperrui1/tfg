@@ -1,35 +1,38 @@
-.infoFinal {
-    border: 1px solid #000;
-    border-radius: 1%
+.descripcion {
+    margin: 2%;
+    font-size: large;
 }
 
-.contenido-infoFinal {
-    padding-top: 20%;
+.descripcion-container {
+    border: 1px solid rgb(156, 156, 156);
+    text-align: left;
+    margin: 1%;
+    border-radius: 10px;
+}
+
+.descripcion-titulo {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.row {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.formulario {
+    background-color: #e4e4e4;
+    margin: auto,
+}
+
+.form-div {
     margin: auto;
+    color: black;
 }
 
-.card-body {
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-.card-text {
-    text-align: center;
-}
-
-.col {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.card-img-top {
-    cursor: pointer;
-    width: 150px;
-    margin-right: 30px;
-}
-
-.nombre {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
+.form {
+    width: 90%;
+    margin: auto;
 }

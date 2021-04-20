@@ -1,3 +1,7 @@
-<div class="row row-cols-1 row-cols-md-3 ">
-    <app-incidencia-tarjeta [data]="incidencia" (incidenciaSeleccionada)="verIncidencia($event)" *ngFor="let incidencia of incidencias "></app-incidencia-tarjeta>
+<div class="row centrado">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <app-incidencia-tarjeta [data]="incidencia" (incidenciaSeleccionada)="verIncidencia($event)" *ngFor="let incidencia of incidencias "></app-incidencia-tarjeta>
+    </div>
+    <div class="col-md-2"></div>
 </div>

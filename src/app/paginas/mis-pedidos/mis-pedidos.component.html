@@ -1,3 +1,7 @@
-<div>
-    <app-pedido-tarjeta [pedido]="pedido" *ngFor="let pedido of pedidos "></app-pedido-tarjeta>
+<div class="row centrado">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <app-pedido-tarjeta [pedido]="pedido" *ngFor="let pedido of pedidos "></app-pedido-tarjeta>
+    </div>
+    <div class="col-md-2"></div>
 </div>

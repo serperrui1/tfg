@@ -8,77 +8,92 @@
     </div>
 </div>
 
-<h1>Carrito</h1>
+<div class="row mr-0">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h2 class="card-title text-left ml-5">Carrito</h2>
 
-<div class="shopping-cart" *ngIf="!cargando && subtotal!=0 ; else noHayProductos">
+        <div class="shopping-cart" *ngIf="!cargando && subtotal!=0 ; else noHayProductos">
 
-    <div class="column-labels">
-        <label class="product-image">Imagenes</label>
-        <label class="product-details">Título</label>
-        <label class="product-price">Precio</label>
-        <label class="product-quantity">Cantidad</label>
-        <label class="product-removal">Remover</label>
-        <label class="product-line-price">Coste</label>
-    </div>
+            <div class="column-labels">
+                <label class="product-image">Imagenes</label>
+                <label class="product-details">Título</label>
+                <label class="product-price">Precio</label>
+                <label class="product-quantity">Cantidad</label>
+                <label class="product-removal">Remover</label>
+                <label class="product-line-price">Coste</label>
+            </div>
 
-    <div class="product" *ngFor="let item of items; let i = index">
+            <div class="product" *ngFor="let item of items; let i = index">
 
-        <div class="product-image">
-            <img src="{{ direccionImagen + item.imagenes[0] }}">
-        </div>
+                <div class="product-image">
+                    <img src="{{ direccionImagen + item.imagenes[0] }}">
+                </div>
 
-        <div class="product-details">
-            <div class="product-title">
-                {{ item.titulo }}
+                <div class="product-details">
+                    <div class="product-title">
+                        {{ item.titulo }}
+                    </div>
+                </div>
+
+                <div class="product-price">
+                    {{ item.precio }}
+                </div>
+
+                <div class="product-quantity">
+                    {{ cantidades[i] }}
+                </div>
+
+                <div class="product-removal">
+                    <button class="remove-product" (click)="borrarItem(i)">
+                        Borrar artículo
+                    </button>
+                </div>
+
+                <div class="product-line-price">{{ cantidades[i] * item.precio}}</div>
+            </div>
+
+            <div class="totals">
+                <div class="totals-item">
+                    <label>Subtotal</label>
+                    <div class="totals-value" id="cart-subtotal">{{subtotal}}</div>
+                </div>
+                <div class="totals-item">
+                    <label>Impuestos (13%)</label>
+                    <div class="totals-value" id="cart-tax">{{impuestos}}</div>
+                </div>
+                <div class="totals-item">
+                    <label>Envío</label>
+                    <div class="totals-value" id="cart-shipping">{{envio}}</div>
+                </div>
+                <div class="totals-item totals-item-total">
+                    <label>Total</label>
+                    <div class="totals-value" id="cart-total">{{total}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9"></div>
+
+                <div class="col-md-3" *ngIf="esComprador ; else noEsComprador">
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10 checkout" routerLink="/login-comprador">
+                        ¡Comprar!
+                    </button>
+                </div>
+
+                <ng-template #noEsComprador>
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10 checkout" routerLink="/login-comprador">
+                        ¡Comprar!
+                    </button>
+                </ng-template>
+
             </div>
         </div>
+        <div class="col-md-1"></div>
 
-        <div class="product-price">
-            {{ item.precio }}
-        </div>
-
-        <div class="product-quantity">
-            {{ cantidades[i] }}
-        </div>
-
-        <div class="product-removal">
-            <button class="remove-product" (click)="borrarItem(i)">
-                Borrar artículo
-            </button>
-        </div>
-
-        <div class="product-line-price">{{ cantidades[i] * item.precio}}</div>
     </div>
 
-    <div class="totals">
-        <div class="totals-item">
-            <label>Subtotal</label>
-            <div class="totals-value" id="cart-subtotal">{{subtotal}}</div>
+    <ng-template #noHayProductos>
+        <div class="alert alert-info text-center">
+            No hay productos en la cesta de compra
         </div>
-        <div class="totals-item">
-            <label>Impuestos (13%)</label>
-            <div class="totals-value" id="cart-tax">{{impuestos}}</div>
-        </div>
-        <div class="totals-item">
-            <label>Envío</label>
-            <div class="totals-value" id="cart-shipping">{{envio}}</div>
-        </div>
-        <div class="totals-item totals-item-total">
-            <label>Total</label>
-            <div class="totals-value" id="cart-total">{{total}}</div>
-        </div>
-    </div>
-
-    <div *ngIf="esComprador ; else noEsComprador">
-        <button class="checkout" routerLink="/compra">¡Comprar!</button>
-    </div>
-    <ng-template #noEsComprador>
-        <button class="checkout" routerLink="/login-comprador">¡Comprar!</button>
     </ng-template>
-</div>
-
-<ng-template #noHayProductos>
-    <div class="alert alert-info text-center">
-        No hay productos en la cesta de compra
-    </div>
-</ng-template>

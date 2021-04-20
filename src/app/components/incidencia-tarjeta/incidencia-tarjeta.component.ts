@@ -21,6 +21,9 @@ export class IncidenciaTarjetaComponent implements OnInit {
   public comp: Comprador;
   public prov: Proveedor;
   public notificacion: boolean = false;
+  public nombreProveedor: string;
+  public nombreComprador: string;
+  public nombreAsistente: string;
 
   constructor(private incidenciaService: IncidenciaService,
     private usuarioService: UsuarioService) {
@@ -49,6 +52,19 @@ export class IncidenciaTarjetaComponent implements OnInit {
     if(this.aT && this.incidencia.ultimoEmisor != this.aT.uid && !this.incidencia.leida && this.incidencia.asistenteId === this.aT.uid){
       this.notificacion = true;
     }
+
+    this.nombreComprador = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
+    if(this.nombreComprador == "" || this.nombreComprador == null){
+      this.nombreProveedor = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
+    }
+
+    if(this.incidencia.asignado){
+      this.nombreAsistente = await this.usuarioService.getAsistenteTecnicoNombre(this.incidencia.asistenteId);
+      console.log(this.incidencia.asignado)
+      console.log(this.nombreAsistente)
+      
+    }
+
   }
 
   verIncidencia(){

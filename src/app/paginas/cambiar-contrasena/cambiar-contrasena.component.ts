@@ -75,4 +75,24 @@ export class CambiarContrasenaComponent implements OnInit {
       });
     }
 
+    //Validaciones
+  get contrasenaNoValido(){
+    return this.contrasenaCampoRequerido
+  }
+  get contrasenaCampoRequerido(){
+    return this.contrasenaForm.get('password').errors ? this.contrasenaForm.get('password').errors.required && this.contrasenaForm.get('password').touched : null
+  }
+  get nuevaContrasenaNoValido(){
+    return this.nuevaContrasenaCampoRequerido
+  }
+  get nuevaContrasenaCampoRequerido(){
+    return this.contrasenaForm.get('nuevaPassword').errors ? this.contrasenaForm.get('nuevaPassword').errors.required && this.contrasenaForm.get('nuevaPassword').touched : null
+  }
+  get repitaNuevaNoValido(){
+    return this.repitaNuevaCampoRequerido
+  }
+  get repitaNuevaCampoRequerido(){
+    return this.contrasenaForm.get('nuevaPassword2').errors ? this.contrasenaForm.get('nuevaPassword2').errors.required && this.contrasenaForm.get('nuevaPassword2').touched : null
+  }
+
 }

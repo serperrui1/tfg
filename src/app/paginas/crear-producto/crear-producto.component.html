@@ -1,104 +1,119 @@
-<div *ngIf="usuario === 'proveedor'">
+<div class="wrapper" *ngIf="usuario === 'proveedor' && proveedor">
+    <div class="row">
+        <form class="form " autocomplete="off" [formGroup]="crearProductoForm" (submit)="crearProducto()">
+            <div class="row">
 
+                <div class="col-md-1"></div>
 
-
-    <form class="form p-t-20" autocomplete="off" [formGroup]="crearProductoForm" (submit)="crearProducto()">
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Proveedor: {{usuario}}</h4>
-                        <h6 class="card-subtitle">Nuevo producto</h6>
-
-                        <div class="form-group">
-                            <label for="titulo">Título</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="titulo" placeholder="Título del producto anunciado" formControlName="titulo">
+                <div class="col-md-5 form-div">
+                    <h2 class="card-title text-left">Nuevo producto</h2>
+                    <div class="card">
+                        <div class="card-body formulario">
+                            <h5 class="card-title">Título</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="titulo" formControlName="titulo" [class.is-invalid]="tituloNoValido">
+                                <small *ngIf="tituloCampoRequerido" class="text-danger">Título requerido</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion">
+                            <h5 class="card-title">Descripción</h5>
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
+                                <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="categoria">Categoría</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="categoria" placeholder="Informática, Deporte, ..." formControlName="categoria">
+                            <h5 class="card-title">Categoría</h5>
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" id="categoria" formControlName="categoria">
+                                    <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                                    <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                                    <option value="Informática">Informática</option>
+                                    <option value="Electrónica">Electrónica</option>
+                                    <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                                    <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                                    <option value="Hogar y cocina">Hogar y cocina</option>
+                                    <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                                    <option value="Juguetes y juegos">Juguetes y juegos</option>
+                                    <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                                    <option value="Relojes">Relojes</option>
+                                    <option value="Productos para bebé">Productos para bebé</option>
+                                    <option value="Coche y moto">Coche y moto</option>
+                                    <option value="Deportes y aire libre">Deportes y aire libre</option>
+                                    <option value="Joyería">Joyería</option>
+                                    <option value="Equipaje">Equipaje</option>
+                                    <option value="Iluminación">Iluminación</option>
+                                    <option value="Oficina y papelería">Oficina y papelería</option>
+                                    <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                                    <option value="Instrumentos musicales">Instrumentos musicales</option>
+                                    <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                                    <option value="Jardín">Jardín</option>
+                                    <option value="Belleza">Belleza</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="unidadesMinimas">Unidades mínimas a pedir</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="number" class="form-control" id="unidadesMinimas" placeholder="200" formControlName="unidadesMinimas">
+                            <h5 class="card-title">Subcategoría</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="subcategoria" formControlName="subcategoria">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="stock">Stock (en almacén)</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="number" class="form-control" id="stock" placeholder="10000" formControlName="stock">
+                            <h5 class="card-title">Unidades mínimas</h5>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="unidadesMinimas" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
+                                <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requerido</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio">Precio</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="number" class="form-control" id="precio" placeholder="2" formControlName="precio">
+                            <h5 class="card-title">Stock</h5>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="stock" formControlName="stock" [class.is-invalid]="stockNoValido">
+                                <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="subcategoria">Subcategoría (opcional)</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="subcategoria" placeholder="Discos duros, periféricos,..." formControlName="subcategoria">
+                            <h5 class="card-title">Precio (€)</h5>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="precio" formControlName="precio" [class.is-invalid]="precioNoValido">
+                                <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="crearProductoForm.invalid">
+                        Subir producto
+                    </button>
                 </div>
+                <div class="col-md-4 form-div">
+
+                    <h4 class="card-title text-left">Fotos del producto</h4>
+                    <div class="card">
+                        <div class="card-body formulario">
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+                            </div>
+                            <br>
+                            <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" multiple (change)="multiplesImagenes($event.target.files)">
+                        </div>
+                    </div>
+                    <br>
+
+                    <h4 class="card-title text-left">Datos técnicos</h4>
+                    <div formArrayName="datosTecnicos">
+                        <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
+                                <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Descripción del dato técnico" formControlName="datosTecnicosDescripcion">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="addDatosTecnicos()">
+                                        Añadir dato técnico
+                                    </button>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="deleteDatosTecnicos(pointIndex)">
+                                        Borrar dato técnico
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Fotos del producto</h4>
-
-                        <div class="text-center">
-                            <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
-                            <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
-                        </div>
-
-                        <!-- <input type="file" class="form-control" multiple (change)="prepararImagen($event.target.files[0])"> -->
-                        <input type="file" class="form-control" multiple (change)="multiplesImagenes($event.target.files)">
-
-                        <br>
-                        <br>
-                    </div>
-                </div>
-
-                <div formArrayName="datosTecnicos">
-                    <h4> Datos técnicos</h4>
-                    <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
-                            <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Descripción del dato técnico" formControlName="datosTecnicosDescripcion">
-                        </div>
-                        <button type="button" class="btn btn-danger waves-effect waves-light m-r-10" (click)="deleteDatosTecnicos(pointIndex)">Borrar Datos Técnicos</button>
-                    </div>
-                    <button type="button" class="btn btn-success waves-effect waves-light m-r-10" (click)="addDatosTecnicos()">Añadir Datos Técnicos</button>
-                </div>
-
-            </div>
-
-            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="crearProductoForm.invalid">
-                    <i class="fa fa-save"></i>
-                    Subir producto
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

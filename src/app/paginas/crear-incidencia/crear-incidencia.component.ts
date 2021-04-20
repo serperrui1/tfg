@@ -10,8 +10,7 @@ import { Proveedor } from '../../models/proveedor';
 @Component({
   selector: 'app-crear-incidencia',
   templateUrl: './crear-incidencia.component.html',
-  styles: [
-  ]
+  styleUrls: ['./crear-incidencia.component.css']
 })
 export class CrearIncidenciaComponent implements OnInit {
 
@@ -57,11 +56,11 @@ export class CrearIncidenciaComponent implements OnInit {
     }
 
   async crearIncidencia(){
-    this.formSubmited = true;
-    console.log(this.incidenciaForm.value);
     if(this.incidenciaForm.invalid){
+      this.incidenciaForm.markAllAsTouched()
       return;
     }
+    this.formSubmited = true;
     await this.incidenciaService.crearIncidencia(this.incidenciaForm.value)
     .subscribe( () => {
       Swal.fire('Guardado', 'Incidencia creada', 'success');
@@ -78,5 +77,21 @@ export class CrearIncidenciaComponent implements OnInit {
       return false;
     }
   }
+
+  //Validaciones
+  get tituloNoValido(){
+    return this.tituloCampoRequerido
+  }
+  get tituloCampoRequerido(){
+    return this.incidenciaForm.get('titulo').errors ? this.incidenciaForm.get('titulo').errors.required && this.incidenciaForm.get('titulo').touched : null
+  }
+  get descripcionNoValido(){
+    return this.descripcionCampoRequerido
+  }
+  get descripcionCampoRequerido(){
+    return this.incidenciaForm.get('descripcion').errors ? this.incidenciaForm.get('descripcion').errors.required && this.incidenciaForm.get('descripcion').touched : null
+  }
+
+
 
 }

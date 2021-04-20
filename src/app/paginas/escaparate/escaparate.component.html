@@ -1,36 +1,37 @@
-<div class="row" *ngIf="proveedor && productosProveedor">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Tienda de: {{proveedor.nombreEmpresa}}</h3>
-                <br>
-                <br>
-                <h5 class="card-title">{{proveedor.email}}</h5>
-                <h5 class="card-title">{{proveedor.direccion}}</h5>
-                <h5 class="card-title">{{proveedor.sector}}</h5>
-                <h5 class="card-title" *ngIf="proveedor.autonomo">{{proveedor.nif}}</h5>
-                <h5 class="card-title" *ngIf="!proveedor.autonomo">{{proveedor.registroMercantil}}</h5>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Foto del proveedor/Logo de la empresa</h5>
-                <div>
-                    <img src="{{ direccionImagen + proveedor.img }}" class="img-avatar">
+<div class="wrapper" *ngIf="proveedor && productosProveedor">
+    <div class="row">
+        <form class="form " autocomplete="off">
+            <h2 class="card-title text-center">Tienda del proveedor "{{proveedor.nombreEmpresa}}"</h2>
+            <div class="row">
+                <div class="col-md-9 form-div ">
+                    <div class="card descripcion-container">
+                        <div class="card-body formulario ">
+                            <div class="row ">
+                                <div class="col-md-8">
+                                    <h5 class="card-title">Contacto: {{proveedor.email}}</h5>
+                                    <h5 class="card-title">Dirección: {{proveedor.direccion}}</h5>
+                                    <h5 class="card-title">Sector: {{proveedor.sector}}</h5>
+                                    <h5 class="card-title" *ngIf="proveedor.autonomo">NIF: {{proveedor.nif}}</h5>
+                                    <h5 class="card-title" *ngIf="!proveedor.autonomo">Registro Mercantil: {{proveedor.registroMercantil}}</h5>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <img src="{{ direccionImagen + proveedor.img }}" class="img-avatar descripcion-container">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</div>
-
-<br>
-<br>
-
-<div class="row" *ngIf="proveedor && productosProveedor">
-    <div class="row row-cols-1 row-cols-md-3 ">
-        <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosProveedor "></app-producto-tarjeta>
+    <h3 class="card-title text-center">Productos en venta</h3>
+    <div class="row" *ngIf="proveedor && productosProveedor">
+        <div class="col-md-8 form-div">
+            <div class="row row-cols-1 row-cols-md-3 descripcion-container">
+                <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosProveedor"></app-producto-tarjeta>
+            </div>
+        </div>
     </div>
 </div>

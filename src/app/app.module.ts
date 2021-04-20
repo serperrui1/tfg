@@ -58,6 +58,7 @@ import { DevolucionReclamacionComponent } from './paginas/devolucion-reclamacion
 import { GOATComponent } from './paginas/goat/goat.component';
 import { RegisterAsistenteTecnicoComponent } from './auth/register-asistente-tecnico/register-asistente-tecnico.component';
 import { DashboardComponent } from './paginas/dashboard/dashboard.component';
+import { SoporteComponent } from './paginas/soporte/soporte.component';
 
 
 
@@ -110,7 +111,8 @@ import { DashboardComponent } from './paginas/dashboard/dashboard.component';
     CambiarContrasenaComponent,
     GOATComponent,
     RegisterAsistenteTecnicoComponent,
-    DashboardComponent
+    DashboardComponent,
+    SoporteComponent
 
 
 

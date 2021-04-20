@@ -18,6 +18,7 @@ export class ChatTarjetaComponent implements OnInit {
   public comp: Comprador;
   public prov: Proveedor;
   public notificacion: boolean = false;
+  public nombreComprador: string;
 
   constructor(private usuarioService: UsuarioService) {
     this.chatSeleccionado = new EventEmitter();
@@ -38,6 +39,8 @@ export class ChatTarjetaComponent implements OnInit {
     if(this.prov && this.chat.ultimoEmisor != this.prov.uid && !this.chat.leido){
       this.notificacion = true;
     }
+
+    this.nombreComprador = await this.usuarioService.getCompradorNombre(this.chat.compradorId);
   }
 
   verChat(){

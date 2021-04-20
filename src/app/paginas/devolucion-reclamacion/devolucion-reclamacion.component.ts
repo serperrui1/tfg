@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Pedido } from '../../models/pedido';
 import { PedidosService } from '../../services/pedidos.service';
+import { environment } from 'src/environments/environment';
 
+const base_url = environment.base_url;
 @Component({
   selector: 'app-devolucion-reclamacion',
   templateUrl: './devolucion-reclamacion.component.html',
@@ -27,6 +29,7 @@ export class DevolucionReclamacionComponent implements OnInit {
   public misPedidos: Pedido[] = [];
   public proveedorId: string = "";
   public productoId: string = "";
+  public unPedido: Pedido;
   public comp: Comprador;
   public producto: Producto;
   public autor: string = "";
@@ -34,6 +37,7 @@ export class DevolucionReclamacionComponent implements OnInit {
   public chatId: string = "";
   public pedidoId: string = "";
   public solicitud: string = "";
+  public direccionImagen = base_url+"/upload/productos/";
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -57,6 +61,7 @@ export class DevolucionReclamacionComponent implements OnInit {
           this.pedidoId = pedido._id;
           this.flag = true; // si yo he comprado este producto alguna vez
           this.solicitud = " - DEV/RCL: "+pedido._id;
+          this.unPedido = await this.pedidosService.getPedidoPorID(pedido._id);
         }
       }
     }
@@ -86,11 +91,11 @@ export class DevolucionReclamacionComponent implements OnInit {
   }
 
   async crearChat(){
-    this.formSubmited = true;
-    console.log(this.chatForm.value);
     if(this.chatForm.invalid){
+      this.chatForm.markAllAsTouched()
       return;
     }
+    this.formSubmited = true;
     this.message = this.chatForm.controls['mensajes'].value;
     this.chatForm.controls['mensajes'].setValue(this.autor + this.message + this.solicitud);
     console.log(this.chatForm.value);
@@ -112,6 +117,14 @@ export class DevolucionReclamacionComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  //Validaciones
+  get mensajeNoValido(){
+    return this.mensajeCampoRequerido
+  }
+  get mensajeCampoRequerido(){
+    return this.chatForm.get('mensajes').errors ? this.chatForm.get('mensajes').errors.required && this.chatForm.get('mensajes').touched : null
   }
 
 

@@ -59,7 +59,8 @@
 <div class="row" *ngIf="(usuario != 'administrador' && usuario != 'asistenteTecnico') || (usuario === null) || (token === null)">
 
     <div class="row animated fadeIn fast" *ngIf="cargando">
-        <div class="col-12">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
             <div class="alert alert-info text-center">
                 <h4 class="alert-heading">Cargando</h4>
                 <i class="fa fa-spin fa-refresh fa-2x"></i>
@@ -69,7 +70,8 @@
     </div>
 
     <div class="row" *ngIf="!cargando">
-        <div class="faq-header">FAQs (Preguntas frecuentes)
+        <div class="col-md-1"></div>
+        <div class="faq-header col-md-10">FAQs (Preguntas frecuentes)
 
             <div class="faq-content" *ngFor="let faq of grouped | keyvalue; let i = index">
                 <div id="{{faq.key}}">
@@ -88,14 +90,3 @@
         </div>
     </div>
 </div>
-
-<!-- <div *ngFor="let faq of grouped | keyvalue">
-    <div id="{{faq.key}}">
-        {{faq.key}}
-        <div class="faq" *ngFor="let value of faq.value">
-            <div>{{value.pregunta}}</div>
-            <div>{{value.respuesta}}</div>
-            <br>
-        </div>
-    </div>
-</div> -->
