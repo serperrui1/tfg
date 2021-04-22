@@ -1,61 +1,48 @@
-<div *ngIf="usuario === 'comprador' || usuario === 'proveedor'">
-
-    <form class="form p-t-20" autocomplete="off" [formGroup]="incidenciaForm" (submit)="crearIncidencia()">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Nueva incidencia</h4>
-                        <h5 class="card-subtitle">Dueño (comprador): {{compradorNombre}}</h5>
-                        <h5 class="card-subtitle" *ngIf="compradorNombre === ''">Dueño (proveedor): {{proveedorNombre}}</h5>
-
-                        <div class="form-group">
-                            <label for="titulo">Título</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="titulo" placeholder="Problema al comprar cualquier producto" formControlName="titulo">
+<div class="wrapper" *ngIf="usuario === 'comprador' || usuario === 'proveedor'">
+    <div class="row">
+        <form class="form " autocomplete="off" [formGroup]="incidenciaForm" (submit)="crearIncidencia()">
+            <div class="row">
+                <div class="col-md-6 form-div">
+                    <div class="card">
+                        <div class="card-body formulario">
+                            <h2 class="card-title text-center">Nueva incidencia</h2>
+                            <h5 class="card-title">Título</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="titulo" formControlName="titulo" [class.is-invalid]="tituloNoValido">
+                                <small *ngIf="tituloCampoRequerido" class="text-danger">Título requerido</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="descripcion" placeholder="Tras haber realizado la compra..." formControlName="descripcion">
+                            <h5 class="card-title">Decripción</h5>
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
+                                <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tematica">Temática</label>
-                            <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
-                                <option value="Login" selected="selected">Login</option> 
-                                <option value="Registro">Registro</option>
-                                <option value="Compras">Compras</option>
-                                <option value="Ventas">Ventas</option>
-                                <option value="Devoluciones">Devoluciones</option>
-                                <option value="Empleo">Empleo</option>
-                                <option value="Contacto">Contacto</option>
-                                <option value="Carrito de compra">Carrito de compra</option>
-                                <option value="Compras">Compras</option>
-                                <option value="Soporte">Soporte</option>
-                                <option value="Legal">Legal</option>
-                                <option value="Mi Cuenta">Mi cuenta</option>
-                                <option value="Productos">Productos</option>
-                                <option value="Envío">Envío</option>
-                                <option value="Pago">Pago</option>
-                            </select>
-                            <!-- <br> -->
-                            <!-- <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="tematica" placeholder="Informática, Deporte, ..." formControlName="tematica">
-                            </div> -->
+                            <h5 class="card-title">Temática</h5>
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
+                                    <option value="Login" selected="selected">Login</option> 
+                                    <option value="Registro">Registro</option>
+                                    <option value="Compras">Compras</option>
+                                    <option value="Ventas">Ventas</option>
+                                    <option value="Devoluciones">Devoluciones</option>
+                                    <option value="Empleo">Empleo</option>
+                                    <option value="Contacto">Contacto</option>
+                                    <option value="Carrito de compra">Carrito de compra</option>
+                                    <option value="Compras">Compras</option>
+                                    <option value="Soporte">Soporte</option>
+                                    <option value="Legal">Legal</option>
+                                    <option value="Mi Cuenta">Mi cuenta</option>
+                                    <option value="Productos">Productos</option>
+                                    <option value="Envío">Envío</option>
+                                    <option value="Pago">Pago</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="incidenciaForm.invalid">
+                                Publicar
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="incidenciaForm.invalid">
-                    <i class="fa fa-save"></i>
-                    Publicar Incidencia
-            </button>
-        </div>
-    </form>
-
+        </form>
+    </div>
 </div>

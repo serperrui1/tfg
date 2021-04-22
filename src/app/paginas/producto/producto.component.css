@@ -1,97 +1,98 @@
-    .producto-izquierda {
-        margin-left: 5%;
-    }
-    
-    .infoFinal {
-        border: 1px solid rgb(207, 207, 207);
-        border-radius: 1%;
-        max-height: 600px;
-    }
-    
-    .contenido-infoFinal {
-        padding-top: 20%;
-        margin: auto;
-    }
-    
-    .boton-carrito {
-        margin: auto;
-        margin-top: 5%;
-        font-weight: 6000;
-    }
-    
-    #cantidad {
-        margin-left: 10px;
-    }
-    
-    ngb-rating {
-        color: #FFC107;
-        font-size: 40px;
-    }
-    
-    .precio-unidades {
-        margin-bottom: 0px;
-        font-size: 13px;
-    }
-    
-    .garantia a {
-        font-size: 12px
-    }
-    
+.infoFinal {
+    border-radius: 2%;
+    max-height: 400px;
+    background-color: rgb(243, 243, 243);
+}
+
+.detalles-tecnicos {
+    padding-right: 20px;
+}
+
+.contenido-infoFinal {
+    padding-top: 20%;
+    margin: auto;
+}
+
+.boton-carrito {
+    margin: auto;
+    margin-top: 5%;
+    font-weight: 6000;
+}
+
+#cantidad {
+    margin-left: 10px;
+}
+
+ngb-rating {
+    color: #FFC107;
+    font-size: 40px;
+}
+
+.precio-unidades {
+    margin-bottom: 0px;
+    font-size: 13px;
+}
+
+.garantia a {
+    font-size: 12px
+}
+
+.botones-container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+a.botones {
+    display: inline-block;
+    width: 100%;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #000000;
+    background-color: #f8f9fa;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+a.botones:hover {
+    background-color: #1076eb;
+}
+
+@media all and (max-width:30em) {
     a.botones {
-        display: inline-block;
-        width: 100%;
-        padding: 0.3em 1.2em;
-        margin: 0 0.3em 0.3em 0;
-        border-radius: 2em;
-        box-sizing: border-box;
-        text-decoration: none;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 300;
-        color: #000000;
-        background-color: rgb(235, 235, 235);
-        text-align: center;
-        transition: all 0.2s;
+        display: block;
+        margin: 0.2em auto;
     }
-    
-    a.botones:hover {
-        background-color: #afe2ff;
-    }
-    
-    @media all and (max-width:30em) {
-        a.botones {
-            display: block;
-            margin: 0.2em auto;
-        }
-    }
-    
-    .imagen {
-        max-height: 300px;
-        max-width: 300px;
-        object-fit: contain;
-    }
-    
-    .alert {
-        background-color: rgb(235, 235, 235);
-    }
-    
-    .imagen-miniatura {
-        cursor: pointer;
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-    }
-    
-    .imagenes-container {
-        max-height: 100px;
-        max-width: 100px;
-        margin-top: 10px;
-        border-radius: 1px;
-    }
-    
-    .detalles-tecnicos {
-        padding-right: 20px;
-    }
-    
-    .titulo-detalles {
-        text-align: center;
-    }
+}
+
+.imagen {
+    max-height: 300px;
+    max-width: 300px;
+    object-fit: contain;
+}
+
+.alert {
+    background-color: rgb(243, 243, 243);
+}
+
+.imagen-miniatura {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.imagenes-container {
+    max-height: 100px;
+    max-width: 100px;
+    margin-top: 10px;
+    border-radius: 1px;
+}
+
+.table {
+    padding-left: 20px;
+}

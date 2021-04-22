@@ -55,11 +55,11 @@ export class CrearFaqComponent implements OnInit {
   }
 
   async crearFaq(){
-    this.formSubmited = true;
-    console.log(this.faqForm.value);
     if(this.faqForm.invalid){
+      this.faqForm.markAllAsTouched()
       return;
     }
+    this.formSubmited = true;
     await this.faqService.crearFaq(this.faqForm.value)
     .subscribe( () => {
       Swal.fire('Guardado', 'FAQ creado', 'success');
@@ -86,6 +86,20 @@ export class CrearFaqComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  //Validaciones
+  get preguntaNoValido(){
+    return this.preguntaCampoRequerido
+  }
+  get preguntaCampoRequerido(){
+    return this.faqForm.get('pregunta').errors ? this.faqForm.get('pregunta').errors.required && this.faqForm.get('pregunta').touched : null
+  }
+  get respuestaNoValido(){
+    return this.respuestaCampoRequerido
+  }
+  get respuestaCampoRequerido(){
+    return this.faqForm.get('respuesta').errors ? this.faqForm.get('respuesta').errors.required && this.faqForm.get('respuesta').touched : null
   }
 
 }

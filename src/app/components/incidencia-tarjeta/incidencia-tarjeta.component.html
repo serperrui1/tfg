@@ -1,11 +1,27 @@
-<div class="card" style="width: 18rem;" (click)="verIncidencia()">
-    <div class="card-body">
-        <h5 class="card-title">{{incidencia.titulo}}</h5>
-        <h6 class="card-subtitle">{{incidencia.fechaPublicacion}}</h6>
-        <h6 class="card-subtitle">{{incidencia.tematica}}</h6>
-        <h6 class="card-subtitle">{{incidencia.asignado}}</h6>
-        <ul *ngIf="notificacion">
-            <i class="fas fa-exclamation-triangle" style="color: rgb(243, 207, 0);"></i>
-        </ul>
+<div class="col mb-4 animated fadeIn tarjeta && incidencia.asignado">
+    <div class="row ">
+        <div class="col-md-8">
+            <div class="titulo">
+                <h5 class="card-title" *ngIf="comp || prov && incidencia.asignado">Incidencia con el asistente técnico: {{nombreAsistente}}</h5>
+                <h5 class="card-title" *ngIf="aT && nombreComprador && !nombreProveedor">Incidencia del comprador {{nombreComprador}}</h5>
+                <h5 class="card-title" *ngIf="aT && nombreProveedor && !nombreComprador">Incidencia del proveedor {{nombreProveedor}}</h5>
+                <h5 class="card-title">Título: "{{incidencia.titulo}}"</h5>
+                <h6 class="card-title">Temática: {{incidencia.tematica}}</h6>
+                <h6 class="card-title" *ngIf="!incidencia.asignado">Estado: pendiente de asignación</h6>
+                <h6 class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado">Estado: por resolver</h6>
+                <h6 class="card-title" *ngIf="incidencia.resuelto">Estado: resuelta</h6>
+                <h6 class="card-title">Creada el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</h6>
+            </div>
+        </div>
+        <div class="col-md-2 px-0">
+        </div>
+        <div class="col-md-2">
+            <div class="botones-container">
+                <a class="botones" (click)="verIncidencia()">Ver mensajes</a>
+            </div>
+            <ul *ngIf="notificacion">
+                <i class="fas fa-exclamation-triangle" style="color: rgb(243, 207, 0);"></i>
+            </ul>
+        </div>
     </div>
 </div>

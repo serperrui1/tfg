@@ -1,11 +1,11 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
     <h3>Datos para el envio</h3>
     <h5>{{comprador.nombre }} {{comprador.apellidos}}</h5>
     <h5>Dirección de envio</h5>
     <p>
-        {{direccionEnvio}}
-        <!-- {{comprador.direccionResidencia }}, {{comprador.localidad}}, {{comprador.ciudad}}, {{comprador.paisResidencia}}, {{comprador.codigoPostal}} -->
-    </p>
+        {{direccionEnvio}} -->
+<!-- {{comprador.direccionResidencia }}, {{comprador.localidad}}, {{comprador.ciudad}}, {{comprador.paisResidencia}}, {{comprador.codigoPostal}} -->
+<!-- </p>
     <strong>Número de teléfono :</strong> {{comprador.numeroTelefono}} <br><br>
 
 
@@ -41,6 +41,65 @@
         Pagar
     </button> -->
 
-    <div #paypal></div>
+<!--     <div #paypal></div>
+
+</div> -->-->
+
+
+
+
+<div class="wrapper">
+
+    <div class="row">
+        <form class="form " autocomplete="off" [formGroup]="datosPedidoForm">
+            <div class="row">
+                <div class="col-md-6 form-div">
+                    <div class="card">
+                        <div class="card-body formulario">
+                            <h2 class="card-title text-center">Datos de envío</h2>
+                            <h5 class="card-title">Nombre: {{comprador.nombre}}</h5>
+                            <h5 class="card-title">Apellidos: {{comprador.apellidos}}</h5>
+                            <h5 class="card-title">Dirección de envio: {{direccionEnvio}}</h5>
+                            <h5 class="card-title">Nº de teléfono: {{comprador.numeroTelefono}}</h5>
+                            <form class="form-" autocomplete="off" [formGroup]="datosPedidoForm">
+                                <br>
+                                <div class="form-group">
+                                    <h6 class="card-title text-center">¿Desea cambiar los datos de envío?</h6>
+                                    <input type="checkbox" class="form-control" [(ngModel)]="nuevoComprador" formControlName="nuevoComprador">
+                                </div>
+                                <input type="nombre" class="form-control espacio" placeholder="Nombre" formControlName="nombre" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="Apellidos" formControlName="apellidos" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="País de residencia" formControlName="paisResidencia" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="Ciudad" formControlName="ciudad" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="Localidad" formControlName="localidad" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="Código Postal" formControlName="codigoPostal" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="Direccion de residencia" formControlName="direccionResidencia" [hidden]="!nuevoComprador" />
+                                <input type="text" class="form-control espacio" placeholder="Número de teléfono" formControlName="numeroTelefono" [hidden]="!nuevoComprador" />
+                                <label class="checkbox">
+                                </label>
+                            </form>
+                            <br>
+                            <h5 class="card-title">Resumen de compra ({{productos.length}} productos)</h5>
+                            <div class="espacio" *ngFor="let producto of productos; let i=index">
+                                {{i+1}}- Usted va a comprar {{cantidades[i]}} unidades del producto "{{producto.titulo}}" por un total de {{producto.precio * cantidades[i]}}€.
+                            </div>
+                            <br>
+                            <div class="card-title text-center" #paypal></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 ">
+            <div *ngFor="let mensaje of incidencia.mensajes; let i=index" class="descripcion-container">
+                <p class="descripcion">{{mensaje}}</p>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div> -->
 
 </div>

@@ -109,6 +109,10 @@ export class ActualizarProductoComponent implements OnInit {
 
 
   actualizarProducto() {
+    if(this.productoForm.invalid){
+      this.productoForm.markAllAsTouched()
+      return;
+    }
     let productoActualizar = this.productoForm.value
     if(productoActualizar.datosTecnicos[0].datosTecnicosTitulo== null){
       productoActualizar.datosTecnicos.splice(0, 1);
@@ -186,6 +190,39 @@ export class ActualizarProductoComponent implements OnInit {
     }
     }
   }
+
+  //Validaciones
+  get tituloNoValido(){
+    return this.tituloCampoRequerido
+  }
+  get tituloCampoRequerido(){
+    return this.productoForm.get('titulo').errors ? this.productoForm.get('titulo').errors.required && this.productoForm.get('titulo').touched : null
+  }
+  get descripcionNoValido(){
+    return this.descripcionCampoRequerido
+  }
+  get descripcionCampoRequerido(){
+    return this.productoForm.get('descripcion').errors ? this.productoForm.get('descripcion').errors.required && this.productoForm.get('descripcion').touched : null
+  }
+  get unidadesMinimasNoValido(){
+    return this.unidadesMinimasCampoRequerido
+  }
+  get unidadesMinimasCampoRequerido(){
+    return this.productoForm.get('unidadesMinimas').errors ? this.productoForm.get('unidadesMinimas').errors.required && this.productoForm.get('unidadesMinimas').touched : null
+  }
+  get stockNoValido(){
+    return this.stockCampoRequerido
+  }
+  get stockCampoRequerido(){
+    return this.productoForm.get('stock').errors ? this.productoForm.get('stock').errors.required && this.productoForm.get('stock').touched : null
+  }
+  get precioNoValido(){
+    return this.precioCampoRequerido
+  }
+  get precioCampoRequerido(){
+    return this.productoForm.get('precio').errors ? this.productoForm.get('precio').errors.required && this.productoForm.get('precio').touched : null
+  }
+
 
 
 }

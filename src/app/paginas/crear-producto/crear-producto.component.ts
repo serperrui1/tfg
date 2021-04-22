@@ -81,10 +81,11 @@ export class CrearProductoComponent implements OnInit{
   }
   
   async crearProducto(){
-    this.formSubmited = true;
     if(this.crearProductoForm.invalid){
+      this.crearProductoForm.markAllAsTouched()
       return;
     }
+    this.formSubmited = true;
     console.log(this.crearProductoForm.value)
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
     
@@ -107,31 +108,6 @@ export class CrearProductoComponent implements OnInit{
     }
   }
 
-  // prepararImagen( file: File ) {
-  //   this.imagenSubir = file;
-  //   if ( !file ) { 
-  //     return this.imgTemp = null;
-  //   }
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL( file );
-  //   reader.onloadend = () => {
-  //     this.imgTemp = reader.result;
-  //   }
-  // }
-
-  // async subirImagen() {
-  //   if(this.usuario === "proveedor"){
-  //     this.subirImagenService
-  //     .postearImagen( this.imagenesSubir, 'productos', this.producto._id)
-  //     .then( () => {
-  //       Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
-  //     }).catch( err => {
-  //       console.log(err);
-  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-  //     })
-  //   }
-  // }
-
   get imagenUrl(){
     if( this.usuario === "proveedor"){
       return `${base_url}/upload/productos/no-image`;
@@ -152,6 +128,38 @@ export class CrearProductoComponent implements OnInit{
       this.imgTemp = reader.result;
     }
     }
+  }
+
+  //Validaciones
+  get tituloNoValido(){
+    return this.tituloCampoRequerido
+  }
+  get tituloCampoRequerido(){
+    return this.crearProductoForm.get('titulo').errors ? this.crearProductoForm.get('titulo').errors.required && this.crearProductoForm.get('titulo').touched : null
+  }
+  get descripcionNoValido(){
+    return this.descripcionCampoRequerido
+  }
+  get descripcionCampoRequerido(){
+    return this.crearProductoForm.get('descripcion').errors ? this.crearProductoForm.get('descripcion').errors.required && this.crearProductoForm.get('descripcion').touched : null
+  }
+  get unidadesMinimasNoValido(){
+    return this.unidadesMinimasCampoRequerido
+  }
+  get unidadesMinimasCampoRequerido(){
+    return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.required && this.crearProductoForm.get('unidadesMinimas').touched : null
+  }
+  get stockNoValido(){
+    return this.stockCampoRequerido
+  }
+  get stockCampoRequerido(){
+    return this.crearProductoForm.get('stock').errors ? this.crearProductoForm.get('stock').errors.required && this.crearProductoForm.get('stock').touched : null
+  }
+  get precioNoValido(){
+    return this.precioCampoRequerido
+  }
+  get precioCampoRequerido(){
+    return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.required && this.crearProductoForm.get('precio').touched : null
   }
 
   }

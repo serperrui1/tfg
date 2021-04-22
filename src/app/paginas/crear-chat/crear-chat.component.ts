@@ -72,11 +72,11 @@ export class CrearChatComponent implements OnInit {
   }
 
   async crearChat(){
-    this.formSubmited = true;
-    console.log(this.chatForm.value);
     if(this.chatForm.invalid){
+      this.chatForm.markAllAsTouched()
       return;
     }
+    this.formSubmited = true;
     this.message = this.chatForm.controls['mensajes'].value;
     this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
     console.log(this.chatForm.value);
@@ -96,6 +96,14 @@ export class CrearChatComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  //Validaciones
+  get mensajeNoValido(){
+    return this.mensajeCampoRequerido
+  }
+  get mensajeCampoRequerido(){
+    return this.chatForm.get('mensajes').errors ? this.chatForm.get('mensajes').errors.required && this.chatForm.get('mensajes').touched : null
   }
 
 

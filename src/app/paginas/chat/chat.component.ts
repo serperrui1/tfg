@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
   public esQueja: boolean = false;
   public lastMessage: string = "";
   public firstMessage: string = "";
-  public direccionImagen = base_url+"/upload/productos/"
+  public direccionImagen = base_url+"/upload/productos/";
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -117,6 +117,10 @@ export class ChatComponent implements OnInit {
   }
 
   actualizarChat() {
+    if(this.chatForm.invalid){
+      this.chatForm.markAllAsTouched()
+      return;
+    }
       this.message = this.chatForm.controls['mensajes'].value;
       this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
       this.chatService.actualizarChat( this.chatForm.value, this.chat._id )
@@ -136,6 +140,14 @@ export class ChatComponent implements OnInit {
             console.log(err)
             Swal.fire('Error', 'Ha habido un problema', 'error');
           });
-    }
+  }
+
+  //Validaciones
+  get mensajeNoValido(){
+    return this.mensajeCampoRequerido
+  }
+  get mensajeCampoRequerido(){
+    return this.chatForm.get('mensajes').errors ? this.chatForm.get('mensajes').errors.required && this.chatForm.get('mensajes').touched : null
+  }
 
 }

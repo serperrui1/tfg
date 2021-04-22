@@ -15,8 +15,7 @@ const base_url = environment.base_url;
 @Component({
   selector: 'app-incidencia',
   templateUrl: './incidencia.component.html',
-  styles: [
-  ]
+  styleUrls: ['./incidencia.component.css']
 })
 export class IncidenciaComponent implements OnInit {
 
@@ -36,6 +35,7 @@ export class IncidenciaComponent implements OnInit {
   public autor: string = "";
   public message: string = "";
   public lastMessage: string = "";
+  public checkeaste: boolean = false;
   public cont: number;
 
 
@@ -116,6 +116,10 @@ export class IncidenciaComponent implements OnInit {
 
   actualizarIncidencia() {
     if(this.puedesActualizar === true){
+      if(this.incidenciaForm.invalid){
+        this.incidenciaForm.markAllAsTouched()
+        return;
+      }
       this.message = this.incidenciaForm.controls['mensajes'].value;
       this.incidenciaForm.controls['mensajes'].setValue(this.autor + this.message);
       //--------------------------------------------------------------------------------
@@ -135,6 +139,7 @@ export class IncidenciaComponent implements OnInit {
     }
   }
 
+
   borrarIncidencia( incidencia: Incidencia ) {
     if(this.puedesBorrar === true){
       this.incidenciaService.borrarIncidencia( incidencia._id )
@@ -147,6 +152,20 @@ export class IncidenciaComponent implements OnInit {
     }
   }
 
+  check() {
+    const ele = document.getElementById("resuelto") as HTMLInputElement;
+    if(ele.checked){
+      this.checkeaste = true;
+    }
+  }
+
+  //Validaciones
+  get mensajeNoValido(){
+    return this.mensajeCampoRequerido
+  }
+  get mensajeCampoRequerido(){
+    return this.incidenciaForm.get('mensajes').errors ? this.incidenciaForm.get('mensajes').errors.required && this.incidenciaForm.get('mensajes').touched : null
+  }
 
 
 }

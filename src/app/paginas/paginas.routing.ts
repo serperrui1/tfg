@@ -39,6 +39,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { CompradorGuard } from '../guards/comprador.guard';
 import { GOATComponent } from './goat/goat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SoporteComponent } from './soporte/soporte.component';
 
 const routes: Routes = [
     { 
@@ -59,6 +60,7 @@ const routes: Routes = [
             { path: 'crear-faq', component: CrearFaqComponent},
             { path: 'GOAT', component: GOATComponent},
             { path: 'faqs', component: FaqsComponent},
+            { path: 'soporte', component: SoporteComponent},
             { path: 'garantia', component: GarantiaComponent},
             { path: 'spam', component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
@@ -69,8 +71,8 @@ const routes: Routes = [
             { path: 'mis-incidencias',canActivate: [AuthGuard] , component: MisIncidenciasComponent},
             { path: 'mis-chats', component: MisChatsComponent},
             { path: 'sobre-nosotros', component: AboutUsComponent},
-            { path: 'terminos-registro', component: TerminosComponent},
-            { path: 'legal', component: LegalComponent},
+            { path: 'politica-privacidad', component: TerminosComponent},
+            { path: 'terminos-uso-y-aviso-legal', component: LegalComponent},
             { path: 'dashboard', component: DashboardComponent},
             { path: 'comercial', component: ComercialComponent},
             { path: 'compra', canActivate: [CompradorGuard], component: CompraComponent},

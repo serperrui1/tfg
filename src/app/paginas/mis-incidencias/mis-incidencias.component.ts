@@ -17,7 +17,6 @@ export class MisIncidenciasComponent implements OnInit {
 
     async ngOnInit() {
       this.incidencias = await (this.incidenciaService.getMisIncidencias());
-      console.log(this.incidencias) 
     }
   
     verIncidencia(id: number ){

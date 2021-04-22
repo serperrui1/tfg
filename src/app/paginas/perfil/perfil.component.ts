@@ -113,6 +113,10 @@ export class perfilComponent implements OnInit {
   });
 }
 actualizarProveedorPerfil() {
+  if(this.perfilProveedorForm.invalid){
+    this.perfilProveedorForm.markAllAsTouched()
+    return;
+  }
   this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid )
   .subscribe( () => {
     Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
@@ -252,5 +256,49 @@ actualizarAsistenteTecnicoPerfil() {
           return `${base_url}/upload/no-image`;
       }
     }
+  }
+
+  //Validaciones
+  get nombreEmpresaNoValido(){
+    return this.nombreEmpresaRequerido
+  }
+  get nombreEmpresaRequerido(){
+    return this.perfilProveedorForm.get('nombreEmpresa').errors ? this.perfilProveedorForm.get('nombreEmpresa').errors.required && this.perfilProveedorForm.get('nombreEmpresa').touched : null
+  }
+  get emailNoValido(){
+    return this.emailRequerido
+  }
+  get emailRequerido(){
+    return this.perfilProveedorForm.get('email').errors ? this.perfilProveedorForm.get('email').errors.required && this.perfilProveedorForm.get('email').touched : null
+  }
+  get registroMercantilNoValido(){
+    return this.registroMercantilRequerido
+  }
+  get registroMercantilRequerido(){
+    return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.required && this.perfilProveedorForm.get('registroMercantil').touched : null
+  }
+  get nifNoValido(){
+    return this.nifRequerido
+  }
+  get nifRequerido(){
+    return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.required && this.perfilProveedorForm.get('nif').touched : null
+  }
+  get cuentaBancariaNoValida(){
+    return this.cuentaBancariaRequerido
+  }
+  get cuentaBancariaRequerido(){
+    return this.perfilProveedorForm.get('cuentaBancaria').errors ? this.perfilProveedorForm.get('cuentaBancaria').errors.required && this.perfilProveedorForm.get('cuentaBancaria').touched : null
+  }
+  get direccionNoValido(){
+    return this.direccionRequerido
+  }
+  get direccionRequerido(){
+    return this.perfilProveedorForm.get('direccion').errors ? this.perfilProveedorForm.get('direccion').errors.required && this.perfilProveedorForm.get('direccion').touched : null
+  }
+  get titularNoValido(){
+    return this.titularRequerido
+  }
+  get titularRequerido(){
+    return this.perfilProveedorForm.get('titularCuenta').errors ? this.perfilProveedorForm.get('titularCuenta').errors.required && this.perfilProveedorForm.get('titularCuenta').touched : null
   }
 }

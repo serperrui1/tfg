@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
     <form class="form-signin" autocomplete="off" [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()" id="loginform">
         <h2 class="form-signin-heading">Cambiar contraseña</h2>
 
@@ -14,4 +14,40 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="contrasenaForm.invalid">Cambiar contraseña</button>
 
     </form>
+</div>
+
+
+ -->
+<div class="wrapper">
+    <div class="row">
+        <form class="form " autocomplete="off" [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()">
+            <div class="row">
+                <div class="col-md-6 form-div">
+                    <div class="card">
+                        <div class="card-body formulario">
+                            <h2 class="card-title text-center">Cambiar contraseña</h2>
+                            <h5 class="card-title">Contraseña actual</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="password" formControlName="password" [class.is-invalid]="contrasenaNoValido">
+                                <small *ngIf="contrasenaCampoRequerido" class="text-danger">Contraseña actual requerida</small>
+                            </div>
+                            <h5 class="card-title">Nueva contraseña</h5>
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" id="nuevaPassword" formControlName="nuevaPassword" [class.is-invalid]="nuevaContrasenaNoValido"></textarea>
+                                <small *ngIf="nuevaContrasenaCampoRequerido" class="text-danger">Nueva contraseña requerida</small>
+                            </div>
+                            <h5 class="card-title">Repita la nueva contraseña</h5>
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" id="nuevaPassword2" formControlName="nuevaPassword2" [class.is-invalid]="repitaNuevaNoValido"></textarea>
+                                <small *ngIf="repitaNuevaCampoRequerido" class="text-danger">Repita la nueva contraseña</small>
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="contrasenaForm.invalid">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

@@ -1,36 +1,36 @@
 <!-- <app-navbar [cuant]=(cantidades)></app-navbar> -->
-<div class="wrapper w-75" style="margin: auto; padding-top: 20px;" *ngIf="producto">
+<div class="wrapper" style="margin: auto; padding-top: 20px;" *ngIf="producto">
 
     <div class="row">
+
+        <div class="col-md-1"></div>
+
         <div class="col-md-3 producto-izquierda">
             <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
             <div class="row">
                 <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
-
                     <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                 </div>
             </div>
-
-
         </div>
-        <div class="col-md-5 producto-derecha">
-            <h3 style="text-align: center;">{{producto.titulo}}</h3>
-            <a routerLink="/escaparate/{{proveedorId}}">{{producto.proveedorNombre}} </a> <br>
 
+
+        <div class="col-md-5 producto-derecha">
+            <h3 style="text-align: left;">{{producto.titulo}}</h3>
+            Tienda de:
+            <a routerLink="/escaparate/{{proveedorId}}">{{producto.proveedorNombre}} </a> <br>
             <div>
                 <p class="precio-unidades">Precio por unidad: {{producto.precio}}€ </p>
                 <p class="precio-unidades">Unidades mínimas: {{producto.unidadesMinimas}}</p>
-
                 <br>
-
             </div>
             <p style="white-space: pre-wrap">
                 {{producto.descripcion}}
             </p>
             <br>
             <div class="detalles-tecnicos" *ngIf="producto.datosTecnicos[0]">
-                <h4 class="titulo-detalles">Detalles técnicos</h4>
-                <table class="table table-striped table-bordered">
+                <h4 class="titulo-detalles text-left">Detalles técnicos</h4>
+                <table class="table table-bordered titulo-detalles">
                     <tbody>
                         <tr *ngFor="let datos of producto.datosTecnicos">
                             <td>{{datos.datosTecnicosTitulo}}</td>
@@ -39,10 +39,9 @@
                     </tbody>
                 </table>
             </div>
-
-
-
         </div>
+
+
         <div class="col-md-2 infoFinal">
             <div class="contenido-infoFinal">
                 <div *ngIf="!(producto.unidadesMinimas >= producto.stock); else noStock">
@@ -52,7 +51,6 @@
                         <form [formGroup]="productoForm">
                             <label for="cantidad"><a>Cantidad : </a></label>
                             <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
-
                         </form>
                     </div>
                     <a class="botones" (click)="alCarrito(producto)">
@@ -67,74 +65,70 @@
                     <strong style="color: red; ">No hay stock</strong>
                     <br><br>
                 </ng-template>
-
-                <!-- <br>
-                <br> <strong>¿Quieres proponer una oferta?,</strong>
-                <br> <strong>¿tienes dudas sobre el producto?, ...</strong>
-                <br> -->
                 <a class="botones" routerLink="/crear-chat/{{producto._id}}">
                     Contacta con el proveedor
                 </a>
                 <div class="garantia">
                     <a routerLink="/garantia" class="text-primary m-l-5"> Ver la garantía de los productos</a>
                 </div>
+                <div class="botones-container" *ngIf="prov">
+                    <a class="botones" (click)="goEditIfProveedor()">Actualizar producto</a>
+                </div>
                 <br>
                 <a *ngIf="flag" class="botones" routerLink="/devolver-reclamar/{{pedidoId}}">
                     Solicitar devolución/reclamación
                 </a>
-
-
             </div>
         </div>
+
+        <div class="col-md-1"></div>
+
     </div>
+
     <br>
-    <!-- <div class="col-md-3 producto-izquierda" *ngIf="producto.datosTecnicos[0]">
-        <h4>Detalles técnicos</h4>
-        <table class="table table-striped table-bordered">
-            <tbody>
-                <tr *ngFor="let datos of producto.datosTecnicos">
-                    <td>{{datos.datosTecnicosTitulo}}</td>
-                    <td>{{datos.datosTecnicosDescripcion}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div> -->
-    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" *ngIf="prov" (click)="goEditIfProveedor();"><i class="fa fa-save"></i> Actualizar producto</button>
     <br>
 
     <div class="row">
-        <div class="col-md-6 titulo-valorar">
 
+        <div class="col-md-1"></div>
+
+
+        <div class="col-md-5 titulo-valorar" *ngIf="flag || yaValorado">
             <h4 *ngIf="yaValorado"> Todas las valoraciones </h4>
             <h4 *ngIf="!yaValorado && producto.valoraciones.length>0"> Valoraciones </h4>
-
-
             <div class="alert" *ngFor="let item of producto.valoraciones; let i = index">
                 <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
                 <p>Publicado por: {{this.nombres[i]}}</p>
                 <p> {{item.comentario}}</p>
-
             </div>
-
         </div>
 
-        <div class="col-md-6" *ngIf="flag && !yaValorado">
+        <div class="col-md-10 titulo-valorar" *ngIf="!flag && !yaValorado">
+            <h4 *ngIf="yaValorado"> Todas las valoraciones </h4>
+            <h4 *ngIf="!yaValorado && producto.valoraciones.length>0"> Valoraciones </h4>
+            <div class="alert" *ngFor="let item of producto.valoraciones; let i = index">
+                <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
+                <p>Publicado por: {{this.nombres[i]}}</p>
+                <p> {{item.comentario}}</p>
+            </div>
+        </div>
+
+
+        <div class="col-md-5" *ngIf="flag && !yaValorado">
             <h5>Valorar el producto</h5>
             <form class="form p-t-20" autocomplete="off" [formGroup]="valoracionForm">
                 <div class="form-group">
                     <div class="input-group">
                         <ngb-rating [max]="5" [(rate)]="starRating" [resettable]="true" [readonly]="false" (hover)="isRating = true; hovered = $event" (leave)="isRating = false; hovered = 0" (rateChange)="getRating($event)"></ngb-rating>
-
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="comentario">Comentario</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="ti-user"></i></div>
-                        <input type="text" class="form-control" id="comentario" formControlName="comentario">
+                        <textarea type="text" class="form-control" id="comentario" formControlName="comentario"></textarea>
                     </div>
                 </div>
-
             </form>
             <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="valoracionForm.invalid" (click)="publicarValoracion()">
             <i class="fa fa-save"></i>
@@ -142,25 +136,23 @@
         </button>
         </div>
 
-        <div class="col-md-6 titulo-valorar" *ngIf="yaValorado">
+
+        <div class="col-md-5 titulo-valorar" *ngIf="yaValorado">
             <h4> Mi valoración </h4>
-
-
             <div class="alert">
                 <ngb-rating [max]="5" [(rate)]="miValoracion.puntuacion" [readonly]="true"></ngb-rating>
                 <p>Comentario:
                     <br> "{{miValoracion.comentario}}"
                 </p>
-
                 <td class="text-nowrap text-center">
                     <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarValoracion()">
                         <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
                     </a>
                 </td>
-
             </div>
-
         </div>
+
+        <div class="col-md-1"></div>
 
     </div>
 
