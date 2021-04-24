@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="usuario === 'proveedor' && proveedor && !yaSoyComprador; else noApto">
+<div class="wrapper" *ngIf="usuario === 'proveedor' && !yaSoyComprador; else noApto">
     <form class="form-signin" autocomplete="off" [formGroup]="serCompradorForm" (ngSubmit)="crearComprador()" id="loginform">
         <h2 class="form-signin-heading">Ser un comprador</h2>
         <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre" />

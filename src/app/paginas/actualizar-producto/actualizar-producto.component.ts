@@ -3,7 +3,7 @@ import { Producto } from '../../models/producto';
 import { DatosTecnicos } from '../../models/datosTecnicos';
 import { ProductoService } from 'src/app/services/producto.service';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -38,6 +38,7 @@ export class ActualizarProductoComponent implements OnInit {
     private productoService: ProductoService,
     private fileUploadService: FileUploadService,
     private http: HttpClient,
+    private router:Router,
     private usuarioService: UsuarioService,
     private subirImagenService: SubirImagenService){
 
@@ -121,6 +122,7 @@ export class ActualizarProductoComponent implements OnInit {
     this.productoService.actualizarProducto( productoActualizar, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+      this.router.navigateByUrl("/mis-productos");
     }, (err) => {
       console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
@@ -171,6 +173,7 @@ export class ActualizarProductoComponent implements OnInit {
     this.productoService.borrarProducto( producto._id )
         .subscribe( resp => {
           Swal.fire( 'Borrado', producto.titulo, 'success' );
+          this.router.navigateByUrl("/mis-productos");
         });
 
   }

@@ -70,9 +70,15 @@ export class IncidenciaComponent implements OnInit {
     });
 
       this.aT = await this.usuarioService.getAsistenteTecnico();
+      console.log(this.aT)
       if(this.aT != null){
+        this.compradorNombre = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
+        if(this.compradorNombre === ""){
+          this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
+        }
         this.autor = this.aT.nombre + ": ";
       }
+
       if(this.aT === null){
         this.comp = await this.usuarioService.getComprador();
         if(this.comp != null){
@@ -94,10 +100,7 @@ export class IncidenciaComponent implements OnInit {
         this.asistenteTecnicoNombre = "Ningún asistente por ahora";
       }
 
-      this.compradorNombre = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
-      if(this.compradorNombre === ""){
-        this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
-      }
+      
 
       if((this.aT != null && this.incidencia.asistenteId === "") || (this.aT != null && this.aT.uid === this.incidencia.asistenteId) || (this.comp != null && this.comp.uid === this.incidencia.creadorId) || (this.prov != null && this.prov.uid === this.incidencia.creadorId)){
         this.puedesActualizar = true;

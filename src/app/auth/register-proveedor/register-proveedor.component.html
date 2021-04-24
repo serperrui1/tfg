@@ -8,7 +8,35 @@
         <input type="email" class="form-control" placeholder="Correo electrónico" formControlName="email" />
         <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
         <input type="password" class="form-control" placeholder="Repite contraseña" formControlName="password2" />
-        <input type="text" class="form-control" placeholder="sector/es: textil, informatica, ...  " formControlName="sector" />
+        <h5 class="card-title">Sector</h5>
+        <div class="form-group">
+            <select class="form-control form-control-sm" id="sector" formControlName="sector">
+                <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                <option value="Informática">Informática</option>
+                <option value="Electrónica">Electrónica</option>
+                <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                <option value="Hogar y cocina">Hogar y cocina</option>
+                <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                <option value="Juguetes y juegos">Juguetes y juegos</option>
+                <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                <option value="Relojes">Relojes</option>
+                <option value="Productos para bebé">Productos para bebé</option>
+                <option value="Coche y moto">Coche y moto</option>
+                <option value="Deportes y aire libre">Deportes y aire libre</option>
+                <option value="Joyería">Joyería</option>
+                <option value="Equipaje">Equipaje</option>
+                <option value="Iluminación">Iluminación</option>
+                <option value="Oficina y papelería">Oficina y papelería</option>
+                <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                <option value="Instrumentos musicales">Instrumentos musicales</option>
+                <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                <option value="Jardín">Jardín</option>
+                <option value="Belleza">Belleza</option>
+            </select>
+        </div>
+        <!-- <input type="text" class="form-control" placeholder="sector/es: textil, informatica, ...  " formControlName="sector" /> -->
         <input type="text" class="form-control" placeholder="Registro mercantil" formControlName="registroMercantil" [hidden]="autonomo" />
         <input type="text" class="form-control" placeholder="nif" formControlName="nif" [hidden]="!autonomo" />
         <input type="text" class="form-control" placeholder="direccion" formControlName="direccion" />

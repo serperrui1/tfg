@@ -72,9 +72,9 @@
                     <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="productoForm.invalid">
                         Actualizar producto
                     </button>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="borrarProducto(producto)">
+                    <a class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="borrarProducto(producto)">
                         Eliminar producto
-                    </button>
+                    </a>
                 </div>
 
 
@@ -94,7 +94,7 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="!imagenesSubir" (click)="subirImagenes()">
+                                    <button class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="!imagenesSubir" (click)="subirImagenes()">
                                         Subir fotos
                                     </button>
                                 </div>
@@ -124,15 +124,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="addDatosTecnicos()">
+                                    <a class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="addDatosTecnicos()">
                                         Añadir dato técnico
-                                    </button>
+                                    </a>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="deleteDatosTecnicos(pointIndex)">
+                                    <a type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" (click)="deleteDatosTecnicos(pointIndex)">
                                         Borrar dato técnico
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
