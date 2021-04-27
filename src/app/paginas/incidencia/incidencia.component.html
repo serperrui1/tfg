@@ -26,6 +26,7 @@
                                 <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes" [class.is-invalid]="mensajeNoValido"></textarea>
                                 <small *ngIf="mensajeCampoRequerido" class="text-danger">Campo requerido</small>
                             </div>
+
                             <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="prov || comp" [disabled]="incidenciaForm.invalid || !puedesActualizar && checkeaste">
                                 Actualizar
                             </button>

@@ -102,4 +102,19 @@ export class ChatService {
     } )
   }
 
+  existeChat( proveedorId:string):Promise<string>{
+    let data ={
+      proveedorId : proveedorId
+    }
+
+    return new Promise<string> (resolve=> {
+
+      this.http.post(`${ base_url }/chats/existe-chat`, data, this.headers )
+      .subscribe(data =>{
+        const chatId:string= data["chatId"]
+        resolve(chatId);
+      });
+    } )
+  }
+
 }

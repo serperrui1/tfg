@@ -260,7 +260,7 @@
 
 
 
-    <!--  <div class="row" *ngIf="usuario === 'comprador' && comprador">
+    <div class="row" *ngIf="usuario === 'comprador' && comprador">
         <form class="form " autocomplete="off" [formGroup]="perfilCompradorForm" (submit)="actualizarCompradorPerfil()">
             <div class="row">
 
@@ -300,20 +300,10 @@
                                 <input type="text" class="form-control" id="localidad" formControlName="localidad" [class.is-invalid]="localidadCompradorNoValido">
                                 <small *ngIf="localidadCompradorRequerido" class="text-danger">Localidad requerida</small>
                             </div>
-
-                            <h5 class="card-title text-center">¿Es autónomo?</h5>
-                            <div class="form-group">
-                                <input type="checkbox" class="form-control" [(ngModel)]="proveedor.autonomo" formControlName="autonomo">
-                            </div>
                             <h5 class="card-title">Email</h5>
                             <div class="form-group">
                                 <input type="email" class="form-control" id="email" formControlName="email" [class.is-invalid]="emailCompradorNoValido">
                                 <small *ngIf="emailCompradorRequerido" class="text-danger">Email requerido</small>
-                            </div>
-                            <h5 class="card-title">Email de su cuenta PayPal</h5>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="cuentaPaypal" formControlName="cuentaPaypal" [class.is-invalid]="emailPayPalNoValido">
-                                <small *ngIf="emailPayPalRequerido" class="text-danger">Email de PayPal requerido</small>
                             </div>
                             <h5 class="card-title">Nº de teléfono</h5>
                             <div class="form-group">
@@ -322,7 +312,7 @@
                             </div>
                             <h5 class="card-title">Dirección de residencia</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="direccion" formControlName="direccion" [class.is-invalid]="direccionCompradorNoValido">
+                                <input type="text" class="form-control" id="direccionResidencia" formControlName="direccionResidencia" [class.is-invalid]="direccionCompradorNoValido">
                                 <small *ngIf="direccionCompradorRequerido" class="text-danger">Direccción requerida</small>
                             </div>
                             <h5 class="card-title">Código postal</h5>
@@ -330,20 +320,10 @@
                                 <input type="number" class="form-control" id="codigoPostal" formControlName="codigoPostal" [class.is-invalid]="codigoPostalCompradorNoValido">
                                 <small *ngIf="codigoPostalCompradorRequerido" class="text-danger">Código postal requerido</small>
                             </div>
-                            <h5 class="card-title">Cuenta bancaria</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="cuentaBancaria" formControlName="cuentaBancaria" [class.is-invalid]="cuentaBancariaNoValida">
-                                <small *ngIf="cuentaBancariaRequerido" class="text-danger">Cuenta bancaria requerida</small>
-                            </div>
-                            <h5 class="card-title">Titular de la cuenta bancaria</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="titularCuenta" formControlName="titularCuenta" [class.is-invalid]="titularNoValido">
-                                <small *ngIf="titularRequerido" class="text-danger">Titular requerido</small>
-                            </div>
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="perfilProveedorForm.invalid">
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="perfilCompradorForm.invalid">
                         Actualizar
                     </button>
                 </div>
@@ -377,7 +357,7 @@
 
             </div>
         </form>
-    </div> -->
+    </div>
 
 
 
