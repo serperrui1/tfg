@@ -135,6 +135,7 @@ export class IncidenciaComponent implements OnInit {
       this.incidenciaService.actualizarIncidencia( this.incidenciaForm.value, this.incidencia._id )
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+        location.reload()
       }, (err) => {
         console.log(err)
         Swal.fire('Error', err.error.msg, 'error');

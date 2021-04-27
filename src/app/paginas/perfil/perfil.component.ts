@@ -55,8 +55,7 @@ export class perfilComponent implements OnInit {
       codigoPostal: [ this.comprador.codigoPostal , Validators.required ],
       numeroTelefono: [ this.comprador.numeroTelefono],
       direccionResidencia: [ this.comprador.direccionResidencia , Validators.required ],
-      tarjetaCredito: [ this.comprador.tarjetaCredito  ],
-      cuentaPaypal: [ this.comprador.cuentaPaypal ]
+
 
     });
   }else if(this.usuario==="proveedor"){
@@ -99,8 +98,10 @@ export class perfilComponent implements OnInit {
   }
   }
   actualizarCompradorPerfil() {
-  this.usuarioService.actualizarCompradorPerfil( this.perfilCompradorForm.value, this.comprador.uid )
-  .subscribe( () => {
+    if(this.perfilCompradorForm.invalid){
+      Swal.fire('Error', "Complete todos los campos", 'error');
+    }else{
+    this.usuarioService.actualizarCompradorPerfil( this.perfilCompradorForm.value, this.comprador.uid ).subscribe( () => {
     const { nombre, email } = this.perfilCompradorForm.value;
     this.comprador.nombre = nombre;
     this.comprador.email = email;
@@ -111,6 +112,8 @@ export class perfilComponent implements OnInit {
     console.log(err)
     Swal.fire('Error', err.error.msg, 'error');
   });
+    }
+  
 }
 actualizarProveedorPerfil() {
   if(this.perfilProveedorForm.invalid){
@@ -301,4 +304,70 @@ actualizarAsistenteTecnicoPerfil() {
   get titularRequerido(){
     return this.perfilProveedorForm.get('titularCuenta').errors ? this.perfilProveedorForm.get('titularCuenta').errors.required && this.perfilProveedorForm.get('titularCuenta').touched : null
   }
+
+
+
+
+  get nombreCompradorRequerido(){
+    return this.perfilCompradorForm.get('nombre').errors ? this.perfilCompradorForm.get('nombre').errors.required && this.perfilCompradorForm.get('nombre').touched : null
+  }
+  get nombreCompradorNoValido(){
+    return this.nombreCompradorRequerido
+  }
+  get apellidosCompradorRequerido(){
+    return this.perfilCompradorForm.get('apellidos').errors ? this.perfilCompradorForm.get('apellidos').errors.required && this.perfilCompradorForm.get('apellidos').touched : null
+  }
+  get apellidosCompradorNoValido(){
+    return this.apellidosCompradorRequerido
+  }
+  get fechaNacimientoCompradorRequerido(){
+    return this.perfilCompradorForm.get('fechaNacimiento').errors ? this.perfilCompradorForm.get('fechaNacimiento').errors.required && this.perfilCompradorForm.get('fechaNacimiento').touched : null
+  }
+  get fechaNacimientoCompradorNoValido(){
+    return this.fechaNacimientoCompradorRequerido
+  }
+  get paisCompradorRequerido(){
+    return this.perfilCompradorForm.get('paisResidencia').errors ? this.perfilCompradorForm.get('paisResidencia').errors.required && this.perfilCompradorForm.get('paisResidencia').touched : null
+  }
+  get paisCompradorNoValido(){
+    return this.paisCompradorRequerido
+  }
+  get ciudadCompradorRequerido(){
+    return this.perfilCompradorForm.get('ciudad').errors ? this.perfilCompradorForm.get('ciudad').errors.required && this.perfilCompradorForm.get('ciudad').touched : null
+  }
+  get ciudadCompradorNoValido(){
+    return this.ciudadCompradorRequerido
+  }
+  get localidadCompradorRequerido(){
+    return this.perfilCompradorForm.get('localidad').errors ? this.perfilCompradorForm.get('localidad').errors.required && this.perfilCompradorForm.get('localidad').touched : null
+  }
+  get localidadCompradorNoValido(){
+    return this.localidadCompradorRequerido
+  }
+  get emailCompradorRequerido(){
+    return this.perfilCompradorForm.get('email').errors ? this.perfilCompradorForm.get('email').errors.required && this.perfilCompradorForm.get('email').touched : null
+  }
+  get emailCompradorNoValido(){
+    return this.emailCompradorRequerido
+  }
+  get tlfCompradorRequerido(){
+    return this.perfilCompradorForm.get('numeroTelefono').errors ? this.perfilCompradorForm.get('numeroTelefono').errors.required && this.perfilCompradorForm.get('numeroTelefono').touched : null
+  }
+  get tlfCompradorNoValido(){
+    return this.tlfCompradorRequerido
+  }
+  get direccionCompradorRequerido(){
+    return this.perfilCompradorForm.get('direccionResidencia').errors ? this.perfilCompradorForm.get('direccionResidencia').errors.required && this.perfilCompradorForm.get('direccionResidencia').touched : null
+  }
+  get direccionCompradorNoValido(){
+    return this.direccionCompradorRequerido
+  }
+  get codigoPostalCompradorRequerido(){
+    return this.perfilCompradorForm.get('codigoPostal').errors ? this.perfilCompradorForm.get('codigoPostal').errors.required && this.perfilCompradorForm.get('codigoPostal').touched : null
+  }
+  get codigoPostalCompradorNoValido(){
+    return this.codigoPostalCompradorRequerido
+  }
+  
+
 }

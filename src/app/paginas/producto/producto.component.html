@@ -65,7 +65,10 @@
                     <strong style="color: red; ">No hay stock</strong>
                     <br><br>
                 </ng-template>
-                <a class="botones" routerLink="/crear-chat/{{producto._id}}">
+                <a *ngIf="!existeChat" class="botones" routerLink="/crear-chat/{{producto._id}}">
+                    Contacta con el proveedor
+                </a>
+                <a *ngIf="existeChat" class="botones" routerLink="/chat/{{existeChat}}">
                     Contacta con el proveedor
                 </a>
                 <div class="garantia">

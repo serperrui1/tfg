@@ -59,6 +59,8 @@ export class ProductoComponent implements OnInit {
   public yaValorado = false;
   public miValoracion :Valoracion;
   public imagenMostrar :string;
+  public existeChat:string;
+
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -73,20 +75,30 @@ export class ProductoComponent implements OnInit {
      this.usuario =localStorage.getItem('usuario');
      this.token =localStorage.getItem('token');
 
+     
+
   }
 
 
   async ngOnInit() {
+    this.activatedRoute.params.subscribe( params => {
+      this.id = params['id']; 
+    });
+    this.producto = await this.productoService.getProductoPorID(this.id);
+
+    
+    this.productoForm = new FormGroup({
+      cantidadProducto: new FormControl(this.producto.unidadesMinimas)
+    });
+    
     if (this.usuario =="proveedor"){
       this.prov = await this.usuarioService.getProveedor();
     }
     if (this.usuario =="comprador"){
       this.comp = await this.usuarioService.getComprador();
+      this.existeChat = await this.chatService.existeChat(this.producto.proveedor);
     }
-    this.activatedRoute.params.subscribe( params => {
-      this.id = params['id']; 
-    });
-    this.producto = await this.productoService.getProductoPorID(this.id);
+ 
     this.producto.descripcion = this.producto.descripcion.replace(/(?:\r\n|\r|\n)/g, '\n');
     console.log(this.producto)
     this.imagenMostrar = this.producto.imagenes[0];
@@ -107,9 +119,6 @@ export class ProductoComponent implements OnInit {
     this.proveedorId = this.producto.proveedor;
           
 
-    this.productoForm = new FormGroup({
-      cantidadProducto: new FormControl(this.producto.unidadesMinimas)
-    });
 
     this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
     this.producto.proveedorNombre = this.proveedor;

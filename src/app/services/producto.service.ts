@@ -85,7 +85,7 @@ export class ProductoService {
     console.log(data);
     return new Promise<Producto[]>(
       resolve => {
-        this.http.post(`${base_url}/productos/buscador/`,data,{
+        this.http.post(`${base_url}/productos/buscador`,data,{
         }).subscribe(data=>{
           const productos = data["productos"];
           resolve(productos);

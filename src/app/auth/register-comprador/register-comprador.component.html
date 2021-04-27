@@ -7,14 +7,12 @@
         <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
         <input type="password" class="form-control" placeholder="Repite contraseña" formControlName="password2" />
         <input type="date" class="form-control" formControlName="fechaNacimiento" />
-        <div *ngIf="registrarCompradorForm.value.terminos==false">
-            <input type="text" class="form-control" placeholder="Nacionalidad" formControlName="nacionalidad" />
-            <input type="text" class="form-control" placeholder="Pais de residencia" formControlName="paisResidencia" />
-            <input type="text" class="form-control" placeholder="Ciudad" formControlName="ciudad" />
-            <input type="text" class="form-control" placeholder="Localidad" formControlName="localidad" />
-            <input type="text" class="form-control" placeholder="Código Postal" formControlName="codigoPostal" />
-            <input type="text" class="form-control" placeholder="direccionResidencia" formControlName="direccionResidencia" />
-        </div>
+        <input type="text" class="form-control" placeholder="Nacionalidad" formControlName="nacionalidad" />
+        <input type="text" class="form-control" placeholder="Pais de residencia" formControlName="paisResidencia" />
+        <input type="text" class="form-control" placeholder="Ciudad" formControlName="ciudad" />
+        <input type="text" class="form-control" placeholder="Localidad" formControlName="localidad" />
+        <input type="text" class="form-control" placeholder="Código Postal" formControlName="codigoPostal" />
+        <input type="text" class="form-control" placeholder="direccionResidencia" formControlName="direccionResidencia" />
         <label class="checkbox">
         <input type="checkbox" formControlName="terminos"> Aceptar los <a href="/terminos-registro">Terminos</a>
       </label>
