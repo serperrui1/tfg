@@ -164,7 +164,7 @@
                             <h5 class="card-title">Sector</h5>
                             <div class="form-group">
                                 <select class="form-control form-control-sm" id="sector" formControlName="sector">
-                                    <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                                    <option value="Libros, Música, Vídeo y DVD" selected>Libros, Música, Vídeo y DVD</option> 
                                     <option value="Consolas y videojuegos">Consolas y videojuegos</option>
                                     <option value="Informática">Informática</option>
                                     <option value="Electrónica">Electrónica</option>
@@ -209,9 +209,9 @@
                                 <input type="text" class="form-control" id="direccion" formControlName="direccion" [class.is-invalid]="direccionNoValido">
                                 <small *ngIf="direccionRequerido" class="text-danger">Direccción requerida</small>
                             </div>
-                            <h5 class="card-title">Cuenta bancaria</h5>
+                            <h5 class="card-title">IBAN</h5>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="cuentaBancaria" formControlName="cuentaBancaria" [class.is-invalid]="cuentaBancariaNoValida">
+                                <input type="text" class="form-control" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="cuentaBancariaNoValida">
                                 <small *ngIf="cuentaBancariaRequerido" class="text-danger">Cuenta bancaria requerida</small>
                             </div>
                             <h5 class="card-title">Titular de la cuenta bancaria</h5>
@@ -241,9 +241,9 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="!imagenSubir" (click)="subirImagen()">
+                                    <a class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="imagenSubir" (click)="subirImagen()">
                                         Actualizar foto
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>

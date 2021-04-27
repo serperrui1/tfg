@@ -8,8 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-ser-comprador',
   templateUrl: './ser-comprador.component.html',
-  styles: [
-  ]
+  styleUrls: ['./ser-comprador.component.css']
 })
 export class SerCompradorComponent implements OnInit {
   formSubmited:boolean = false;
@@ -54,19 +53,17 @@ export class SerCompradorComponent implements OnInit {
   }
 
   crearComprador(){
-    this.formSubmited = true;
-    console.log(this.serCompradorForm.value);
-
     if(this.serCompradorForm.invalid){
+      this.serCompradorForm.markAllAsTouched()
       return;
     }
-
+    this.formSubmited = true;
     this.usuarioService.crearComprador(this.serCompradorForm.value).subscribe( resp => {
       this.router.navigateByUrl('/');
       }, (err)=> {
         Swal.fire('Error', err.error.msg, 'error');
       });
-    }
+  }
 
   campoNoValido (campo:string) :boolean{
     if(this.serCompradorForm.get(campo).invalid && this.formSubmited){
@@ -110,6 +107,43 @@ export class SerCompradorComponent implements OnInit {
       pass2Control.setErrors({noEsIgual:true})
     }
     }
+  }
+
+  get nombreNoValido(){
+    return this.nombreRequerido
+  }
+  get nombreRequerido(){
+    return this.serCompradorForm.get('nombre').errors ? this.serCompradorForm.get('nombre').errors.required && this.serCompradorForm.get('nombre').touched : null
+  }
+
+  get fechaNoValido(){
+    return this.fechaNacimientoRequerida || this.fechaNacimientoAnteriorAHoy
+  }
+  get fechaNacimientoRequerida(){
+    return this.serCompradorForm.get('fechaNacimiento').errors ? this.serCompradorForm.get('fechaNacimiento').errors.required && this.serCompradorForm.get('fechaNacimiento').touched : null
+  }
+  get fechaNacimientoAnteriorAHoy(){
+    return this.serCompradorForm.get('fechaNacimiento').errors ? this.serCompradorForm.get('fechaNacimiento').errors.fechaAnteriorAHoy && this.serCompradorForm.get('fechaNacimiento').touched : null
+  }
+
+  get emailNoValido(){
+    return this.emailRequerido || this.emailFormatoNoValido
+  }
+  get emailRequerido(){
+    return this.serCompradorForm.get('email').errors ? this.serCompradorForm.get('email').errors.required && this.serCompradorForm.get('email').touched : null
+  }
+  get emailFormatoNoValido(){
+    return this.serCompradorForm.get('email').errors ? this.serCompradorForm.get('email').errors.email && this.serCompradorForm.get('email').touched : null
+  }
+
+  get passwordNoValido(){
+    return this.passwordRequerido
+  }
+  get passwordRequerido(){
+    return this.serCompradorForm.get('password').errors ? this.serCompradorForm.get('password').errors.required && this.serCompradorForm.get('password').touched : null
+  }
+  get passwordRequerido2(){
+    return this.serCompradorForm.get('password2').errors ? this.serCompradorForm.get('password2').errors.required && this.serCompradorForm.get('password2').touched : null
   }
 
 

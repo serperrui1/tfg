@@ -67,22 +67,22 @@ export class IncidenciaComponent implements OnInit {
         mensajes: ['', Validators.required ],
         asignado: [ this.incidencia.asignado],
         resuelto: [ this.incidencia.resuelto],
-    });
+      });
 
       this.aT = await this.usuarioService.getAsistenteTecnico();
-      console.log(this.aT)
       if(this.aT != null){
-        this.compradorNombre = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
-        if(this.compradorNombre === ""){
-          this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
-        }
-        this.autor = this.aT.nombre + ": ";
+          if(await this.usuarioService.getCompradorNombre(this.incidencia.creadorId) != ""){
+            this.compradorNombre = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
+          } else if (await this.usuarioService.getProveedorNombre(this.incidencia.creadorId)){
+            this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
+          }
+        this.autor = this.aT.nombre.trimEnd() + ": ";
       }
 
       if(this.aT === null){
         this.comp = await this.usuarioService.getComprador();
         if(this.comp != null){
-          this.autor = this.comp.nombre + ": ";
+          this.autor = this.comp.nombre.trimEnd() + ": ";
         }
         if(this.comp === null){
           this.prov = await this.usuarioService.getProveedor();

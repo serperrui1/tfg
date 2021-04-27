@@ -46,7 +46,7 @@ export class RegisterProveedorComponent {
     this.registrarProveedorForm.value
 
     if(this.registrarProveedorForm.invalid){
-      console.log("invalido")
+      this.registrarProveedorForm.markAllAsTouched()
       return;
     }
 
@@ -98,5 +98,36 @@ export class RegisterProveedorComponent {
 
     }
      
+  }
+
+  get emailNoValido(){
+    return this.emailRequerido || this.emailFormatoNoValido
+  }
+  get emailRequerido(){
+    return this.registrarProveedorForm.get('email').errors ? this.registrarProveedorForm.get('email').errors.required && this.registrarProveedorForm.get('email').touched : null
+  }
+  get emailFormatoNoValido(){
+    return this.registrarProveedorForm.get('email').errors ? this.registrarProveedorForm.get('email').errors.email && this.registrarProveedorForm.get('email').touched : null
+  }
+
+  get passwordNoValido(){
+    return this.passwordRequerido
+  }
+  get passwordRequerido(){
+    return this.registrarProveedorForm.get('password').errors ? this.registrarProveedorForm.get('password').errors.required && this.registrarProveedorForm.get('password').touched : null
+  }
+  get passwordRequerido2(){
+    return this.registrarProveedorForm.get('password2').errors ? this.registrarProveedorForm.get('password2').errors.required && this.registrarProveedorForm.get('password2').touched : null
+  }
+  
+
+  get cuentaBancariaIbanNoValido(){
+    return this.cuentaBancariaIBANRequerido || this.cuentaBancariaFormato
+  }
+  get cuentaBancariaIBANRequerido(){
+    return this.registrarProveedorForm.get('cuentaBancariaIBAN').errors ? this.registrarProveedorForm.get('cuentaBancariaIBAN').errors.required && this.registrarProveedorForm.get('cuentaBancariaIBAN').touched : null
+  }
+  get cuentaBancariaFormato(){
+    return this.registrarProveedorForm.get('cuentaBancariaIBAN').errors ? this.registrarProveedorForm.get('cuentaBancariaIBAN').errors.cuentaBancariaFormatoNoValido && this.registrarProveedorForm.get('cuentaBancariaIBAN').touched : null
   }
 }

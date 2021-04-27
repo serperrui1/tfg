@@ -71,7 +71,7 @@ export class perfilComponent implements OnInit {
       registroMercantil:[ this.proveedor.nombreEmpresa ],
       nif: [ this.proveedor.nombreEmpresa ],
       direccion: [ this.proveedor.direccion , Validators.required ],
-      cuentaBancaria: [ this.proveedor.cuentaBancaria , Validators.required ],
+      cuentaBancariaIBAN: [ this.proveedor.cuentaBancariaIBAN , Validators.required ],
       titularCuenta: [ this.proveedor.titularCuenta , Validators.required ]
 
     });
@@ -287,7 +287,7 @@ actualizarAsistenteTecnicoPerfil() {
     return this.cuentaBancariaRequerido
   }
   get cuentaBancariaRequerido(){
-    return this.perfilProveedorForm.get('cuentaBancaria').errors ? this.perfilProveedorForm.get('cuentaBancaria').errors.required && this.perfilProveedorForm.get('cuentaBancaria').touched : null
+    return this.perfilProveedorForm.get('cuentaBancariaIBAN').errors ? this.perfilProveedorForm.get('cuentaBancariaIBAN').errors.required && this.perfilProveedorForm.get('cuentaBancariaIBAN').touched : null
   }
   get direccionNoValido(){
     return this.direccionRequerido
