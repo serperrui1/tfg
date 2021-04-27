@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
     <form class="form-signin" autocomplete="off" [formGroup]="registrarProveedorForm" (ngSubmit)="crearProveedor()" id="loginform">
         <h2 class="form-signin-heading">Registrar como proveedor</h2>
         <input type="text" class="form-control" placeholder="Nombre/ Empresa" formControlName="nombreEmpresa" />
@@ -11,8 +11,8 @@
         <h5 class="card-title">Sector</h5>
         <div class="form-group">
             <select class="form-control form-control-sm" id="sector" formControlName="sector">
-                <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
-                <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                <option value="Consolas y videojuegos" selected="selected">Consolas y videojuegos</option>
                 <option value="Informática">Informática</option>
                 <option value="Electrónica">Electrónica</option>
                 <option value="Accesorios de electrónica">Accesorios de electrónica</option>
@@ -36,7 +36,6 @@
                 <option value="Belleza">Belleza</option>
             </select>
         </div>
-        <!-- <input type="text" class="form-control" placeholder="sector/es: textil, informatica, ...  " formControlName="sector" /> -->
         <input type="text" class="form-control" placeholder="Registro mercantil" formControlName="registroMercantil" [hidden]="autonomo" />
         <input type="text" class="form-control" placeholder="nif" formControlName="nif" [hidden]="!autonomo" />
         <input type="text" class="form-control" placeholder="direccion" formControlName="direccion" />
@@ -61,6 +60,143 @@
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="registrarProveedorForm.invalid">Iniciar</button>
+
+    </form>
+</div> -->
+
+
+
+<div class="wrapper login">
+    <div style="text-align: center; margin-bottom: 10px;">
+        <a href="/"><img src="./assets/images/logo-transparente.png" /> </a>
+    </div>
+
+    <form class="form-registro" autocomplete="off" [formGroup]="registrarProveedorForm" (ngSubmit)="crearProveedor()" id="loginform">
+        <h2 class="form-signin-heading" style="text-align: center;">Nuevo proveedor</h2>
+        <hr>
+
+        <p class="aviso">Todos los campos son obligatorios</p>
+
+        <div class="form-group">
+            <label for="nombre">Empresa</label>
+            <input type="text" class="form-control" name="nombreEmpresa" id="nombreEmpresa" formControlName="nombreEmpresa" [class.is-invalid]="campoNoValido('nombreEmpresa')">
+            <small *ngIf="campoNoValido('nombreEmpresa')" style="color: red;">Nombre de empresa requerido</small>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" name="autonomo" [(ngModel)]="autonomo" id="autonomo" formControlName="autonomo"> Soy autónomo
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" formControlName="email" [class.is-invalid]="emailNoValido">
+            <small *ngIf="emailRequerido" style="color: red;">Email requerido</small>
+            <small *ngIf="emailFormatoNoValido" style="color: red;">Email no válido</small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" name="password" id="password" formControlName="password" [class.is-invalid]="passwordNoValido">
+            <small *ngIf="passwordRequerido" style="color: red;">Contraseña requerida</small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Repita la contraseña</label>
+            <input type="password" class="form-control" name="password2" id="password2" formControlName="password2" [class.is-invalid]="contrasenasNoValidas() || passwordRequerido2">
+            <small *ngIf="passwordRequerido2" style="color: red;">La contraseña repetida es requerida</small>
+            <small *ngIf="contrasenasNoValidas()" style="color: red;">Las contraseñas deben coincidir</small>
+        </div>
+
+        <div class="form-group">
+            <label for="sector">Nicho de mercado</label>
+            <select class="form-control form-control-sm" id="sector" formControlName="sector">
+                <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                <option value="Consolas y videojuegos" selected="selected">Consolas y videojuegos</option>
+                <option value="Informática">Informática</option>
+                <option value="Electrónica">Electrónica</option>
+                <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                <option value="Hogar y cocina">Hogar y cocina</option>
+                <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                <option value="Juguetes y juegos">Juguetes y juegos</option>
+                <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                <option value="Relojes">Relojes</option>
+                <option value="Productos para bebé">Productos para bebé</option>
+                <option value="Coche y moto">Coche y moto</option>
+                <option value="Deportes y aire libre">Deportes y aire libre</option>
+                <option value="Joyería">Joyería</option>
+                <option value="Equipaje">Equipaje</option>
+                <option value="Iluminación">Iluminación</option>
+                <option value="Oficina y papelería">Oficina y papelería</option>
+                <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                <option value="Instrumentos musicales">Instrumentos musicales</option>
+                <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                <option value="Jardín">Jardín</option>
+                <option value="Belleza">Belleza</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Dirección</label>
+            <textarea rows="4" type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion" [class.is-invalid]="campoNoValido('direccion')"></textarea>
+            <small *ngIf="campoNoValido('direccion')" style="color: red;">Descripción requerido</small>
+        </div>
+
+        <div class="form-group" [hidden]="autonomo">
+            <label for="registroMercantil">Registro mercantil</label>
+            <input type="text" class="form-control" name="registroMercantil" id="registroMercantil" formControlName="registroMercantil" [class.is-invalid]="campoNoValido('registroMercantil') &&!autonomo">
+            <small *ngIf="campoNoValido('registroMercantil') &&!autonomo" style="color: red;">Registro mercantil requerido</small>
+        </div>
+
+        <div class="form-group" [hidden]="!autonomo">
+            <label for="registroMercantil">NIF</label>
+            <input type="text" class="form-control" name="nif" id="nif" formControlName="nif" [class.is-invalid]="campoNoValido('nif')">
+            <small *ngIf="campoNoValido('nif')" style="color: red;">NIF requerido</small>
+        </div>
+
+        <div class="form-group">
+            <label for="cuentaBancariaIBAN">IBAN</label>
+            <input type="text" placeholder="Ejemplo: ES141111222233334444" class="form-control" name="cuentaBancariaIBAN" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="cuentaBancariaIbanNoValido">
+            <small *ngIf="cuentaBancariaIBANRequerido" style="color: red;">Cuenta bancaria requerida. </small>
+            <small *ngIf="cuentaBancariaFormato" style="color: red;">Formato incorrecto</small>
+        </div>
+
+        <div class="form-group">
+            <label for="titularCuenta">Titular de la cuenta</label>
+            <input type="text" class="form-control" name="titularCuenta" id="titularCuenta" formControlName="titularCuenta" [class.is-invalid]="campoNoValido('titularCuenta')">
+            <small *ngIf="campoNoValido('titularCuenta')" style="color: red;">Titular de la cuenta requerido</small>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" formControlName="terminos" [class.is-invalid]="aceptaTerminos()"> Acepto los <a href="/terminos-uso-y-aviso-legal">términos de uso</a>
+            <small *ngIf="aceptaTerminos()" style="color: red;">Debe aceptar los términos</small>
+        </div>
+
+        <br>
+
+        <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit" [disabled]="registrarProveedorForm.invalid">Registrarse</button>
+
+
+        <br>
+
+        <div class="form-group m-b-0">
+            <div class="col-sm-12 text-center">
+                ¿Ya tiene cuenta?<a routerLink="/login" class="text-primary m-l-5"><b> Inicie sesión</b></a>
+            </div>
+        </div>
+
+        <div class="form-group m-b-0">
+            <div class="col-sm-12 text-center">
+                ¿Trabaja aquí?<a routerLink="/login/empleado" class="text-primary m-l-5"><b> Acceda como empleado</b></a>
+            </div>
+        </div>
+
+        <div class="form-group m-b-0">
+            <div class="col-sm-12 text-center">
+                <a routerLink="/" class="text-primary m-l-5"><b>Volver a la web</b></a>
+            </div>
+        </div>
+
 
     </form>
 </div>

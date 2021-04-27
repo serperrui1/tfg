@@ -13,6 +13,8 @@ declare const gapi:any;
 export class LoginComponent implements OnInit{
   formSubmited:boolean = false;
   public auth2: any;
+  public emailIncorrecto: boolean = false;
+  public passwordIncorrecta: boolean = false;
 
   public loginForm = this.fb.group({
     email:[localStorage.getItem('email') ||'',[ Validators.required, Validators.email] ],
@@ -92,6 +94,14 @@ export class LoginComponent implements OnInit{
         }, (error) => {
             alert(JSON.stringify(error, undefined, 2));
         });
+  }
+
+  get emailRequerido(){
+    return this.loginForm.get('email').invalid && this.loginForm.get('email').touched
+  }
+
+  get passwordRequerido(){
+    return this.loginForm.get('password').invalid && this.loginForm.get('password').touched
   }
 
 

@@ -2,10 +2,10 @@ export interface Proveedor {
 
     nombreEmpresa: string;
     autonomo: boolean;
-    sector: string[];
+    sector: string;
     email: string;
     direccion: string;
-    cuentaBancaria: string;
+    cuentaBancariaIBAN: string;
     titularCuenta: string;
     productosId: string[];
     uid?: string;
