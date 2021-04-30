@@ -41,10 +41,10 @@ export class CarritoComponent implements OnInit{
   }
   
   async ngOnInit() {
-
+    this.esComprador = (localStorage.getItem('usuario') ==="comprador")
     this.getEverything();
 
-    this.esComprador = (localStorage.getItem('usuario')==="comprador" && this.usuarioService.getComprador()!==null)
+    
 
     /* for (let i = 0; i < this.items.length; i++) {
         this.cantidad = Number(this.cantidades[i]);

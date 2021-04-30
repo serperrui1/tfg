@@ -76,13 +76,13 @@ export class IncidenciaComponent implements OnInit {
           } else if (await this.usuarioService.getProveedorNombre(this.incidencia.creadorId)){
             this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
           }
-        this.autor = this.aT.nombre.trimEnd() + ": ";
+        this.autor = this.aT.nombre + ": ";
       }
 
       if(this.aT === null){
         this.comp = await this.usuarioService.getComprador();
         if(this.comp != null){
-          this.autor = this.comp.nombre.trimEnd() + ": ";
+          this.autor = this.comp.nombre + ": ";
         }
         if(this.comp === null){
           this.prov = await this.usuarioService.getProveedor();
