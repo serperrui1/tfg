@@ -97,10 +97,10 @@ export class ProductoComponent implements OnInit {
     if (this.usuario =="comprador"){
       this.comp = await this.usuarioService.getComprador();
       this.existeChat = await this.chatService.existeChat(this.producto.proveedor);
+      console.log(1)
     }
  
     this.producto.descripcion = this.producto.descripcion.replace(/(?:\r\n|\r|\n)/g, '\n');
-    console.log(this.producto)
     this.imagenMostrar = this.producto.imagenes[0];
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);

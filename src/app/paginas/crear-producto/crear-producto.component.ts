@@ -93,10 +93,10 @@ export class CrearProductoComponent implements OnInit{
     for(let imagen of this.imagenesSubir)
     this.subirImagenService.postearImagen(imagen, 'productos', productoId)
     .then( () => {
-      Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
+      Swal.fire('Guardado', 'Nuevo producto creado con éxito', 'success');
     }).catch( err => {
       console.log(err);
-      Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      Swal.fire('Error', 'No se ha creado el producto, ha habido un error', 'error');
     });
   }
 

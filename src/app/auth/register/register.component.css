@@ -9,3 +9,24 @@ body {
     text-align: center;
     vertical-align: middle;
 }
+
+.form-div {
+    margin: auto;
+    color: black;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+}

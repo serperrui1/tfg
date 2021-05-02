@@ -41,6 +41,7 @@ export class RegisterAsistenteTecnicoComponent {
   crearAsistente(){
     this.formSubmited = true;
     if(this.registrarAsistenteForm.invalid){
+      this.registrarAsistenteForm.markAllAsTouched()
       return;
     }
     this.usuarioService.crearAsistenteTecnico(this.registrarAsistenteForm.value).subscribe( resp => {
@@ -83,5 +84,34 @@ export class RegisterAsistenteTecnicoComponent {
       }
     } 
   }
+
+  get nombreNoValido(){
+    return this.nombreRequerido
+  }
+  get nombreRequerido(){
+    return this.registrarAsistenteForm.get('nombre').errors ? this.registrarAsistenteForm.get('nombre').errors.required && this.registrarAsistenteForm.get('nombre').touched : null
+  }
+
+  get emailNoValido(){
+    return this.emailRequerido || this.emailFormatoNoValido
+  }
+  get emailRequerido(){
+    return this.registrarAsistenteForm.get('email').errors ? this.registrarAsistenteForm.get('email').errors.required && this.registrarAsistenteForm.get('email').touched : null
+  }
+  get emailFormatoNoValido(){
+    return this.registrarAsistenteForm.get('email').errors ? this.registrarAsistenteForm.get('email').errors.email && this.registrarAsistenteForm.get('email').touched : null
+  }
+
+  get passwordNoValido(){
+    return this.passwordRequerido
+  }
+  get passwordRequerido(){
+    return this.registrarAsistenteForm.get('password').errors ? this.registrarAsistenteForm.get('password').errors.required && this.registrarAsistenteForm.get('password').touched : null
+  }
+  get passwordRequerido2(){
+    return this.registrarAsistenteForm.get('password2').errors ? this.registrarAsistenteForm.get('password2').errors.required && this.registrarAsistenteForm.get('password2').touched : null
+  }
+
+
 
 }

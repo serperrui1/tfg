@@ -57,9 +57,12 @@
         <input type="password" (keyup)="passwordIncorrecta = false" class="form-control" placeholder="Contraseña" formControlName="password" />
         <small *ngIf="passwordRequerido" class="text-danger">Contraseña requerida</small>
         <!-- <small *ngIf="passwordIncorrecta" class="text-danger">Contraseña incorrecta</small> -->
-        <input type="checkbox" value="remember-me" id="rememberMe" formControlName="remember">Recuérdame
+        <div class="check">
+            <input type="checkbox" value="remember-me" id="rememberMe" formControlName="remember"> Recuérdame
+        </div>
+        <br>
         <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">Iniciar</button>
-        <div class="row">
+        <div class="row google-button">
             <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 mb-4 text-center" id="google-btn">
                 <div id="my-signin2"></div>
             </div>
@@ -67,18 +70,18 @@
 
         <div class="form-group m-b-0">
             <div class="col-sm-12 text-center">
-                ¿No tienes cuenta? <a routerLink="/register" class="text-primary m-l-5"><b>Regístrate</b></a>
+                ¿No tienes cuenta? <a routerLink="/register" class="link m-l-5"><b>Regístrate</b></a>
             </div>
         </div>
         <div class="form-group m-b-0">
             <div class="col-sm-12 text-center">
-                ¿Trabajas aquí? <a routerLink="/login/empleado" class="text-primary m-l-5"><b>Acceda como empleado</b></a>
+                ¿Trabajas aquí? <a routerLink="/login/empleado" class="link m-l-5"><b>Acceda como empleado</b></a>
             </div>
         </div>
 
         <div class="form-group m-b-0">
             <div class="col-sm-12 text-center">
-                <a routerLink="/" class="text-primary m-l-5"><b>Volver a la web</b></a>
+                <a routerLink="/" class="link m-l-5"><b>Volver a la web</b></a>
             </div>
         </div>
 

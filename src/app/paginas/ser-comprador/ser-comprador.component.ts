@@ -21,15 +21,20 @@ export class SerCompradorComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private router:Router) {
-      this.usuario =localStorage.getItem('usuario') || "";
+      this.usuario = localStorage.getItem('usuario') || "";
     }
 
   async ngOnInit() {
-    this.emailDB = await this.usuarioService.getCompradorEmail(this.proveedor.email);
-    this.compruebaYaSoyComprador();
-
     if(this.usuario === "proveedor"){
     this.proveedor = await this.usuarioService.getProveedor();
+
+    if(await this.usuarioService.getCompradorEmail(this.proveedor.email) != ""){
+      this.emailDB = await this.usuarioService.getCompradorEmail(this.proveedor.email);
+    } else {
+      this.emailDB = "";
+    }
+    this.compruebaYaSoyComprador();
+    console.log(1)
    
      this.serCompradorForm = this.fb.group({
       nombre: [ '', Validators.required ],
@@ -41,6 +46,7 @@ export class SerCompradorComponent implements OnInit {
       paisResidencia: [ '', Validators.required ],
       ciudad: [ '', Validators.required ],
       localidad: [ '', Validators.required ],
+      codigoPostal: [ '', Validators.required ],
       direccionResidencia: [ '', Validators.required ],
       terminos:['', Validators.required]
 
@@ -48,8 +54,6 @@ export class SerCompradorComponent implements OnInit {
         validators: this.passwordsIguales('password', 'password2')
       });
     }
-
-    
   }
 
   crearComprador(){
@@ -58,11 +62,8 @@ export class SerCompradorComponent implements OnInit {
       return;
     }
     this.formSubmited = true;
-    this.usuarioService.crearComprador(this.serCompradorForm.value).subscribe( resp => {
-      this.router.navigateByUrl('/');
-      }, (err)=> {
-        Swal.fire('Error', err.error.msg, 'error');
-      });
+    this.usuarioService.convertirseEnComprador(this.serCompradorForm.value);
+    
   }
 
   campoNoValido (campo:string) :boolean{
@@ -89,11 +90,13 @@ export class SerCompradorComponent implements OnInit {
   }
 
   compruebaYaSoyComprador(){
-    if(this.proveedor.email === this.emailDB){
+    if(this.emailDB != ""){
       this.yaSoyComprador = true;
-      console.log(this.yaSoyComprador);
+    }else{
+      this.yaSoyComprador = false;
     }
   }
+    
 
   passwordsIguales(passName1:string, passName2:string){
     return(formGroup : FormGroup) =>{
@@ -109,11 +112,20 @@ export class SerCompradorComponent implements OnInit {
     }
   }
 
+  //Validaciones
+
   get nombreNoValido(){
     return this.nombreRequerido
   }
   get nombreRequerido(){
     return this.serCompradorForm.get('nombre').errors ? this.serCompradorForm.get('nombre').errors.required && this.serCompradorForm.get('nombre').touched : null
+  }
+
+  get cpNoValido(){
+    return this.cpRequerido
+  }
+  get cpRequerido(){
+    return this.serCompradorForm.get('codigoPostal').errors ? this.serCompradorForm.get('codigoPostal').errors.required && this.serCompradorForm.get('codigoPostal').touched : null
   }
 
   get fechaNoValido(){

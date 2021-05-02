@@ -73,16 +73,16 @@ export class IncidenciaComponent implements OnInit {
       if(this.aT != null){
           if(await this.usuarioService.getCompradorNombre(this.incidencia.creadorId) != ""){
             this.compradorNombre = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
-          } else if (await this.usuarioService.getProveedorNombre(this.incidencia.creadorId)){
+          } else if (await this.usuarioService.getProveedorNombre(this.incidencia.creadorId) != ""){
             this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
           }
-        this.autor = this.aT.nombre.trimEnd() + ": ";
+        this.autor = this.aT.nombre + ": ";
       }
 
       if(this.aT === null){
         this.comp = await this.usuarioService.getComprador();
         if(this.comp != null){
-          this.autor = this.comp.nombre.trimEnd() + ": ";
+          this.autor = this.comp.nombre + ": ";
         }
         if(this.comp === null){
           this.prov = await this.usuarioService.getProveedor();
@@ -135,7 +135,6 @@ export class IncidenciaComponent implements OnInit {
       this.incidenciaService.actualizarIncidencia( this.incidenciaForm.value, this.incidencia._id )
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
-        location.reload()
       }, (err) => {
         console.log(err)
         Swal.fire('Error', err.error.msg, 'error');

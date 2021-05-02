@@ -1,18 +1,24 @@
 body {
     background: #eee !important;
+    color: black;
 }
 
 .wrapper {
     margin-top: 80px;
     margin-bottom: 80px;
+    background-color: rgb(235, 235, 235);
 }
 
-.form-signin {
-    max-width: 380px;
+.form-registro {
+    max-width: 50%;
     padding: 15px 35px 45px;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: rgb(240, 240, 240);
     border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.aviso {
+    color: rgb(173, 173, 173);
 }
 
 .form-signin-heading,
@@ -24,11 +30,27 @@ body {
     font-weight: normal;
 }
 
+.row {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.form-div {
+    margin: auto;
+    color: black;
+}
+
 .form-control {
     position: relative;
     font-size: 16px;
     height: auto;
     padding: 10px;
+}
+
+.ser-comprador {
+    background-color: rgb(255, 255, 255);
 }
 
 input[type="text"] {
@@ -41,4 +63,9 @@ input[type="password"] {
     margin-bottom: 20px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.login {
+    color: black;
+    background-color: rgb(255, 255, 255);
 }

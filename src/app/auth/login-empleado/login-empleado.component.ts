@@ -49,4 +49,12 @@ export class LoginEmpleadoComponent implements OnInit{
       });
   }
 
+  get emailRequerido(){
+    return this.loginForm.get('email').invalid && this.loginForm.get('email').touched
+  }
+
+  get passwordRequerido(){
+    return this.loginForm.get('password').invalid && this.loginForm.get('password').touched
+  }
+
 }

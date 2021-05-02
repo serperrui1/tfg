@@ -102,7 +102,7 @@ export class ChatService {
     } )
   }
 
-  existeChat( proveedorId:string):Promise<string>{
+  existeChat( proveedorId:string ):Promise<string>{
     let data ={
       proveedorId : proveedorId
     }

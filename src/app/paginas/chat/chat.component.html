@@ -22,10 +22,10 @@
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="!flag" (click)="borrarChat(chat)">
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="!flag && comp" (click)="borrarChat(chat)">
                         Borrar chat
                     </button>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="flag" (click)="borrarChat(chat)">
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="flag && prov" (click)="borrarChat(chat)">
                         Borrar reclamación/devolución
                     </button>
                     <br>

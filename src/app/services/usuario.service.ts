@@ -12,6 +12,7 @@ import { Proveedor } from '../models/proveedor';
 import { Administrador } from '../models/administrador';
 import { AsistenteTecnico } from '../models/asistente';
 import { RegisterAsistenteTecnicoComponent } from '../auth/register-asistente-tecnico/register-asistente-tecnico.component';
+import Swal from 'sweetalert2';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -32,6 +33,19 @@ export class UsuarioService {
 
      get token(): string {
       return localStorage.getItem('token') || '';
+    }
+  
+    get usuario(): string {
+      return localStorage.getItem('usuario');
+    }
+  
+    get headers() {
+      return {
+        headers: {
+          'x-token': this.token,
+          'usuario': this.usuario
+        }
+      }
     }
   
     
@@ -61,7 +75,6 @@ export class UsuarioService {
   }
 
   crearComprador( formData: RegisterCompradorComponent) {
-    
     return this.http.post(`${ base_url }/compradores`, formData )
           .pipe(
             tap( (resp: any) => {
@@ -70,6 +83,21 @@ export class UsuarioService {
             })
            )
 
+  }
+
+  convertirseEnComprador( formData: RegisterCompradorComponent):Promise<Comprador>{
+    return new Promise<Comprador> (resolve=> {
+      this.http.post(`${ base_url }/compradores`, formData, this.headers )
+      .subscribe(data =>{
+        if(data["ok"] == true){
+          const comprador:Comprador= data["comprador"];
+          resolve(comprador);
+          Swal.fire('Guardado', 'Se ha convertido en un comprador', 'success');
+        }else{
+          Swal.fire('Error', data["msg"] , 'error');
+        }
+      });
+    } )
   }
 
   crearAsistenteTecnico( formData: RegisterAsistenteTecnicoComponent) {
