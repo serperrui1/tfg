@@ -108,10 +108,10 @@ comprar(){
         
         this.quitarDelCarrito(i)
   
-    
-        
+        Swal.fire('éxito', 'se realizo el pedido', 'success');
+        this.router.navigateByUrl('/mis-pedidos');
       }else{
-        Swal.fire('Error', 'no hay ');
+        Swal.fire('Error', 'no se ha podido realizar el pedido');
       }
     }
 
@@ -135,9 +135,11 @@ comprar(){
         this.quitarDelCarrito(i)
   
     
+        Swal.fire('éxito', 'se realizo el pedido', 'success');
+        this.router.navigateByUrl('/mis-pedidos');
         
       }else{
-        Swal.fire('Error', 'no hay ');
+        Swal.fire('Error', 'no se ha podido realizar el pedido');
       }
   
   
