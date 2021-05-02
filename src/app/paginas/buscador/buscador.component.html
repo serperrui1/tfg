@@ -3,7 +3,8 @@
         <form class="form-signin my-3 mx-3 " autocomplete="off" [formGroup]="filtro" id="buscadorform">
             <h5>Categoría</h5>
             <select class="form-control form-control-sm" id="categoria" formControlName="categoria" (change)="buscar()">
-                <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                <option value="" selected="selected">Todas las categorías</option> 
+                <option value="Libros, Música, Vídeo y DVD" >Libros, Música, Vídeo y DVD</option> 
                 <option value="Consolas y videojuegos">Consolas y videojuegos</option>
                 <option value="Informática">Informática</option>
                 <option value="Electrónica">Electrónica</option>
