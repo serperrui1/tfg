@@ -10,6 +10,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { FileUploadService } from '../../services/file-upload.service';
 import { SubirImagenService } from 'src/app/services/subir-imagen.service';
+import { Proveedor } from '../../models/proveedor';
 
 
 const base_url = environment.base_url;
@@ -24,12 +25,15 @@ export class ActualizarProductoComponent implements OnInit {
   
   public productoForm: FormGroup;
   public producto: Producto;
+  public misProductos: Producto[];
   public imagenSubir: File;
   public imgTemp: any = null;
   public proveedor:string;
   public id: string;
   public token: string;
   public usuario:string;
+  public prov: Proveedor;
+  public accesoDenegado: boolean = false;
   public direccionImagen = base_url+"/upload/productos/"
   public imagenesSubir: File[];
 
@@ -48,12 +52,22 @@ export class ActualizarProductoComponent implements OnInit {
   }
 
   async ngOnInit() {
+
+    this.prov = await this.usuarioService.getProveedor();
+
+
     if(this.usuario === "proveedor" && this.token != null) {
+
       this.activatedRoute.params.subscribe( params => {
         this.id = params['id']; 
       });
 
-      this.producto= await this.productoService.getProductoPorID(this.id);
+      this.prov = await this.usuarioService.getProveedor();
+      this.producto = await this.productoService.getProductoPorID(this.id);
+      if(this.producto.proveedor != this.prov.uid){
+          this.accesoDenegado = true;
+      }
+      
       this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
       this.producto.proveedorNombre = this.proveedor;
   
@@ -124,7 +138,6 @@ export class ActualizarProductoComponent implements OnInit {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
       this.router.navigateByUrl("/mis-productos");
     }, (err) => {
-      console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
     });
   }
@@ -148,7 +161,6 @@ export class ActualizarProductoComponent implements OnInit {
       .then( () => {
         Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
       }).catch( err => {
-        console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       });
     }

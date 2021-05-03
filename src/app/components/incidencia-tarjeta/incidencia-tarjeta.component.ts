@@ -60,8 +60,6 @@ export class IncidenciaTarjetaComponent implements OnInit {
 
     if(this.incidencia.asignado){
       this.nombreAsistente = await this.usuarioService.getAsistenteTecnicoNombre(this.incidencia.asistenteId);
-      console.log(this.incidencia.asignado)
-      console.log(this.nombreAsistente)
       
     }
 

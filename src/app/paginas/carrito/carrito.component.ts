@@ -43,37 +43,23 @@ export class CarritoComponent implements OnInit{
   async ngOnInit() {
     this.esComprador = (localStorage.getItem('usuario') ==="comprador")
     this.getEverything();
-
-    
-
-    /* for (let i = 0; i < this.items.length; i++) {
-        this.cantidad = Number(this.cantidades[i]);
-        console.log(this.cantidad);
-        this.costeLinea = this.items[i].precio * (Number(this.cantidades[i]));
-        this.subtotal = this.subtotal + this.costeLinea;
-        this.impuestos = this.subtotal * 0.13;
-        this.total = this.subtotal + this.envio + this.impuestos;
-    } */
   }
   
   getEverything(){
     this.cargando = true;
     this.products = this.carritoService.getCarrito();
     this.quantities = this.carritoService.getCantidades();
-    /* this.cargando = false; */
     this.items = this.products;
     this.cantidades = this.quantities;
 
     for (let i = 0; i < this.items.length; i++) {
       this.cantidad = Number(this.cantidades[i]);
-      console.log(this.cantidad);
       this.costeLinea = this.items[i].precio * (Number(this.cantidades[i]));
       this.subtotal = this.subtotal + this.costeLinea;
       this.impuestos = this.subtotal * 0.13;
       this.total = this.subtotal + this.envio + this.impuestos;
     }
     this.cargando = false;
-    /* console.log(this.items[0].imagenes[0]); */
   }
 
   borrarItem(i){

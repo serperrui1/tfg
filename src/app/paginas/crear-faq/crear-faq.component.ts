@@ -64,7 +64,6 @@ export class CrearFaqComponent implements OnInit {
     .subscribe( () => {
       Swal.fire('Guardado', 'FAQ creado', 'success');
     }, (err) => {
-      console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
     });
   }

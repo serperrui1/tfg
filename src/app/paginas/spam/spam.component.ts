@@ -33,9 +33,7 @@ export class SpamComponent implements OnInit {
 
   async ngOnInit() {
     this.spam = (await this.spamService.getSpam())[0];
-    /* console.log(this.spam.expresiones); */
     this.datos.expresiones = this.spam.expresiones;
-    /* console.log(this.spam); */
   }
 
   
@@ -47,7 +45,6 @@ export class SpamComponent implements OnInit {
     .subscribe( () => {
       Swal.fire('Guardado', 'SPAM actualizado', 'success');
     }, (err) => {
-      console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
     });
   }

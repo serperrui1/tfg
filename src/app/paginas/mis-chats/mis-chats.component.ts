@@ -17,7 +17,6 @@ export class MisChatsComponent implements OnInit {
 
     async ngOnInit() {
       this.chats = await (this.chatService.getMisChats());
-      console.log(this.chats) 
     }
 
     verChat(id: number ){

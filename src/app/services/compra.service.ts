@@ -40,7 +40,6 @@ export class CompraService {
       this.http.post(`${ base_url }/pedidos`, pedido, this.headers )
       .subscribe(data =>{
         const pedidoId:string= data["pedido"]["_id"];
-        console.log(pedidoId);
         resolve(pedidoId);
       });
     } )
@@ -59,7 +58,6 @@ export class CompraService {
       "DS_MERCHANT_TRANSACTIONTYPE": "0",
     };
     let Ds_MerchantParameters = btoa(JSON.stringify(Ds_MerchantParameters_NoBase64));
-    console.log(Ds_MerchantParameters)
     let Ds_SignatureVersion = "HMAC_SHA256_V1"
     let Ds_Signature = btoa("009dec741715adaa731d5383fad6624065f5d1ff88a0f176defd4174956007d0");
 
@@ -73,7 +71,6 @@ export class CompraService {
 
       this.http.post('https://sis-t.redsys.es:25443/sis/realizarPago', data)
       .subscribe(data =>{
-        console.log(data);
         resolve(data);
       });
     } )

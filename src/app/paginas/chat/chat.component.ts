@@ -127,7 +127,6 @@ export class ChatComponent implements OnInit {
       .subscribe( () => {
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
       }, (err) => {
-        console.log(err)
         Swal.fire('Error', err.error.msg, 'error');
       });
   }
@@ -137,7 +136,6 @@ export class ChatComponent implements OnInit {
           .subscribe( resp => {
             Swal.fire( 'Borrado', 'Chat borrado con éxito', 'success' );
           }, (err) => {
-            console.log(err)
             Swal.fire('Error', 'Ha habido un problema', 'error');
           });
   }

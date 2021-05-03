@@ -41,10 +41,8 @@ export class LoginEmpleadoComponent implements OnInit{
       localStorage.setItem('usuario', this.loginForm.get('usuario').value)
       // Navegar al Dashboard
       this.router.navigateByUrl('/');
-      console.log(resp)
       
       }, (err)=> {
-        console.log(err);
         Swal.fire('Error', err.error.msg, 'error');
       });
   }

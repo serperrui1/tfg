@@ -1,6 +1,6 @@
-<div class="wrapper" *ngIf="usuario === 'proveedor' && proveedor">
+<!-- <div class="wrapper" *ngIf="producto && productoForm && !accesoDenegado">
     <div class="row">
-        <form class="form " autocomplete="off" [formGroup]="productoForm" (submit)="actualizarProducto()">
+        <form class="form-registro" autocomplete="off" [formGroup]="productoForm" (submit)="actualizarProducto()">
             <div class="row">
 
                 <div class="col-md-1"></div>
@@ -143,5 +143,173 @@
                 <div class="col-md-1"></div>
             </div>
         </form>
+    </div>
+</div> -->
+
+
+
+
+
+
+
+<div class="wrapper login" *ngIf="producto && productoForm && !accesoDenegado">
+    <div class="row">
+        <form class="form-registro" autocomplete="off" [formGroup]="productoForm" (ngSubmit)="actualizarProducto()" id="loginform">
+            <div class="row">
+                <div class="col"></div>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Actualizar producto</h2>
+                <div class="col"></div>
+            </div>
+            <hr class="mt-0">
+            <div class="row">
+
+
+                <div class="col-md-6 form-div">
+                    <p class="aviso">(*) Campos opcionales</p>
+
+                    <div class="form-group">
+                        <label for="nombre">Título</label>
+                        <input type="text" class="form-control" id="titulo" formControlName="titulo" [class.is-invalid]="tituloNoValido">
+                        <small *ngIf="tituloCampoRequerido" class="text-danger">Título requerido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Descripción</label>
+                        <textarea type="text" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
+                        <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoría</label>
+                        <select class="form-control form-control-sm" id="categoria" formControlName="categoria">
+                        <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                        <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                        <option value="Informática">Informática</option>
+                        <option value="Electrónica">Electrónica</option>
+                        <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                        <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                        <option value="Hogar y cocina">Hogar y cocina</option>
+                        <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                        <option value="Juguetes y juegos">Juguetes y juegos</option>
+                        <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                        <option value="Relojes">Relojes</option>
+                        <option value="Productos para bebé">Productos para bebé</option>
+                        <option value="Coche y moto">Coche y moto</option>
+                        <option value="Deportes y aire libre">Deportes y aire libre</option>
+                        <option value="Joyería">Joyería</option>
+                        <option value="Equipaje">Equipaje</option>
+                        <option value="Iluminación">Iluminación</option>
+                        <option value="Oficina y papelería">Oficina y papelería</option>
+                        <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                        <option value="Instrumentos musicales">Instrumentos musicales</option>
+                        <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                        <option value="Jardín">Jardín</option>
+                        <option value="Belleza">Belleza</option>
+                    </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subcategoria">Subcategoría</label><a class="aviso" style="text-decoration: none;"> (*)</a>
+                        <input type="text" class="form-control" id="subcategoria" formControlName="subcategoria">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unidadesMinimas">Unidades mínimas</label>
+                        <input type="number" class="form-control" id="unidadesMinimas" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
+                        <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requerido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="stock" class="form-control" id="stock" formControlName="stock" [class.is-invalid]="stockNoValido">
+                        <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precio">Precio</label><a class="aviso" style="text-decoration: none;"> (€)</a>
+                        <input type="number" class="form-control" id="precio" formControlName="precio" [class.is-invalid]="precioNoValido">
+                        <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-div">
+                    <h4 class="card-title text-center">Fotos del producto</h4>
+                    <div class="card">
+                        <div class="card-body formulario">
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+                            </div>
+
+                            <br>
+                            <input type="file" class="btn btn-lg btn-light btn-sm btn-block" multiple (change)="multiplesImagenes($event.target.files)">
+
+
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-lg btn-primary btn-sm btn-block" (click)="subirImagenes()"><!-- [disabled]="!imagenesSubir" -->
+                                        Subir fotos
+                                    </button>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <h4 class="card-title text-center">Datos técnicos</h4>
+                    <div formArrayName="datosTecnicos">
+                        <table class="table table-bordered">
+                            <tr *ngFor="let datos of producto.datosTecnicos">
+                                <td>{{datos.datosTecnicosTitulo}}</td>
+                                <td>{{datos.datosTecnicosDescripcion}}</td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarDatosTecnicos(datos)">
+                                        <i class="fa fa-trash-o" style="font-size:24px;color:rgb(163, 24, 24)"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
+                                <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Descripción del dato técnico" formControlName="datosTecnicosDescripcion">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a class="btn btn-lg btn-primary btn-sm btn-block" (click)="addDatosTecnicos()">
+                                        Añadir dato técnico
+                                    </a>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <a type="submit" class="btn btn-lg btn-danger btn-sm btn-block" (click)="deleteDatosTecnicos(pointIndex)">
+                                        Borrar dato técnico
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar producto</button>
+
+                <a class="btn btn-lg btn-danger btn-block btn-sm" (click)="borrarProducto(producto)">Eliminar producto</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="wrapper" *ngIf="producto && productoForm && accesoDenegado">
+    <div class="row">
+        <div class="col-md-8 form-div">
+            <h2 class="card-title text-center text-danger acceso-denegado">ACCESO DENEGADO</h2>
+        </div>
     </div>
 </div>

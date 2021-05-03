@@ -97,7 +97,6 @@ export class ProductoComponent implements OnInit {
     if (this.usuario =="comprador"){
       this.comp = await this.usuarioService.getComprador();
       this.existeChat = await this.chatService.existeChat(this.producto.proveedor);
-      console.log(1)
     }
  
     this.producto.descripcion = this.producto.descripcion.replace(/(?:\r\n|\r|\n)/g, '\n');
@@ -105,7 +104,6 @@ export class ProductoComponent implements OnInit {
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
       this.nombres.push(this.valoradoPor);
-      /* console.log(this.nombres); */
       if(this.comp){
         if(val.comprador == this.comp.uid) {
         this.miValoracion = val;
@@ -125,7 +123,6 @@ export class ProductoComponent implements OnInit {
 
     this.productoForm.get('cantidadProducto').valueChanges.subscribe(val => {
       const formattedMessage = val;
-      console.log(formattedMessage);
     });
 
     localStorage.setItem('productoId',JSON.stringify(this.producto._id));
@@ -183,16 +180,13 @@ export class ProductoComponent implements OnInit {
           }
   
       if (index != -1) {
-        console.log(index);
 
         let data = {
           index
         }
-        console.log(this.producto._id);
         this.productoService.borrarValoracion(data,this.producto._id)    .subscribe( () => {
           Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
         }, (err) => {
-          console.log(err)
           Swal.fire('Error', err.error.msg, 'error');
         });
         
@@ -206,17 +200,12 @@ export class ProductoComponent implements OnInit {
   } 
 
   publicarValoracion() {
-    /* if(this.comp){
-      this.valoradoPor = this.valoracionForm.controls['comprador'].value;
-      console.log(this.valoradoPor);
-    } */
     this.valoracionForm.controls['puntuacion'].setValue(this.estrellas);
     this.productoService.crearValoracion( this.valoracionForm.value, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
       
     }, (err) => {
-      console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
     });
   }
@@ -227,7 +216,6 @@ export class ProductoComponent implements OnInit {
 
   comprar(producto){
     this.cantidad = Number((document.getElementById("cantidad") as HTMLInputElement).value);
-    console.log((document.getElementById("cantidad") as HTMLInputElement).value);
 
     this.items = this.carritoService.getCarrito();
     this.cantidades = this.carritoService.getCantidades();
@@ -267,7 +255,6 @@ export class ProductoComponent implements OnInit {
 
   alCarrito(producto) {
     this.cantidad = Number((document.getElementById("cantidad") as HTMLInputElement).value);
-    console.log((document.getElementById("cantidad") as HTMLInputElement).value);
 
     this.items = this.carritoService.getCarrito();
     this.cantidades = this.carritoService.getCantidades();

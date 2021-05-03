@@ -9,27 +9,15 @@
     font-size: large;
 }
 
-.descripcion-container {
-    border: 1px solid rgb(156, 156, 156);
-    text-align: left;
-    margin: 1%;
-    border-radius: 10px;
-}
-
-.descripcion-titulo {
-    text-align: center;
-    margin-top: 1%;
-}
-
 .row {
     padding-left: 15px;
-    padding-top: 15px;
+    padding-top: 7px;
     padding-right: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 7px;
 }
 
 .formulario {
-    background-color: #e4e4e4;
+    background-color: #ffffff;
     margin: auto,
 }
 
@@ -41,4 +29,96 @@
 .form {
     width: 90%;
     margin: auto;
+}
+
+.acceso-denegado {
+    font-size: 100px;
+}
+
+body {
+    background: #eee !important;
+    color: black;
+}
+
+.wrapper {}
+
+.form-registro {
+    width: 90%;
+    padding: 15px 35px 45px;
+    margin: auto;
+    background-color: #fff;
+    border: 2px solid rgb(122, 122, 122);
+    border-radius: 10px;
+}
+
+.aviso {
+    color: rgb(173, 173, 173);
+}
+
+.form-signin-heading,
+.checkbox {
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+.checkbox {
+    font-weight: normal;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #771515;
+    border-color: #771515;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #500d0d;
+    border-color: #500d0d;
+}
+
+.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+
+input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.login {
+    color: black;
+}
+
+.link {
+    color: #2114db;
 }

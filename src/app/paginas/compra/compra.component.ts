@@ -80,12 +80,9 @@ export class CompraComponent implements OnInit {
       })
     },
     onApprove: async (data, actions)=>{
-     // const order = await actions.order.capture;
-      console.log(actions);
       this.comprar();
     },
     onError: err =>{
-      console.log(err);
     }
     }).render(this.paypalElement.nativeElement);
 }
@@ -120,7 +117,6 @@ comprar(){
     for(let i = this.productos.length -1 ; i>=0 ; i--){
 
       if(this.productos[i].unidadesMinimas<=this.cantidades[i] && this.productos[i].stock>=this.cantidades[i]){
-        console.log(this.direccionEnvio);
         this.pedido.direccionEnvio = this.direccionEnvio;
         this.pedido.codigoPostal = this.comprador.codigoPostal;
         this.pedido.nombreComprador = this.comprador.nombre + this.comprador.apellidos;
@@ -129,7 +125,6 @@ comprar(){
         this.pedido.unidades = this.cantidades[i];
         this.pedido.precio = this.productos[i].precio * this.cantidades[i];
         this.pedido.proveedor = this.productos[i].proveedor;
-        console.log(this.pedido)
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)

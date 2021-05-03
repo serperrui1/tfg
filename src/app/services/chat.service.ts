@@ -96,7 +96,6 @@ export class ChatService {
       this.http.post(`${ base_url }/chats/`, formData, this.headers )
       .subscribe(data =>{
         const chatId:string= data["chat"]["_id"];
-        console.log(chatId);
         resolve(chatId);
       });
     } )

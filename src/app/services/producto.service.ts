@@ -82,7 +82,6 @@ export class ProductoService {
   }
 
   getBuscadorProductos(data:any):Promise<Producto[]>{
-    console.log(data);
     return new Promise<Producto[]>(
       resolve => {
         this.http.post(`${base_url}/productos/buscador`,data,{
@@ -133,7 +132,6 @@ export class ProductoService {
       this.http.post(`${ base_url }/productos`, formData, this.headers )
       .subscribe(data =>{
         const productoId:string= data["producto"]["_id"];
-        console.log(productoId);
         resolve(productoId);
       });
     } )
@@ -158,7 +156,6 @@ export class ProductoService {
 
   borrarValoracion( data:any, pid:string) {
 
-    console.log(data);
     return this.http.put(`${ base_url }/productos/borrar-valoracion/${ pid }`, data, {
       headers: {
         'x-token': this.token

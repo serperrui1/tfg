@@ -65,7 +65,6 @@ export class CrearIncidenciaComponent implements OnInit {
     .subscribe( () => {
       Swal.fire('Guardado', 'Incidencia creada', 'success');
     }, (err) => {
-      console.log(err)
       Swal.fire('Error', err.error.msg, 'error');
     });
   }

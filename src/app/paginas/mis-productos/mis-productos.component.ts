@@ -19,7 +19,6 @@ export class MisProductosComponent implements OnInit {
 
   async ngOnInit() {
     this.productos = await (this.productoService.getMisProductos());
-    console.log(this.productos[0]._id) 
   }
 
   verProducto(id: number ){

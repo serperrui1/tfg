@@ -86,16 +86,13 @@ export class CrearProductoComponent implements OnInit{
       return;
     }
     this.formSubmited = true;
-    console.log(this.crearProductoForm.value)
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
     
-    console.log(this.imagenesSubir);
     for(let imagen of this.imagenesSubir)
     this.subirImagenService.postearImagen(imagen, 'productos', productoId)
     .then( () => {
       Swal.fire('Guardado', 'Nuevo producto creado con éxito', 'success');
     }).catch( err => {
-      console.log(err);
       Swal.fire('Error', 'No se ha creado el producto, ha habido un error', 'error');
     });
   }

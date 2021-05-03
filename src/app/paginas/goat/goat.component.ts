@@ -74,7 +74,6 @@ export class GOATComponent implements OnInit {
         }
       }
       this.bestValued.sort(comparar);
-      console.log(this.bestValued);
 
       this.best3.push(this.bestValued[this.bestValued.length - 1]); // el número 1
       this.primero = this.bestValued[this.bestValued.length - 1];

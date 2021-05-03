@@ -53,7 +53,7 @@ export class UsuarioService {
     
     return this.http.post(`${ base_url }/login/${formData.usuario}`, formData ).pipe(
       tap( (resp: any) => {
-        localStorage.setItem('token', resp.token )
+        localStorage.setItem('token', resp.token)
       })
     );
 
@@ -78,8 +78,7 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/compradores`, formData )
           .pipe(
             tap( (resp: any) => {
-              localStorage.setItem('token', resp.token );
-              localStorage.setItem('usuario', "comprador" );
+              
             })
            )
 
@@ -120,8 +119,6 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/proveedores`, formData )
           .pipe(
             tap( (resp: any) => {
-              localStorage.setItem('token', resp.token );
-              localStorage.setItem('usuario', "proveedor" );
             })
            )
 

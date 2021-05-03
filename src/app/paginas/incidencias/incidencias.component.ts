@@ -18,7 +18,6 @@ export class IncidenciasComponent implements OnInit {
 
   async ngOnInit() {
     this.incidencias = await (this.incidenciaService.getIncidencias());
-    console.log(this.incidencias);
   }
 
   verIncidencia(id: number ){

@@ -34,7 +34,6 @@ export class SerCompradorComponent implements OnInit {
       this.emailDB = "";
     }
     this.compruebaYaSoyComprador();
-    console.log(1)
    
      this.serCompradorForm = this.fb.group({
       nombre: [ '', Validators.required ],

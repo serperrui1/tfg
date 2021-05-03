@@ -34,27 +34,9 @@ export class FaqsComponent implements OnInit {
     this.grouped  = this.groupByTematica(this.faqs);
   }
 
-  /* getFaqs() {
-    this.cargando = true;
-    this.faqService.getFaqs()
-        .then( faqs => {
-          this.cargando = false;
-          this.faqs = faqs;
-        })
-  } */
-
   nuevoFAQ() {
     this.router.navigate(['/crear-faq/']);
   };
-
-  /* borrarFaq(faq: Faq) {
-    console.log(faq._id)
-    this.faqService.borrarFaq( faq._id )
-        .subscribe( resp => {
-          this.getFaqs();
-          Swal.fire( 'FAQ borrado', faq.pregunta, 'success' );
-        });
-  } */
 
   groupByTematica(array){
     return array.reduce((r, a) => {

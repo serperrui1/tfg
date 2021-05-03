@@ -62,7 +62,6 @@ export class CambiarContrasenaComponent implements OnInit {
 
   cambiarContrasena(){
     this.formSubmited = true;
-    console.log(this.contrasenaForm.value);
 
     if(this.contrasenaForm.invalid){
       return;

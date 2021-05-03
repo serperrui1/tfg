@@ -79,7 +79,6 @@ export class CrearChatComponent implements OnInit {
     this.formSubmited = true;
     this.message = this.chatForm.controls['mensajes'].value;
     this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
-    console.log(this.chatForm.value);
 
     const chatId = await this.chatService.crearChat(this.chatForm.value);
     if (chatId){

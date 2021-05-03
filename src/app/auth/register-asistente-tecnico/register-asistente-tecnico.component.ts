@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
@@ -28,8 +28,8 @@ export class RegisterAsistenteTecnicoComponent {
         this.registrarAsistenteForm = this.fb.group({
           nombre:['', Validators.required],
           apellidos:['', Validators.required],
-          email:['',[ Validators.required, Validators.email] ],
-          password:['', Validators.required],
+          email:['',[ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')] ],
+          password:['', [Validators.required, this.passwordFormatoNoValido]],
           password2:['', Validators.required],
           terminos:['', Validators.required]
         },{
@@ -40,12 +40,15 @@ export class RegisterAsistenteTecnicoComponent {
 
   crearAsistente(){
     this.formSubmited = true;
+
     if(this.registrarAsistenteForm.invalid){
       this.registrarAsistenteForm.markAllAsTouched()
       return;
     }
+    
     this.usuarioService.crearAsistenteTecnico(this.registrarAsistenteForm.value).subscribe( resp => {
-      this.router.navigateByUrl('/');
+      Swal.fire('Guardado', 'Asistente técnico registrado correctamente', 'success');
+      this.router.navigateByUrl('/login/empleado');
       }, (err)=> {
         Swal.fire('Error', err.error.msg, 'error');
       });
@@ -85,12 +88,8 @@ export class RegisterAsistenteTecnicoComponent {
     } 
   }
 
-  get nombreNoValido(){
-    return this.nombreRequerido
-  }
-  get nombreRequerido(){
-    return this.registrarAsistenteForm.get('nombre').errors ? this.registrarAsistenteForm.get('nombre').errors.required && this.registrarAsistenteForm.get('nombre').touched : null
-  }
+
+
 
   get emailNoValido(){
     return this.emailRequerido || this.emailFormatoNoValido
@@ -99,17 +98,32 @@ export class RegisterAsistenteTecnicoComponent {
     return this.registrarAsistenteForm.get('email').errors ? this.registrarAsistenteForm.get('email').errors.required && this.registrarAsistenteForm.get('email').touched : null
   }
   get emailFormatoNoValido(){
-    return this.registrarAsistenteForm.get('email').errors ? this.registrarAsistenteForm.get('email').errors.email && this.registrarAsistenteForm.get('email').touched : null
+    return this.registrarAsistenteForm.get('email').errors ? this.registrarAsistenteForm.get('email').errors.pattern && this.registrarAsistenteForm.get('email').touched : null
   }
 
+
+
+
   get passwordNoValido(){
-    return this.passwordRequerido
+    return this.passwordRequerido || this.passwordRequerido2 || this.passwordFormato
   }
   get passwordRequerido(){
     return this.registrarAsistenteForm.get('password').errors ? this.registrarAsistenteForm.get('password').errors.required && this.registrarAsistenteForm.get('password').touched : null
   }
   get passwordRequerido2(){
     return this.registrarAsistenteForm.get('password2').errors ? this.registrarAsistenteForm.get('password2').errors.required && this.registrarAsistenteForm.get('password2').touched : null
+  }
+  get passwordFormato(){
+    return this.registrarAsistenteForm.get('password').errors ? this.registrarAsistenteForm.get('password').errors.passwordFormatoNoValido && this.registrarAsistenteForm.get('password').touched : null
+  }
+  private passwordFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+    let cP = String(control.value);
+    if(cP.length < 4 || cP.length > 16){
+      return {
+        passwordFormatoNoValido:true
+      }
+    }
+    return null
   }
 
 

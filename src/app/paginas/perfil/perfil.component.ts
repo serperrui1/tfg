@@ -60,7 +60,6 @@ export class perfilComponent implements OnInit {
     });
   }else if(this.usuario==="proveedor"){
     this.proveedor = await this.usuarioService.getProveedor();
-    console.log(this.proveedor);
 
      this.perfilProveedorForm = this.fb.group({
       nombreEmpresa: [ this.proveedor.nombreEmpresa , Validators.required ],
@@ -76,7 +75,6 @@ export class perfilComponent implements OnInit {
     });
   }else if(this.usuario==="administrador"){
     this.administrador = await this.usuarioService.getAdministrador();
-    console.log(this.administrador);
 
      this.perfilAdministradorForm = this.fb.group({
       nombre: [ this.administrador.nombre , Validators.required ],
@@ -87,7 +85,6 @@ export class perfilComponent implements OnInit {
 
   }else if(this.usuario==="asistenteTecnico"){
     this.asistenteTecnico = await this.usuarioService.getAsistenteTecnico();
-    console.log(this.asistenteTecnico);
 
      this.perfilAsistenteTecnicoForm = this.fb.group({
       nombre: [ this.asistenteTecnico.nombre , Validators.required ],
@@ -109,7 +106,6 @@ export class perfilComponent implements OnInit {
 
     Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
   }, (err) => {
-    console.log(err)
     Swal.fire('Error', err.error.msg, 'error');
   });
     }
@@ -124,7 +120,6 @@ actualizarProveedorPerfil() {
   .subscribe( () => {
     Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
   }, (err) => {
-    console.log(err)
     Swal.fire('Error', err.error.msg, 'error');
   });
 }
@@ -133,7 +128,6 @@ actualizarAdministradorPerfil() {
   .subscribe( () => {
     Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
   }, (err) => {
-    console.log(err)
     Swal.fire('Error', err.error.msg, 'error');
   });
 }
@@ -143,7 +137,6 @@ actualizarAsistenteTecnicoPerfil() {
   .subscribe( () => {
     Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
   }, (err) => {
-    console.log(err)
     Swal.fire('Error', err.error.msg, 'error');
   });
 }
@@ -171,44 +164,37 @@ actualizarAsistenteTecnicoPerfil() {
         this.comprador.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
-        console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
     }
 
     else if(this.usuario==="proveedor"){
-      console.log(this.imagenSubir)
       this.fileUploadService
       .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
       .then( img => {
         this.proveedor.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
-        console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
     }
     else if(this.usuario==="asistenteTecnico"){
-      console.log(this.imagenSubir)
       this.fileUploadService
       .actualizarFoto( this.imagenSubir, 'asistentes', this.asistenteTecnico.uid )
       .then( img => {
         this.asistenteTecnico.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
-        console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
     }
     else if(this.usuario==="administrador"){
-      console.log(this.imagenSubir)
       this.fileUploadService
       .actualizarFoto( this.imagenSubir, 'administradores', this.administrador.uid )
       .then( img => {
         this.administrador.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
-        console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
     }
