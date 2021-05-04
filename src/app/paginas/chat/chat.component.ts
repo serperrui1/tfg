@@ -125,7 +125,9 @@ export class ChatComponent implements OnInit {
       this.chatForm.controls['mensajes'].setValue(this.autor + this.message);
       this.chatService.actualizarChat( this.chatForm.value, this.chat._id )
       .subscribe( () => {
-        Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+        Swal.fire('Guardado', 'Mensaje enviado.', 'success');
+        /* this.router.navigateByUrl('/chat/'+this.chat._id); */
+        location.reload();
       }, (err) => {
         Swal.fire('Error', err.error.msg, 'error');
       });
@@ -134,9 +136,10 @@ export class ChatComponent implements OnInit {
   borrarChat( chat: Chat ) {
       this.chatService.borrarChat( chat._id )
           .subscribe( resp => {
-            Swal.fire( 'Borrado', 'Chat borrado con éxito', 'success' );
+            Swal.fire( 'Borrado', 'Chat borrado.', 'success' );
+            this.router.navigateByUrl('/mis-chats');
           }, (err) => {
-            Swal.fire('Error', 'Ha habido un problema', 'error');
+            Swal.fire('Error', 'Ha habido un problema.', 'error');
           });
   }
 

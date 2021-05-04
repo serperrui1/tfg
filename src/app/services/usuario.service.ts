@@ -91,7 +91,8 @@ export class UsuarioService {
         if(data["ok"] == true){
           const comprador:Comprador= data["comprador"];
           resolve(comprador);
-          Swal.fire('Guardado', 'Se ha convertido en un comprador', 'success');
+          Swal.fire('Guardado', 'Se ha convertido en un comprador.', 'success');
+          this.router.navigateByUrl('/login');
         }else{
           Swal.fire('Error', data["msg"] , 'error');
         }

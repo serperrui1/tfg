@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-9 form-div ">
             <div *ngIf="administrador">
-                <h3 class="card-title text-center">Pedidos</h3>
+                <h3 class="card-title text-center">Historial de todos los pedidos</h3>
                 <div class="descripcion-container">
                     <table matSort (matSortChange)="sortData($event)">
                         <tr>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div *ngIf="proveedor">
-                <h3 class="card-title text-center">Mis pedidos</h3>
+                <h3 class="card-title text-center">Historial de pedidos realizados a mi tienda</h3>
                 <div class="descripcion-container">
                     <table matSort (matSortChange)="sortData($event)">
                         <tr>
@@ -58,7 +58,7 @@
     <div class="row">
         <div class="col-md-9 form-div ">
             <div *ngIf="administrador">
-                <h3 class="card-title text-center">Productos</h3>
+                <h3 class="card-title text-center">Historial de todos los productos</h3>
                 <div class="descripcion-container">
                     <table matSort (matSortChange)="sortData2($event)">
                         <tr>
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div *ngIf="proveedor">
-                <h3 class="card-title text-center">Mis productos</h3>
+                <h3 class="card-title text-center">Historial de mis productos</h3>
                 <div class="descripcion-container">
                     <table matSort (matSortChange)="sortData2($event)">
                         <tr>
@@ -113,7 +113,7 @@
     <div class="row">
         <div class="col-md-9 form-div ">
             <div style="display: block" *ngIf="administrador">
-                <h3 class="card-title text-center">Compradores y Proveedores registrados este año</h3>
+                <h3 class="card-title text-center">Historial de registros de usuarios</h3>
                 <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
                     </canvas>
             </div>
@@ -124,8 +124,8 @@
     <div class="row">
         <div class="col-md-9 form-div ">
             <div style="display: block">
-                <h3 class="card-title text-center" *ngIf="administrador">Pedidos realizados este año</h3>
-                <h3 class="card-title text-center" *ngIf="proveedor">Pedidos que me han realizado este año</h3>
+                <h3 class="card-title text-center" *ngIf="administrador">Historial de ventas por mes</h3>
+                <h3 class="card-title text-center" *ngIf="proveedor">Historial de mis ventas por mes</h3>
                 <canvas mdbChart [chartType]="chartTypeB" [datasets]="chartDatasetsB" [labels]="chartLabels" [colors]="chartColorsB" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
             </div>

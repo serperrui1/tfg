@@ -4,6 +4,10 @@ import { FaqService } from '../../services/faq.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { IncidenciaService } from '../../services/incidencia.service';
 import Swal from 'sweetalert2';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
+import { Router } from '@angular/router';
 import { Comprador } from '../../models/comprador';
 import { Proveedor } from '../../models/proveedor';
 
@@ -22,10 +26,14 @@ export class CrearIncidenciaComponent implements OnInit {
   public proveedorNombre: string = "";
   public comp: Comprador;
   public prov: Proveedor;
+  public spam: Spam;
+  public expresionesSpam: string[];
 
   constructor(private fb:FormBuilder,
     private incidenciaService: IncidenciaService,
-    private usuarioService: UsuarioService) {
+    private usuarioService: UsuarioService,
+    private spamService: SpamService,
+    private router:Router) {
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
      }
@@ -33,9 +41,11 @@ export class CrearIncidenciaComponent implements OnInit {
      async ngOnInit() {
        
       if((this.usuario === "comprador" && this.token != null) || (this.usuario === "proveedor" && this.token != null)){
+        this.spam = (await this.spamService.getSpam())[0];
+        this.expresionesSpam = this.spam.expresiones;
         this.incidenciaForm = this.fb.group({
-          titulo:['', Validators.required],
-          descripcion:['', Validators.required],
+          titulo:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
+          descripcion:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
           tematica:['Login', [ Validators.required] ]
         });
 
@@ -64,9 +74,20 @@ export class CrearIncidenciaComponent implements OnInit {
     await this.incidenciaService.crearIncidencia(this.incidenciaForm.value)
     .subscribe( () => {
       Swal.fire('Guardado', 'Incidencia creada', 'success');
+      this.router.navigateByUrl('/mis-incidencias');
     }, (err) => {
       Swal.fire('Error', err.error.msg, 'error');
     });
+  }
+
+  get titulo()
+  {
+    return this.incidenciaForm.get('titulo');
+  }
+
+  get descripcion()
+  {
+    return this.incidenciaForm.get('descripcion');
   }
 
   campoNoValido (campo:string) :boolean{

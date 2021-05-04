@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Proveedor } from '../../models/proveedor';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
@@ -38,14 +38,15 @@ export class SerCompradorComponent implements OnInit {
      this.serCompradorForm = this.fb.group({
       nombre: [ '', Validators.required ],
       apellidos:['', Validators.required],
-      email: [ this.proveedor.email, [Validators.required, Validators.email]],
-      password:['', Validators.required],
+      email:[this.proveedor.email,/* [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]  */],
+      password:['', [Validators.required, this.passwordFormatoNoValido]],
       password2:['', Validators.required],
-      fechaNacimiento: [ '', Validators.required ],
+      numeroTelefono: ['', [Validators.required, this.telefonoFormatoNoValido]],
+      fechaNacimiento:['', [ Validators.required, this.fechaAnteriorAHoy]],
       paisResidencia: [ '', Validators.required ],
       ciudad: [ '', Validators.required ],
       localidad: [ '', Validators.required ],
-      codigoPostal: [ '', Validators.required ],
+      codigoPostal:['',[ Validators.required, this.codigoPostalFormatoNoValido] ],
       direccionResidencia: [ '', Validators.required ],
       terminos:['', Validators.required]
 
@@ -65,24 +66,6 @@ export class SerCompradorComponent implements OnInit {
     
   }
 
-  campoNoValido (campo:string) :boolean{
-    if(this.serCompradorForm.get(campo).invalid && this.formSubmited){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  contrasenasNoValidas(){
-    const pass1 = this.serCompradorForm.get('password').value;
-    const pass2 = this.serCompradorForm.get('password2').value;
-
-    if(((pass1!==pass2) && this.formSubmited)|| ((pass1=="" ||pass2=="") && this.formSubmited)){
-      return true;
-    }else{
-      return false;
-    }
-  }
 
   aceptaTerminos(){
     return !this.serCompradorForm.get('terminos').value && this.formSubmited;
@@ -91,6 +74,9 @@ export class SerCompradorComponent implements OnInit {
   compruebaYaSoyComprador(){
     if(this.emailDB != ""){
       this.yaSoyComprador = true;
+      Swal.fire('Error', "Ya existe una cuenta de comprador con ese email." , 'error');
+      this.router.navigateByUrl('/login');
+
     }else{
       this.yaSoyComprador = false;
     }
@@ -111,7 +97,20 @@ export class SerCompradorComponent implements OnInit {
     }
   }
 
+
+
+
+  
+
   //Validaciones
+  campoNoValido (campo:string) :boolean{
+    if(this.serCompradorForm.get(campo).invalid && this.formSubmited){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   get nombreNoValido(){
     return this.nombreRequerido
@@ -120,35 +119,81 @@ export class SerCompradorComponent implements OnInit {
     return this.serCompradorForm.get('nombre').errors ? this.serCompradorForm.get('nombre').errors.required && this.serCompradorForm.get('nombre').touched : null
   }
 
-  get cpNoValido(){
-    return this.cpRequerido
+  get apellidosNoValido(){
+    return this.apellidosRequerido
   }
-  get cpRequerido(){
-    return this.serCompradorForm.get('codigoPostal').errors ? this.serCompradorForm.get('codigoPostal').errors.required && this.serCompradorForm.get('codigoPostal').touched : null
+  get apellidosRequerido(){
+    return this.serCompradorForm.get('apellidos').errors ? this.serCompradorForm.get('apellidos').errors.required && this.serCompradorForm.get('apellidos').touched : null
   }
 
-  get fechaNoValido(){
-    return this.fechaNacimientoRequerida || this.fechaNacimientoAnteriorAHoy
+  get direccionCompradorRequerido(){
+    return this.serCompradorForm.get('direccionResidencia').errors ? this.serCompradorForm.get('direccionResidencia').errors.required && this.serCompradorForm.get('direccionResidencia').touched : null
   }
-  get fechaNacimientoRequerida(){
+  get direccionCompradorNoValido(){
+    return this.direccionCompradorRequerido
+  }
+
+  get ciudadCompradorRequerido(){
+    return this.serCompradorForm.get('ciudad').errors ? this.serCompradorForm.get('ciudad').errors.required && this.serCompradorForm.get('ciudad').touched : null
+  }
+  get ciudadCompradorNoValido(){
+    return this.ciudadCompradorRequerido
+  }
+
+  get localidadCompradorRequerido(){
+    return this.serCompradorForm.get('localidad').errors ? this.serCompradorForm.get('localidad').errors.required && this.serCompradorForm.get('localidad').touched : null
+  }
+  get localidadCompradorNoValido(){
+    return this.localidadCompradorRequerido
+  }
+
+  get paisCompradorRequerido(){
+    return this.serCompradorForm.get('paisResidencia').errors ? this.serCompradorForm.get('paisResidencia').errors.required && this.serCompradorForm.get('paisResidencia').touched : null
+  }
+  get paisCompradorNoValido(){
+    return this.paisCompradorRequerido
+  }
+
+
+
+
+
+
+  get fechaNoValido(){
+    return this.fechaNacimientoRequerido || this.fechaFechaAnteriorAHoy
+  }
+  get fechaNacimientoRequerido(){
     return this.serCompradorForm.get('fechaNacimiento').errors ? this.serCompradorForm.get('fechaNacimiento').errors.required && this.serCompradorForm.get('fechaNacimiento').touched : null
   }
-  get fechaNacimientoAnteriorAHoy(){
+  get fechaFechaAnteriorAHoy(){
     return this.serCompradorForm.get('fechaNacimiento').errors ? this.serCompradorForm.get('fechaNacimiento').errors.fechaAnteriorAHoy && this.serCompradorForm.get('fechaNacimiento').touched : null
   }
 
-  get emailNoValido(){
-    return this.emailRequerido || this.emailFormatoNoValido
+
+  get codigoPostalCompradorNoValido(){
+    return this.codigoPostalCompradorRequerido || this.codigoPostalFormato
   }
-  get emailRequerido(){
-    return this.serCompradorForm.get('email').errors ? this.serCompradorForm.get('email').errors.required && this.serCompradorForm.get('email').touched : null
+  get codigoPostalCompradorRequerido(){
+    return this.serCompradorForm.get('codigoPostal').errors ? this.serCompradorForm.get('codigoPostal').errors.required && this.serCompradorForm.get('codigoPostal').touched : null
   }
-  get emailFormatoNoValido(){
-    return this.serCompradorForm.get('email').errors ? this.serCompradorForm.get('email').errors.email && this.serCompradorForm.get('email').touched : null
+  get codigoPostalFormato(){
+    return this.serCompradorForm.get('codigoPostal').errors ? this.serCompradorForm.get('codigoPostal').errors.codigoPostalFormatoNoValido && this.serCompradorForm.get('codigoPostal').touched : null
   }
 
+
+  get tlfCompradorNoValido(){
+    return this.tlfCompradorRequerido || this.telefonoFormato
+  }
+  get tlfCompradorRequerido(){
+    return this.serCompradorForm.get('numeroTelefono').errors ? this.serCompradorForm.get('numeroTelefono').errors.required && this.serCompradorForm.get('numeroTelefono').touched : null
+  }
+  get telefonoFormato(){
+    return this.serCompradorForm.get('numeroTelefono').errors ? this.serCompradorForm.get('numeroTelefono').errors.telefonoFormatoNoValido && this.serCompradorForm.get('numeroTelefono').touched : null
+  }
+
+
   get passwordNoValido(){
-    return this.passwordRequerido
+    return this.passwordRequerido || this.passwordRequerido2 || this.passwordFormato
   }
   get passwordRequerido(){
     return this.serCompradorForm.get('password').errors ? this.serCompradorForm.get('password').errors.required && this.serCompradorForm.get('password').touched : null
@@ -156,6 +201,85 @@ export class SerCompradorComponent implements OnInit {
   get passwordRequerido2(){
     return this.serCompradorForm.get('password2').errors ? this.serCompradorForm.get('password2').errors.required && this.serCompradorForm.get('password2').touched : null
   }
+  get passwordFormato(){
+    return this.serCompradorForm.get('password').errors ? this.serCompradorForm.get('password').errors.passwordFormatoNoValido && this.serCompradorForm.get('password').touched : null
+  }
+
+
+
+  /* get emailNoValido(){
+    return this.emailRequerido || this.emailFormatoNoValido
+  }
+  get emailRequerido(){
+    return this.serCompradorForm.get('email').errors ? this.serCompradorForm.get('email').errors.required && this.serCompradorForm.get('email').touched : null
+  }
+  get emailFormatoNoValido(){
+    return this.serCompradorForm.get('email').errors ? this.serCompradorForm.get('email').errors.pattern && this.serCompradorForm.get('email').touched : null
+  } */
+  
+  
+
+  //Validaciones personalizadas
+  private fechaAnteriorAHoy(control:FormControl):{[s:string]:boolean}{
+    let f = Date.parse(control.value)
+    let hoy = new Date().getTime()
+    if(f > hoy){
+      return {
+        fechaAnteriorAHoy:true
+      }
+    }
+    return null
+  }
+
+
+  private codigoPostalFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+    const pattern = "^[0-9]{5}$"
+    let cP = String(control.value);
+    if(!cP.match(pattern)){
+      return {
+        codigoPostalFormatoNoValido:true
+      }
+    }
+    return null
+  }
+
+  private passwordFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+    let cP = String(control.value);
+    if(cP.length < 4 || cP.length > 16){
+      return {
+        passwordFormatoNoValido:true
+      }
+    }
+    return null
+  }
+
+
+  contrasenasNoValidas(){
+    const pass1 = this.serCompradorForm.get('password').value;
+    const pass2 = this.serCompradorForm.get('password2').value;
+
+    if(((pass1!==pass2) && this.formSubmited)|| ((pass1=="" ||pass2=="") && this.formSubmited)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  private telefonoFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+    const pattern = "^[0-9]{9}$"
+    let cP = String(control.value);
+    if(!cP.match(pattern)){
+      return {
+        telefonoFormatoNoValido:true
+      }
+    }
+    return null
+  }
+
+
+
+
+
 
 
 }

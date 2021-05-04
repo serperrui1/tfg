@@ -1,31 +1,32 @@
 <div class="wrapper" *ngIf="prov || comp || (prov && flag) || (comp && flag) ">
 
     <div class="row">
-        <form class="form " autocomplete="off" [formGroup]="chatForm" (submit)="actualizarChat()">
+        <form class="form-registro" autocomplete="off" [formGroup]="chatForm" (submit)="actualizarChat()">
             <div class="row">
                 <div class="col-md-8 form-div">
-                    <div class="card">
-                        <div class="card-body formulario">
-                            <h2 class="card-title text-left" *ngIf="comp && !flag">Chat con el proveedor {{chat.proveedorNombre}}</h2>
-                            <h2 class="card-title text-left" *ngIf="comp && flag">Devolución/reclamación al proveedor {{chat.proveedorNombre}}</h2>
-                            <h2 class="card-title text-left" *ngIf="prov && !flag">Chat con el comprador {{compradorNombre}}</h2>
-                            <h2 class="card-title text-left" *ngIf="prov && flag">Devolución/reclamación del comprador {{compradorNombre}}</h2>
-                            <h5 class="card-title">Creado el {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}}</h5>
-                            <hr>
-                            <h5 class="card-title">Nuevo mensaje</h5>
-                            <div class="form-group">
-                                <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes" [class.is-invalid]="mensajeNoValido"></textarea>
-                                <small *ngIf="mensajeCampoRequerido" class="text-danger">Mensaje requerido</small>
-                            </div>
-                            <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="chatForm.invalid">
+
+                    <div class="card-body formulario">
+                        <h5 class="card-title text-left" *ngIf="comp && !flag">Chat con el proveedor {{chat.proveedorNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="comp && flag">Devolución/reclamación al proveedor {{chat.proveedorNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="prov && !flag">Chat con el comprador {{compradorNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="prov && flag">Devolución/reclamación del comprador {{compradorNombre}}</h5>
+                        <!-- <h5 class="card-title">Creado el {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}}</h5> -->
+                        <p class="text-left">Creado el {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}}</p>
+                        <hr>
+                        <div class="form-group">
+                            <label for="mensajes">Nuevo mensaje</label>
+                            <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes" [class.is-invalid]="mensajeNoValido"></textarea>
+                            <small *ngIf="mensajeCampoRequerido" class="text-danger">Mensaje requerido.</small>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block">
                                 Enviar
                             </button>
-                        </div>
                     </div>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="!flag && comp" (click)="borrarChat(chat)">
+
+                    <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-2" *ngIf="!flag && comp" (click)="borrarChat(chat)">
                         Borrar chat
                     </button>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="flag && prov" (click)="borrarChat(chat)">
+                    <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-2" *ngIf="flag && prov" (click)="borrarChat(chat)">
                         Borrar reclamación/devolución
                     </button>
                     <br>

@@ -7,6 +7,9 @@ import { ProductoService } from '../../services/producto.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 import { Pedido } from '../../models/pedido';
 import { PedidosService } from '../../services/pedidos.service';
 import { environment } from 'src/environments/environment';
@@ -37,6 +40,8 @@ export class DevolucionReclamacionComponent implements OnInit {
   public chatId: string = "";
   public pedidoId: string = "";
   public solicitud: string = "";
+  public spam: Spam;
+  public expresionesSpam: string[];
   public direccionImagen = base_url+"/upload/productos/";
 
   constructor(private fb:FormBuilder,
@@ -44,6 +49,7 @@ export class DevolucionReclamacionComponent implements OnInit {
     private productoService : ProductoService,
     private usuarioService: UsuarioService,
     private pedidosService: PedidosService,
+    private spamService: SpamService,
     private router: Router) {
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
@@ -71,13 +77,15 @@ export class DevolucionReclamacionComponent implements OnInit {
       this.proveedorNombre = JSON.parse(localStorage.getItem('proveedorNombre'));
       this.proveedorId = JSON.parse(localStorage.getItem('proveedorId'));
       this.autor = this.compradorNombre + ": ";
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
       
       this.chatForm = this.fb.group({
         compradorId: [ this.comp.uid ],
         proveedorId: [ this.proveedorId ],
         productoId: [  this.productoId ],
         proveedorNombre: [ this.proveedorNombre ],
-        mensajes: ['', Validators.required ],
+        mensajes: ['', [Validators.required, SpamValidator(this.expresionesSpam)] ],
       });
       
     } else{
@@ -103,7 +111,8 @@ export class DevolucionReclamacionComponent implements OnInit {
     localStorage.setItem(chatId, JSON.stringify(1));
     /* location.reload(); */
     if (chatId){
-      Swal.fire('Guardado', 'Solicitud enviada', 'success');
+      Swal.fire('Guardado', 'Solicitud enviada.', 'success');
+      this.router.navigateByUrl('/mis-chats');
     }else{
       Swal.fire('Error', 'Error al enviar solicitud', 'error');
     }
@@ -124,6 +133,9 @@ export class DevolucionReclamacionComponent implements OnInit {
   }
   get mensajeCampoRequerido(){
     return this.chatForm.get('mensajes').errors ? this.chatForm.get('mensajes').errors.required && this.chatForm.get('mensajes').touched : null
+  }
+  get mensajes(){
+    return this.chatForm.get('mensajes');
   }
 
 
