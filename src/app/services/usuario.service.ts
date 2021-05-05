@@ -63,8 +63,6 @@ export class UsuarioService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    localStorage.removeItem('items');
-    localStorage.removeItem('cantidades');
     this.router.navigateByUrl('/login');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {

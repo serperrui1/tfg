@@ -54,18 +54,6 @@
             </div>
 
             <div class="totals">
-                <div class="totals-item">
-                    <label>Subtotal</label>
-                    <div class="totals-value" id="cart-subtotal">{{subtotal}}</div>
-                </div>
-                <div class="totals-item">
-                    <label>Impuestos (13%)</label>
-                    <div class="totals-value" id="cart-tax">{{impuestos}}</div>
-                </div>
-                <div class="totals-item">
-                    <label>Envío</label>
-                    <div class="totals-value" id="cart-shipping">{{envio}}</div>
-                </div>
                 <div class="totals-item totals-item-total">
                     <label>Total</label>
                     <div class="totals-value" id="cart-total">{{total}}</div>
@@ -74,17 +62,12 @@
             <div class="row">
                 <div class="col-md-9"></div>
 
-                <div class="col-md-3" *ngIf="esComprador ; else noEsComprador">
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10 checkout" routerLink="/compra">
+                <div>
+                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10 checkout" (click)="comprar()">
                         ¡Comprar!
                     </button>
                 </div>
 
-                <ng-template #noEsComprador>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10 checkout" routerLink="/login-comprador">
-                        ¡Comprar!
-                    </button>
-                </ng-template>
 
             </div>
         </div>

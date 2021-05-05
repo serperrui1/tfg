@@ -86,7 +86,7 @@
                         <hr>
                         <div class="form-group" *ngIf="comp || prov && !incidencia.resuelto">
                             <p class="text-center">Incidencia resuelta</p>
-                            <input type="checkbox" class="form-control" id="resuelto" formControlName="resuelto" (click)="check()">
+                            <input type="checkbox" class="form-control" id="resuelto" formControlName="resuelto">
                         </div>
                         <div class="form-group">
                             <label for="mensajes">Nuevo mensaje</label>
@@ -95,7 +95,7 @@
                             <small *ngIf="mensajes.errors.esSpam && !mensajeCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                         </div>
 
-                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="prov || comp" [disabled]="!puedesActualizar && checkeaste">
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="prov || comp" [disabled]="!puedesActualizar">
                             Actualizar
                         </button>
                         <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="aT" [disabled]="!puedesActualizar">

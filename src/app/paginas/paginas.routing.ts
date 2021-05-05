@@ -33,13 +33,17 @@ import { GarantiaComponent } from './garantia/garantia.component';
 import { DevolucionReclamacionComponent } from './devolucion-reclamacion/devolucion-reclamacion.component';
 import { MiCuentaComponent} from './mi-cuenta/mi-cuenta.component'
 import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrasena.component'
-
-//Guards
-import { AuthGuard } from '../guards/auth.guard';
-import { CompradorGuard } from '../guards/comprador.guard';
 import { GOATComponent } from './goat/goat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SoporteComponent } from './soporte/soporte.component';
+//Guards
+import { AuthGuard } from '../guards/auth.guard';
+import { CompradorGuard } from '../guards/comprador.guard';
+import { CompradorProveedorGuard } from '../guards/comprador-proveedor.guard';
+import { ProveedorGuard } from '../guards/proveedor.guard';
+import { AdministradorGuard } from '../guards/administrador.guard';
+import { AsistenteGuard } from '../guards/asistente.guard';
+
 
 const routes: Routes = [
     { 
@@ -50,36 +54,37 @@ const routes: Routes = [
             { path: 'home', component: HomeComponent},
             { path: 'producto/:id', component: ProductoComponent},
             { path: 'mi-perfil', canActivate: [AuthGuard] , component: perfilComponent},
-            { path: 'ser-comprador', component: SerCompradorComponent},
-            { path: 'mis-productos', component: MisProductosComponent},
-            { path: 'crear-producto', component: CrearProductoComponent},
-            { path: 'crear-incidencia', component: CrearIncidenciaComponent},
-            { path: 'crear-chat/:id', component: CrearChatComponent},
-            { path: 'devolver-reclamar/:id', component: DevolucionReclamacionComponent},
-            { path: 'actualizar-producto/:id', component: ActualizarProductoComponent},
-            { path: 'crear-faq', component: CrearFaqComponent},
+            { path: 'ser-comprador', canActivate: [ProveedorGuard] , component: SerCompradorComponent},
+            { path: 'mis-productos', canActivate: [ProveedorGuard], component: MisProductosComponent},
+            { path: 'crear-producto', canActivate: [ProveedorGuard] , component: CrearProductoComponent},
+            { path: 'crear-incidencia', canActivate: [CompradorProveedorGuard], component: CrearIncidenciaComponent},
+            { path: 'crear-chat/:id', canActivate: [CompradorGuard], component: CrearChatComponent},
+            { path: 'devolver-reclamar/:id', canActivate: [CompradorGuard], component: DevolucionReclamacionComponent},
+            { path: 'actualizar-producto/:id', canActivate: [ProveedorGuard], component: ActualizarProductoComponent},
+            { path: 'crear-faq', canActivate: [AsistenteGuard], component: CrearFaqComponent},
             { path: 'GOAT', component: GOATComponent},
             { path: 'faqs', component: FaqsComponent},
             { path: 'soporte', component: SoporteComponent},
             { path: 'garantia', component: GarantiaComponent},
-            { path: 'spam', component: SpamComponent},
+            { path: 'spam', canActivate: [AdministradorGuard], component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},
             { path: 'incidencia/:id', canActivate: [AuthGuard] ,component: IncidenciaComponent},
-            { path: 'chat/:id', canActivate: [AuthGuard] ,component: ChatComponent},
-            { path: 'incidencias', canActivate: [AuthGuard] ,component: IncidenciasComponent},
+            { path: 'chat/:id',canActivate: [CompradorProveedorGuard],component: ChatComponent},
+            { path: 'incidencias', canActivate: [AsistenteGuard] ,component: IncidenciasComponent},
             { path: 'mis-incidencias',canActivate: [AuthGuard] , component: MisIncidenciasComponent},
-            { path: 'mis-chats', component: MisChatsComponent},
+            { path: 'mis-chats',canActivate: [CompradorProveedorGuard], component: MisChatsComponent},
             { path: 'sobre-nosotros', component: AboutUsComponent},
             { path: 'politica-privacidad', component: TerminosComponent},
             { path: 'terminos-uso-y-aviso-legal', component: LegalComponent},
-            { path: 'dashboard', component: DashboardComponent},
+            { path: 'dashboard', canActivate: [AdministradorGuard] , component: DashboardComponent},
             { path: 'comercial', component: ComercialComponent},
             { path: 'compra', canActivate: [CompradorGuard], component: CompraComponent},
             { path: 'escaparate/:id', component: EscaparateComponent},
             { path: 'mis-pedidos',canActivate: [CompradorGuard], component: MisPedidosComponent},
+            { path: 'mis-ventas',canActivate: [ProveedorGuard], component: DashboardComponent},
             { path: 'mi-cuenta', canActivate: [AuthGuard] , component: MiCuentaComponent},
-            { path: 'perfil/cambiar-contrasena', component: CambiarContrasenaComponent},
+            { path: 'perfil/cambiar-contrasena', canActivate: [AuthGuard], component: CambiarContrasenaComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },

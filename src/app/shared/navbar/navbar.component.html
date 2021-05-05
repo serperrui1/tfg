@@ -12,20 +12,52 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item" *ngIf="existeTokenYProveedor">
-                <a class="nav-link" routerLink="/mis-productos">Mis productos</a>
-            </li>
-
-            <li class="nav-item dropdown  " *ngIf="aT || comp || prov">
+            <li class="nav-item dropdown  " *ngIf=" prov">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Incidencia
+                    Proveedor
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" *ngIf="aT || comp || prov" routerLink="mis-incidencias">Mis incidencias</a>
+                    <a class="dropdown-item" routerLink="/mis-productos">Mis productos</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" *ngIf="aT" routerLink="incidencias">Incidencias libres</a>
+                    <a class="dropdown-item" routerLink="/crear-producto">Crear producto</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" *ngIf="comp || prov" routerLink="crear-incidencia">Nueva incidencia</a>
+                    <a class="dropdown-item" routerLink="/mis-ventas">Mis ventas</a>
+
+
+                </div>
+            </li>
+
+            <li class="nav-item dropdown  " *ngIf="aT ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Asistente
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="mis-incidencias">Mis incidencias</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="incidencias">Incidencias libres</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown  " *ngIf="comp">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Comprador
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="mis-pedidos">Mis pedidos</a>
+
+                </div>
+            </li>
+            <li class="nav-item dropdown  " *ngIf="admin">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Administrador
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="spam">Spam</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/register/asistente-tecnico">Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="dashboard">Nuevo A.Técnico</a>
+
+
                 </div>
             </li>
         </ul>
@@ -44,10 +76,7 @@
                         <a class="dropdown-item" routerLink="mi-perfil">Mi perfil</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" (click)="logout()">Cerrar sesion</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" routerLink="dashboard" *ngIf="prov">Mi dashboard</a>
-                        <a class="dropdown-item" routerLink="dashboard" *ngIf="admin">Dashboard</a>
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider" *ngIf="existeTokenYProveedor"></div>
                         <a class="dropdown-item" *ngIf="existeTokenYProveedor" routerLink="ser-comprador">Crear cuenta de comprador</a>
                     </div>
                 </li>
@@ -60,13 +89,7 @@
                 </li>
             </ul>
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="admin">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/register/asistente-tecnico">Nuevo A.Técnico</a>
-                </li>
-            </ul>
-        </div>
+
 
 
     </div>

@@ -39,7 +39,6 @@ export class IncidenciaComponent implements OnInit {
   public autor: string = "";
   public message: string = "";
   public lastMessage: string = "";
-  public checkeaste: boolean = false;
   public cont: number;
   public spam: Spam;
   public expresionesSpam: string[];
@@ -158,18 +157,14 @@ export class IncidenciaComponent implements OnInit {
       this.incidenciaService.borrarIncidencia( incidencia._id )
           .subscribe( resp => {
             Swal.fire( 'Borrado', 'Incidencia borrada con éxito', 'success' );
+            this.router.navigateByUrl("/mis-incidencias")
           }, (err) => {
             Swal.fire('Error', 'Ha habido un problema', 'error');
           });
     }
   }
 
-  check() {
-    const ele = document.getElementById("resuelto") as HTMLInputElement;
-    if(ele.checked){
-      this.checkeaste = true;
-    }
-  }
+
 
   //Validaciones
   get mensajeNoValido(){
