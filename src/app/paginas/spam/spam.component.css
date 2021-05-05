@@ -1,0 +1,81 @@
+.descripcion {
+    margin: 2%;
+    font-size: large;
+}
+
+.descripcion-container {
+    border: 1px solid rgb(156, 156, 156);
+    border-radius: 10px;
+    background-color: #f3f592;
+    text-align: left;
+    margin: 1%;
+}
+
+.descripcion-titulo {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.palabras {
+    margin-top: -40px;
+}
+
+.aviso {
+    color: rgb(173, 173, 173);
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #771515;
+    border-color: #771515;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #500d0d;
+    border-color: #500d0d;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+}
+
+.row {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.formulario {
+    background-color: #ffffff;
+    margin: auto;
+    border-radius: 10px;
+    border: 2px solid rgb(122, 122, 122);
+}
+
+.form-div {
+    margin: auto;
+    color: black;
+}
+
+.form-registro {
+    width: 90%;
+    margin: auto;
+}

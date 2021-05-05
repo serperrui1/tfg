@@ -49,4 +49,14 @@ export class SpamComponent implements OnInit {
     });
   }
 
+  /* spamNoValido(form:NgForm){
+    let expresiones = form.value["expresiones"];
+    const pattern = "/^\w+(?=(, ))(?:\1\w+)+$/gm"
+    if(!expresiones.match(pattern)){
+      return true;
+    }else{
+      return false;
+    }
+  } */
+
 }

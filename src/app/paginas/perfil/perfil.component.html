@@ -1,235 +1,40 @@
-<div class="row" *ngIf="usuario==='administrador' && administrador">
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Mi perfil de usuario : {{usuario}}</h4>
-                <h6 class="card-subtitle">Ajustes</h6>
-
-                <form class="form p-t-20" [formGroup]="perfilAdministradorForm" (submit)="actualizarAdministradorPerfil()">
-
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre del administrador" formControlName="nombre">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="apellidos" placeholder="Apellidos del administrador" formControlName="apellidos">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" formControlName="email">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="perfilAdministradorForm.invalid">
-                        <i class="fa fa-save"></i>
-                        Guardar cambios
-                    </button>
-                </form>
-
+<div class="wrapper login" *ngIf="usuario==='administrador' && administrador">
+    <div class="row">
+        <form class="form-registro" autocomplete="off" [formGroup]="perfilAdministradorForm" (ngSubmit)="actualizarAdministradorPerfil()" id="loginform">
+            <div class="row">
+                <div class="col"></div>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <div class="col"></div>
             </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Avatar</h4>
-                <h6 class="card-subtitle">Imagen del usuario :</h6>
-
-                <div class="text-center">
-                    <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
-                    <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
-                </div>
-
-                <input type="file" (change)="cambiarImagen($event.target.files[0])">
-
-                <br>
-                <br>
-
-                <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="!imagenSubir" (click)="subirImagen()">
-                    <i class="fa fa-save"></i>
-                    Cambiar imagen
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row" *ngIf="usuario==='asistenteTecnico' && asistenteTecnico">
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Mi perfil de usuario : {{usuario}}</h4>
-                <h6 class="card-subtitle">Ajustes</h6>
-
-                <form class="form p-t-20" [formGroup]="perfilAsistenteTecnicoForm" (submit)="actualizarAsistenteTecnicoPerfil()">
-
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre del asist.técnico" formControlName="nombre">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="apellidos" placeholder="Apellidos del asist.técnico" formControlName="apellidos">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" formControlName="email">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="perfilAsistenteTecnicoForm.invalid">
-                        <i class="fa fa-save"></i>
-                        Guardar cambios
-                    </button>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Avatar</h4>
-                <h6 class="card-subtitle">Imagen del usuario :</h6>
-
-                <div class="text-center">
-                    <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
-                    <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
-                </div>
-
-                <input type="file" (change)="cambiarImagen($event.target.files[0])">
-
-                <br>
-                <br>
-
-                <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10" [disabled]="!imagenSubir" (click)="subirImagen()">
-                    <i class="fa fa-save"></i>
-                    Cambiar imagen
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="wrapper">
-
-    <div class="row" *ngIf="usuario === 'proveedor' && proveedor">
-        <form class="form " autocomplete="off" [formGroup]="perfilProveedorForm" (submit)="actualizarProveedorPerfil()">
+            <hr class="mt-0">
             <div class="row">
 
-                <div class="col-md-1"></div>
 
-                <div class="col-md-5 form-div">
-                    <h2 class="card-title text-left">Mi perfil</h2>
-                    <div class="card">
-                        <div class="card-body formulario">
-                            <h5 class="card-title">Nombre de la empresa</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="nombreEmpresa" formControlName="nombreEmpresa" [class.is-invalid]="nombreEmpresaNoValido">
-                                <small *ngIf="nombreEmpresaRequerido" class="text-danger">Nombre de la empresa requerido</small>
-                            </div>
-                            <h5 class="card-title text-center">¿Es autónomo?</h5>
-                            <div class="form-group">
-                                <input type="checkbox" class="form-control" [(ngModel)]="proveedor.autonomo" formControlName="autonomo">
-                            </div>
-                            <h5 class="card-title">Email</h5>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="email" formControlName="email" [class.is-invalid]="emailNoValido">
-                                <small *ngIf="emailRequerido" class="text-danger">Email requerido</small>
-                            </div>
-                            <h5 class="card-title">Sector</h5>
-                            <div class="form-group">
-                                <select class="form-control form-control-sm" id="sector" formControlName="sector">
-                                    <option value="Libros, Música, Vídeo y DVD" selected>Libros, Música, Vídeo y DVD</option> 
-                                    <option value="Consolas y videojuegos">Consolas y videojuegos</option>
-                                    <option value="Informática">Informática</option>
-                                    <option value="Electrónica">Electrónica</option>
-                                    <option value="Accesorios de electrónica">Accesorios de electrónica</option>
-                                    <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
-                                    <option value="Hogar y cocina">Hogar y cocina</option>
-                                    <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
-                                    <option value="Juguetes y juegos">Juguetes y juegos</option>
-                                    <option value="Zapatos y Complementos">Zapatos y Complementos</option>
-                                    <option value="Relojes">Relojes</option>
-                                    <option value="Productos para bebé">Productos para bebé</option>
-                                    <option value="Coche y moto">Coche y moto</option>
-                                    <option value="Deportes y aire libre">Deportes y aire libre</option>
-                                    <option value="Joyería">Joyería</option>
-                                    <option value="Equipaje">Equipaje</option>
-                                    <option value="Iluminación">Iluminación</option>
-                                    <option value="Oficina y papelería">Oficina y papelería</option>
-                                    <option value="Salud y cuidado personal">Salud y cuidado personal</option>
-                                    <option value="Instrumentos musicales">Instrumentos musicales</option>
-                                    <option value="Ropa y Accesorios">Ropa y Accesorios</option>
-                                    <option value="Jardín">Jardín</option>
-                                    <option value="Belleza">Belleza</option>
-                                </select>
-                            </div>
-                            <div [hidden]="proveedor.autonomo">
-                                <h5 class="card-title">Registro mercantil</h5>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="registroMercantil" formControlName="registroMercantil" [class.is-invalid]="registroMercantilNoValido">
-                                    <small *ngIf="registroMercantilRequerido" class="text-danger">Registro mercantil requerido</small>
+                <div class="col-md-6 form-div mt-0">
+                    <p class="aviso">(*) Campos opcionales</p>
 
-                                </div>
-                            </div>
-                            <div [hidden]="!proveedor.autonomo">
-                                <h5 class="card-title">NIF</h5>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="nif" formControlName="nif" [class.is-invalid]="nifNoValido">
-                                    <small *ngIf="nifRequerido" class="text-danger">NIF requerido</small>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Dirección</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="direccion" formControlName="direccion" [class.is-invalid]="direccionNoValido">
-                                <small *ngIf="direccionRequerido" class="text-danger">Direccción requerida</small>
-                            </div>
-                            <h5 class="card-title">IBAN</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="cuentaBancariaNoValida">
-                                <small *ngIf="cuentaBancariaRequerido" class="text-danger">Cuenta bancaria requerida</small>
-                            </div>
-                            <h5 class="card-title">Titular de la cuenta bancaria</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="titularCuenta" formControlName="titularCuenta" [class.is-invalid]="titularNoValido">
-                                <small *ngIf="titularRequerido" class="text-danger">Titular requerido</small>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreAdministradorNoValido">
+                        <small *ngIf="nombreAdministradorRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
-                    <br>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="perfilProveedorForm.invalid">
-                        Actualizar
-                    </button>
+
+                    <div class="form-group">
+                        <label for="nombre">Apellidos</label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosAdministradorNoValido">
+                        <small *ngIf="apellidosAdministradorRequerido" class="text-danger">Apellidos requeridos.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" [readonly]="true" formControlName="email">
+                    </div>
                 </div>
 
+
                 <div class="col-md-4 fotografia">
-                    <h4 class="card-title text-left">Foto del usuario/Logo de empresa</h4>
-                    <div class="card">
+                    <h4 class="card-title text-center">Foto del usuario</h4>
+                    <div class="card" style="border: none;">
                         <div class="card-body formulario">
                             <div class="text-center">
                                 <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
@@ -238,99 +43,57 @@
                             <br>
                             <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" (change)="cambiarImagen($event.target.files[0])">
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
-                                    <a class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="imagenSubir" (click)="subirImagen()">
-                                        Actualizar foto
-                                    </a>
-                                </div>
-                                <div class="col-md-3"></div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-1"></div>
+                <hr>
+
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar perfil</button>
 
             </div>
         </form>
     </div>
+</div>
 
 
-
-    <div class="row" *ngIf="usuario === 'comprador' && comprador">
-        <form class="form " autocomplete="off" [formGroup]="perfilCompradorForm" (submit)="actualizarCompradorPerfil()">
+<div class="wrapper login" *ngIf="usuario==='asistenteTecnico' && asistenteTecnico">
+    <div class="row">
+        <form class="form-registro" autocomplete="off" [formGroup]="perfilAsistenteTecnicoForm" (ngSubmit)="actualizarAsistenteTecnicoPerfil()" id="loginform">
+            <div class="row">
+                <div class="col"></div>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <div class="col"></div>
+            </div>
+            <hr class="mt-0">
             <div class="row">
 
-                <div class="col-md-1"></div>
 
-                <div class="col-md-5 form-div">
-                    <h2 class="card-title text-left">Mi perfil</h2>
-                    <div class="card">
-                        <div class="card-body formulario">
-                            <h5 class="card-title">Nombre</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="nombre" formControlName="nombre" [class.is-invalid]="nombreCompradorNoValido">
-                                <small *ngIf="nombreCompradorRequerido" class="text-danger">Nombre requerido</small>
-                            </div>
-                            <h5 class="card-title">Apellidos</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosCompradorNoValido">
-                                <small *ngIf="apellidosCompradorRequerido" class="text-danger">Apellidos requeridos</small>
-                            </div>
-                            <h5 class="card-title">Fecha de nacimiento</h5>
-                            <div class="form-group">
-                                <input type="date" class="form-control" id="fecha" formControlName="fechaNacimiento" [class.is-invalid]="fechaNacimientoCompradorNoValido">
-                                <small *ngIf="fechaNacimientoCompradorRequerido" class="text-danger">Fecha de nacimiento requerida</small>
-                            </div>
-                            <h5 class="card-title">País de residencia</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="paisResidencia" formControlName="paisResidencia" [class.is-invalid]="paisCompradorNoValido">
-                                <small *ngIf="paisCompradorRequerido" class="text-danger">País de residencia requerido</small>
-                            </div>
-                            <h5 class="card-title">Ciudad</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="ciudad" formControlName="ciudad" [class.is-invalid]="ciudadCompradorNoValido">
-                                <small *ngIf="ciudadCompradorRequerido" class="text-danger">Ciudad requerida</small>
-                            </div>
-                            <h5 class="card-title">Localidad</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="localidad" formControlName="localidad" [class.is-invalid]="localidadCompradorNoValido">
-                                <small *ngIf="localidadCompradorRequerido" class="text-danger">Localidad requerida</small>
-                            </div>
-                            <h5 class="card-title">Email</h5>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="email" formControlName="email" [class.is-invalid]="emailCompradorNoValido">
-                                <small *ngIf="emailCompradorRequerido" class="text-danger">Email requerido</small>
-                            </div>
-                            <h5 class="card-title">Nº de teléfono</h5>
-                            <div class="form-group">
-                                <input type="number" class="form-control" id="numeroTelefono" formControlName="numeroTelefono" [class.is-invalid]="tlfCompradorNoValido">
-                                <small *ngIf="tlfCompradorRequerido" class="text-danger">Teléfono requerido</small>
-                            </div>
-                            <h5 class="card-title">Dirección de residencia</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="direccionResidencia" formControlName="direccionResidencia" [class.is-invalid]="direccionCompradorNoValido">
-                                <small *ngIf="direccionCompradorRequerido" class="text-danger">Direccción requerida</small>
-                            </div>
-                            <h5 class="card-title">Código postal</h5>
-                            <div class="form-group">
-                                <input type="number" class="form-control" id="codigoPostal" formControlName="codigoPostal" [class.is-invalid]="codigoPostalCompradorNoValido">
-                                <small *ngIf="codigoPostalCompradorRequerido" class="text-danger">Código postal requerido</small>
-                            </div>
-                        </div>
+                <div class="col-md-6 form-div mt-0">
+                    <p class="aviso">(*) Campos opcionales</p>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreAsistenteNoValido">
+                        <small *ngIf="nombreAsistenteRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
-                    <br>
-                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="perfilCompradorForm.invalid">
-                        Actualizar
-                    </button>
+
+                    <div class="form-group">
+                        <label for="nombre">Apellidos</label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosAsistenteNoValido">
+                        <small *ngIf="apellidosAsistenteRequerido" class="text-danger">Apellidos requeridos.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" [readonly]="true" formControlName="email">
+                    </div>
                 </div>
 
+
                 <div class="col-md-4 fotografia">
-                    <h4 class="card-title text-left">Foto del usuario</h4>
-                    <div class="card">
+                    <h4 class="card-title text-center">Foto del usuario</h4>
+                    <div class="card" style="border: none;">
                         <div class="card-body formulario">
                             <div class="text-center">
                                 <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
@@ -339,26 +102,254 @@
                             <br>
                             <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" (change)="cambiarImagen($event.target.files[0])">
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
-                                    <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="!imagenSubir" (click)="subirImagen()">
-                                        Actualizar foto
-                                    </button>
-                                </div>
-                                <div class="col-md-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar perfil</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="wrapper login" *ngIf="usuario === 'proveedor' && proveedor">
+    <div class="row">
+        <form class="form-registro" autocomplete="off" [formGroup]="perfilProveedorForm" (ngSubmit)="actualizarProveedorPerfil()" id="loginform">
+            <div class="row">
+                <div class="col"></div>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <div class="col"></div>
+            </div>
+            <hr class="mt-0">
+            <div class="row">
+                <div class="col-md-6 form-div mt-0">
+                    <p class="aviso">(*) Campos opcionales</p>
+
+                    <div class="form-group">
+                        <label for="nombre">Empresa</label>
+                        <input type="text" class="form-control" name="nombreEmpresa" id="nombreEmpresa" formControlName="nombreEmpresa" [class.is-invalid]="nombreEmpresaNoValido">
+                        <small *ngIf="nombreEmpresaRequerido" class="text-danger">Nombre de empresa requerido.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaRegistro">Fecha de registro</label>
+                        <input rows="4" type="date" class="form-control" name="fechaRegistro" [readonly]="true" id="fechaRegistro" formControlName="fechaRegistro">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="autonomo" [(ngModel)]="autonomo" id="autonomo" formControlName="autonomo"> Soy autónomo <a class="aviso" style="text-decoration: none;">(*)</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" formControlName="email" [class.is-invalid]="emailProveedorNoValido">
+                        <small *ngIf="emailProveedorRequerido" class="text-danger">Email requerido.</small>
+                        <small *ngIf="emailProveedorFormato" class="text-danger">Formato inválido.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sector">Nicho de mercado</label>
+                        <select class="form-control form-control-sm" id="sector" formControlName="sector">
+                            <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                            <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                            <option value="Informática">Informática</option>
+                            <option value="Electrónica">Electrónica</option>
+                            <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                            <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                            <option value="Hogar y cocina">Hogar y cocina</option>
+                            <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                            <option value="Juguetes y juegos">Juguetes y juegos</option>
+                            <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                            <option value="Relojes">Relojes</option>
+                            <option value="Productos para bebé">Productos para bebé</option>
+                            <option value="Coche y moto">Coche y moto</option>
+                            <option value="Deportes y aire libre">Deportes y aire libre</option>
+                            <option value="Joyería">Joyería</option>
+                            <option value="Equipaje">Equipaje</option>
+                            <option value="Iluminación">Iluminación</option>
+                            <option value="Oficina y papelería">Oficina y papelería</option>
+                            <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                            <option value="Instrumentos musicales">Instrumentos musicales</option>
+                            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                            <option value="Jardín">Jardín</option>
+                            <option value="Belleza">Belleza</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion" [hidden]="autonomo">Dirección de la empresa</label>
+                        <label for="direccion" [hidden]="!autonomo">Dirección de residencia</label>
+                        <input type="text" rows="4" type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion" [class.is-invalid]="direccionProveedorNoValido">
+                        <small *ngIf="direccionProveedorRequerido" class="text-danger">Dirección requerida.</small>
+                    </div>
+
+                    <div class="form-group" [hidden]="autonomo">
+                        <label for="registroMercantil">CIF</label><a class="aviso" style="text-decoration: none;"> (Código de identificación fiscal de la empresa)</a>
+                        <input type="text" class="form-control" name="registroMercantil" placeholder="Ejemplo: B-72313251" id="registroMercantil" formControlName="registroMercantil" [class.is-invalid]="registroMercantilNoValido || cifFormato">
+                        <small *ngIf="registroMercantilRequerido && !cifFormato" class="text-danger">CIF requerido.</small>
+                        <small *ngIf="cifFormato" class="text-danger">Formato inválido.</small>
+                    </div>
+
+                    <div class="form-group" [hidden]="!autonomo">
+                        <label for="nif">NIF</label>
+                        <input type="text" class="form-control" name="nif" placeholder="Ejemplo: 72849135X" id="nif" formControlName="nif" [class.is-invalid]="nifNoValido || nifFormato">
+                        <small *ngIf="nifRequerido && !nifFormato" class="text-danger">NIF requerido</small>
+                        <small *ngIf="nifFormato" class="text-danger">Formato inválido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cuentaBancariaIBAN">IBAN</label>
+                        <input type="text" placeholder="Ejemplo: ES3912341234250123456789" class="form-control" name="cuentaBancariaIBAN" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="ibanProveedorNoValido">
+                        <small *ngIf="ibanProveedorRequerido" class="text-danger">IBAN requerido.</small>
+                        <small *ngIf="ibanProveedorFormato && !ibanProveedorRequerido" class="text-danger">Formato inválido.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="titularCuenta">Titular de la cuenta</label>
+                        <input type="text" class="form-control" name="titularCuenta" id="titularCuenta" placeholder="Ejemplo: SERGIO PEREA RUIZ" formControlName="titularCuenta" [class.is-invalid]="titularProveedorNoValido || titularProveedorFormato">
+                        <small *ngIf="titularProveedorRequerido && !titularProveedorFormato" class="text-danger">Titular de la cuenta requerido.</small>
+                        <small *ngIf="titularProveedorFormato" class="text-danger">Formato inválido.</small>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 fotografia">
+                    <h4 class="card-title text-center" [hidden]="autonomo">Foto/Logo de empresa</h4>
+                    <h4 class="card-title text-center" [hidden]="!autonomo">Foto del usuario</h4>
+                    <div class="card" style="border: none;">
+                        <div class="card-body formulario">
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
                             </div>
+                            <br>
+                            <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" (change)="cambiarImagen($event.target.files[0])">
 
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-1"></div>
+                <hr>
+
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar perfil</button>
 
             </div>
         </form>
     </div>
+</div>
 
 
 
+<div class="wrapper login" *ngIf="usuario === 'comprador' && comprador">
+    <div class="row">
+        <form class="form-registro" autocomplete="off" [formGroup]="perfilCompradorForm" (ngSubmit)="actualizarCompradorPerfil()" id="loginform">
+            <div class="row">
+                <div class="col"></div>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <div class="col"></div>
+            </div>
+            <hr class="mt-0">
+            <div class="row">
+
+
+                <div class="col-md-6 form-div mt-0">
+                    <p class="aviso">(*) Campos opcionales</p>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreCompradorNoValido">
+                        <small *ngIf="nombreCompradorRequerido" class="text-danger">Nombre requerido.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Apellidos</label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosCompradorNoValido">
+                        <small *ngIf="apellidosCompradorRequerido" class="text-danger">Apellidos requeridos</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaRegistro">Fecha de registro</label>
+                        <input rows="4" type="date" class="form-control" name="fechaRegistro" [readonly]="true" id="fechaRegistro" formControlName="fechaRegistro">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Número de teléfono</label>
+                        <input type="number" class="form-control" id="numeroTelefono" placeholder="Ejemplo: 638126389" formControlName="numeroTelefono" [class.is-invalid]="tlfCompradorNoValido">
+                        <small *ngIf="tlfCompradorRequerido" class="text-danger">Teléfono requerido</small>
+                        <small *ngIf="telefonoFormato && !tlfCompradorRequerido" class="text-danger">Formato inválido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" formControlName="email" [class.is-invalid]="emailCompradorNoValido">
+                        <small *ngIf="emailCompradorRequerido" class="text-danger">Email requerido</small>
+                        <small *ngIf="emailFormatoNoValido" class="text-danger">Formato inválido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        <input rows="4" type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento" [class.is-invalid]="fechaNoValido">
+                        <small *ngIf="fechaNacimientoRequerido" class="text-danger">Fecha de nacimiento requerida</small>
+                        <small *ngIf="fechaFechaAnteriorAHoy && !fechaNacimientoRequerido" class="text-danger">La fecha de nacimiento no puede ser futura</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paisResidencia">País de residencia</label>
+                        <input type="text" class="form-control" id="paisResidencia" formControlName="paisResidencia" [class.is-invalid]="paisCompradorNoValido">
+                        <small *ngIf="paisCompradorRequerido" class="text-danger">País de residencia requerido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad</label>
+                        <input type="text" class="form-control" id="ciudad" formControlName="ciudad" [class.is-invalid]="ciudadCompradorNoValido">
+                        <small *ngIf="ciudadCompradorRequerido" class="text-danger">Ciudad requerida</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="localidad">Localidad</label><a class="aviso" style="text-decoration: none; font-size: 14px;"> (Si no vive en una localidad, introduzca su ciudad)</a>
+                        <input type="text" class="form-control" id="localidad" formControlName="localidad" [class.is-invalid]="localidadCompradorNoValido">
+                        <small *ngIf="localidadCompradorRequerido" class="text-danger">Localidad requerida</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigoPostal">Código postal</label>
+                        <input type="number" class="form-control" id="codigoPostal" placeholder="Ejemplo: 41410" formControlName="codigoPostal" [class.is-invalid]="codigoPostalCompradorNoValido">
+                        <small *ngIf="codigoPostalCompradorRequerido" class="text-danger">Código postal requerido</small>
+                        <small *ngIf="codigoPostalFormato && !codigoPostalCompradorRequerido" class="text-danger">Formato inválido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigoPostal">Dirección de residencia</label>
+                        <input type="text" class="form-control" id="direccionResidencia" formControlName="direccionResidencia" [class.is-invalid]="direccionCompradorNoValido">
+                        <small *ngIf="direccionCompradorRequerido" class="text-danger">Direccción requerida</small>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 fotografia">
+                    <h4 class="card-title text-center">Foto del usuario</h4>
+                    <div class="card" style="border: none;">
+                        <div class="card-body formulario">
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+                            </div>
+                            <br>
+                            <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" (change)="cambiarImagen($event.target.files[0])">
+
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar perfil</button>
+
+            </div>
+        </form>
+    </div>
 </div>
