@@ -162,4 +162,18 @@ export class ProductoService {
       }
     });
   }
+
+
+  soyElProveedor( id: string):Promise<boolean>{
+
+    return new Promise<boolean> (resolve=> {
+
+      this.http.post(`${ base_url }/productos/soyElProveedor`, {id: id}, this.headers )
+      .subscribe(data =>{
+        const soyElProveedor:boolean= data["soyElProveedor"];
+        resolve(soyElProveedor);
+      });
+    } )
+  }
+
 }

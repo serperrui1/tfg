@@ -28,6 +28,7 @@ export class ActualizarProductoComponent implements OnInit {
   public misProductos: Producto[];
   public imagenSubir: File;
   public imgTemp: any = null;
+  public imagenMostrar:string;
   public proveedor:string;
   public id: string;
   public token: string;
@@ -67,6 +68,7 @@ export class ActualizarProductoComponent implements OnInit {
 
       this.prov = await this.usuarioService.getProveedor();
       this.producto = await this.productoService.getProductoPorID(this.id);
+      this.imagenMostrar = this.producto.imagenes[0];
       this.stock = this.producto.stock;
       this.unidadesMinimas = this.producto.unidadesMinimas;
       if(this.producto.proveedor != this.prov.uid){
@@ -90,10 +92,6 @@ export class ActualizarProductoComponent implements OnInit {
           datosTecnicosDescripcion:[]
       })])
       });
-
-
-      console.log(this.producto);
-      console.log(this.productoForm);
 
     }else{
       console.log("Acceso denegado para actualizar este producto");
@@ -141,16 +139,17 @@ export class ActualizarProductoComponent implements OnInit {
     }
 
     let productoActualizar = this.productoForm.value
-    console.log(productoActualizar);
+
     if(productoActualizar.datosTecnicos.length == 0){
       productoActualizar.datosTecnicosAntiguos = this.producto.datosTecnicos;
     }else if (productoActualizar.datosTecnicos.length > 0){
       for(let datosTecnicos of productoActualizar.datosTecnicos){
-        if(datosTecnicos.datosTecnicosTitulo != "" && datosTecnicos.datosTecnicosTitulo != null){
+        if(datosTecnicos.datosTecnicosTitulo != null && datosTecnicos.datosTecnicosTitulo != ""){
+          console.log(datosTecnicos.datosTecnicosTitulo);
           this.producto.datosTecnicos.push(datosTecnicos);
         }
       }
-      productoActualizar.datosTecnicosAntiguos = this.producto.datosTecnicos;
+      productoActualizar.datosTecnicos = this.producto.datosTecnicos;
       
     }
     
@@ -159,7 +158,8 @@ export class ActualizarProductoComponent implements OnInit {
     var precio = this.productoForm.value.precio;
     this.productoForm.value.precio = Math.round(precio * 100) / 100;
     //------------------------------------
-
+    productoActualizar.imagenes = this.producto.imagenes;
+    
     this.productoService.actualizarProducto( productoActualizar, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Producto actualizado correctamente.', 'success');
@@ -183,13 +183,14 @@ export class ActualizarProductoComponent implements OnInit {
 
   async subirImagenes() {
     if(this.usuario === "proveedor"){
-      for(let imagen of this.imagenesSubir)
+      for(let imagen of this.imagenesSubir){
       this.subirImagenService.postearImagen(imagen, 'productos', this.producto._id)
       .then( () => {
         Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
       }).catch( err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       });
+    }
     }
   }
 
@@ -198,9 +199,9 @@ export class ActualizarProductoComponent implements OnInit {
       if(this.producto.imagenes.includes('http')){
         return this.producto.imagenes;
       }
-      if(this.producto.imagenes){
-          return `${base_url}/upload/productos/${ this.producto.imagenes }`;
-      }
+      // if(this.producto.imagenes){
+      //     return `${base_url}/upload/productos/${ this.producto.imagenes }`;
+      // }
       else{
           return `${base_url}/upload/productos/no-image`;
       }
@@ -215,6 +216,28 @@ export class ActualizarProductoComponent implements OnInit {
           this.router.navigateByUrl("/mis-productos");
         });
 
+  }
+
+  borrarImagen() {
+    Swal.fire({
+        title: '¿Borrar la imagen?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, borrarlo'
+      }).then((result) => {
+        if (result.value) {
+          for(let imagen of this.producto.imagenes){
+            if(imagen == this.imagenMostrar){
+              // const index: number = this.producto.imagenes.indexOf(imagen);
+              // console.log(index);
+              // this.producto.imagenes.slice(index,1);
+              // console.log(this.producto.imagenes);
+              this.producto.imagenes = this.producto.imagenes.filter(item => item !== imagen);
+            }
+          }
+          
+    }
+  })
   }
 
   multiplesImagenes(files: File[]){

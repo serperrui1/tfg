@@ -6,7 +6,9 @@
         <div class="col-md-1"></div>
 
         <div class="col-md-3 producto-izquierda">
-            <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
+            <div style="height: 250px;">
+                <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
+            </div>
             <div class="row">
                 <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
                     <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
@@ -42,7 +44,7 @@
         </div>
 
 
-        <div class="col-md-2 infoFinal">
+        <div class="col-md-2 infoFinal " *ngIf="!soyElProveedor">
             <div class="contenido-infoFinal">
                 <div *ngIf="!(producto.unidadesMinimas >= producto.stock); else noStock">
                     <strong style="color:red">{{producto.precio * cantidadProducto}}€</strong> con {{cantidadProducto}} unidades
@@ -74,13 +76,19 @@
                 <div class="garantia">
                     <a routerLink="/garantia" class="text-primary m-l-5"> Ver la garantía de los productos</a>
                 </div>
-                <div class="botones-container" *ngIf="prov">
-                    <a class="botones" (click)="goEditIfProveedor()">Actualizar producto</a>
-                </div>
+
                 <br>
                 <a *ngIf="flag" class="botones" routerLink="/devolver-reclamar/{{pedidoId}}">
                     Solicitar devolución/reclamación
                 </a>
+            </div>
+        </div>
+        <div class="col-md-2" *ngIf="soyElProveedor">
+
+            <div class="soyProveedor">
+                <h6 class="text-center">Eres el dueño de este producto</h6>
+                <hr>
+                <a class="botones" (click)="goEditIfProveedor()">Actualizar producto</a>
             </div>
         </div>
 
