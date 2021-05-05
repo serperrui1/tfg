@@ -82,10 +82,10 @@ export class CrearChatComponent implements OnInit {
 
     const chatId = await this.chatService.crearChat(this.chatForm.value);
     if (chatId){
-      Swal.fire('Guardado', 'Chat creado', 'success');
-      this.router.navigateByUrl("/producto/" + this.productoId)
+      Swal.fire('Guardado', 'Chat creado.', 'success');
+      this.router.navigateByUrl('/mis-chats');
     }else{
-      Swal.fire('Error', 'Error al crear chat', 'error');
+      Swal.fire('Error', 'Error al crear el chat.', 'error');
     }
   }
 

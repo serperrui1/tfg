@@ -9,6 +9,7 @@ import { SpamValidator } from '../../Validaciones-Customizadas.directive';
 /* import { SpumValidator } from '../../spum-validator.component'; */
 import { Spam } from '../../models/spam';
 import { SpamService } from '../../services/spam.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-faq',
@@ -31,12 +32,10 @@ export class CrearFaqComponent implements OnInit {
   constructor(private fb:FormBuilder,
     private faqService: FaqService,
     private usuarioService: UsuarioService,
-    /* private spumValidator: SpumValidator */
-    private spamService: SpamService) {
-
+    private spamService: SpamService,
+    private router:Router) {
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
-
      }
 
   async ngOnInit() {
@@ -62,7 +61,8 @@ export class CrearFaqComponent implements OnInit {
     this.formSubmited = true;
     await this.faqService.crearFaq(this.faqForm.value)
     .subscribe( () => {
-      Swal.fire('Guardado', 'FAQ creado', 'success');
+      Swal.fire('Guardado', 'FAQ creado.', 'success');
+      this.router.navigateByUrl('/faqs');
     }, (err) => {
       Swal.fire('Error', err.error.msg, 'error');
     });

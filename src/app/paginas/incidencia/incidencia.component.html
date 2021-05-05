@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="usuario != 'administrador' && incidencia">
+<!-- <div class="wrapper" *ngIf="usuario != 'administrador' && incidencia">
 
     <div class="row">
         <form class="form " autocomplete="off" [formGroup]="incidenciaForm" (submit)="actualizarIncidencia()">
@@ -54,4 +54,73 @@
         <div class="col-md-3"></div>
     </div>
 
+</div> -->
+
+
+
+
+
+
+
+
+
+<div class="wrapper" *ngIf="usuario != 'administrador' && incidencia">
+
+    <div class="row">
+        <form class="form-registro" autocomplete="off" [formGroup]="incidenciaForm" (submit)="actualizarIncidencia()">
+            <div class="row">
+                <div class="col-md-8 form-div">
+
+                    <div class="card-body formulario">
+                        <h5 class="card-title text-left" *ngIf="(comp || prov) && incidencia.asignado">Incidencia con el asistente técnico: {{asistenteTecnicoNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="(comp || prov) && !incidencia.asignado">Incidencia sin asignar</h5>
+                        <h5 class="card-title text-left" *ngIf="aT && compradorNombre && !proveedorNombre">Incidencia del comprador {{compradorNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="aT && !compradorNombre && proveedorNombre">Incidencia del proveedor {{proveedorNombre}}</h5>
+                        <p class="text-left">Título: "{{incidencia.titulo}}"</p>
+                        <p class="text-left">Temática: {{incidencia.tematica}}</p>
+                        <p class="text-left">Detalles: {{incidencia.descripcion}}</p>
+                        <p class="text-left">Creado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</p>
+                        <p class="text-left" *ngIf="!incidencia.asignado">Estado: pendiente de asignación</p>
+                        <p class="text-left" *ngIf="!incidencia.resuelto && incidencia.asignado">Estado: por resolver</p>
+                        <p class="text-left" *ngIf="incidencia.resuelto">Estado: resuelta</p>
+                        <hr>
+                        <div class="form-group" *ngIf="comp || prov && !incidencia.resuelto">
+                            <p class="text-center">Incidencia resuelta</p>
+                            <input type="checkbox" class="form-control" id="resuelto" formControlName="resuelto" (click)="check()">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensajes">Nuevo mensaje</label>
+                            <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes" [class.is-invalid]="mensajeNoValido"></textarea>
+                            <small *ngIf="mensajeCampoRequerido" class="text-danger">Mensaje requerido.</small>
+                            <small *ngIf="mensajes.errors.esSpam && !mensajeCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="prov || comp" [disabled]="!puedesActualizar && checkeaste">
+                            Actualizar
+                        </button>
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="aT" [disabled]="!puedesActualizar">
+                            Enviar
+                        </button>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-2" [disabled]="!puedesBorrar" *ngIf="aT" (click)="borrarIncidencia(incidencia)">
+                        Borrar incidencia
+                    </button>
+
+                    <br>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div *ngFor="let mensaje of incidencia.mensajes; let i=index" class="descripcion-container">
+                                <p class="descripcion">{{mensaje}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

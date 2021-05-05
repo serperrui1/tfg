@@ -13,43 +13,40 @@
 
     <div class="row" *ngIf="!cargando">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title text-center">FAQS</h4>
-                    <h6 class="card-subtitle text-center">Actualmente existen {{ faqs.length }} FAQs</h6>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
+            <div class="faqs">
+                <h1 class="card-title text-center mb-0">FAQS</h1>
+                <button class="btn btn-primary mb-4 mr-4" (click)="nuevoFAQ();">Nuevo FAQ</button>
+                <a class="aviso" style="text-decoration: none;">  Actualmente existen {{ faqs.length }} FAQs</a>
+                <div class="table-responsive">
+                    <table class="table table-bordered mt-0 mb-4">
+                        <thead>
 
-                                <tr>
-                                    <th>Pregunta</th>
-                                    <th>Respuesta</th>
-                                    <th>Temática</th>
-                                    <th class="text-nowrap text-center">Borrar</th>
-                                </tr>
+                            <tr>
+                                <th class="ths">Pregunta</th>
+                                <th class="ths">Respuesta</th>
+                                <th class="ths">Temática</th>
+                                <th class="text-nowrap text-center ths">Borrar</th>
+                            </tr>
 
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
 
-                                <tr *ngFor="let faq of faqs">
-                                    <td>{{ faq.pregunta }}</td>
-                                    <td>{{ faq.respuesta }}</td>
-                                    <td>{{ faq.tematica }}</td>
+                            <tr *ngFor="let faq of faqs">
+                                <td>{{ faq.pregunta }}</td>
+                                <td>{{ faq.respuesta }}</td>
+                                <td>{{ faq.tematica }}</td>
 
-                                    <td class="text-nowrap text-center">
-                                        <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarFaq(faq)">
-                                            <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarFaq(faq)">
+                                        <i class="fa fa-trash-o" style="font-size:24px;color:rgb(163, 24, 24)"></i>
+                                    </a>
+                                </td>
+                            </tr>
 
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <button class="btn btn-secondary" (click)="nuevoFAQ();">Nuevo FAQ</button>
-
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -71,20 +68,22 @@
 
     <div class="row" *ngIf="!cargando">
         <div class="col-md-1"></div>
-        <div class="faq-header col-md-10">FAQs (Preguntas frecuentes)
-
+        <div class="faq-header col-md-10 text-center">FAQs<a class="aviso" style="text-decoration: none;"> (Preguntas frecuentes)</a>
+            <br>
+            <br>
             <div class="faq-content" *ngFor="let faq of grouped | keyvalue; let i = index">
                 <div id="{{faq.key}}">
-                    <h3>{{faq.key}}</h3>
+                    <h3 class="categoria text-left">{{faq.key}}</h3>
                     <div class="faq" *ngFor="let value of faq.value; let j = index">
                         <div class="faq-question">
                             <input id="{{i}}{{j}}" type="checkbox" class="panel">
                             <div class="plus">+</div>
-                            <label for="{{i}}{{j}}" class="panel-title">{{ value.pregunta }}</label>
-                            <div class="panel-content">{{ value.respuesta }}</div>
+                            <label for="{{i}}{{j}}" class="panel-title text-left">{{ value.pregunta }}</label>
+                            <div class="panel-content text-left">{{ value.respuesta }}</div>
                         </div>
                     </div>
                 </div>
+                <br>
             </div>
 
         </div>

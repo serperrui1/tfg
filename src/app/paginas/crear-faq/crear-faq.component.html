@@ -1,65 +1,50 @@
-<div class="wrapper" *ngIf="expresionesSpam && (usuario === 'administrador' || usuario === 'asistenteTecnico')">
-    <div class="row">
-        <form class="form " autocomplete="off" [formGroup]="faqForm" (submit)="crearFaq()">
-            <div class="row">
-                <div class="col-md-6 form-div">
-                    <div class="card">
-                        <div class="card-body formulario">
-                            <h2 class="card-title text-center">Nuevo FAQ</h2>
-                            <h5 class="card-title">Pregunta</h5>
-                            <div class="form-group">
-                                <textarea type="text" class="form-control" id="pregunta" formControlName="pregunta" [class.is-invalid]="preguntaNoValido"></textarea>
-                                <small *ngIf="preguntaCampoRequerido" class="text-danger">Pregunta requerida</small>
-                            </div>
-                            <div *ngIf="pregunta.invalid && (pregunta.dirty || pregunta.touched)" class="alert alert-danger">
-                                <div *ngIf="pregunta.errors.required">
-                                    La pregunta no puede estar vacía.
-                                </div>
-                                <div *ngIf="pregunta.errors.esSpam">
-                                    No pueden usarse términos o palabras que poseen connotaciones negativas.
-                                </div>
-                            </div>
-                            <h5 class="card-title">Respuesta</h5>
-                            <div class="form-group">
-                                <textarea type="text" class="form-control" id="respuesta" formControlName="respuesta" [class.is-invalid]="respuestaNoValido"></textarea>
-                                <small *ngIf="respuestaCampoRequerido" class="text-danger">Respuesta requerida</small>
-                            </div>
-                            <div *ngIf="respuesta.invalid && (respuesta.dirty || respuesta.touched)" class="alert alert-danger">
-                                <div *ngIf="respuesta.errors.required">
-                                    La respuesta no puede estar vacía.
-                                </div>
-                                <div *ngIf="respuesta.errors.esSpam">
-                                    No pueden usarse términos o palabras que poseen connotaciones negativas.
-                                </div>
-                            </div>
-                            <h5 class="card-title">Temática</h5>
-                            <div class="form-group">
-                                <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
-                                    <option value="Login" selected="selected">Login</option> 
-                                    <option value="Registro">Registro</option>
-                                    <option value="Garantía">Garantía</option>
-                                    <option value="Compras">Compras</option>
-                                    <option value="Ventas">Ventas</option>
-                                    <option value="Devoluciones">Devoluciones</option>
-                                    <option value="Empleo">Empleo</option>
-                                    <option value="Contacto">Contacto</option>
-                                    <option value="Carrito de compra">Carrito de compra</option>
-                                    <option value="Compras">Compras</option>
-                                    <option value="Soporte">Soporte</option>
-                                    <option value="Legal">Legal</option>
-                                    <option value="Mi Cuenta">Mi cuenta</option>
-                                    <option value="Productos">Productos</option>
-                                    <option value="Envío">Envío</option>
-                                    <option value="Pago">Pago</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="faqForm.invalid">
-                                Publicar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+<div class="wrapper login" *ngIf="expresionesSpam && (usuario === 'administrador' || usuario === 'asistenteTecnico')">
+
+    <form class="form-registro" autocomplete="off" [formGroup]="faqForm" (ngSubmit)="crearFaq()" id="loginform">
+        <h2 class="form-signin-heading" style="text-align: center;">Nuevo FAQ</h2>
+        <hr>
+
+        <p class="aviso">(*) Campos opcionales</p>
+
+        <div class="form-group">
+            <label for="pregunta">Pregunta</label>
+            <textarea type="text" class="form-control" id="pregunta" formControlName="pregunta" [class.is-invalid]="preguntaNoValido"></textarea>
+            <small *ngIf="preguntaCampoRequerido" class="text-danger">Pregunta requerida.</small>
+            <small *ngIf="pregunta.errors.esSpam && !preguntaCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="respuesta">Respuesta</label>
+            <textarea type="text" class="form-control" id="respuesta" formControlName="respuesta" [class.is-invalid]="respuestaNoValido"></textarea>
+            <small *ngIf="respuestaCampoRequerido" class="text-danger">Respuesta requerida.</small>
+            <small *ngIf="respuesta.errors.esSpam && !respuestaCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="tematica">Temática</label>
+            <select class="form-control form-control-sm" id="tematica" formControlName="tematica">
+                <option value="Login" selected="selected">Login</option> 
+                <option value="Registro">Registro</option>
+                <option value="Garantía">Garantía</option>
+                <option value="Compras">Compras</option>
+                <option value="Ventas">Ventas</option>
+                <option value="Devoluciones">Devoluciones</option>
+                <option value="Empleo">Empleo</option>
+                <option value="Contacto">Contacto</option>
+                <option value="Carrito de compra">Carrito de compra</option>
+                <option value="Compras">Compras</option>
+                <option value="Soporte">Soporte</option>
+                <option value="Legal">Legal</option>
+                <option value="Mi Cuenta">Mi cuenta</option>
+                <option value="Productos">Productos</option>
+                <option value="Envío">Envío</option>
+                <option value="Pago">Pago</option>
+            </select>
+        </div>
+
+        <hr>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block btn-sm" id="submit" type="submit">Publicar</button>
+
+    </form>
 </div>

@@ -6,6 +6,10 @@ import { Incidencia } from '../../models/incidencia';
 import { ActivatedRoute } from '@angular/router';
 import { AsistenteTecnico } from '../../models/asistente';
 import Swal from 'sweetalert2';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
+import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 import { Comprador } from '../../models/comprador';
 import { Proveedor } from '../../models/proveedor';
@@ -37,16 +41,18 @@ export class IncidenciaComponent implements OnInit {
   public lastMessage: string = "";
   public checkeaste: boolean = false;
   public cont: number;
+  public spam: Spam;
+  public expresionesSpam: string[];
 
 
   constructor(private fb:FormBuilder,
     private incidenciaService: IncidenciaService,
     private activatedRoute: ActivatedRoute,
-    private usuarioService: UsuarioService) { 
-
+    private usuarioService: UsuarioService,
+    private spamService: SpamService,
+    private router:Router) { 
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
-
   }
 
   async ngOnInit() {
@@ -58,13 +64,16 @@ export class IncidenciaComponent implements OnInit {
       });
 
       this.incidencia = await this.incidenciaService.getIncidenciaPorID(this.incidenciaId);
+
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
     
       this.incidenciaForm = this.fb.group({
         titulo: [ this.incidencia.titulo],
         fechaPublicacion: [ this.incidencia.fechaPublicacion],
         descripcion: [ this.incidencia.descripcion],
         tematica: [ this.incidencia.tematica],
-        mensajes: ['', Validators.required ],
+        mensajes: ['', [Validators.required, SpamValidator(this.expresionesSpam)] ],
         asignado: [ this.incidencia.asignado],
         resuelto: [ this.incidencia.resuelto],
       });
@@ -115,6 +124,7 @@ export class IncidenciaComponent implements OnInit {
     }else{
       console.log("Acceso denegado para actualizar esta incidencia");
     };
+    console.log(this.incidencia.asignado)
   }
 
   actualizarIncidencia() {
@@ -134,7 +144,8 @@ export class IncidenciaComponent implements OnInit {
       //--------------------------------------------------------------------------------
       this.incidenciaService.actualizarIncidencia( this.incidenciaForm.value, this.incidencia._id )
       .subscribe( () => {
-        Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+        Swal.fire('Guardado', 'Incidencia actualizada.', 'success');
+        location.reload();
       }, (err) => {
         Swal.fire('Error', err.error.msg, 'error');
       });
@@ -166,6 +177,9 @@ export class IncidenciaComponent implements OnInit {
   }
   get mensajeCampoRequerido(){
     return this.incidenciaForm.get('mensajes').errors ? this.incidenciaForm.get('mensajes').errors.required && this.incidenciaForm.get('mensajes').touched : null
+  }
+  get mensajes(){
+    return this.incidenciaForm.get('mensajes');
   }
 
 

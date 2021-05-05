@@ -1,4 +1,4 @@
-.descripcion {
+/* .descripcion {
     margin: 2%;
     font-size: large;
 }
@@ -35,4 +35,118 @@
 .form {
     width: 90%;
     margin: auto;
+} */
+
+
+/* .descripcion {
+    margin: 2%;
+    font-size: large;
+}
+
+.descripcion-container {
+    border: 1px solid rgb(156, 156, 156);
+    text-align: left;
+    margin: 1%;
+    border-radius: 10px;
+}
+
+.descripcion-titulo {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.row {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.formulario {
+    background-color: #e4e4e4;
+    margin: auto,
+}
+
+.form-div {
+    margin: auto;
+    color: black;
+}
+
+.form {
+    width: 90%;
+    margin: auto;
+} */
+
+body {
+    background: #eee !important;
+    color: black;
+}
+
+.wrapper {
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+.form-registro {
+    max-width: 50%;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 2px solid rgb(122, 122, 122);
+    border-radius: 10px;
+}
+
+.aviso {
+    color: rgb(173, 173, 173);
+}
+
+.form-signin-heading,
+.checkbox {
+    margin-bottom: 30px;
+}
+
+.checkbox {
+    font-weight: normal;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+}
+
+.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+
+input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.login {
+    color: black;
+}
+
+.link {
+    color: #2114db;
 }
