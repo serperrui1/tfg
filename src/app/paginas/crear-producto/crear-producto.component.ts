@@ -46,7 +46,7 @@ export class CrearProductoComponent implements OnInit{
       this.crearProductoForm = this.fb.group({
         titulo:['', Validators.required],
         descripcion:['', Validators.required],
-        categoria:['', [ Validators.required] ],
+        categoria:['Libros, Música, Vídeo y DVD', [ Validators.required] ],
         unidadesMinimas:['', Validators.required],
         stock:['', Validators.required],
         precio:['', Validators.required],
