@@ -161,7 +161,7 @@
         <div class="form-group">
             <label for="cuentaBancariaIBAN">IBAN</label>
             <input type="text" placeholder="Ejemplo: ES3912341234250123456789" class="form-control" name="cuentaBancariaIBAN" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="cuentaBancariaIbanNoValido">
-            <small *ngIf="cuentaBancariaIBANRequerido" class="text-danger">Cuenta bancaria requerida</small>
+            <small *ngIf="cuentaBancariaIBANRequerido" class="text-danger">IBAN requerido</small>
             <small *ngIf="cuentaBancariaFormato && !cuentaBancariaIBANRequerido" class="text-danger">Formato inválido</small>
         </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Comprador } from 'src/app/models/comprador';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -17,6 +17,8 @@ const base_url = environment.base_url;
   styleUrls: ['./perfil.component.css']
 })
 export class perfilComponent implements OnInit {
+
+  autonomo:boolean = false;
   public perfilCompradorForm: FormGroup;
   public perfilProveedorForm: FormGroup;
   public perfilAdministradorForm: FormGroup;
@@ -28,59 +30,56 @@ export class perfilComponent implements OnInit {
   public imagenSubir: File;
   public imgTemp: any = null;
   public usuario:string;
+  /* public accesoDenegado: boolean = false; */
 
   constructor(private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private fileUploadService: FileUploadService) { 
-
    this.usuario =localStorage.getItem('usuario') || "";
-
-
-   
   }
 
   async ngOnInit() {
     if(this.usuario==="comprador"){
     this.comprador = await this.usuarioService.getComprador();
    
-
      this.perfilCompradorForm = this.fb.group({
-      nombre: [ this.comprador.nombre , Validators.required ],
-      email: [ this.comprador.email, [ Validators.required, Validators.email ] ],
-      apellidos: [ this.comprador.apellidos , Validators.required ],
-      fechaNacimiento: [ this.comprador.fechaNacimiento , Validators.required ],
-      paisResidencia: [ this.comprador.paisResidencia , Validators.required ],
-      ciudad: [ this.comprador.ciudad , Validators.required ],
-      localidad: [ this.comprador.localidad , Validators.required ],
-      codigoPostal: [ this.comprador.codigoPostal , Validators.required ],
-      numeroTelefono: [ this.comprador.numeroTelefono],
-      direccionResidencia: [ this.comprador.direccionResidencia , Validators.required ],
-
-
+      nombre:[this.comprador.nombre, Validators.required],
+      apellidos:[this.comprador.apellidos, Validators.required],
+      fechaRegistro:[this.comprador.fechaRegistro],
+      email:[this.comprador.email,[ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')] ],
+      numeroTelefono: [this.comprador.numeroTelefono, [Validators.required, this.telefonoFormatoNoValido]],
+      fechaNacimiento:[this.comprador.fechaNacimiento, [ Validators.required, this.fechaAnteriorAHoy]],
+      paisResidencia:[this.comprador.paisResidencia,[ Validators.required] ],
+      ciudad:[this.comprador.ciudad,[ Validators.required] ],
+      localidad:[this.comprador.localidad,[ Validators.required] ],
+      direccionResidencia:[this.comprador.direccionResidencia,[ Validators.required] ],
+      codigoPostal:[this.comprador.codigoPostal,[ Validators.required, this.codigoPostalFormatoNoValido] ],
     });
+
   }else if(this.usuario==="proveedor"){
     this.proveedor = await this.usuarioService.getProveedor();
 
      this.perfilProveedorForm = this.fb.group({
       nombreEmpresa: [ this.proveedor.nombreEmpresa , Validators.required ],
-      autonomo: [ this.proveedor.autonomo , Validators.required ],
-      sector: [ this.proveedor.sector , Validators.required ],
-      email: [ this.proveedor.email , Validators.required ],
-      registroMercantil:[ this.proveedor.nombreEmpresa ],
-      nif: [ this.proveedor.nombreEmpresa ],
+      fechaRegistro:[this.proveedor.fechaRegistro],
+      autonomo: [ this.proveedor.autonomo ],
+      sector: [ this.proveedor.sector],
+      email:[this.proveedor.email,[ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')] ],
+      registroMercantil:[this.proveedor.registroMercantil,[ , Validators.pattern('^[A-Z]{1}[-][0-9]{8}$')] ],
+      nif:[this.proveedor.nif,[ , Validators.pattern('^[0-9]{8}[A-Z]{1}$')] ],
       direccion: [ this.proveedor.direccion , Validators.required ],
-      cuentaBancariaIBAN: [ this.proveedor.cuentaBancariaIBAN , Validators.required ],
+      cuentaBancariaIBAN:[this.proveedor.cuentaBancariaIBAN,[ Validators.required, Validators.pattern('^[A-Z]{2}[0-9]{22}$')] ],
       titularCuenta: [ this.proveedor.titularCuenta , Validators.required ]
 
     });
+
   }else if(this.usuario==="administrador"){
     this.administrador = await this.usuarioService.getAdministrador();
 
      this.perfilAdministradorForm = this.fb.group({
       nombre: [ this.administrador.nombre , Validators.required ],
       apellidos: [ this.administrador.apellidos , Validators.required ],
-      email: [ this.administrador.email, [ Validators.required, Validators.email ] ]
-
+      email:[this.administrador.email],
     });
 
   }else if(this.usuario==="asistenteTecnico"){
@@ -89,56 +88,85 @@ export class perfilComponent implements OnInit {
      this.perfilAsistenteTecnicoForm = this.fb.group({
       nombre: [ this.asistenteTecnico.nombre , Validators.required ],
       apellidos: [ this.asistenteTecnico.apellidos , Validators.required ],
-      email: [ this.asistenteTecnico.email, [ Validators.required, Validators.email ] ]
+      email:[this.asistenteTecnico.email],
 
     });
   }
   }
-  actualizarCompradorPerfil() {
-    if(this.perfilCompradorForm.invalid){
-      Swal.fire('Error', "Complete todos los campos", 'error');
-    }else{
-    this.usuarioService.actualizarCompradorPerfil( this.perfilCompradorForm.value, this.comprador.uid ).subscribe( () => {
-    const { nombre, email } = this.perfilCompradorForm.value;
-    this.comprador.nombre = nombre;
-    this.comprador.email = email;
-    
 
-    Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
-  }, (err) => {
-    Swal.fire('Error', err.error.msg, 'error');
-  });
+
+actualizarCompradorPerfil() {
+
+    if(this.perfilCompradorForm.invalid){
+      this.perfilCompradorForm.markAllAsTouched()
+      return;
     }
+
+    this.usuarioService.actualizarCompradorPerfil( this.perfilCompradorForm.value, this.comprador.uid ).subscribe( () => {
+    /* const { nombre, email } = this.perfilCompradorForm.value;
+    this.comprador.nombre = nombre;
+    this.comprador.email = email; */
+    this.subirImagen();
+    Swal.fire('Guardado', 'Perfil actualizado.', 'success');
+    location.reload();
+    }, (err)=> {
+      Swal.fire('Error', err.error.msg, 'error');
+    });
+
+  }
   
-}
 actualizarProveedorPerfil() {
+
   if(this.perfilProveedorForm.invalid){
     this.perfilProveedorForm.markAllAsTouched()
     return;
   }
-  this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid )
-  .subscribe( () => {
-    Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
-  }, (err) => {
+
+  if(this.autonomo){
+    delete this.perfilProveedorForm.value["registroMercantil"];
+  }else delete this.perfilProveedorForm.value["nif"];
+
+  this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid ).subscribe( () => {
+    this.subirImagen();
+    Swal.fire('Guardado', 'Perfil actualizado.', 'success');
+    location.reload();
+  }, (err)=> {
     Swal.fire('Error', err.error.msg, 'error');
   });
-}
-actualizarAdministradorPerfil() {
-  this.usuarioService.actualizarAdministradorPerfil( this.perfilAdministradorForm.value, this.administrador.uid )
-  .subscribe( () => {
-    Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
-  }, (err) => {
-    Swal.fire('Error', err.error.msg, 'error');
-  });
+
 }
 
+actualizarAdministradorPerfil() {
+
+    if(this.perfilAdministradorForm.invalid){
+      this.perfilAdministradorForm.markAllAsTouched()
+      return;
+    }
+
+    this.usuarioService.actualizarAdministradorPerfil( this.perfilAdministradorForm.value, this.administrador.uid ).subscribe( () => {
+      this.subirImagen();
+      Swal.fire('Guardado', 'Perfil actualizado.', 'success');
+      location.reload();
+    }, (err) => {
+      Swal.fire('Error', err.error.msg, 'error');
+    });
+  }
+
 actualizarAsistenteTecnicoPerfil() {
-  this.usuarioService.actualizarAsistenteTecnicoPerfil( this.perfilAsistenteTecnicoForm.value, this.asistenteTecnico.uid )
-  .subscribe( () => {
-    Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
-  }, (err) => {
-    Swal.fire('Error', err.error.msg, 'error');
-  });
+
+  if(this.perfilAsistenteTecnicoForm.invalid){
+    this.perfilAsistenteTecnicoForm.markAllAsTouched()
+    return;
+  }
+
+  this.usuarioService.actualizarAsistenteTecnicoPerfil( this.perfilAsistenteTecnicoForm.value, this.asistenteTecnico.uid ).subscribe( () => {
+      this.subirImagen();
+      Swal.fire('Guardado', 'Perfil actualizado.', 'success');
+      location.reload();
+    }, (err) => {
+      Swal.fire('Error', err.error.msg, 'error');
+    }); 
+  
 }
 
   cambiarImagen( file: File ) {
@@ -156,13 +184,13 @@ actualizarAsistenteTecnicoPerfil() {
     }
   }
 
+
   subirImagen() {
     if(this.usuario==="comprador"){
       this.fileUploadService
       .actualizarFoto( this.imagenSubir, 'compradores', this.comprador.uid )
       .then( img => {
         this.comprador.img = img;
-        Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
@@ -173,7 +201,6 @@ actualizarAsistenteTecnicoPerfil() {
       .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
       .then( img => {
         this.proveedor.img = img;
-        Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
@@ -183,7 +210,6 @@ actualizarAsistenteTecnicoPerfil() {
       .actualizarFoto( this.imagenSubir, 'asistentes', this.asistenteTecnico.uid )
       .then( img => {
         this.asistenteTecnico.img = img;
-        Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
@@ -193,7 +219,6 @@ actualizarAsistenteTecnicoPerfil() {
       .actualizarFoto( this.imagenSubir, 'administradores', this.administrador.uid )
       .then( img => {
         this.administrador.img = img;
-        Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       })
@@ -247,113 +272,227 @@ actualizarAsistenteTecnicoPerfil() {
     }
   }
 
-  //Validaciones
+  //PROVEEDOR VALIDACIONES
   get nombreEmpresaNoValido(){
     return this.nombreEmpresaRequerido
   }
   get nombreEmpresaRequerido(){
     return this.perfilProveedorForm.get('nombreEmpresa').errors ? this.perfilProveedorForm.get('nombreEmpresa').errors.required && this.perfilProveedorForm.get('nombreEmpresa').touched : null
   }
-  get emailNoValido(){
-    return this.emailRequerido
+
+  get emailProveedorNoValido(){
+    return this.emailProveedorRequerido || this.emailProveedorFormato
   }
-  get emailRequerido(){
+  get emailProveedorRequerido(){
     return this.perfilProveedorForm.get('email').errors ? this.perfilProveedorForm.get('email').errors.required && this.perfilProveedorForm.get('email').touched : null
   }
+  get emailProveedorFormato(){
+    return this.perfilProveedorForm.get('email').errors ? this.perfilProveedorForm.get('email').errors.pattern && this.perfilProveedorForm.get('email').touched : null
+  }
+
+  get direccionProveedorNoValido(){
+    return this.direccionProveedorRequerido
+  }
+  get direccionProveedorRequerido(){
+    return this.perfilProveedorForm.get('direccion').errors ? this.perfilProveedorForm.get('direccion').errors.required && this.perfilProveedorForm.get('direccion').touched : null
+  }
+
   get registroMercantilNoValido(){
     return this.registroMercantilRequerido
   }
   get registroMercantilRequerido(){
     return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.required && this.perfilProveedorForm.get('registroMercantil').touched : null
   }
+  get cifFormato(){
+    return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.pattern && this.perfilProveedorForm.get('registroMercantil').touched : null
+  }
+
   get nifNoValido(){
     return this.nifRequerido
   }
   get nifRequerido(){
     return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.required && this.perfilProveedorForm.get('nif').touched : null
   }
-  get cuentaBancariaNoValida(){
-    return this.cuentaBancariaRequerido
+  get nifFormato(){
+    return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.pattern && this.perfilProveedorForm.get('nif').touched : null
   }
-  get cuentaBancariaRequerido(){
+
+  get ibanProveedorNoValido(){
+    return this.ibanProveedorRequerido || this.ibanProveedorFormato
+  }
+  get ibanProveedorRequerido(){
     return this.perfilProveedorForm.get('cuentaBancariaIBAN').errors ? this.perfilProveedorForm.get('cuentaBancariaIBAN').errors.required && this.perfilProveedorForm.get('cuentaBancariaIBAN').touched : null
   }
-  get direccionNoValido(){
-    return this.direccionRequerido
+  get ibanProveedorFormato(){
+    return this.perfilProveedorForm.get('cuentaBancariaIBAN').errors ? this.perfilProveedorForm.get('cuentaBancariaIBAN').errors.pattern && this.perfilProveedorForm.get('cuentaBancariaIBAN').touched : null
   }
-  get direccionRequerido(){
-    return this.perfilProveedorForm.get('direccion').errors ? this.perfilProveedorForm.get('direccion').errors.required && this.perfilProveedorForm.get('direccion').touched : null
+
+  get titularProveedorNoValido(){
+    return this.titularProveedorRequerido || this.titularProveedorFormato
   }
-  get titularNoValido(){
-    return this.titularRequerido
-  }
-  get titularRequerido(){
+  get titularProveedorRequerido(){
     return this.perfilProveedorForm.get('titularCuenta').errors ? this.perfilProveedorForm.get('titularCuenta').errors.required && this.perfilProveedorForm.get('titularCuenta').touched : null
   }
+  get titularProveedorFormato(){
+    return this.perfilProveedorForm.get('titularCuenta').errors ? this.perfilProveedorForm.get('titularCuenta').errors.pattern && this.perfilProveedorForm.get('titularCuenta').touched : null
+  }
+
+
+
+  //ADMINISTRADOR VALIDACIONES
+get nombreAdministradorRequerido(){
+  return this.perfilAdministradorForm.get('nombre').errors ? this.perfilAdministradorForm.get('nombre').errors.required && this.perfilAdministradorForm.get('nombre').touched : null
+}
+get nombreAdministradorNoValido(){
+  return this.nombreAdministradorRequerido
+}
+
+get apellidosAdministradorRequerido(){
+  return this.perfilAdministradorForm.get('apellidos').errors ? this.perfilAdministradorForm.get('apellidos').errors.required && this.perfilAdministradorForm.get('apellidos').touched : null
+}
+get apellidosAdministradorNoValido(){
+  return this.apellidosAdministradorRequerido
+}
 
 
 
 
+//ASISTENTE VALIDACIONES VALIDACIONES
+get nombreAsistenteRequerido(){
+  return this.perfilAsistenteTecnicoForm.get('nombre').errors ? this.perfilAsistenteTecnicoForm.get('nombre').errors.required && this.perfilAsistenteTecnicoForm.get('nombre').touched : null
+}
+get nombreAsistenteNoValido(){
+  return this.nombreAsistenteRequerido
+}
+
+get apellidosAsistenteRequerido(){
+  return this.perfilAsistenteTecnicoForm.get('apellidos').errors ? this.perfilAsistenteTecnicoForm.get('apellidos').errors.required && this.perfilAsistenteTecnicoForm.get('apellidos').touched : null
+}
+get apellidosAsistenteNoValido(){
+  return this.apellidosAsistenteRequerido
+}
+
+
+
+
+
+
+  //COMPRADOR VALIDACIONES
   get nombreCompradorRequerido(){
     return this.perfilCompradorForm.get('nombre').errors ? this.perfilCompradorForm.get('nombre').errors.required && this.perfilCompradorForm.get('nombre').touched : null
   }
   get nombreCompradorNoValido(){
     return this.nombreCompradorRequerido
   }
+
   get apellidosCompradorRequerido(){
     return this.perfilCompradorForm.get('apellidos').errors ? this.perfilCompradorForm.get('apellidos').errors.required && this.perfilCompradorForm.get('apellidos').touched : null
   }
   get apellidosCompradorNoValido(){
     return this.apellidosCompradorRequerido
   }
-  get fechaNacimientoCompradorRequerido(){
-    return this.perfilCompradorForm.get('fechaNacimiento').errors ? this.perfilCompradorForm.get('fechaNacimiento').errors.required && this.perfilCompradorForm.get('fechaNacimiento').touched : null
-  }
-  get fechaNacimientoCompradorNoValido(){
-    return this.fechaNacimientoCompradorRequerido
-  }
-  get paisCompradorRequerido(){
-    return this.perfilCompradorForm.get('paisResidencia').errors ? this.perfilCompradorForm.get('paisResidencia').errors.required && this.perfilCompradorForm.get('paisResidencia').touched : null
-  }
-  get paisCompradorNoValido(){
-    return this.paisCompradorRequerido
-  }
-  get ciudadCompradorRequerido(){
-    return this.perfilCompradorForm.get('ciudad').errors ? this.perfilCompradorForm.get('ciudad').errors.required && this.perfilCompradorForm.get('ciudad').touched : null
-  }
-  get ciudadCompradorNoValido(){
-    return this.ciudadCompradorRequerido
-  }
-  get localidadCompradorRequerido(){
-    return this.perfilCompradorForm.get('localidad').errors ? this.perfilCompradorForm.get('localidad').errors.required && this.perfilCompradorForm.get('localidad').touched : null
-  }
-  get localidadCompradorNoValido(){
-    return this.localidadCompradorRequerido
-  }
-  get emailCompradorRequerido(){
-    return this.perfilCompradorForm.get('email').errors ? this.perfilCompradorForm.get('email').errors.required && this.perfilCompradorForm.get('email').touched : null
-  }
-  get emailCompradorNoValido(){
-    return this.emailCompradorRequerido
-  }
-  get tlfCompradorRequerido(){
-    return this.perfilCompradorForm.get('numeroTelefono').errors ? this.perfilCompradorForm.get('numeroTelefono').errors.required && this.perfilCompradorForm.get('numeroTelefono').touched : null
-  }
-  get tlfCompradorNoValido(){
-    return this.tlfCompradorRequerido
-  }
+
   get direccionCompradorRequerido(){
     return this.perfilCompradorForm.get('direccionResidencia').errors ? this.perfilCompradorForm.get('direccionResidencia').errors.required && this.perfilCompradorForm.get('direccionResidencia').touched : null
   }
   get direccionCompradorNoValido(){
     return this.direccionCompradorRequerido
   }
+
+  get ciudadCompradorRequerido(){
+    return this.perfilCompradorForm.get('ciudad').errors ? this.perfilCompradorForm.get('ciudad').errors.required && this.perfilCompradorForm.get('ciudad').touched : null
+  }
+  get ciudadCompradorNoValido(){
+    return this.ciudadCompradorRequerido
+  }
+
+  get localidadCompradorRequerido(){
+    return this.perfilCompradorForm.get('localidad').errors ? this.perfilCompradorForm.get('localidad').errors.required && this.perfilCompradorForm.get('localidad').touched : null
+  }
+  get localidadCompradorNoValido(){
+    return this.localidadCompradorRequerido
+  }
+
+  get paisCompradorRequerido(){
+    return this.perfilCompradorForm.get('paisResidencia').errors ? this.perfilCompradorForm.get('paisResidencia').errors.required && this.perfilCompradorForm.get('paisResidencia').touched : null
+  }
+  get paisCompradorNoValido(){
+    return this.paisCompradorRequerido
+  }
+  
+  get fechaNoValido(){
+    return this.fechaNacimientoRequerido || this.fechaFechaAnteriorAHoy
+  }
+  get fechaNacimientoRequerido(){
+    return this.perfilCompradorForm.get('fechaNacimiento').errors ? this.perfilCompradorForm.get('fechaNacimiento').errors.required && this.perfilCompradorForm.get('fechaNacimiento').touched : null
+  }
+  get fechaFechaAnteriorAHoy(){
+    return this.perfilCompradorForm.get('fechaNacimiento').errors ? this.perfilCompradorForm.get('fechaNacimiento').errors.fechaAnteriorAHoy && this.perfilCompradorForm.get('fechaNacimiento').touched : null
+  }
+
+  get codigoPostalCompradorNoValido(){
+    return this.codigoPostalCompradorRequerido || this.codigoPostalFormato
+  }
   get codigoPostalCompradorRequerido(){
     return this.perfilCompradorForm.get('codigoPostal').errors ? this.perfilCompradorForm.get('codigoPostal').errors.required && this.perfilCompradorForm.get('codigoPostal').touched : null
   }
-  get codigoPostalCompradorNoValido(){
-    return this.codigoPostalCompradorRequerido
+  get codigoPostalFormato(){
+    return this.perfilCompradorForm.get('codigoPostal').errors ? this.perfilCompradorForm.get('codigoPostal').errors.codigoPostalFormatoNoValido && this.perfilCompradorForm.get('codigoPostal').touched : null
   }
-  
+
+  get tlfCompradorNoValido(){
+    return this.tlfCompradorRequerido || this.telefonoFormato
+  }
+  get tlfCompradorRequerido(){
+    return this.perfilCompradorForm.get('numeroTelefono').errors ? this.perfilCompradorForm.get('numeroTelefono').errors.required && this.perfilCompradorForm.get('numeroTelefono').touched : null
+  }
+  get telefonoFormato(){
+    return this.perfilCompradorForm.get('numeroTelefono').errors ? this.perfilCompradorForm.get('numeroTelefono').errors.telefonoFormatoNoValido && this.perfilCompradorForm.get('numeroTelefono').touched : null
+  }
+
+  get emailCompradorNoValido(){
+    return this.emailCompradorRequerido || this.emailFormatoNoValido
+  }
+  get emailCompradorRequerido(){
+    return this.perfilCompradorForm.get('email').errors ? this.perfilCompradorForm.get('email').errors.required && this.perfilCompradorForm.get('email').touched : null
+  }
+  get emailFormatoNoValido(){
+    return this.perfilCompradorForm.get('email').errors ? this.perfilCompradorForm.get('email').errors.pattern && this.perfilCompradorForm.get('email').touched : null
+  }
+
+
+  //VALIDACIONES PERSONALIZADAS
+  private fechaAnteriorAHoy(control:FormControl):{[s:string]:boolean}{
+    let f = Date.parse(control.value)
+    let hoy = new Date().getTime()
+    if(f > hoy){
+      return {
+        fechaAnteriorAHoy:true
+      }
+    }
+    return null
+  }
+
+  private codigoPostalFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+    const pattern = "^[0-9]{5}$"
+    let cP = String(control.value);
+    if(!cP.match(pattern)){
+      return {
+        codigoPostalFormatoNoValido:true
+      }
+    }
+    return null
+  }
+
+  private telefonoFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+    const pattern = "^[0-9]{9}$"
+    let cP = String(control.value);
+    if(!cP.match(pattern)){
+      return {
+        telefonoFormatoNoValido:true
+      }
+    }
+    return null
+  }
 
 }

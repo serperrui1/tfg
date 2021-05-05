@@ -1,4 +1,4 @@
-.img-avatar {
+/* .img-avatar {
     max-height: 300px;
     max-width: 300px;
     object-fit: contain;
@@ -45,4 +45,160 @@
 .form {
     width: 90%;
     margin: auto;
+} */
+
+.img-avatar {
+    max-height: 300px;
+    max-width: 300px;
+    object-fit: contain;
+}
+
+.descripcion {
+    margin: 2%;
+    font-size: large;
+}
+
+.row {
+    padding-left: 15px;
+    padding-top: 7px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+}
+
+.borrar {
+    margin-bottom: -10px;
+}
+
+.formulario {
+    background-color: #ffffff;
+    margin: auto,
+}
+
+.form-div {
+    margin: auto;
+    color: black;
+}
+
+.form {
+    width: 90%;
+    margin: auto;
+}
+
+.acceso-denegado {
+    font-size: 100px;
+}
+
+body {
+    background: #eee !important;
+    color: black;
+}
+
+.wrapper {}
+
+.form-registro {
+    width: 90%;
+    padding: 15px 15px 15px;
+    margin: auto;
+    background-color: #fff;
+    border: 2px solid rgb(122, 122, 122);
+    border-radius: 10px;
+}
+
+.aviso {
+    color: rgb(173, 173, 173);
+}
+
+.form-signin-heading,
+.checkbox {
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+.checkbox {
+    font-weight: normal;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #771515;
+    border-color: #771515;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #500d0d;
+    border-color: #500d0d;
+}
+
+.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+
+input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.login {
+    color: black;
+}
+
+.link {
+    color: #2114db;
+}
+
+.imagen {
+    max-height: 300px;
+    max-width: 300px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
+
+.imagen-miniatura {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.imagenes-container {
+    max-height: 100px;
+    max-width: 100px;
+    margin-top: 10px;
+    border-radius: 1px;
+}
+
+.borrarImagen {
+    text-align: right;
+    padding-top: 70px;
 }

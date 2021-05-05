@@ -139,7 +139,7 @@ export class RegisterProveedorComponent {
 
 
   get cuentaBancariaIbanNoValido(){
-    return this.cuentaBancariaIBANRequerido || this.cuentaBancariaFormato || this.cuentaBancariaFormato
+    return this.cuentaBancariaIBANRequerido || this.cuentaBancariaFormato
   }
   get cuentaBancariaIBANRequerido(){
     return this.registrarProveedorForm.get('cuentaBancariaIBAN').errors ? this.registrarProveedorForm.get('cuentaBancariaIBAN').errors.required && this.registrarProveedorForm.get('cuentaBancariaIBAN').touched : null

@@ -1,29 +1,37 @@
-<div *ngIf="usuario === 'administrador'">
-    <form class="form p-t-20" #spamForm="ngForm" autocomplete="off" (submit)="actualizarSpam(spamForm)">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">SPAM </h4>
+<div class="wrapper" *ngIf="usuario === 'administrador'">
+
+    <div class="row">
+        <form class="form-registro" #spamForm="ngForm" autocomplete="off" (submit)="actualizarSpam(spamForm)">
+            <div class="row">
+                <div class="col-md-8 form-div">
+
+                    <div class="card-body formulario">
+                        <h3 class="card-title text-center">SPAM</h3>
+                        <p class="aviso text-center" style="text-decoration: none; font-size: 14px;">En esta vista se visualizan y actualizan las expresiones prohibidas en la plataforma</p>
+                        <hr>
                         <div class="form-group">
-                            <label for="expresiones">Expresiones SPAM:</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <textarea type="text" class="form-control" id="expresiones" name="expresiones" [(ngModel)]="datos.expresiones" #expresiones="ngModel"></textarea>
+                            <label for="mensajes">Spam actual</label>
+                            <textarea type="text" class="form-control" placeholder="Ejemplo: tonto, fumar, porro" id="expresiones" name="expresiones" [(ngModel)]="datos.expresiones" #expresiones="ngModel"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block">
+                            Actualizar
+                        </button>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row palabras">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <h3 class="card-title text-center">Palabras SPAM</h3>
+                            <div *ngFor="let expresion of spam.expresiones; let i=index" class="descripcion-container">
+
+                                <p class="descripcion text-center">"{{expresion}}"</p>
                             </div>
                         </div>
+                        <div class="col-md-3"></div>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10">
-                    <i class="fa fa-save"></i>
-                    Actualizar
-            </button>
-        </div>
-    </form>
-    <div *ngFor="let expresion of spam.expresiones">
-        <p>
-            {{expresion}}
-        </p>
+        </form>
     </div>
 </div>
