@@ -56,6 +56,7 @@ export class ProductoComponent implements OnInit {
   public flag: boolean = false;
   /* public noValora: boolean = false; */
   public prov:Proveedor;
+  public soyElProveedor:boolean = false;
   public yaValorado = false;
   public miValoracion :Valoracion;
   public imagenMostrar :string;
@@ -86,12 +87,15 @@ export class ProductoComponent implements OnInit {
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
 
+   
     
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
     
     if (this.usuario =="proveedor"){
+      this.soyElProveedor = await this.productoService.soyElProveedor(this.id);
+      console.log(this.soyElProveedor);
       this.prov = await this.usuarioService.getProveedor();
     }
     if (this.usuario =="comprador"){

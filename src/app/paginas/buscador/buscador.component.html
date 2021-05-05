@@ -1,4 +1,5 @@
 <div class="row">
+
     <div class="col-md-3 filtro">
         <form class="form-signin my-3 mx-3 " autocomplete="off" [formGroup]="filtro" id="buscadorform">
             <div class="form-group">
@@ -70,7 +71,8 @@
 
         </form>
     </div>
-    <div class="col-md-9  centrado">
+    <div class="col"></div>
+    <div class="col-md-8  centrado">
         <div class="row">
             <form [formGroup]="orden" id="buscadorform" class="orden">
                 <select formControlName="orden" (change)="ordenar()">
@@ -86,5 +88,6 @@
             </div>
         </div>
     </div>
+    <div class="col"></div>
 
 </div>

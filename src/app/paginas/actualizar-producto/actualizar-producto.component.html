@@ -10,7 +10,7 @@
             <div class="row">
 
 
-                <div class="col-md-6 form-div">
+                <div class="col-md-6 form-div mt-0">
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         <label for="nombre">Descripción</label>
-                        <textarea type="text" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
+                        <textarea type="text" rows="8" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
                         <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
                     </div>
 
@@ -84,30 +84,30 @@
 
                 <div class="col-md-6 form-div">
                     <h4 class="card-title text-center">Fotos del producto<a class="aviso" style="text-decoration: none;"> (*)</a></h4>
-                    <div class="card">
-                        <div class="card-body formulario">
-                            <div class="text-center">
-                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
-                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-2 borrarImagen">
+                                <i class="fa fa-trash-o" style="font-size:30px;color:rgb(163, 24, 24)" (click)="borrarImagen()"> </i>
                             </div>
-
-                            <br>
-                            <input type="file" class="btn btn-lg btn-light btn-sm btn-block" multiple (change)="multiplesImagenes($event.target.files)">
-
-
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
-                                    <button class="btn btn-lg btn-primary btn-sm btn-block" (click)="subirImagenes()"><!-- [disabled]="!imagenesSubir" -->
-                                        Subir fotos
-                                    </button>
+                            <div class="col-md-8" style="height: 250px;">
+                                <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
+                            </div>
+                            <div class="col-md-2">
+                                <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
+                                    <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                                 </div>
-                                <div class="col-md-3"></div>
                             </div>
+                        </div>
+                        <div>
+                            <div>
+
+                                <input type="file" class="btn btn-lg btn-light btn-sm btn-block " multiple (change)="multiplesImagenes($event.target.files)">
+                            </div>
+
 
                         </div>
                     </div>
-                    <br>
+                    <br><br>
                     <h4 class="card-title text-center">Datos técnicos<a class="aviso" style="text-decoration: none;"> (*)</a></h4>
                     <div formArrayName="datosTecnicos">
                         <table class="table table-bordered">
@@ -134,7 +134,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <a type="submit" class="btn btn-lg btn-danger btn-sm btn-block" (click)="deleteDatosTecnicos(pointIndex)">
+                                    <a type="submit" *ngIf="pointIndex !=  datosTecnicos.controls.length -1" class="btn btn-lg btn-danger btn-sm btn-block" (click)="deleteDatosTecnicos(pointIndex)">
                                         Borrar dato técnico
                                     </a>
                                 </div>
