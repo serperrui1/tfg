@@ -3,6 +3,8 @@ import { CarritoService } from '../../services/carrito.service';
 import { Producto } from '../../models/producto';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 const base_url = environment.base_url;
 
@@ -17,9 +19,7 @@ export class CarritoComponent implements OnInit{
   public costeLinea: number;
   public cantidad: number;
   public subtotal: number;
-  public envio: number;
   public total: number;
-  public impuestos: number;
   public direccionImagen = base_url+"/upload/productos/"
 
   public index: number;
@@ -34,9 +34,9 @@ export class CarritoComponent implements OnInit{
   
   
   constructor(private carritoService: CarritoService,
-    private usuarioService: UsuarioService) {
+    private usuarioService: UsuarioService,
+    private router:Router) {
     this.subtotal = 0;
-    this.envio = 15;
 
   }
   
@@ -56,8 +56,8 @@ export class CarritoComponent implements OnInit{
       this.cantidad = Number(this.cantidades[i]);
       this.costeLinea = this.items[i].precio * (Number(this.cantidades[i]));
       this.subtotal = this.subtotal + this.costeLinea;
-      this.impuestos = this.subtotal * 0.13;
-      this.total = this.subtotal + this.envio + this.impuestos;
+
+      this.total = this.subtotal 
     }
     this.cargando = false;
   }
@@ -74,5 +74,25 @@ export class CarritoComponent implements OnInit{
     location.reload();
     /* this.router.navigate(['/your-path']) */
   }
+
+  comprar(){
+    if(localStorage.getItem("usuario") == "comprador"){
+      console.log("lol?");
+      this.router.navigateByUrl("/compra")
+    }else{
+    Swal.fire({
+      title: 'Para comprar debes iniciar sesión como comprador',
+      text: '¿Quieres iniciar sesión como comprador?',
+      showCancelButton: true,
+      confirmButtonText: `Continuar`,
+      
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.logout();
+        this.router.navigateByUrl('/login');
+      } 
+    })
+  }
+}
 }
 

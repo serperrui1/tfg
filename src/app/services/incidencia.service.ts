@@ -78,6 +78,7 @@ export class IncidenciaService {
   }
 
   actualizarIncidencia( data: Incidencia , id:string) {
+    console.log(data);
     return this.http.put(`${ base_url }/incidencias/actualizar/${ id }`, data, {
       headers: {
         'x-token': this.token

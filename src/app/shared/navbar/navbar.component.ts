@@ -53,7 +53,10 @@ export class NavbarComponent implements OnInit{
   })
   
   async ngOnInit() {
-    this.admin = await this.usuarioService.getAdministrador();
+    if(localStorage.getItem("token")){
+      this.admin = await this.usuarioService.getAdministrador();
+    }
+    
     this.notifica();
     await this.hayChatsSinLeer();
     await this.hayIncidenciasSinLeer();
@@ -98,7 +101,7 @@ export class NavbarComponent implements OnInit{
         }
       }
     }
-    if(this.aT && (this.incidencia.asistenteId === this.aT.uid)){
+    if(this.aT ){
       for (let i = 0; i < this.misIncidencias.length; i++) {
         this.incidencia = this.misIncidencias[i];
         if(!this.incidencia.leida && this.incidencia.ultimoEmisor != this.aT.uid){

@@ -11,12 +11,17 @@ import { Incidencia } from '../../models/incidencia';
 export class MisIncidenciasComponent implements OnInit {
 
   public incidencias: Incidencia[];
+  public compradorOProveedor:boolean = false;
 
   constructor(private incidenciaService : IncidenciaService,
     private router: Router) { }
 
     async ngOnInit() {
       this.incidencias = await (this.incidenciaService.getMisIncidencias());
+      if(localStorage.getItem("usuario")== "comprador" || localStorage.getItem("usuario")== "proveedor" )
+      {
+        this.compradorOProveedor = true;
+      }
     }
   
     verIncidencia(id: number ){

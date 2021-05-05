@@ -1,4 +1,4 @@
-<div class="wrapper login" *ngIf="producto && productoForm && !accesoDenegado">
+<div class="wrapper" *ngIf="producto && productoForm && !accesoDenegado">
     <div class="row">
         <form class="form-registro" autocomplete="off" [formGroup]="productoForm" (ngSubmit)="actualizarProducto()" id="loginform">
             <div class="row">
