@@ -259,21 +259,46 @@ export class ProductoComponent implements OnInit {
     }
   }
 
+
+  logeate(){
+    Swal.fire({
+      title: 'Para contactar con el proveedor inicie sesión como comprador',
+      text: '¿Quiere iniciar sesión como comprador?',
+      showCancelButton: true,
+      confirmButtonText: `Sí`,
+      
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.logout();
+        this.router.navigateByUrl('/login');
+      } 
+    })
+  }
+
+
   alCarrito(producto) {
     this.cantidad = Number((document.getElementById("cantidad") as HTMLInputElement).value);
 
     this.items = this.carritoService.getCarrito();
     this.cantidades = this.carritoService.getCantidades();
     
-    if(this.items === null){ // producto nuevo en cesta vacía -> no se comprueba nada
-      this.carritoService.alCarrito(producto, this.cantidad);
-      window.alert('¡El producto se ha añadido al carrito!');
-      this.cantidades = this.carritoService.getCantidades();
-      location.reload();
-      
+    if(this.items === null || this.items.length == 0){ // producto nuevo en cesta vacía -> no se comprueba nada
+      this.carritoService.alCarrito(producto, this.cantidad)
+      Swal.fire({
+        title: 'El producto se ha añadido al carrito.',
+        confirmButtonText: `Ok`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.cantidades = this.carritoService.getCantidades();
+          location.reload();
+        } else {
+          this.cantidades = this.carritoService.getCantidades();
+          location.reload();
+        }
+      }) 
     }
 
-    else if(this.items != null){
+    else if(this.items != null || this.items.length > 0){
        //hay algo en el carrito
       for (let i = 0; i < this.items.length; i++) {
         if((this.items[i]._id) === (this.producto._id)){
@@ -285,16 +310,34 @@ export class ProductoComponent implements OnInit {
         this.new = this.cantidades[this.contains] + this.cantidad; //dame el valor viejo y el nuevo que quiero meter del mismo producto y los sumamos
         this.cantidades.splice(this.contains, 1, this.new); //borramos su valor viejo y la actualizamos con la suma
         localStorage.setItem('cantidades',JSON.stringify(this.cantidades));
-        window.alert('¡Ahora tienes '+ this.new +' artículos de este producto en el carrito!');
-        this.cantidades = this.carritoService.getCantidades();
-        location.reload();
+        Swal.fire({
+          title: 'Ahora tienes '+ this.new +' artículos de este producto en el carrito.',
+          confirmButtonText: `Ok`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.cantidades = this.carritoService.getCantidades();
+            location.reload();
+          } else {
+            this.cantidades = this.carritoService.getCantidades();
+            location.reload();
+          }
+        })
       }
 
       else { //añade la cantidad del nuevo producto al carrito
         this.carritoService.alCarrito(producto, this.cantidad);
-        window.alert('¡El producto se ha añadido al carrito!');
-        this.cantidades = this.carritoService.getCantidades();
-        location.reload();
+        Swal.fire({
+          title: 'El producto se ha añadido al carrito.',
+          confirmButtonText: `Ok`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.cantidades = this.carritoService.getCantidades();
+            location.reload();
+          } else {
+            this.cantidades = this.carritoService.getCantidades();
+            location.reload();
+          }
+        }) 
       }
 
     }
