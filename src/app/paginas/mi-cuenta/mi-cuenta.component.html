@@ -1,4 +1,5 @@
 <div class="row fila-cuenta">
+
     <div class="col-md-4 contenedor-card">
         <div class="card border-1" routerLink="/mi-perfil">
             <div class="row ">
@@ -16,6 +17,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="col-md-4 contenedor-card">
         <div class="card border-1" routerLink="/perfil/cambiar-contrasena">
             <div class="row ">
@@ -33,7 +36,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 contenedor-card">
+
+
+    <div class="col-md-4 contenedor-card" *ngIf="prov || comp">
         <div class="card border-1" routerLink="/mis-chats">
             <div class="row ">
                 <div class="col-md-4">
@@ -72,7 +77,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 contenedor-card">
+
+
+    <div class="col-md-4 contenedor-card" *ngIf="aT || comp || prov">
         <div class="card border-1" routerLink="/mis-incidencias">
             <div class="row ">
                 <div class="col-md-4">

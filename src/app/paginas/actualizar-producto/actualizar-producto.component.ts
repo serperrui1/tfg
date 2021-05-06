@@ -169,7 +169,7 @@ export class ActualizarProductoComponent implements OnInit {
     this.productoService.actualizarProducto( productoActualizar, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Producto actualizado correctamente.', 'success');
-      this.router.navigateByUrl("/mis-productos");
+      this.router.navigateByUrl("/producto/"+this.producto._id);
     }, (err) => {
       Swal.fire('Error', err.error.msg, 'error');
     });

@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="proveedor && productosProveedor">
+<!-- <div class="wrapper" *ngIf="proveedor && productosProveedor">
     <div class="row">
         <form class="form " autocomplete="off">
             <h2 class="card-title text-center">Tienda del proveedor "{{proveedor.nombreEmpresa}}"</h2>
@@ -33,5 +33,58 @@
                 <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosProveedor"></app-producto-tarjeta>
             </div>
         </div>
+    </div>
+</div> -->
+
+
+
+
+
+
+<div class="wrapper" *ngIf="proveedor && productosProveedor">
+    <div class="row">
+        <form class="form-registro" autocomplete="off" id="loginform">
+
+            <div class="row">
+                <div class="col"></div>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;">Tienda del proveedor: {{proveedor.nombreEmpresa}}</h2>
+                <div class="col"></div>
+            </div>
+
+            <hr class="mt-0">
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    <strong style="color:rgb(59, 59, 59)">Contacto</strong>
+                    <p class="aviso"> {{proveedor.email}}</p>
+                    <strong style="color:rgb(59, 59, 59)">Dirección</strong>
+                    <p class="aviso">{{proveedor.direccion}}</p>
+                    <strong style="color:rgb(59, 59, 59)">Sector</strong>
+                    <p class="aviso">{{proveedor.sector}}</p>
+                    <strong *ngIf="proveedor.autonomo" style="color:rgb(59, 59, 59)">NIF</strong>
+                    <p class="aviso" *ngIf="proveedor.autonomo">{{proveedor.nif}}</p>
+                    <strong *ngIf="!proveedor.autonomo" style="color:rgb(59, 59, 59)">CIF</strong>
+                    <p class="aviso" *ngIf="!proveedor.autonomo">{{proveedor.registroMercantil}}</p>
+                </div>
+
+                <div class="col-md-4" style="height: 250px;">
+                    <div>
+                        <img src="{{ direccionImagen + proveedor.img }}" class="imagen">
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <h3 class="card-title text-center" style="color:rgb(59, 59, 59)">Productos</h3>
+            <div class="row" *ngIf="proveedor && productosProveedor">
+                <div class="col-md-11 form-div">
+                    <div class="row row-cols-1 row-cols-md-3">
+                        <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosProveedor"></app-producto-tarjeta>
+                    </div>
+                </div>
+            </div>
+
+        </form>
     </div>
 </div>
