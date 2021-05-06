@@ -85,6 +85,7 @@ export class CrearProductoComponent implements OnInit{
       this.crearProductoForm.markAllAsTouched()
       return;
     }
+    if(this.imagenesSubir!= undefined){
     this.formSubmited = true;
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
     
@@ -92,9 +93,13 @@ export class CrearProductoComponent implements OnInit{
     this.subirImagenService.postearImagen(imagen, 'productos', productoId)
     .then( () => {
       Swal.fire('Guardado', 'Nuevo producto creado con éxito', 'success');
+      this.router.navigateByUrl("mis-productos")
     }).catch( err => {
       Swal.fire('Error', 'No se ha creado el producto, ha habido un error', 'error');
     });
+  }else{
+    Swal.fire('Error', 'La foto es obligatoria', 'error');
+  }
   }
 
   campoNoValido (campo:string) :boolean{
@@ -158,6 +163,8 @@ export class CrearProductoComponent implements OnInit{
   get precioCampoRequerido(){
     return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.required && this.crearProductoForm.get('precio').touched : null
   }
-
+  get imagenRequerido(){
+    return this.imagenesSubir == undefined;
+  }
   }
 
