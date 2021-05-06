@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { environment } from '../../environments/environment';
 
 const base_url = environment.base_url;
@@ -8,42 +11,28 @@ const base_url = environment.base_url;
 })
 export class SubirImagenService {
 
-  constructor() { }
+  constructor(private http: HttpClient,
+    private router: Router) { }
 
-  async postearImagen(
-    archivo: File,
-    tipo: 'productos',
-    id: string
-  ) {
+  async postearImagen( archivo: File, tipo: 'productos', id: string) :Promise<string> {
 
-    try {
+    return new Promise<string> ((resolve) => {
 
-      const url = `${ base_url }/upload/${ tipo }/${ id }`;
       const formData = new FormData();
       formData.append('imagen', archivo);
-
-      const resp = await fetch( url, {
-        method: 'POST',
+      this.http.post(`${ base_url }/upload/${ tipo }/${ id }`,formData,{
         headers: {
           'x-token': localStorage.getItem('token') || ''   
-        },
-        body: formData
-      });
+        }
+      } ).subscribe((data)=>{
+          const ok = data["ok"]
+          if(ok == true ){
+            resolve(data["nombreArchivo"]);
+          }else{
+            Swal.fire('Error', data["msg"], 'error');
 
-      const data = await resp.json();
-
-      if ( data.ok ) {
-        return data.nombreArchivo;
-      } else {
-        return false;
-      }
-      
-    } catch (error) {
-      return false;    
-    }
-
+          }
+      })
+    })
   }
-
-
-
 }

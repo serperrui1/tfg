@@ -89,10 +89,13 @@ export class CrearProductoComponent implements OnInit{
       return;
     }
 
+
     //dejar solo 2 decimales en el precio
     var precio = this.crearProductoForm.value.precio;
     this.crearProductoForm.value.precio = Math.round(precio * 100) / 100;
     //------------------------------------
+
+    if(this.imagenesSubir!= undefined){
 
     this.formSubmited = true;
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
@@ -101,9 +104,13 @@ export class CrearProductoComponent implements OnInit{
     .then( () => {
       Swal.fire('Guardado', 'Producto creado.', 'success');
       this.router.navigateByUrl("/producto/"+productoId);
+
     }).catch( err => {
       Swal.fire('Error', 'No se ha creado el producto, ha habido un error.', 'error');
     });
+  }else{
+    Swal.fire('Error', 'La foto es obligatoria', 'error');
+  }
   }
 
   campoNoValido (campo:string) :boolean{
@@ -206,6 +213,7 @@ export class CrearProductoComponent implements OnInit{
   get precioCampoRequerido(){
     return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.required && this.crearProductoForm.get('precio').touched : null
   }
+
   get precioFormato(){
     return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.precioIncorrecto && this.crearProductoForm.get('precio').touched : null
   }
@@ -217,6 +225,10 @@ export class CrearProductoComponent implements OnInit{
       }
     }
     return null
+  }
+
+  get imagenRequerido(){
+    return this.imagenesSubir == undefined;
   }
 
   }
