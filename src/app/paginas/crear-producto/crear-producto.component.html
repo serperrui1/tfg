@@ -96,6 +96,7 @@
                             <br>
                             <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" multiple (change)="multiplesImagenes($event.target.files)">
                         </div>
+                        <small *ngIf="imagenRequerido" class="text-danger">La imagen es obligatoria</small>
                     </div>
                     <br>
 
