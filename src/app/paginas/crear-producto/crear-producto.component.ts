@@ -83,22 +83,14 @@ export class CrearProductoComponent implements OnInit{
   }
   
   async crearProducto(){
-
     if(this.crearProductoForm.invalid){
       this.crearProductoForm.markAllAsTouched()
       return;
     }
-
-
-    //dejar solo 2 decimales en el precio
-    var precio = this.crearProductoForm.value.precio;
-    this.crearProductoForm.value.precio = Math.round(precio * 100) / 100;
-    //------------------------------------
-
     if(this.imagenesSubir!= undefined){
-
     this.formSubmited = true;
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
+    
     for(let imagen of this.imagenesSubir)
     this.subirImagenService.postearImagen(imagen, 'productos', productoId)
     .then( () => {
@@ -112,6 +104,8 @@ export class CrearProductoComponent implements OnInit{
     Swal.fire('Error', 'La foto es obligatoria', 'error');
   }
   }
+
+  
 
   campoNoValido (campo:string) :boolean{
     if(this.crearProductoForm.get(campo).invalid && this.formSubmited){
