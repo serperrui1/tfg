@@ -131,7 +131,7 @@ export class ActualizarProductoComponent implements OnInit {
 
 
 
-  actualizarProducto() {
+  async actualizarProducto() {
 
     if(this.productoForm.invalid){
       this.productoForm.markAllAsTouched()
@@ -158,6 +158,12 @@ export class ActualizarProductoComponent implements OnInit {
     var precio = this.productoForm.value.precio;
     this.productoForm.value.precio = Math.round(precio * 100) / 100;
     //------------------------------------
+
+
+    // if(this.imagenesSubir != undefined){
+    //   await this.subirImagenes()
+    // }
+
     productoActualizar.imagenes = this.producto.imagenes;
     
     this.productoService.actualizarProducto( productoActualizar, this.producto._id )
@@ -167,6 +173,9 @@ export class ActualizarProductoComponent implements OnInit {
     }, (err) => {
       Swal.fire('Error', err.error.msg, 'error');
     });
+    if(this.imagenesSubir != undefined){
+      await this.subirImagenes()
+    }
   }
 
   cambiarImagen( file: File ) {
@@ -184,15 +193,14 @@ export class ActualizarProductoComponent implements OnInit {
   async subirImagenes() {
     if(this.usuario === "proveedor"){
       for(let imagen of this.imagenesSubir){
-      this.subirImagenService.postearImagen(imagen, 'productos', this.producto._id)
-      .then( () => {
-        Swal.fire('Guardado', 'Imagen de usuario subida', 'success');
-      }).catch( err => {
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      });
+      // let imagenNombre = 
+      await this.subirImagenService.postearImagen(imagen, 'productos', this.producto._id)
+
+            // this.producto.imagenes.push(imagenNombre);
+
     }
-    }
-  }
+    
+  }}
 
   get imagenUrl(){
     if(this.usuario === "proveedor"){
