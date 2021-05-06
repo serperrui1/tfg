@@ -1,35 +1,35 @@
 <div class="col mb-4 animated fadeIn tarjeta">
     <div class="row ">
         <div class="col-md-3">
-            <img class="card-img-top" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img class="card-img-top mt-4" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
         </div>
         <div class="col-md-4">
             <div class="titulo">
                 <h5 class="card-title">{{producto.titulo}}</h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text fecha">Compra realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</p>
             </div>
         </div>
         <div class="col-md-5 px-0">
             <div class="titulo">
                 <h5 class="card-title">{{pedido.unidades}} unidades por un total de {{pedido.precio }} €</h5>
             </div>
+            <div class="card-body">
+                <p class="card-text fecha">Compra realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</p>
+            </div>
 
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 botones-container">
-            <a class="botones" routerLink="/producto/{{productoId}}">Valorar el producto</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra mt-3" routerLink="/producto/{{productoId}}">Valorar el producto</a>
         </div>
         <div class="col-md-3 botones-container">
-            <a class="botones">Seguimiento del pedido</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra">Seguimiento del pedido</a>
         </div>
         <div class="col-md-3 botones-container">
-            <a class="botones" routerLink="/crear-chat/{{productoId}}">¿Alguna duda sobre el producto?</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/crear-chat/{{productoId}}">¿Dudas sobre el producto?</a>
         </div>
         <div class="col-md-3 botones-container">
-            <a class="botones" routerLink="/devolver-reclamar/{{pedidoId}}">Solicitar devolución/reclamación</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar/devolver</a>
         </div>
     </div>
 </div>

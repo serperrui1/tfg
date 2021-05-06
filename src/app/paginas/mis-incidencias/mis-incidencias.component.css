@@ -23,6 +23,30 @@ a.botones {
     transition: all 0.2s;
 }
 
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+    width: 75%;
+    margin: 0.2em auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+    width: 75%;
+    margin: 0.2em auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
 a.botones:hover {
     background-color: #1076eb;
 }
