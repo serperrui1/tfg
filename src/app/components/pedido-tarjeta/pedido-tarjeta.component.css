@@ -13,7 +13,8 @@
 }
 
 .tarjeta {
-    background-color: #e4e4e4;
+    background-color: #f0f0f0;
+    border: 2px solid rgb(122, 122, 122);
     border-radius: 10px;
     color: black;
 }
@@ -53,6 +54,35 @@
 .botones-container {
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+.decompra {
+    width: 100%;
+    padding: 0.5em 1.2em;
+    margin: 0.4em 0.3em 0.3em 0.4em;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+    width: 75%;
+    margin: 0.2em auto;
+    object-fit: contain;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+    width: 75%;
+    margin: 0.2em auto;
+    object-fit: contain;
 }
 
 a.botones {

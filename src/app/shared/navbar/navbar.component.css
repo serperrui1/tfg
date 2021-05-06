@@ -46,4 +46,6 @@
 .boton-search {
     width: 10%;
     margin-left: 10px;
+    margin: auto;
+    object-fit: contain;
 }
