@@ -1,6 +1,7 @@
 .infoFinal {
     border-radius: 2%;
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(122, 122, 122);
 }
 
 .detalles-tecnicos {
@@ -32,8 +33,20 @@ ngb-rating {
     font-size: 13px;
 }
 
+.decompra {
+    width: 100%;
+    padding: 0.5em 1.2em;
+    margin: 0.4em 0.3em 0.3em 0.4em;
+}
+
+.link {
+    color: #2114db;
+}
+
 .garantia a {
-    font-size: 12px
+    font-size: 12px;
+    object-fit: contain;
+    padding-left: 23px;
 }
 
 .botones-container {
@@ -96,9 +109,36 @@ a.botones:hover {
     padding-left: 20px;
 }
 
+.aviso {
+    color: rgb(173, 173, 173);
+}
+
 .soyProveedor {
     border-radius: 2%;
-    background-color: rgb(243, 243, 243);
+    border: 2px solid rgb(122, 122, 122);
+    background-color: rgb(255, 255, 255);
     height: 150px;
-    padding-top: 30px;
+    padding-top: 20px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2a1fc7;
+    border-color: #2a1fc7;
+    width: 75%;
+    margin: 0.2em auto;
+    object-fit: contain;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #1c1581;
+    border-color: #1c1581;
+    width: 75%;
+    margin: 0.2em auto;
+    object-fit: contain;
 }

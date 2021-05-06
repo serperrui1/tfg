@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Proveedor } from 'src/app/models/proveedor';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -26,6 +26,8 @@ export class CrearProductoComponent implements OnInit{
   public imagenesSubir: File[];
   public imgTemp: any = null;
   formSubmited:boolean = false;
+  /* public stock: Number;
+  public unidadesMinimas: Number; */
 
   
 
@@ -42,20 +44,20 @@ export class CrearProductoComponent implements OnInit{
 
   async ngOnInit() {
     if(this.usuario === "proveedor" && this.token != null){
+      
 
       this.crearProductoForm = this.fb.group({
         titulo:['', Validators.required],
         descripcion:['', Validators.required],
-        categoria:['Libros, Música, Vídeo y DVD', [ Validators.required] ],
-        unidadesMinimas:['', Validators.required],
-        stock:['', Validators.required],
-        precio:['', Validators.required],
+        categoria:['Libros, Música, Vídeo y DVD', ],
+        unidadesMinimas:['', [Validators.required, this.unidadesMinimasIncorrecto]],
+        stock:['', [Validators.required, this.stockIncorrecto]],
+        precio:['', [Validators.required, this.precioIncorrecto]],
+        subcategoria:['', ],
         datosTecnicos: this.fb.array([this.fb.group({
           datosTecnicosTitulo:['' ],
           datosTecnicosDescripcion:['' ]
       })]),
-      
-        subcategoria:[''],
       });
 
       this.proveedor = await this.usuarioService.getProveedor();
@@ -81,19 +83,26 @@ export class CrearProductoComponent implements OnInit{
   }
   
   async crearProducto(){
+
     if(this.crearProductoForm.invalid){
       this.crearProductoForm.markAllAsTouched()
       return;
     }
+
+    //dejar solo 2 decimales en el precio
+    var precio = this.crearProductoForm.value.precio;
+    this.crearProductoForm.value.precio = Math.round(precio * 100) / 100;
+    //------------------------------------
+
     this.formSubmited = true;
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
-    
     for(let imagen of this.imagenesSubir)
     this.subirImagenService.postearImagen(imagen, 'productos', productoId)
     .then( () => {
-      Swal.fire('Guardado', 'Nuevo producto creado con éxito', 'success');
+      Swal.fire('Guardado', 'Producto creado.', 'success');
+      this.router.navigateByUrl("/producto/"+productoId);
     }).catch( err => {
-      Swal.fire('Error', 'No se ha creado el producto, ha habido un error', 'error');
+      Swal.fire('Error', 'No se ha creado el producto, ha habido un error.', 'error');
     });
   }
 
@@ -134,29 +143,80 @@ export class CrearProductoComponent implements OnInit{
   get tituloCampoRequerido(){
     return this.crearProductoForm.get('titulo').errors ? this.crearProductoForm.get('titulo').errors.required && this.crearProductoForm.get('titulo').touched : null
   }
+
+
   get descripcionNoValido(){
     return this.descripcionCampoRequerido
   }
   get descripcionCampoRequerido(){
     return this.crearProductoForm.get('descripcion').errors ? this.crearProductoForm.get('descripcion').errors.required && this.crearProductoForm.get('descripcion').touched : null
   }
+
+
+
   get unidadesMinimasNoValido(){
-    return this.unidadesMinimasCampoRequerido
+    return this.unidadesMinimasCampoRequerido || this.unidadesMinimasFormato
   }
   get unidadesMinimasCampoRequerido(){
     return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.required && this.crearProductoForm.get('unidadesMinimas').touched : null
   }
+  get unidadesMinimasFormato(){
+    return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.unidadesMinimasIncorrecto && this.crearProductoForm.get('unidadesMinimas').touched : null
+  }
+  unidadesMinimasIncorrecto = (control:FormControl):{[s:string]:boolean} =>{
+    const pattern = "^[0-9]+$"
+    let cP = String(control.value);
+    let cX = Number(control.value);
+    if(!cP.match(pattern) || cX < 0 || cX > this.crearProductoForm.get('stock').value){
+      return {
+        unidadesMinimasIncorrecto:true
+      }
+    }
+    return null
+  }
+
+
+
   get stockNoValido(){
-    return this.stockCampoRequerido
+    return this.stockCampoRequerido || this.stockFormato
   }
   get stockCampoRequerido(){
     return this.crearProductoForm.get('stock').errors ? this.crearProductoForm.get('stock').errors.required && this.crearProductoForm.get('stock').touched : null
   }
+  get stockFormato(){
+    return this.crearProductoForm.get('stock').errors ? this.crearProductoForm.get('stock').errors.stockIncorrecto && this.crearProductoForm.get('stock').touched : null
+  }
+  stockIncorrecto = (control:FormControl):{[s:string]:boolean} =>{
+    const pattern = "^[0-9]+$"
+    let cP = String(control.value);
+    let cX = Number(control.value);
+    if(!cP.match(pattern) || cX < 0 || cX < this.crearProductoForm.get('unidadesMinimas').value){
+      return {
+        stockIncorrecto:true
+      }
+    }
+    return null
+  }
+
+
+
   get precioNoValido(){
-    return this.precioCampoRequerido
+    return this.precioCampoRequerido || this.precioFormato
   }
   get precioCampoRequerido(){
     return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.required && this.crearProductoForm.get('precio').touched : null
+  }
+  get precioFormato(){
+    return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.precioIncorrecto && this.crearProductoForm.get('precio').touched : null
+  }
+  private precioIncorrecto(control:FormControl):{[s:string]:boolean}{
+    let cX = Number(control.value);
+    if(cX < 0){
+      return {
+        precioIncorrecto:true
+      }
+    }
+    return null
   }
 
   }

@@ -20,7 +20,7 @@
         <div class="col-md-5 producto-derecha">
             <h3 style="text-align: left;">{{producto.titulo}}</h3>
             Tienda de:
-            <a routerLink="/escaparate/{{proveedorId}}">{{producto.proveedorNombre}} </a> <br> Categoría del producto: <a>{{producto.categoria}} </a> <br> Subcategoría: <a>{{producto.subcategoria}} </a> <br>
+            <a routerLink="/escaparate/{{proveedorId}}" class="link">{{producto.proveedorNombre}} </a> <br> Categoría del producto: <a>{{producto.categoria}} </a> <br> Subcategoría: <a>{{producto.subcategoria}} </a> <br>
             <div>
                 <p class="precio-unidades">Precio por unidad: {{producto.precio}}€ </p>
                 <p class="precio-unidades">Unidades mínimas: {{producto.unidadesMinimas}}</p>
@@ -55,11 +55,10 @@
                             <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
                         </form>
                     </div>
-                    <a class="botones" (click)="alCarrito(producto)">
+                    <a class="btn btn-lg btn-primary btn-sm btn-block decompra" (click)="alCarrito(producto)">
                     Añadir al carrito
                 </a>
-                    <br>
-                    <a class="botones" (click)="comprar(producto)">
+                    <a class="btn btn-lg btn-primary btn-sm btn-block decompra" (click)="comprar(producto)">
                     Comprar
                 </a>
                 </div>
@@ -67,18 +66,21 @@
                     <strong style="color: red; ">No hay stock</strong>
                     <br><br>
                 </ng-template>
-                <a *ngIf="!existeChat" class="botones" routerLink="/crear-chat/{{producto._id}}">
+                <a *ngIf="!existeChat && comp" class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/crear-chat/{{producto._id}}">
                     Contacta con el proveedor
                 </a>
-                <a *ngIf="existeChat" class="botones" routerLink="/chat/{{existeChat}}">
+                <a *ngIf="existeChat && comp" class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/chat/{{existeChat}}">
+                    Contacta con el proveedor
+                </a>
+                <a *ngIf="!comp" class="btn btn-lg btn-primary btn-sm btn-block decompra" (click)="logeate()">
                     Contacta con el proveedor
                 </a>
                 <div class="garantia">
-                    <a routerLink="/garantia" class="text-primary m-l-5"> Ver la garantía de los productos</a>
+                    <a routerLink="/garantia" class="m-l-5 link"> Ver la garantía de los productos</a>
                 </div>
 
                 <br>
-                <a *ngIf="flag" class="botones" routerLink="/devolver-reclamar/{{pedidoId}}">
+                <a *ngIf="flag" class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/devolver-reclamar/{{pedidoId}}">
                     Solicitar devolución/reclamación
                 </a>
             </div>
@@ -86,9 +88,9 @@
         <div class="col-md-2" *ngIf="soyElProveedor">
 
             <div class="soyProveedor">
-                <h6 class="text-center">Eres el dueño de este producto</h6>
+                <h6 class="text-center aviso">Eres el proveedor de este producto</h6>
                 <hr>
-                <a class="botones" (click)="goEditIfProveedor()">Actualizar producto</a>
+                <a class="btn btn-lg btn-primary btn-sm btn-block" (click)="goEditIfProveedor()">Actualizar producto</a>
             </div>
         </div>
 

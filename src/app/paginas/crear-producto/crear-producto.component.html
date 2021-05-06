@@ -3,7 +3,7 @@
         <form class="form-registro" autocomplete="off" [formGroup]="crearProductoForm" (submit)="crearProducto()">
             <div class="row">
                 <div class="col"></div>
-                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Nuevo producto</h2>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;">Nuevo producto</h2>
                 <div class="col"></div>
             </div>
 
@@ -13,16 +13,19 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="card-body">
+
                         <div class="form-group">
                             <label for="nombre">Título</label>
                             <input type="text" class="form-control" id="titulo" formControlName="titulo" [class.is-invalid]="tituloNoValido">
                             <small *ngIf="tituloCampoRequerido" class="text-danger">Título requerido</small>
                         </div>
+
                         <div class="form-group">
                             <label for="nombre">Descripción</label>
                             <textarea type="text" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
                             <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
                         </div>
+
                         <div class="form-group">
                             <label for="categoria">Categoría</label>
                             <select class="form-control form-control-sm" id="categoria" formControlName="categoria">
@@ -51,24 +54,31 @@
                                     <option value="Belleza">Belleza</option>
                                 </select>
                         </div>
+
                         <div class="form-group">
                             <label for="subcategoria">Subcategoría</label><a class="aviso" style="text-decoration: none;"> (*)</a>
-                            <input type="text" class="form-control" id="subcategoria" formControlName="subcategoria">
+                            <input type="text" class="form-control" id="subcategoria" placeholder="Ejemplo: Cafeteras" formControlName="subcategoria">
                         </div>
+
                         <div class="form-group">
                             <label for="unidadesMinimas">Unidades mínimas</label>
-                            <input type="number" class="form-control" id="unidadesMinimas" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
-                            <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requerido</small>
+                            <input type="number" class="form-control" id="unidadesMinimas" name="unidadesMinimas" min="1" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
+                            <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
+                            <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Formato inválido</small>
                         </div>
+
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input type="number" class="form-control" id="stock" formControlName="stock" [class.is-invalid]="stockNoValido">
+                            <input type="stock" class="form-control" id="stock" name="stock" min="0" formControlName="stock" [class.is-invalid]="stockNoValido">
                             <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
+                            <small *ngIf="stockFormato && !stockCampoRequerido" class="text-danger">Formato inválido</small>
                         </div>
+
                         <div class="form-group">
                             <label for="precio">Precio</label><a class="aviso" style="text-decoration: none;"> (€)</a>
-                            <input type="number" class="form-control" id="precio" formControlName="precio" [class.is-invalid]="precioNoValido">
+                            <input type="number" class="form-control" id="precio" placeholder="Ejemplo: 2.99" formControlName="precio" [class.is-invalid]="precioNoValido">
                             <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
+                            <small *ngIf="precioFormato && !precioCampoRequerido" class="text-danger">Formato inválido</small>
                         </div>
                     </div>
 

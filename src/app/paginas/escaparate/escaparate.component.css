@@ -21,6 +21,14 @@
     margin-top: 1%;
 }
 
+.imagen {
+    max-height: 300px;
+    max-width: 300px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
+
 .row {
     padding-left: 15px;
     padding-top: 15px;
@@ -41,4 +49,17 @@
 .form {
     width: 90%;
     margin: auto;
+}
+
+.form-registro {
+    width: 90%;
+    padding: 15px 15px 15px;
+    margin: auto;
+    background-color: #fff;
+    border: 2px solid rgb(122, 122, 122);
+    border-radius: 10px;
+}
+
+.aviso {
+    color: rgb(87, 87, 87);
 }
