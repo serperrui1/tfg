@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GuardarLocalizacionComponent } from 'src/app/components/guardar-localizacion/guardar-localizacion.component';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -26,7 +28,9 @@ export class RegisterProveedorComponent {
     direccion:['',[ Validators.required] ],
     cuentaBancariaIBAN:['',[ Validators.required, Validators.pattern('^[A-Z]{2}[0-9]{22}$')] ],
     titularCuenta:['',[ Validators.required, Validators.pattern('^[A-Z \d\W]+$')]],
-    terminos:['',[ Validators.required] ]
+    terminos:['',[ Validators.required] ],
+    lng:['',[ Validators.required] ],
+    lat:['',[ Validators.required] ]
 
   },{
     validators: this.passwordsIguales('password', 'password2')
@@ -34,7 +38,8 @@ export class RegisterProveedorComponent {
 
   constructor(private fb:FormBuilder,
               private usuarioService: UsuarioService,
-              private router:Router) {
+              private router:Router,
+              public dialog: MatDialog) {
 
    }
 
@@ -58,8 +63,14 @@ export class RegisterProveedorComponent {
       });
     }
 
+    abrirMapa() {
+      let dialogRef = this.dialog.open(GuardarLocalizacionComponent);
   
-  
+      dialogRef.afterClosed().subscribe(result => {
+        this.registrarProveedorForm.controls['lat'].setValue(result.lat)
+        this.registrarProveedorForm.controls['lng'].setValue(result.lng)
+      })
+    }
 
   aceptaTerminos(){
     return !this.registrarProveedorForm.get('terminos').value && this.formSubmited;

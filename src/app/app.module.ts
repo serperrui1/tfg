@@ -5,6 +5,11 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 
 
 
@@ -58,6 +63,9 @@ import { GOATComponent } from './paginas/goat/goat.component';
 import { RegisterAsistenteTecnicoComponent } from './auth/register-asistente-tecnico/register-asistente-tecnico.component';
 import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { SoporteComponent } from './paginas/soporte/soporte.component';
+import { MapaComponent } from './components/mapa/mapa.component';
+import { VerProveedorMapaComponent } from './components/ver-proveedor-mapa/ver-proveedor-mapa.component';
+import { GuardarLocalizacionComponent } from './components/guardar-localizacion/guardar-localizacion.component';
 
 
 
@@ -110,7 +118,10 @@ import { SoporteComponent } from './paginas/soporte/soporte.component';
     GOATComponent,
     RegisterAsistenteTecnicoComponent,
     DashboardComponent,
-    SoporteComponent
+    SoporteComponent,
+    MapaComponent,
+    VerProveedorMapaComponent,
+    GuardarLocalizacionComponent
 
 
 
@@ -127,9 +138,13 @@ import { SoporteComponent } from './paginas/soporte/soporte.component';
     MatSortModule,
     NgbModule,
     MDBBootstrapModule.forRoot(),
+    GoogleMapsModule,
+    MatButtonModule,
+    MatDialogModule
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[MapaComponent]
 })
 export class AppModule { }

@@ -40,10 +40,22 @@
 }
 
 .container-imagen {
-    height: 80;
+    height: 250px;
     margin-top: 10px;
 }
 
 .tarjeta {
     background-color: rgb(240, 240, 240);
+}
+
+.proveedor-imagen {
+    height: 80px;
+}
+
+.producto-imagen {
+    height: 80px;
+}
+
+.proveedor {
+    border-right: 2px solid rgb(122, 122, 122);
 }
