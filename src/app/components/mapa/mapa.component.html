@@ -1,0 +1,39 @@
+<div *ngIf="data && proveedor">
+
+
+    <google-map width="900px" height="700px" [center]="center" [zoom]=10>
+
+        <map-marker #marker="mapMarker" *ngFor="let producto of data" [position]="producto.posicion[0]" (mapClick)="openInfoWindow(marker , producto)"></map-marker>
+
+        <map-info-window>
+            <div class="card" (click)="save(productoInfo._id)">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-6 px-0 proveedor">
+                            <img class="card-img-top img-hover-zoom proveedor-imagen" src="{{direccionImagenProveedor + proveedor.img}}" alt="Card image cap">
+                            <div class="card-body nombre">
+                                <h4 class="card-title">{{productoInfo.proveedorNombre}}</h4>
+                                <h6>Dirección: {{proveedor.direccion}}</h6>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 px-0">
+                            <img class="card-img-top img-hover-zoom producto-imagen" src="{{direccionImagen + productoInfo.imagenes[0]}}" alt="Card image cap">
+                            <div class="card-body nombre">
+                                <h5 class="card-title">{{productoInfo.titulo}}</h5>
+                                <div>
+                                    <strong>{{productoInfo.precio}}€ </strong>({{productoInfo.unidadesMinimas}} unidades mínimas) <br>
+                                    <ngb-rating [max]="5" [(rate)]="mediaEstrellas" [readonly]="true"></ngb-rating> ({{productoInfo.valoraciones.length}} valoraciones)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </map-info-window>
+    </google-map>
+</div>
