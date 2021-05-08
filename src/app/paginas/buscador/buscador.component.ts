@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
+import { MapaComponent } from 'src/app/components/mapa/mapa.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-buscador',
@@ -24,14 +26,15 @@ export class BuscadorComponent implements OnInit {
 
   });
   public orden = this.fb.group({
-    orden:['masValorados'],
+    orden:['masValorados']
 
   });
 
   constructor(private activatedRoute: ActivatedRoute,
     private router:Router,
     private fb: FormBuilder,
-    private productoService:ProductoService) { }
+    private productoService:ProductoService,
+    public dialog: MatDialog) { }
 
   async ngOnInit(){
  
@@ -66,5 +69,17 @@ export class BuscadorComponent implements OnInit {
     this.productos.sort(((a, b) => (a.precio < b.precio) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="masValorados")
     this.productos.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+  }
+
+  openDialog() {
+    let dialogRef = this.dialog.open(MapaComponent,{
+      data:this.productos
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['/producto', result.productoId]);
+    })
+
+    
   }
 }

@@ -74,6 +74,11 @@
     <div class="col"></div>
     <div class="col-md-8  centrado">
         <div class="row">
+
+            <div class="col-md-4">
+                <button mat-raised-button (click)="openDialog()">Pick one</button>
+            </div>
+
             <form [formGroup]="orden" id="buscadorform" class="orden">
                 <select formControlName="orden" (change)="ordenar()">
                     <option value="masValorados" selected="selected" >Más valorados</option> 

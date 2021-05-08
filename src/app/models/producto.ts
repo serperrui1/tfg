@@ -14,6 +14,10 @@ export class Producto {
     public proveedorNombre: string,
     public proveedor: string,
     public datosTecnicos?: DatosTecnicos[],
+    public posicion?: {
+        lat:number,
+        lng:number
+    },
     public _id?: string,
     public subcategoria?: string,
     ){}
