@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../../models/producto';
 import { ProductoService } from '../../services/producto.service';
 import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { MapaProveedorComponent } from 'src/app/components/mapa-proveedor/mapa-proveedor.component';
 const base_url = environment.base_url;
 
 @Component({
@@ -22,7 +24,8 @@ export class EscaparateComponent implements OnInit {
   constructor(private usuarioService: UsuarioService,
     private activatedRoute: ActivatedRoute,
     private productoService : ProductoService,
-    private router: Router) { }
+    private router: Router,
+    public dialog: MatDialog) { }
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe( params => {
@@ -35,5 +38,14 @@ export class EscaparateComponent implements OnInit {
   verProducto(id: number ){
     this.router.navigate(['/producto', id]);
   }
+  openDialog() {
+    let dialogRef = this.dialog.open(MapaProveedorComponent,{
+      data:this.proveedor
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['/producto', result.productoId]);
+    })
+
+  }
 }

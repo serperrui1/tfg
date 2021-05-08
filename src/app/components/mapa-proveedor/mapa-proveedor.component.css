@@ -1,0 +1,67 @@
+.card-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.card-text {
+    text-align: center;
+}
+
+.col {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card-img-top {
+    cursor: pointer;
+    height: 100%;
+    object-fit: contain;
+}
+
+.img-hover-zoom:hover {
+    transform: scale(1.05);
+    transform-origin: 50% 50%;
+    transition: transform 1s, filter 2s ease-in-out;
+}
+
+.container {
+    height: 250px;
+    margin-top: 10px;
+}
+
+.nombre {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.card {
+    border: none;
+}
+
+.container-imagen {
+    height: 250px;
+    margin-top: 10px;
+}
+
+.tarjeta {
+    background-color: rgb(240, 240, 240);
+}
+
+.proveedor-imagen {
+    height: 80px;
+}
+
+.producto-imagen {
+    height: 80px;
+}
+
+.proveedor {
+    border-right: 2px solid rgb(122, 122, 122);
+}
+
+.sin-margen {
+    margin: 0px;
+}
