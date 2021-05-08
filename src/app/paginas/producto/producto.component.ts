@@ -86,6 +86,7 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
+    console.log(this.producto.proveedor)
 
    
     

@@ -66,7 +66,7 @@ export class perfilComponent implements OnInit {
       sector: [ this.proveedor.sector],
       email:[this.proveedor.email,[ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')] ],
       registroMercantil:[this.proveedor.registroMercantil,[ , Validators.pattern('^[A-Z]{1}[-][0-9]{8}$')] ],
-      nif:[this.proveedor.nif,[ , Validators.pattern('^[0-9]{8}[A-Z]{1}$')] ],
+      nif:[this.proveedor.nif,[, Validators.pattern('^[0-9]{8}[A-Z]{1}$')] ],
       direccion: [ this.proveedor.direccion , Validators.required ],
       cuentaBancariaIBAN:[this.proveedor.cuentaBancariaIBAN,[ Validators.required, Validators.pattern('^[A-Z]{2}[0-9]{22}$')] ],
       titularCuenta: [ this.proveedor.titularCuenta , Validators.required ]
@@ -117,14 +117,21 @@ actualizarCompradorPerfil() {
   
 actualizarProveedorPerfil() {
 
+  
+
   if(this.perfilProveedorForm.invalid){
     this.perfilProveedorForm.markAllAsTouched()
     return;
   }
 
   if(this.autonomo){
-    delete this.perfilProveedorForm.value["registroMercantil"];
-  }else delete this.perfilProveedorForm.value["nif"];
+    /* delete this.perfilProveedorForm.value["registroMercantil"]; */
+    this.perfilProveedorForm.value["registroMercantil"] = "";
+  }else{
+    /* delete this.perfilProveedorForm.value["nif"]; */
+    
+    this.perfilProveedorForm.value["nif"] = "";
+  }
 
   this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid ).subscribe( () => {
     this.subirImagen();
@@ -297,22 +304,22 @@ actualizarAsistenteTecnicoPerfil() {
     return this.perfilProveedorForm.get('direccion').errors ? this.perfilProveedorForm.get('direccion').errors.required && this.perfilProveedorForm.get('direccion').touched : null
   }
 
-  get registroMercantilNoValido(){
+  /* get registroMercantilNoValido(){
     return this.registroMercantilRequerido
   }
   get registroMercantilRequerido(){
-    return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.required && this.perfilProveedorForm.get('registroMercantil').touched : null
-  }
+    return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.cifVacio && this.perfilProveedorForm.get('registroMercantil').touched : null
+  } */
   get cifFormato(){
     return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.pattern && this.perfilProveedorForm.get('registroMercantil').touched : null
   }
 
-  get nifNoValido(){
+  /* get nifNoValido(){
     return this.nifRequerido
-  }
-  get nifRequerido(){
-    return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.required && this.perfilProveedorForm.get('nif').touched : null
-  }
+  } */
+  /* get nifRequerido(){
+    return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.nifVacio && this.perfilProveedorForm.get('nif').touched : null
+  } */
   get nifFormato(){
     return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.pattern && this.perfilProveedorForm.get('nif').touched : null
   }
@@ -335,6 +342,36 @@ actualizarAsistenteTecnicoPerfil() {
   }
   get titularProveedorFormato(){
     return this.perfilProveedorForm.get('titularCuenta').errors ? this.perfilProveedorForm.get('titularCuenta').errors.pattern && this.perfilProveedorForm.get('titularCuenta').touched : null
+  }
+
+  /* private nifVacio(control:FormControl):{[s:string]:boolean}{
+    let cP = String(control.value);
+    if(cP == ""){
+      return {
+        nifVacio:true
+      }
+    }
+    return null
+  }
+
+  private cifVacio(control:FormControl):{[s:string]:boolean}{
+    let cP = String(control.value);
+    if(cP == ""){
+      return {
+        cifVacio:true
+      }
+    }
+    return null
+  } */
+
+  nifCifNoValidos(){
+    const cif = this.perfilProveedorForm.get('registroMercantil').value;
+    const nif = this.perfilProveedorForm.get('nif').value;
+    if(cif == "" && nif == ""){
+      return true;
+    }else if (cif == "" && nif != "" || cif != "" && nif == ""){
+      return false;
+    }
   }
 
 

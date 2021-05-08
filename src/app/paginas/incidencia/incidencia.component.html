@@ -1,69 +1,3 @@
-<!-- <div class="wrapper" *ngIf="usuario != 'administrador' && incidencia">
-
-    <div class="row">
-        <form class="form " autocomplete="off" [formGroup]="incidenciaForm" (submit)="actualizarIncidencia()">
-            <div class="row">
-                <div class="col-md-6 form-div">
-                    <div class="card">
-                        <div class="card-body formulario">
-                            <h2 class="card-title text-center" *ngIf="comp || prov && incidencia.asignado">Incidencia con el asistente técnico: {{asistenteTecnicoNombre}}</h2>
-                            <h2 class="card-title text-center" *ngIf="aT && compradorNombre && !proveedorNombre">Incidencia del comprador {{compradorNombre}}</h2>
-                            <h2 class="card-title text-center" *ngIf="aT && !compradorNombre && proveedorNombre">Incidencia del proveedor {{proveedorNombre}}</h2>
-                            <h5 class="card-title">Título: {{incidencia.titulo}}</h5>
-                            <h5 class="card-title">Temática: {{incidencia.tematica}}</h5>
-                            <h5 class="card-title">Descripción: {{incidencia.descripcion}}</h5>
-                            <h5 class="card-title">Creada el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</h5>
-                            <h5 class="card-title" *ngIf="!incidencia.asignado">Estado: pendiente de asignación</h5>
-                            <h5 class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado">Estado: por resolver</h5>
-                            <h5 class="card-title" *ngIf="incidencia.resuelto">Estado: resuelta</h5>
-                            <div class="form-group" *ngIf="comp || prov && !incidencia.resuelto">
-                                <h6 class="card-title text-center">Considero resuelta esta incidencia</h6>
-                                <input type="checkbox" class="form-control" id="resuelto" formControlName="resuelto" (click)="check()">
-                            </div>
-                            <hr>
-                            <h5 class="card-title">Nuevo mensaje</h5>
-                            <div class="form-group">
-                                <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes" [class.is-invalid]="mensajeNoValido"></textarea>
-                                <small *ngIf="mensajeCampoRequerido" class="text-danger">Campo requerido</small>
-                            </div>
-
-                            <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="prov || comp" [disabled]="incidenciaForm.invalid || !puedesActualizar && checkeaste">
-                                Actualizar
-                            </button>
-                            <button type="submit" class="btn btn-dark btn-block waves-effect waves-light m-r-10" *ngIf="aT" [disabled]="incidenciaForm.invalid || !puedesActualizar">
-                                Enviar
-                            </button>
-
-                        </div>
-                    </div>
-                    <button class="btn btn-dark btn-block waves-effect waves-light m-r-10" [disabled]="!puedesBorrar" *ngIf="aT" (click)="borrarIncidencia(incidencia)">
-                        Borrar incidencia
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 ">
-            <div *ngFor="let mensaje of incidencia.mensajes; let i=index" class="descripcion-container">
-                <p class="descripcion">{{mensaje}}</p>
-            </div>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-
-</div> -->
-
-
-
-
-
-
-
-
-
 <div class="wrapper" *ngIf="usuario != 'administrador' && incidencia">
 
     <div class="row">
@@ -76,13 +10,15 @@
                         <h5 class="card-title text-left" *ngIf="(comp || prov) && !incidencia.asignado">Incidencia sin asignar</h5>
                         <h5 class="card-title text-left" *ngIf="aT && compradorNombre && !proveedorNombre">Incidencia del comprador {{compradorNombre}}</h5>
                         <h5 class="card-title text-left" *ngIf="aT && !compradorNombre && proveedorNombre">Incidencia del proveedor {{proveedorNombre}}</h5>
-                        <p class="text-left">Título: "{{incidencia.titulo}}"</p>
-                        <p class="text-left">Temática: {{incidencia.tematica}}</p>
-                        <p class="text-left">Detalles: {{incidencia.descripcion}}</p>
-                        <p class="text-left">Creado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</p>
-                        <p class="text-left" *ngIf="!incidencia.asignado">Estado: pendiente de asignación</p>
-                        <p class="text-left" *ngIf="!incidencia.resuelto && incidencia.asignado">Estado: por resolver</p>
-                        <p class="text-left" *ngIf="incidencia.resuelto">Estado: resuelta</p>
+
+                        <p class="card-title" style="color: rgb(122, 122, 122); ">Título: "{{incidencia.titulo}}"</p>
+                        <p class="card-title" style="color: rgb(122, 122, 122); ">Temática: {{incidencia.tematica}}</p>
+                        <p class="card-title" style="color: rgb(122, 122, 122); ">Detalles: {{incidencia.descripcion}}</p>
+                        <p class="card-title" *ngIf="!incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: pendiente de asignación</p>
+                        <p class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: por resolver</p>
+                        <p class="card-title" *ngIf="incidencia.resuelto" style="color: rgb(122, 122, 122); ">Estado: resuelta</p>
+                        <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</p>
+
                         <hr>
                         <div class="form-group" *ngIf="comp || prov && !incidencia.resuelto">
                             <p class="text-center">Incidencia resuelta</p>

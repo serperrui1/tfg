@@ -41,6 +41,8 @@ export class ChatComponent implements OnInit {
   public lastMessage: string = "";
   public firstMessage: string = "";
   public direccionImagen = base_url+"/upload/productos/";
+  public ultimoNombre = "";
+  public imagenMostrar:string;
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -67,6 +69,8 @@ export class ChatComponent implements OnInit {
         this.flag = true;
       }
     }
+
+    this.ultimoNombre = this.chat.mensajes[0].substring(0,this.chat.mensajes[0].indexOf(":"));
     //----------------------------------------------------------------
     this.producto = await this.productoService.getProductoPorID(this.chat.productoId);
     this.compradorNombre = await this.usuarioService.getCompradorNombre(this.chat.compradorId);
@@ -110,6 +114,8 @@ export class ChatComponent implements OnInit {
     }
     this.todosMensajes[0] = this.todosMensajes[0].replace(this.chat.mensajes[0], this.firstMessage);
     //--------------------------------------------------------------------------
+
+    this.imagenMostrar = this.producto.imagenes[0];
   }
 
   verProducto(id: number ){
