@@ -64,6 +64,7 @@ import { RegisterAsistenteTecnicoComponent } from './auth/register-asistente-tec
 import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { SoporteComponent } from './paginas/soporte/soporte.component';
 import { MapaComponent } from './components/mapa/mapa.component';
+import { MapaProveedorComponent } from './components/mapa-proveedor/mapa-proveedor.component';
 
 
 
@@ -118,7 +119,8 @@ import { MapaComponent } from './components/mapa/mapa.component';
     RegisterAsistenteTecnicoComponent,
     DashboardComponent,
     SoporteComponent,
-    MapaComponent
+    MapaComponent,
+    MapaProveedorComponent
 
 
 

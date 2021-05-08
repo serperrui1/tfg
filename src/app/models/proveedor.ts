@@ -13,4 +13,8 @@ export interface Proveedor {
     fechaRegistro?: Date,
     registroMercantil?: string;
     nif?: string;
+    posicion?: {
+        lat:number,
+        lng:number
+    }
 }
