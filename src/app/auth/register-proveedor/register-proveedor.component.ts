@@ -24,8 +24,10 @@ export class RegisterProveedorComponent {
     registroMercantil:['',[ , Validators.pattern('^[A-Z]{1}[-][0-9]{8}$')] ],
     nif:['',[ , Validators.pattern('^[0-9]{8}[A-Z]{1}$')] ],
     direccion:['',[ Validators.required] ],
+    lat:['',[ Validators.required] ],
+    lng:['',[ Validators.required] ],
     cuentaBancariaIBAN:['',[ Validators.required, Validators.pattern('^[A-Z]{2}[0-9]{22}$')] ],
-    titularCuenta:['',[ Validators.required, Validators.pattern('^[A-Z \d\W]+$')]],
+    titularCuenta:['',[ Validators.required, Validators.pattern('[a-zA-Z ]*')]],
     terminos:['',[ Validators.required] ]
 
   },{
@@ -162,4 +164,12 @@ export class RegisterProveedorComponent {
   get nifFormato(){
     return this.registrarProveedorForm.get('nif').errors ? this.registrarProveedorForm.get('nif').errors.pattern && this.registrarProveedorForm.get('nif').touched : null
   }
+
+  get longitudRequerida(){
+    return this.registrarProveedorForm.get('lng').errors ? this.registrarProveedorForm.get('lng').errors.required && this.registrarProveedorForm.get('lng').touched : null
+  }
+  get latitudRequerida(){
+    return this.registrarProveedorForm.get('lat').errors ? this.registrarProveedorForm.get('lat').errors.required && this.registrarProveedorForm.get('lat').touched : null
+  }
+  
 }
