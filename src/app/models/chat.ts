@@ -1,6 +1,7 @@
 export class Chat {
     constructor(
     public fechaPublicacion: string,
+    public fechaPedido: string,
     public compradorId: string,
     public proveedorId: string,
     public productoId: string,

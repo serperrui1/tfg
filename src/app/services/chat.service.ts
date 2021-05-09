@@ -70,6 +70,20 @@ export class ChatService {
     });
   }
 
+  getBuscadorChats(data:any):Promise<Chat[]>{
+    return new Promise<Chat[]>(
+      resolve => {
+        this.http.post(`${base_url}/chats/buscador`,data,{
+          headers: { 
+            'x-token': this.token
+          }
+         }).subscribe(data=>{
+          const chats = data["chats"];
+          resolve(chats);
+        });
+      })
+  }
+
   chatLeido(id:string):Promise<Chat>{
     return new Promise<Chat>(
       resolve=> {

@@ -1,26 +1,23 @@
 <div class="col mb-4 animated fadeIn tarjeta">
     <div class="row ">
         <div class="col-md-3">
-            <img class="card-img-top mt-4" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img class="card-img-top mt-4" style="max-height: 90px;" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
         </div>
         <div class="col-md-4">
-            <div class="titulo">
-                <h5 class="card-title">{{producto.titulo}}</h5>
+            <div class="titulo mt-4">
+                <h6 class="card-title">"{{producto.titulo}}"</h6>
             </div>
         </div>
         <div class="col-md-5 px-0">
             <div class="titulo">
-                <h5 class="card-title">{{pedido.unidades}} unidades por un total de {{pedido.precio }} €</h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text fecha">Compra realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</p>
+                <p class="card-title" style="color: rgb(122, 122, 122); ">Compra de {{pedido.unidades}} unidades realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}} por un total de {{pedido.precio }} €</p>
             </div>
 
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra mt-3" routerLink="/producto/{{productoId}}">Valorar el producto</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top: 13px;" routerLink="/producto/{{productoId}}">Valorar el producto</a>
         </div>
         <div class="col-md-3 botones-container">
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra">Seguimiento del pedido</a>
@@ -29,7 +26,7 @@
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/crear-chat/{{productoId}}">¿Dudas sobre el producto?</a>
         </div>
         <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar/devolver</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top: 13px;" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar/devolver</a>
         </div>
     </div>
 </div>

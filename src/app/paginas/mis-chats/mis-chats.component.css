@@ -5,3 +5,15 @@
 .col {
     padding-top: 20px;
 }
+
+.ordena {
+    padding-left: 20px;
+    margin-left: 25px;
+}
+
+.boton-search {
+    width: 10%;
+    margin-left: 10px;
+    margin: auto;
+    object-fit: contain;
+}

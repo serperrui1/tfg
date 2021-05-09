@@ -5,7 +5,7 @@ import { Producto } from '../../models/producto';
 import { ChatService } from '../../services/chat.service';
 import { ProductoService } from '../../services/producto.service';
 import { UsuarioService } from '../../services/usuario.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SpamValidator } from '../../Validaciones-Customizadas.directive';
 import { Spam } from '../../models/spam';
@@ -28,7 +28,6 @@ export class DevolucionReclamacionComponent implements OnInit {
   public chatForm: FormGroup;
   public compradorNombre: string = "";
   public proveedorNombre: string = "";
-  public flag: boolean = false;
   public misPedidos: Pedido[] = [];
   public proveedorId: string = "";
   public productoId: string = "";
@@ -45,6 +44,7 @@ export class DevolucionReclamacionComponent implements OnInit {
   public direccionImagen = base_url+"/upload/productos/";
 
   constructor(private fb:FormBuilder,
+    private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
     private productoService : ProductoService,
     private usuarioService: UsuarioService,
@@ -59,40 +59,30 @@ export class DevolucionReclamacionComponent implements OnInit {
 
     this.comp = await this.usuarioService.getComprador();
     if(this.comp != null){ //si el usuario viendo el producto es un comprador
-      this.productoId = JSON.parse(localStorage.getItem('productoId'));
-      this.producto = await this.productoService.getProductoPorID(this.productoId);
-      this.misPedidos = await this.pedidosService.getMisPedidos();
-      for(let pedido of this.misPedidos){
-        if (pedido.producto === this.producto._id){
-          this.pedidoId = pedido._id;
-          this.flag = true; // si yo he comprado este producto alguna vez
-          this.solicitud = " - DEV/RCL: "+pedido._id;
-          this.unPedido = await this.pedidosService.getPedidoPorID(pedido._id);
-        }
-      }
-    }
-
-    if(this.flag){
+      this.activatedRoute.params.subscribe( params => {
+        this.pedidoId = params['id']; 
+      });
+      this.unPedido = await this.pedidosService.getPedidoPorID(this.pedidoId);
+      console.log(this.pedidoId)
+      this.producto = await this.productoService.getProductoPorID(this.unPedido.producto);
+      console.log(this.producto)
+      this.solicitud = " - DEV/RCL: "+this.pedidoId;
       this.compradorNombre = this.comp.nombre;
       this.proveedorNombre = JSON.parse(localStorage.getItem('proveedorNombre'));
       this.proveedorId = JSON.parse(localStorage.getItem('proveedorId'));
       this.autor = this.compradorNombre + ": ";
       this.spam = (await this.spamService.getSpam())[0];
       this.expresionesSpam = this.spam.expresiones;
-      
       this.chatForm = this.fb.group({
         compradorId: [ this.comp.uid ],
         proveedorId: [ this.proveedorId ],
-        productoId: [  this.productoId ],
+        productoId: [  this.producto._id ],
         proveedorNombre: [ this.proveedorNombre ],
         mensajes: ['', [Validators.required, SpamValidator(this.expresionesSpam)] ],
       });
-      
-    } else{
-      console.log("Para solicitar una devolución o reclamación debes haber comprado este producto ántes");
-    };
 
-  }
+    }
+}
 
   verProducto(id: number ){
     this.router.navigate(['/producto', this.productoId]);
