@@ -125,6 +125,7 @@ comprar(){
         this.pedido.unidades = this.cantidades[i];
         this.pedido.precio = this.productos[i].precio * this.cantidades[i];
         this.pedido.proveedor = this.productos[i].proveedor;
+        this.pedido.tituloProducto = this.productos[i].titulo;
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)

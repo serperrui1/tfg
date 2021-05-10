@@ -53,8 +53,8 @@ table th:hover {
 
 .descripcion-container {
     border: 2px solid rgb(184, 184, 184);
-    background-color: #fff5c7;
-    margin: 1%;
+    background-color: #ffffff;
+    padding: 10px;
     border-radius: 6px;
 }
 
@@ -83,4 +83,13 @@ table th:hover {
 .form {
     width: 90%;
     margin: auto;
+}
+
+.todo {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-element {
+    cursor: pointer;
 }
