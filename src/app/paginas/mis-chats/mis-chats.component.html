@@ -1,7 +1,8 @@
-<div *ngIf="chats1 && chats2 && !encontrados">
+<div *ngIf="chats1 && chats2">
 
     <form class="form-signin form-inline" style="width: 77%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
-        <input type="text" class="form-control " formControlName="chat" style="width: 76%; margin-left: 2%" />
+        <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 2%;">Busque por título del producto asociado al chat: </p>
+        <input type="text" class="form-control " formControlName="chat" style="width: 45%; margin-left: 1%" />
         <button class="btn btn-outline-secondary btn-light boton-search" style="margin-right: 9%" type="submit">Buscar</button>
     </form>
 
@@ -16,6 +17,7 @@
                 <select formControlName="orden" (change)="ordenar1()">
                     <option value="mensajesMasRecientes" selected="selected" >Mensajes más recientes</option> 
                     <option value="mensajesMasAntiguos" >Mensajes más antiguos</option>
+                    <option value="noLeidasPrimero" >No leídas primero</option>
                 </select>
             </form>
         </div>
@@ -43,6 +45,7 @@
                 <option value="mensajesMasAntiguos" >Mensajes más antiguos</option>
                 <option value="pedidosMasRecientes" >Pedidos más recientes</option>
                 <option value="pedidosMasAntiguos" >Pedidos más antiguos</option>
+                <option value="noLeidasPrimero" >No leídas primero</option>
             </select>
             </form>
         </div>

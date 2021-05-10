@@ -1,3 +1,10 @@
+<form class="form-signin form-inline" style="width: 77%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
+    <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 2%;">Busque por título del producto: </p>
+    <input type="text" class="form-control " formControlName="pedido" style="width: 57%; margin-left: 1%" />
+    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 10%" type="submit">Buscar</button>
+</form>
+
+
 <div class="row centrado mt-5">
     <div class="col-md-2"></div>
     <div class="col-md-6">
@@ -22,7 +29,7 @@
 <div class="row centrado">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <app-pedido-tarjeta [pedido]="pedido" *ngFor="let pedido of pedidos "></app-pedido-tarjeta>
+        <app-pedido-tarjeta [pedido]="pedido" id="pedidos" *ngFor="let pedido of pedidos "></app-pedido-tarjeta>
     </div>
     <div class="col-md-2"></div>
 </div>

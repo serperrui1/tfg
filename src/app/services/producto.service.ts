@@ -86,11 +86,12 @@ export class ProductoService {
       resolve => {
         this.http.post(`${base_url}/productos/buscador`,data,{
         }).subscribe(data=>{
-          const productos = data["productos"];
+          const productos = data["resultadoProductos"];
           resolve(productos);
         });
       })
   }
+  
 
   /* getProductos() {
     const url = `${ base_url }/productos/`;

@@ -1,6 +1,7 @@
 <form class="form-signin form-inline" style="width: 77%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
-    <input type="text" class="form-control " formControlName="chat" style="width: 76%; margin-left: 2%" />
-    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 3%; width: 10%" type="submit">Buscar</button>
+    <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 2%;">Busque por título: </p>
+    <input type="text" class="form-control " formControlName="incidencia" style="width: 65%; margin-left: 1%" />
+    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 10%" type="submit">Buscar</button>
 </form>
 
 <div class="row centrado mt-5">
@@ -11,9 +12,12 @@
     <div class="col-md-2 mt-4 ordena">
         <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
         <form [formGroup]="orden" id="buscadorform" class="orden">
-            <select formControlName="orden" (change)="ordenar1()">
+            <select formControlName="orden" (change)="ordenar()">
                 <option value="mensajesMasRecientes" selected="selected" >Mensajes más recientes</option> 
                 <option value="mensajesMasAntiguos" >Mensajes más antiguos</option>
+                <option value="asignadasPrimero" >Asignadas primero</option>
+                <option value="resueltasPrimero" >Resueltas primero</option>
+                <option value="noLeidasPrimero" >No leídas primero</option>
             </select>
         </form>
     </div>
@@ -26,7 +30,7 @@
 <div class="row centrado">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <app-incidencia-tarjeta [data]="incidencia" (incidenciaSeleccionada)="verIncidencia($event)" *ngFor="let incidencia of incidencias"></app-incidencia-tarjeta>
+        <app-incidencia-tarjeta [data]="incidencia" id="incidencias" (incidenciaSeleccionada)="verIncidencia($event)" *ngFor="let incidencia of incidencias"></app-incidencia-tarjeta>
     </div>
     <div class="col-md-2"></div>
 </div>

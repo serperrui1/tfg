@@ -32,14 +32,19 @@ a.botones:hover {
     margin-left: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(250, 250, 250);
     border: 2px solid rgb(122, 122, 122);
     border-radius: 10px;
-    max-height: 850px;
+    max-height: 700px;
 }
 
 .orden {
     margin-left: auto;
     margin-top: 20px;
     margin-right: 50px;
+}
+
+ngb-rating {
+    color: #000000;
+    font-size: 25px;
 }

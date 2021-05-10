@@ -34,19 +34,26 @@ export class MisIncidenciasComponent implements OnInit {
       }
     }
 
-    async ordenar1(){
+    async ordenar(){
       if(this.orden.controls['orden'].value=="mensajesMasRecientes")
         this.incidencias.sort(((a, b) => (new Date(a.fechaPublicacion).getTime() < new Date(b.fechaPublicacion).getTime() ? 1 : -1)))
       else if(this.orden.controls['orden'].value=="mensajesMasAntiguos")
         this.incidencias.sort(((a, b) => (new Date(a.fechaPublicacion).getTime() > new Date(b.fechaPublicacion).getTime() ? 1 : -1)))
+      else if(this.orden.controls['orden'].value=="asignadasPrimero")
+        this.incidencias.sort(((a, b) => ( a.asignado.valueOf() === b.asignado.valueOf()  ? 1 : -1)))
+      else if(this.orden.controls['orden'].value=="resueltasPrimero")
+        this.incidencias.sort(((a, b) => ( a.resuelto.valueOf() === b.resuelto.valueOf()  ? 1 : -1)))
+      else if(this.orden.controls['orden'].value=="noLeidasPrimero")
+        this.incidencias.sort(((a, b) => ( a.leida.valueOf() === b.leida.valueOf()  ? 1 : -1)))
     }
+
   
     verIncidencia(id: number ){
       this.router.navigate(['/incidencia', id]);
     }
 
     async buscar(){
-      /* this.incidencias = await this.incidenciaService.getBuscadorChats(this.buscadorForm.value); */
+      this.incidencias = await this.incidenciaService.getBuscadorIncidencias(this.buscadorForm.value);
       this.updateDiv();
     }
 

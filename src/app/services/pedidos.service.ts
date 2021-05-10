@@ -45,6 +45,20 @@ export class PedidosService {
       })
   }
 
+  getBuscadorPedidos(data:any):Promise<Pedido[]>{
+    return new Promise<Pedido[]>(
+      resolve => {
+        this.http.post(`${base_url}/pedidos/buscador`,data,{
+          headers: { 
+            'x-token': this.token
+          }
+         }).subscribe(data=>{
+          const pedidos = data["pedidos"];
+          resolve(pedidos);
+        });
+      })
+  }
+
   getMisPedidosProveedor():Promise<Pedido[]>{
     return new Promise<Pedido[]>(
       resolve => {
