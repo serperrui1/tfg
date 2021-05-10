@@ -18,6 +18,11 @@
     object-fit: contain;
 }
 
+ngb-rating {
+    color: #2a1fc7;
+    font-size: 25px;
+}
+
 .img-hover-zoom:hover {
     transform: scale(1.05);
     transform-origin: 50% 50%;
