@@ -27,7 +27,7 @@ export class BuscadorComponent {
     stockMaximo:"",
     valoraciones: ""
   }
-
+  categoria: string;
   titulo :string;
   valoraciones: number;
 
@@ -48,7 +48,7 @@ export class BuscadorComponent {
   productos: Producto[] = [];
 
   public orden = this.fb.group({
-    orden:['masValorados']
+    orden:['masVendidos']
   });
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -63,13 +63,6 @@ export class BuscadorComponent {
       this.titulo = params['producto'] ||"";
       this.valoraciones = 0;
       this.filtro.controls['titulo'].setValue(this.titulo);
-      
-      /* let data={
-        titulo:this.titulo,
-        categoria:"",
-        subcategoria:"",
-        valoraciones:this.valoraciones
-      } */
 
       this.datos = {
         titulo:this.titulo,
@@ -85,8 +78,6 @@ export class BuscadorComponent {
       }
       this.productos = await this.productoService.getBuscadorProductos(this.datos);
       })
-
-    /* this.productos = await this.productoService.getBuscadorProductos(this.datos); */
   }
 
   verProducto(id: number ){
@@ -100,9 +91,9 @@ export class BuscadorComponent {
 
   async ordenar(){
     if(this.orden.controls['orden'].value=="precioAscendente")
-    this.productos.sort(((a, b) => (a.precio < b.precio) ? 1 : -1))
+      this.productos.sort(((a, b) => (a.precio < b.precio) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="precioDescendente")
-    this.productos.sort(((a, b) => (a.precio > b.precio) ? 1 : -1))
+      this.productos.sort(((a, b) => (a.precio > b.precio) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="unidadesAscendente")
       this.productos.sort(((a, b) => (a.unidadesMinimas < b.unidadesMinimas) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="unidadesDescendente")
@@ -112,7 +103,11 @@ export class BuscadorComponent {
     else if(this.orden.controls['orden'].value=="stockDescendente")
       this.productos.sort(((a, b) => (a.stock > b.stock) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="masValorados")
-    this.productos.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+      this.productos.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+    else if(this.orden.controls['orden'].value=="mejorValorados")
+      this.productos.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
+    else if(this.orden.controls['orden'].value=="masVendidos")
+      this.productos.sort(((a, b) => (a.unidadesVendidas < b.unidadesVendidas) ? 1 : -1))
   }
 
   openDialog() {

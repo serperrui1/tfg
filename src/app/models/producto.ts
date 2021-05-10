@@ -19,6 +19,7 @@ export class Producto {
         lng:number
     },
     public unidadesVendidas?:number,
+    public puntuacionMedia?:number,
     public _id?: string,
     public subcategoria?: string,
     ){}

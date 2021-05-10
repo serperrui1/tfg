@@ -15,36 +15,28 @@ const base_url = environment.base_url;
 export class ProductoTarjetaComponent implements OnInit{ 
   
   
-  // public producto: Producto;
-  // @Input() id: string;
   @Input() producto: Producto
   public direccionImagen = base_url+"/upload/productos/"
   @Output() productoSeleccionado: EventEmitter<string>;
-  mediaEstrellas= 0;
-  numeroValoraciones = 0;
+  estrellas= 0;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
     private http: HttpClient,
-    private router: Router
-    ){
+    private router: Router){
       this.productoSeleccionado = new EventEmitter();
-
-
   }
 
   verProducto(){
     this.productoSeleccionado.emit(this.producto._id);
- 
   }
 
   async ngOnInit() {
-    //this.producto= await this.productoService.getProductoPorID(this.id);
-
-    for(let valoracion of this.producto.valoraciones){
-      this.mediaEstrellas = this.mediaEstrellas + valoracion.puntuacion;
+    this.estrellas = this.producto.puntuacionMedia;
+    let estrella = String(this.estrellas);
+    if (estrella.includes(".")){//es decimal
+      let entero = estrella.charAt(0);
+      this.estrellas = Number(entero);
     }
-
-    
   }
 }
