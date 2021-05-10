@@ -253,7 +253,7 @@ export class DashboardComponent implements OnInit {
       }
 
       else if(this.proveedor){
-        this.sortedData = this.pedidosProveedor.slice(); 
+        this.sortedData = this.pedidosProveedor; 
         for(let pedido of this.pedidosProveedor){
           this.pedidos.push(pedido);
         }
@@ -299,9 +299,12 @@ export class DashboardComponent implements OnInit {
         ], label: 'Pedidos' }
       ];
     }
+    if(this.administrador){
+          
+          this.sortedData = this.todosPedidos;
+    }
     this.sortedData3= this.data3;
-    console.log(this.sortedData3);
-    this.sortedData = this.todosPedidos;
+
   }
 
   public chartClicked(e: any): void { }
