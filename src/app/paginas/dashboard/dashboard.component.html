@@ -1,135 +1,186 @@
-<div class="wrapper">
+<div class="row todo">
+    <div class="d-flex flex-column p-3 text-white bg-secondary" style="width: 28vh; height: 90vh; margin-top: -2vh;">
 
-    <div class="row">
-        <div class="col-md-9 form-div ">
-            <div *ngIf="administrador">
-                <h3 class="card-title text-center">Historial de todos los pedidos</h3>
-                <div class="descripcion-container">
-                    <table matSort (matSortChange)="sortData($event)">
-                        <tr>
-                            <th>ID del Producto</th>
-                            <th>Título del Producto</th>
-                            <th mat-sort-header="precio">Precio</th>
-                            <th mat-sort-header="unidades">Unidades</th>
-                            <th>Comprador</th>
-                            <th>Nombre</th>
-                            <th>Proveedor</th>
-                            <th>Nombre </th>
-                        </tr>
-                        <tr *ngFor="let pedido of sortedData; let i=index">
-                            <td>{{pedido.producto}}</td>
-                            <td id="producto{{i}}"></td>
-                            <td>{{pedido.precio}}</td>
-                            <td>{{pedido.unidades}}</td>
-                            <td>{{pedido.comprador}}</td>
-                            <td>{{pedido.nombreComprador}}</td>
-                            <td>{{pedido.proveedor}}</td>
-                            <td id="proveedor{{i}}"></td>
-                        </tr>
-                    </table>
+        <ul class="nav nav-pills flex-column mb-auto">
+
+            <li>
+                <a class="nav-link text-white sidebar-element" (click)="activo('pedidos')">
+                    Todos los pedidos
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-white sidebar-element" (click)="activo('productos')">
+                     Todos los productos
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-white sidebar-element" (click)="activo('registros')">
+                     Registros de usuarios
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-white sidebar-element" (click)="activo('ventas')">
+                     Historial de ventas
+                </a>
+            </li>
+        </ul>
+        <hr>
+
+    </div>
+    <div class="col">
+
+
+        <div class="row" *ngIf="visible=='pedidos'">
+            <div class=" form-div ">
+                <div *ngIf="administrador">
+
+                    <h3 class="card-title text-center">Historial de todos los pedidos</h3>
+                    <div class="descripcion-container">
+                        <table matSort (matSortChange)="sortData($event) ">
+                            <tr>
+                                <th>ID del Pedido</th>
+                                <th>Título del Producto</th>
+                                <th mat-sort-header="precio">Precio</th>
+                                <th mat-sort-header="unidades">Unidades</th>
+                                <th>Comprador</th>
+                                <!-- <th>Nombre</th> -->
+                                <th>Proveedor</th>
+                                <!-- <th>Nombre </th> -->
+                            </tr>
+                            <tr *ngFor="let pedido of sortedData | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <td>{{pedido._id}}</td>
+                                <td>{{pedido.tituloProducto | slice:0:25}}...</td>
+                                <td>{{pedido.precio}}</td>
+                                <td>{{pedido.unidades}}</td>
+                                <td>{{pedido.comprador}}</td>
+                                <!-- <td>{{pedido.nombreComprador}}</td> -->
+                                <td>{{pedido.proveedor}}</td>
+                                <!-- <td></td> -->
+                            </tr>
+                        </table>
+
+                        <div style="text-align: center;">
+                            <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="proveedor">
-                <h3 class="card-title text-center">Historial de pedidos realizados a mi tienda</h3>
-                <div class="descripcion-container">
-                    <table matSort (matSortChange)="sortData($event)">
-                        <tr>
-                            <th>ID del Producto</th>
-                            <th>Título del Producto</th>
-                            <th mat-sort-header="precio">Precio</th>
-                            <th mat-sort-header="unidades">Unidades</th>
-                            <th>Comprador</th>
-                            <th>Nombre</th>
-                        </tr>
-                        <tr *ngFor="let pedido of sortedData; let i=index">
-                            <td>{{pedido.producto}}</td>
-                            <td id="producto{{i}}"></td>
-                            <td>{{pedido.precio}}</td>
-                            <td>{{pedido.unidades}}</td>
-                            <td>{{pedido.comprador}}</td>
-                            <td>{{pedido.nombreComprador}}</td>
-                        </tr>
-                    </table>
+                <div *ngIf="proveedor">
+                    <div *ngIf="visible=='historialPedidos'">
+                        <h3 class="card-title text-center">Historial de pedidos realizados a mi tienda</h3>
+                        <div class="descripcion-container">
+                            <table matSort (matSortChange)="sortData($event)">
+                                <tr>
+                                    <th>ID del Producto</th>
+                                    <th>Título del Producto</th>
+                                    <th mat-sort-header="precio">Precio</th>
+                                    <th mat-sort-header="unidades">Unidades</th>
+                                    <th>Comprador</th>
+                                    <th>Nombre</th>
+                                </tr>
+                                <tr *ngFor="let pedido of sortedData | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                                    <td>{{pedido.producto}}</td>
+                                    <td id="producto{{i}}"></td>
+                                    <td>{{pedido.precio}}</td>
+                                    <td>{{pedido.unidades}}</td>
+                                    <td>{{pedido.comprador}}</td>
+                                    <td>{{pedido.nombreComprador}}</td>
+                                </tr>
+                            </table>
+                            <div style="text-align: center;">
+                                <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-9 form-div ">
-            <div *ngIf="administrador">
-                <h3 class="card-title text-center">Historial de todos los productos</h3>
-                <div class="descripcion-container">
-                    <table matSort (matSortChange)="sortData2($event)">
-                        <tr>
-                            <th>ID del Producto</th>
-                            <th>Título del Producto</th>
-                            <th mat-sort-header="precio">Precio</th>
-                            <th mat-sort-header="stock">Stock</th>
-                            <th mat-sort-header="numValoraciones">Nº de valoraciones</th>
-                            <th mat-sort-header="numeroVentas">Nº de ventas (pedidos)</th>
-                            <th>Proveedor</th>
-                            <th>Nombre </th>
-                        </tr>
-                        <tr *ngFor="let productoConVentas of sortedData3; let i=index">
-                            <td>{{productoConVentas.producto._id}}</td>
-                            <td>{{productoConVentas.producto.titulo}}</td>
-                            <td>{{productoConVentas.producto.precio}}</td>
-                            <td>{{productoConVentas.producto.stock}}</td>
-                            <td>{{productoConVentas.producto.valoraciones.length}}</td>
-                            <td>{{productoConVentas.ventas}}</td>
-                            <td>{{productoConVentas.producto.proveedor}}</td>
-                            <td>{{productoConVentas.producto.proveedorNombre}}</td>
-                        </tr>
-                    </table>
+        <div class="row" *ngIf="visible=='productos' ">
+            <div class=" form-div ">
+                <div *ngIf="administrador">
+
+                    <h3 class="card-title text-center">Historial de todos los productos</h3>
+                    <div class="descripcion-container">
+                        <table matSort (matSortChange)="sortData2($event)">
+                            <tr>
+                                <th class="px-2">ID del Producto</th>
+                                <th class="px-2">Título del Producto</th>
+                                <th mat-sort-header="precio" class="px-2">Precio</th>
+                                <th mat-sort-header="stock" class="px-2">Stock</th>
+                                <th mat-sort-header="numValoraciones" class="px-2">Valoraciones</th>
+                                <th mat-sort-header="numeroVentas" class="px-2"> Ventas </th>
+                                <th class="px-2">Proveedor</th>
+                                <th class="px-2">Nombre </th>
+                            </tr>
+                            <tr *ngFor="let producto of sortedData3 | paginate: { itemsPerPage: 10, currentPage: p2 }; let i=index">
+                                <td class="px-2">{{producto._id}}</td>
+                                <td class="px-2">{{producto.titulo | slice:0:25}}...</td>
+                                <td class="px-2">{{producto.precio}}</td>
+                                <td class="px-2">{{producto.stock}}</td>
+                                <td class="px-2">{{producto.valoraciones.length}}</td>
+                                <td class="px-2">{{producto.unidadesVendidas}}</td>
+                                <td class="px-2">{{producto.proveedor}}</td>
+                                <td class="px-2">{{producto.proveedorNombre}}</td>
+                            </tr>
+                        </table>
+                        <div style="text-align: center;">
+                            <pagination-controls class="my-pagination" (pageChange)="p2 = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="proveedor">
-                <h3 class="card-title text-center">Historial de mis productos</h3>
-                <div class="descripcion-container">
-                    <table matSort (matSortChange)="sortData2($event)">
-                        <tr>
-                            <th>ID del Producto</th>
-                            <th>Título del Producto</th>
-                            <th mat-sort-header="precio">Precio</th>
-                            <th mat-sort-header="stock">Stock</th>
-                            <th mat-sort-header="numValoraciones">Nº de valoraciones</th>
-                            <th mat-sort-header="numeroVentas">Nº de ventas (pedidos)</th>
-                        </tr>
-                        <tr *ngFor="let productoConVentas of sortedData3; let i=index">
-                            <td>{{productoConVentas.producto._id}}</td>
-                            <td>{{productoConVentas.producto.titulo}}</td>
-                            <td>{{productoConVentas.producto.precio}}</td>
-                            <td>{{productoConVentas.producto.stock}}</td>
-                            <td>{{productoConVentas.producto.valoraciones.length}}</td>
-                            <td>{{productoConVentas.ventas}}</td>
-                        </tr>
-                    </table>
+
+                <div *ngIf="proveedor">
+                    <div *ngIf="visible=='historialProductos'">
+                        <h3 class="card-title text-center">Historial de mis productos</h3>
+                        <div class="descripcion-container">
+                            <table matSort (matSortChange)="sortData2($event)" matSortActive="precio" matSortDirection="asc" matSortDisableClear>
+                                <tr>
+                                    <th>ID del Producto</th>
+                                    <th>Título del Producto</th>
+                                    <th mat-sort-header="precio">Precio</th>
+                                    <th mat-sort-header="stock">Stock</th>
+                                    <th mat-sort-header="numValoraciones">Nº de valoraciones</th>
+                                    <th mat-sort-header="numeroVentas">Nº de ventas (pedidos)</th>
+                                </tr>
+                                <tr *ngFor="let productoConVentas of sortedData3 | paginate: { itemsPerPage: 10, currentPage: p2 }; let i=index">
+                                    <td>{{productoConVentas.producto._id}}</td>
+                                    <td>{{productoConVentas.producto.titulo}}</td>
+                                    <td>{{productoConVentas.producto.precio}}</td>
+                                    <td>{{productoConVentas.producto.stock}}</td>
+                                    <td>{{productoConVentas.producto.valoraciones.length}}</td>
+                                    <td>{{productoConVentas.ventas}}</td>
+                                </tr>
+                            </table>
+                            <div style="text-align: center;">
+                                <pagination-controls class="my-pagination" (pageChange)="p2 = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-9 form-div ">
-            <div style="display: block" *ngIf="administrador">
-                <h3 class="card-title text-center">Historial de registros de usuarios</h3>
-                <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        <div class="row" *ngIf="visible=='registros'">
+            <div class="col-md-10 form-div ">
+                <div style="display: block" *ngIf="administrador ">
+                    <h3 class="card-title text-center">Historial de registros de usuarios</h3>
+                    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
                     </canvas>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="row">
-        <div class="col-md-9 form-div ">
-            <div style="display: block">
-                <h3 class="card-title text-center" *ngIf="administrador">Historial de ventas por mes</h3>
-                <h3 class="card-title text-center" *ngIf="proveedor">Historial de mis ventas por mes</h3>
-                <canvas mdbChart [chartType]="chartTypeB" [datasets]="chartDatasetsB" [labels]="chartLabels" [colors]="chartColorsB" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        <div class="row">
+            <div class="col-md-10 form-div ">
+                <div style="display: block" *ngIf="visible=='ventas'">
+                    <h3 class="card-title text-center" *ngIf="administrador">Historial de ventas por mes</h3>
+                    <h3 class="card-title text-center" *ngIf="proveedor">Historial de mis ventas por mes</h3>
+                    <canvas mdbChart [chartType]="chartTypeB" [datasets]="chartDatasetsB" [labels]="chartLabels" [colors]="chartColorsB" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
+                </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>

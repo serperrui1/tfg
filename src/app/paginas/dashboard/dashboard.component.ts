@@ -8,6 +8,7 @@ import { Producto } from '../../models/producto';
 import { Pedido } from 'src/app/models/pedido';
 import { Comprador } from '../../models/comprador';
 import {Sort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 import { ProductoConVenta } from 'src/app/models/productoConVenta.interface';
 declare var $: any;
 
@@ -18,7 +19,10 @@ declare var $: any;
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  p: number = 1;
+  p2: number = 1;
 
+  public visible = "";
   public administrador: Administrador;
   public proveedor: Proveedor;
   public compName: string;
@@ -34,8 +38,8 @@ export class DashboardComponent implements OnInit {
   public sortedData: Pedido[];
   public sortedData2: Producto[];
   public datosTablaProductos: Producto[] = [];
-  public sortedData3: ProductoConVenta[] = [];
-  public data3: ProductoConVenta[] = [];
+  public sortedData3: Producto[] = [];
+  public data3: Producto[] = [];
   public pedidosProveedor: Pedido[] = [];
   public column = 'precio';
   public reverse = false;
@@ -126,37 +130,39 @@ export class DashboardComponent implements OnInit {
     if(this.administrador){
       this.todosPedidos = await this.pedidoService.getPedidos();
       this.todosProductos = await this.productoService.getProductos();
-      this.datosTablaProductos = this.todosProductos.slice();
-      for(let producto of this.datosTablaProductos){
-        let data1: ProductoConVenta = new ProductoConVenta(null, null);
-        let numVentas = 0;
-        for(let pedido of this.todosPedidos){
-          if(pedido.producto == producto._id){
-            numVentas = numVentas + 1;
-          }
-        }
-        data1.producto = producto;
-        data1.ventas = numVentas;
-        this.data3.push(data1);
-      } 
+      this.datosTablaProductos = this.todosProductos;
+      // for(let producto of this.datosTablaProductos){
+      //   let data1: ProductoConVenta = new ProductoConVenta(null, null);
+      //   let numVentas = 0;
+      //   for(let pedido of this.todosPedidos){
+      //     if(pedido.producto == producto._id){
+      //       numVentas = numVentas + 1;
+      //     }
+      //   }
+      //   data1.producto = producto;
+      //   data1.ventas = numVentas;
+      //   this.data3.push(data1);
+      // } 
+      this.data3 = this.datosTablaProductos;
     }
 
     if(this.proveedor){
       this.pedidosProveedor = await this.pedidoService.getMisPedidosProveedor();
       this.misProductos = await this.productoService.getMisProductos();
-      this.datosTablaProductos = this.misProductos.slice();
-      for(let producto of this.datosTablaProductos){
-        let data1: ProductoConVenta = new ProductoConVenta(null, null);
-        let numVentas = 0;
-        for(let pedido of this.pedidosProveedor){
-          if(pedido.producto == producto._id){
-            numVentas = numVentas + 1;
-          }
-        }
-        data1.producto = producto;
-        data1.ventas = numVentas;
-        this.data3.push(data1);
-      } 
+      this.datosTablaProductos = this.misProductos;
+      // for(let producto of this.datosTablaProductos){
+      //   let data1: ProductoConVenta = new ProductoConVenta(null, null);
+      //   let numVentas = 0;
+      //   for(let pedido of this.pedidosProveedor){
+      //     if(pedido.producto == producto._id){
+      //       numVentas = numVentas + 1;
+      //     }
+      //   }
+      //   data1.producto = producto;
+      //   data1.ventas = numVentas;
+      //   this.data3.push(data1);
+      // } 
+      this.data3 = this.data3 = this.datosTablaProductos;
     }
     
     if(this.administrador || this.proveedor){
@@ -293,24 +299,28 @@ export class DashboardComponent implements OnInit {
         ], label: 'Pedidos' }
       ];
     }
+    this.sortedData3= this.data3;
+    console.log(this.sortedData3);
+    this.sortedData = this.todosPedidos;
   }
 
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
 
   async sortData(sort: Sort) {
+    this.p = 1;
 
-    var data = this.todosPedidos.slice();
+    var data = this.todosPedidos;
     if(this.proveedor){
-      data = this.pedidosProveedor.slice();
+      data = this.pedidosProveedor;
     }
 
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
+    // if (!sort.active || sort.direction === '') {
+    //   this.sortedData = data;
+    //   return;
+    // }
 
-    this.sortedData = data.sort((a, b) => {
+    this.sortedData = this.sortedData.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'precio': return compare(a.precio, b.precio, isAsc);
@@ -319,42 +329,46 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    for(let i = 0; i< this.sortedData.length; i++){
-      if(this.administrador){
-        this.provName = await this.usuarioService.getProveedorNombre(this.sortedData[i].proveedor);
-        document.getElementById('proveedor'+i).innerHTML = this.provName;
-      }
-      this.producto = await this.productoService.getProductoPorID(this.sortedData[i].producto);
-      document.getElementById('producto'+i).innerHTML = this.producto.titulo;
-    }
+    // for(let i = 0; i< this.sortedData.length; i++){
+    //   if(this.administrador){
+    //     this.provName = await this.usuarioService.getProveedorNombre(this.sortedData[i].proveedor);
+    //     document.getElementById('proveedor'+i).innerHTML = this.provName;
+    //   }
+    //   this.producto = await this.productoService.getProductoPorID(this.sortedData[i].producto);
+    //   document.getElementById('producto'+i).innerHTML = this.producto.titulo;
+    // }
     
   }
 
   sortData2(sort: Sort) {
-    this.datosTablaProductos = this.todosProductos.slice();
+    this.p2 = 1;
+    this.datosTablaProductos = this.todosProductos;
     if(this.proveedor){
-      this.datosTablaProductos = this.misProductos.slice();
+      this.datosTablaProductos = this.misProductos;
     }
 
-    if (!sort.active || sort.direction === '') {
-      this.sortedData3 = this.data3;
-      return;
-    }
+    // if (!sort.active || sort.direction === '') {
+    //   this.sortedData3 = this.data3;
+    //   return;
+    // }
 
-    this.sortedData3 = this.data3.sort((a, b) => {
+    this.sortedData3 = this.sortedData3.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'precio': return compare(a.producto.precio, b.producto.precio, isAsc);
-        case 'stock': return compare(a.producto.stock, b.producto.stock, isAsc);
-        case 'numValoraciones': return compare(a.producto.valoraciones.length, b.producto.valoraciones.length, isAsc);
-        case 'numeroVentas': return compare(a.ventas, b.ventas, isAsc);
+        case 'precio': return compare(a.precio, b.precio, isAsc);
+        case 'stock': return compare(a.stock, b.stock, isAsc);
+        case 'numValoraciones': return compare(a.valoraciones.length, b.valoraciones.length, isAsc);
+        case 'numeroVentas': return compare(a.unidadesVendidas, b.unidadesVendidas, isAsc);
         default: return 0;
       }
     });
 
   }
 
-
+  activo(activo:string){
+    this.visible = activo;
+    console.log(activo);
+  }
 
 
 

@@ -16,5 +16,6 @@ export interface Proveedor {
     posicion?: {
         lat:number,
         lng:number
-    }
+    },
+    unidadesVendidas?:number,
 }

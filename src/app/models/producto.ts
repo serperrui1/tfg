@@ -18,6 +18,7 @@ export class Producto {
         lat:number,
         lng:number
     },
+    public unidadesVendidas?:number,
     public _id?: string,
     public subcategoria?: string,
     ){}
