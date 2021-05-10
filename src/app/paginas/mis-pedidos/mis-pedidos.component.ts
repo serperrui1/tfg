@@ -43,4 +43,13 @@ export class MisPedidosComponent implements OnInit {
       this.pedidos.sort(((a, b) => (a.precio > b.precio) ? 1 : -1))
   } 
 
+  async buscar(){
+    this.pedidos = await this.pedidosService.getBuscadorPedidos(this.buscadorForm.value);
+    this.updateDiv();
+  }
+
+  updateDiv(){ 
+    $( "#pedidos" ).load(window.location.href + " #pedidos" );
+  }
+
 } 

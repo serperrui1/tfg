@@ -7,7 +7,9 @@
         <div class="card-body nombre">
             <h5 class="card-title">{{producto.titulo}}</h5>
             <div>
-                <strong>{{producto.precio}}€ </strong>({{producto.unidadesMinimas}} unidades mínimas) <br>
+                <strong>{{producto.precio}}€ </strong>({{producto.unidadesMinimas}} unidades mínimas)
+                <br> Stock: {{producto.stock}} unidades
+                <br>
                 <ngb-rating [max]="5" [(rate)]="mediaEstrellas" [readonly]="true"></ngb-rating> ({{producto.valoraciones.length}} valoraciones)
             </div>
         </div>

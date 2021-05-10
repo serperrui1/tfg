@@ -22,10 +22,8 @@ export class MisChatsComponent implements OnInit {
   });
 
   public chats: Chat[];
-  public chatsEncontrados: Chat[] = [];
   public chats1: Chat[] = [];
   public chats2: Chat[] = [];
-  public encontrados: boolean = false;
 
   constructor(private chatService : ChatService,
     private fb: FormBuilder,
@@ -52,10 +50,8 @@ export class MisChatsComponent implements OnInit {
         this.chats1.sort(((a, b) => (new Date(a.fechaPublicacion).getTime() < new Date(b.fechaPublicacion).getTime() ? 1 : -1)))
       else if(this.orden.controls['orden'].value=="mensajesMasAntiguos")
         this.chats1.sort(((a, b) => (new Date(a.fechaPublicacion).getTime() > new Date(b.fechaPublicacion).getTime() ? 1 : -1)))
-      /* else if(this.orden.controls['orden'].value=="pedidosMasRecientes")
-        this.chats.sort(((a, b) => (new Date(a.fechaPedido).getTime() < new Date(b.fechaPedido).getTime() ? 1 : -1)))
-      else if(this.orden.controls['orden'].value=="pedidosMasAntiguos")
-        this.chats.sort(((a, b) => (new Date(a.fechaPedido).getTime() > new Date(b.fechaPedido).getTime() ? 1 : -1))) */
+      else if(this.orden.controls['orden'].value=="noLeidasPrimero")
+        this.chats1.sort(((a, b) => ( a.leido.valueOf() === b.leido.valueOf()  ? 1 : -1)))
     } 
 
     async ordenar2(){
@@ -67,6 +63,8 @@ export class MisChatsComponent implements OnInit {
         this.chats2.sort(((a, b) => (new Date(a.fechaPedido).getTime() < new Date(b.fechaPedido).getTime() ? 1 : -1)))
       else if(this.orden.controls['orden'].value=="pedidosMasAntiguos")
         this.chats2.sort(((a, b) => (new Date(a.fechaPedido).getTime() > new Date(b.fechaPedido).getTime() ? 1 : -1)))
+      else if(this.orden.controls['orden'].value=="noLeidasPrimero")
+        this.chats2.sort(((a, b) => ( a.leido.valueOf() === b.leido.valueOf()  ? 1 : -1)))
     } 
 
     async buscar(){

@@ -100,6 +100,20 @@ export class IncidenciaService {
       })
   }
 
+  getBuscadorIncidencias(data:any):Promise<Incidencia[]>{
+    return new Promise<Incidencia[]>(
+      resolve => {
+        this.http.post(`${base_url}/incidencias/buscador`,data,{
+          headers: { 
+            'x-token': this.token
+          }
+         }).subscribe(data=>{
+          const incidencias = data["incidencias"];
+          resolve(incidencias);
+        });
+      })
+  }
+
   borrarIncidencia( _id: string ) {
     const url = `${ base_url }/incidencias/${ _id }`;
     return this.http.delete( url, this.headers );

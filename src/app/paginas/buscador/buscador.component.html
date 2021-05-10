@@ -1,78 +1,279 @@
 <div class="row">
-
     <div class="col-md-3 filtro">
-        <form class="form-signin my-3 mx-3 " autocomplete="off" [formGroup]="filtro" id="buscadorform">
+        <form class="form-signin my-3 mx-3 " autocomplete="off" id="buscadorform" [formGroup]="filtro" (submit)="buscar()">
+
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" class="form-control form-control-sm" id="titulo" name="titulo" formControlName="titulo">
+            </div>
+
             <div class="form-group">
                 <label for="categoria">Categoría</label>
-                <select class="form-control form-control-sm" id="categoria" formControlName="categoria" (change)="buscar()">
-                <option value="" selected="selected">Todas las categorías</option> 
-                <option value="Libros, Música, Vídeo y DVD" >Libros, Música, Vídeo y DVD</option> 
-                <option value="Consolas y videojuegos">Consolas y videojuegos</option>
-                <option value="Informática">Informática</option>
-                <option value="Electrónica">Electrónica</option>
-                <option value="Accesorios de electrónica">Accesorios de electrónica</option>
-                <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
-                <option value="Hogar y cocina">Hogar y cocina</option>
-                <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
-                <option value="Juguetes y juegos">Juguetes y juegos</option>
-                <option value="Zapatos y Complementos">Zapatos y Complementos</option>
-                <option value="Relojes">Relojes</option>
-                <option value="Productos para bebé">Productos para bebé</option>
-                <option value="Coche y moto">Coche y moto</option>
-                <option value="Deportes y aire libre">Deportes y aire libre</option>
-                <option value="Joyería">Joyería</option>
-                <option value="Equipaje">Equipaje</option>
-                <option value="Iluminación">Iluminación</option>
-                <option value="Oficina y papelería">Oficina y papelería</option>
-                <option value="Salud y cuidado personal">Salud y cuidado personal</option>
-                <option value="Instrumentos musicales">Instrumentos musicales</option>
-                <option value="Ropa y Accesorios">Ropa y Accesorios</option>
-                <option value="Jardín">Jardín</option>
-                <option value="Belleza">Belleza</option>
-            </select>
+                <select class="form-control form-control-sm" id="categoria" name="categoria" formControlName="categoria">
+                    <option value="" selected="selected">Todas las categorías</option> 
+                    <option value="Libros, Música, Vídeo y DVD" >Libros, Música, Vídeo y DVD</option> 
+                    <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                    <option value="Informática">Informática</option>
+                    <option value="Electrónica">Electrónica</option>
+                    <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                    <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                    <option value="Hogar y cocina">Hogar y cocina</option>
+                    <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                    <option value="Juguetes y juegos">Juguetes y juegos</option>
+                    <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                    <option value="Relojes">Relojes</option>
+                    <option value="Productos para bebé">Productos para bebé</option>
+                    <option value="Coche y moto">Coche y moto</option>
+                    <option value="Deportes y aire libre">Deportes y aire libre</option>
+                    <option value="Joyería">Joyería</option>
+                    <option value="Equipaje">Equipaje</option>
+                    <option value="Iluminación">Iluminación</option>
+                    <option value="Oficina y papelería">Oficina y papelería</option>
+                    <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                    <option value="Instrumentos musicales">Instrumentos musicales</option>
+                    <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                    <option value="Jardín">Jardín</option>
+                    <option value="Belleza">Belleza</option>
+                </select>
             </div>
+
             <div class="form-group">
                 <label for="subcategoria">Subcategoría</label>
-                <select class="form-control form-control-sm" id="subcategoria" formControlName="subcategoria" (change)="buscar()">
-                <option value="" selected="selected">Seleccione una subcategoría</option> 
-                <option value="" >subcategoria1</option> 
-            </select>
+                <select class="form-control form-control-sm" id="subcategoria" name="subcategoria" formControlName="subcategoria">
+                    <option value="" selected="selected">Todas las subcategorías</option>
+
+                    <option value="Música">Música</option>
+                    <option value="Libros">Libros</option>
+                    <option value="Vídeo">Vídeo</option>
+                    <option value="DVD">DVD</option>
+                    <option value="Blu-ray">Blu-ray</option>
+
+                    <option value="Consolas">Consolas</option>
+                    <option value="Videojuegos">Videojuegos</option>
+
+                    <option value="Ordenadores de sobremesa">Ordenadores de sobremesa</option>
+                    <option value="Ordenadores portátiles">Ordenadores portátiles</option>
+                    <option value="Tablets">Tablets</option>
+                    <option value="Accesorios para el tablet">Accesorios para el tablet</option>
+                    <option value="Almacenamiento">Almacenamiento</option>
+                    <option value="Monitores">Monitores</option>
+                    <option value="Teclados">Teclados</option>
+                    <option value="Alfombrillas">Alfombrillas</option>
+                    <option value="Ratones">Ratones</option>
+                    <option value="Altavoces">Altavoces</option>
+                    <option value="Auriculares y micrófonos">Auriculares y micrófonos</option>
+                    <option value="Lectores de tarjetas">Lectores de tarjetas</option>
+                    <option value="Componentes del ordenador">Componentes del ordenador</option>
+                    <option value="Periféricos USB WIFI">Periféricos USB WIFI</option>
+                    <option value="Periféricos USB Bluetooth">Periféricos USB Bluetooth</option>
+                    <option value="Cables">Cables</option>
+                    <option value="Herramientas de reparación">Herramientas de reparación</option>
+                    <option value="Otros periféricos y accesorios">Otros periféricos y accesorios</option>
+
+                    <option value="Televisores">Televisores</option>
+                    <option value="Equipos de sonido">Equipos de sonido</option>
+                    <option value="Proyectores">Proyectores</option>
+                    <option value="Reproductores de vídeo">Reproductores de vídeo</option>
+                    <option value="Radios de coche">Radios de coche</option>
+                    <option value="Smart TV BOX">Smart TV BOX</option>
+                    <option value="GPS">GPS</option>
+                    <option value="Cámaras">Cámaras</option>
+                    <option value="Teléfonos móviles">Teléfonos móviles</option>
+                    <option value="Componentes electrónicos">Componentes electrónicos</option>
+                    <option value="Componentes del teléfono móvil">Componentes del teléfono móvil</option>
+
+                    <option value="Fundas">Fundas</option>
+                    <option value="Cables">Cables</option>
+                    <option value="Cargadores">Cargadores</option>
+                    <option value="Soportes">Soportes</option>
+                    <option value="Auriculares">Auriculares</option>
+                    <option value="Accesorios para el móvil">Accesorios para el móvil</option>
+
+                    <option value="Frigoríficos">Frigoríficos</option>
+                    <option value="Lavavajillas">Lavavajillas</option>
+                    <option value="Lavadoras">Lavadoras</option>
+                    <option value="Secadoras">Secadoras</option>
+
+                    <option value="Pequeño electrodoméstico">Pequeño electrodoméstico</option>
+                    <option value="Mobiliario">Mobiliario</option>
+                    <option value="Aspiradoras">Aspiradoras</option>
+                    <option value="Accesorios para el hogar">Accesorios para el hogar</option>
+                    <option value="Utensilios de cocina">Utensilios de cocina</option>
+
+                    <option value="Software">Software</option>
+                    <option value="Vídeo">Vídeo</option>
+                    <option value="Videojuegos de PC">Videojuegos de PC</option>
+
+                    <option value="Juguetes para bebés y niños preescolares">Juguetes para bebés y niños preescolares</option>
+                    <option value="Juguetes educativos y de exploración">Juguetes educativos y de exploración</option>
+                    <option value="Juguetes para montar">Juguetes para montar</option>
+                    <option value="Muñecos de acción">Muñecos de acción</option>
+                    <option value="Muñecas">Muñecas</option>
+                    <option value="Juegos de mesa">Juegos de mesa</option>
+                    <option value="Arte y manualidades">Arte y manualidades</option>
+                    <option value="Aficiones">Aficiones</option>
+                    <option value="Muebles infantiles">Muebles infantiles</option>
+
+                    <option value="Zapatos">Zapatos</option>
+                    <option value="Botas">Botas</option>
+                    <option value="Sandalias">Sandalias</option>
+                    <option value="Zapatillas de estar por casa">Zapatillas de estar por casa</option>
+                    <option value="Zapatillas deportivas">Zapatillas deportivas</option>
+
+                    <option value="Relojes automáticos">Relojes automáticos</option>
+                    <option value="Relojes analógicos">Relojes analógicos</option>
+                    <option value="Relojes digitales">Relojes digitales</option>
+
+                    <option value="Regalos">Regalos</option>
+                    <option value="Decoración y otros">Decoración y otros</option>
+                    <option value="Mobiliario">Mobiliario</option>
+                    <option value="Ropa de cama">Ropa de cama</option>
+                    <option value="Seguridad">Seguridad</option>
+                    <option value="Coche y dormitorio">Coche y dormitorio</option>
+                    <option value="Higiene y salud">Higiene y salud</option>
+
+                    <option value="Piezas">Piezas</option>
+                    <option value="Herramientas">Herramientas</option>
+                    <option value="Equipos">Equipos</option>
+                    <option value="Accesorios">Accesorios</option>
+
+                    <option value="Equipamiento deportivo">Equipamiento deportivo</option>
+                    <option value="Bicicletas">Bicicletas</option>
+                    <option value="Carpas">Carpas</option>
+
+                    <option value="Pendientes">Pendientes</option>
+                    <option value="Collares">Collares</option>
+                    <option value="Anillos">Anillos</option>
+                    <option value="Pulseras">Pulseras</option>
+
+                    <option value="Maletas">Maletas</option>
+                    <option value="Mochilas">Mochilas</option>
+                    <option value="Bolsas escolares">Bolsas escolares</option>
+                    <option value="Accesorios de viaje">Accesorios de viaje</option>
+                    <option value="Otros">Otros</option>
+
+                    <option value="Iluminación de interior y exterior">Iluminación de interior y exterior</option>
+                    <option value="Linternas">Linternas</option>
+                    <option value="Bombillas">Bombillas</option>
+                    <option value="Accesorios de iluminación">Accesorios de iluminación</option>
+
+                    <option value="Herramientas de escritura">Herramientas de escritura</option>
+                    <option value="Material educativo">Material educativo</option>
+                    <option value="Productos de papelería">Productos de papelería</option>
+                    <option value="Productos de oficina">Productos de oficina</option>
+                    <option value="Tinta y tóner">Tinta y tóner</option>
+
+                    <option value="Cuidado del cabello">Cuidado del cabello</option>
+                    <option value="Cuidado bucal">Cuidado bucal</option>
+                    <option value="Cepillos y tratamientos corporales">Cepillos y tratamientos corporales</option>
+                    <option value="Afeitado">Afeitado</option>
+                    <option value="Suministros y equipo sanitarios">Suministros y equipo sanitarios</option>
+                    <option value="Masaje y relax">Masaje y relax</option>
+                    <option value="Lámparas de bronceado">Lámparas de bronceado</option>
+                    <option value="Básculas de baño">Básculas de baño</option>
+                    <option value="Ayudas a la movilidad">Ayudas a la movilidad</option>
+                    <option value="Productos para la vida diaria">Productos para la vida diaria</option>
+
+                    <option value="Instrumentos musicales y accesorios">Instrumentos musicales y accesorios</option>
+                    <option value="Equipos de megafonía y escenarios">Equipos de megafonía y escenarios</option>
+                    <option value="Equipos de DJ">Equipos de DJ</option>
+                    <option value="Equipos de karaoke">Equipos de karaoke</option>
+
+                    <option value="Complementos">Complementos</option>
+                    <option value="Chaquetas">Chaquetas</option>
+                    <option value="Sujetadores">Sujetadores</option>
+                    <option value="Vestidos">Vestidos</option>
+                    <option value="Sombreros">Sombreros</option>
+                    <option value="Ropa de abrigo">Ropa de abrigo</option>
+                    <option value="Pantalones">Pantalones</option>
+                    <option value="Camisas">Camisas</option>
+                    <option value="Pantalones cortos">Pantalones cortos</option>
+                    <option value="Faldas">Faldas</option>
+                    <option value="Pijamas">Pijamas</option>
+                    <option value="Calcetines">Calcetines</option>
+                    <option value="Medias">Medias</option>
+                    <option value="Trajes">Trajes</option>
+                    <option value="Jerséis">Jerséis</option>
+                    <option value="Bañadores">Bañadores</option>
+                    <option value="Ropa interior">Ropa interior</option>
+
+                    <option value="Fertilizantes">Fertilizantes</option>
+                    <option value="Mobiliario de jardín">Mobiliario de jardín</option>
+                    <option value="Herramientas de jardinería">Herramientas de jardinería</option>
+                    <option value="Invernaderos">Invernaderos</option>
+                    <option value="Iluminación">Iluminación</option>
+                    <option value="Decoración de jardín">Decoración de jardín</option>
+                    <option value="Calefactores radiantes">Calefactores radiantes</option>
+                    <option value="Barbacoas">Barbacoas</option>
+                    
+                    <option value="Perfumes y fragancias">Perfumes y fragancias</option>
+                    <option value="Maquillaje">Maquillaje</option>
+                    <option value="Manicura y pedicura">Manicura y pedicura</option>
+                    <option value="Cuidado de la piel">Cuidado de la piel</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="precioMinimo">Precio mínimo</label>
-                <div class="row ">
-                    <div class="input-group col-md-5">
-                        <input type="number" class="form-control precio" id="precioMinimo" placeholder="0" min="0" formControlName="precioMinimo">
+                <div class="row">
+                    <label for="precioMinimo" style="margin-top: 6px; margin-right: 3px; padding-right: 1%;">Precio desde</label>
+                    <div class="input-group col-md-8" style="padding-left: 0%;">
+                        <input type="number" class="form-control" id="precioMinimo" min="0" formControlName="precioMinimo">
+                        <p class="card-title" style="color: rgb(122, 122, 122); margin-left: 2%; margin-top: 3%;">€</p>
                     </div>
-                    <a class="botones col-md-2" (click)="buscar()">✔</a><br>
+                </div>
+                <div class="row" style="margin-top: 2%;">
+                    <label for="precioMinimo" style="margin-top: 6px; margin-right: 3px; padding-right: 1%; padding-left: 17%;">hasta</label>
+                    <div class="input-group col-md-8" style="padding-left: 0%;">
+                        <input type="number" class="form-control" id="precioMaximo" min="0" formControlName="precioMaximo">
+                        <p class="card-title" style="color: rgb(122, 122, 122); margin-left: 2%; margin-top: 3%;">€</p>
+                    </div>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="precioMaximo">Precio máximo</label>
-                <div class="row ">
-                    <div class="input-group col-md-5 ">
-                        <input type="number" class="form-control precio" id="precioMaximo" max="10000000" placeholder="1000" formControlName="precioMaximo">
+                <div class="row">
+                    <label for="udsMinimasMinimo" style="margin-top: 6px; margin-right: 3px; padding-right: 1%;">Uds.mínimas desde</label>
+                    <div class="input-group col-md-5" style="padding-left: 0%; padding-right: 0%;">
+                        <input type="number" class="form-control" id="udsMinimasMinimo" min="1" formControlName="udsMinimasMinimo">
                     </div>
-                    <div class="col-mb-2"> </div>
-                    <a class="botones col-md-2" (click)="buscar()">✔</a><br>
+                </div>
+                <div class="row" style="margin-top: 2%;">
+                    <label for="udsMinimasMaximo" style="margin-top: 6px; margin-right: 3px; padding-right: 1%; padding-left: 17%;">hasta</label>
+                    <div class="input-group col-md-7" style="padding-left: 1%; padding-right: 1%;">
+                        <input type="number" class="form-control" id="udsMinimasMaximo" min="1" formControlName="udsMinimasMaximo">
+                    </div>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="categoria">Puntuación</label>
-                <select class="form-control form-control-sm" id="categoria" formControlName="valoraciones" (change)="buscar()">
-                <option value=0 selected="selected">☆</option> 
-                <option value=1 >★</option>
-                <option value=2 >★★</option>
-                <option value=3 >★★★</option>
-                <option value=4 >★★★★</option>
-                <option value=5 >★★★★★</option>
-            </select><br>
+                <div class="row">
+                    <label for="stockMinimo" style="margin-top: 6px; margin-right: 0px; padding-right: 2%;">Stock desde</label>
+                    <div class="input-group col-md-7" style="padding-left: 2%; padding-right: 0%;">
+                        <input type="number" class="form-control" id="stockMinimo" min="0" formControlName="stockMinimo">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2%;">
+                    <label for="stockMaximo" style="margin-top: 6px; margin-right: 3px; padding-right: 1%; padding-left: 17%;">hasta</label>
+                    <div class="input-group col-md-7" style="padding-left: 1%; padding-right: 2%;">
+                        <input type="number" class="form-control" id="stockMaximo" min="0" formControlName="stockMaximo">
+                    </div>
+                </div>
             </div>
+
+            <div class="form-group ">
+                <div class="row">
+                    <label for="valoraciones" style="margin-left: -5px; margin-right:5px;" class="col-md-4">Puntuación</label>
+                    <div style="margin-top: -10px; margin-left: -10px;" class="col-md-2">
+                        <ngb-rating [(rate)]="currentRate" [max]="5" [resettable]="true" [readonly]="false" formControlName="valoraciones"></ngb-rating>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline-dark btn-block">Buscar</button>
 
         </form>
     </div>
     <div class="col"></div>
-    <div class="col-md-8  centrado">
+    <div class="col-md-8 centrado">
         <div class="row">
 
             <div class="col-md-4">
@@ -82,14 +283,18 @@
             <form [formGroup]="orden" id="buscadorform" class="orden">
                 <select formControlName="orden" (change)="ordenar()">
                     <option value="masValorados" selected="selected" >Más valorados</option> 
-                    <option value="precioAscendente" >Precio(de más bajo a más alto)</option>
-                    <option value="precioDescendente" >Precio(de más alto a más bajo)</option>
+                    <option value="precioAscendente" >De mayor a menor precio</option>
+                    <option value="precioDescendente" >De menor a mayor precio</option>
+                    <option value="unidadesAscendente">De más a menos unidades mínimas</option> 
+                    <option value="unidadesDescendente" >De menos a más unidades mínimas</option>
+                    <option value="stockAscendente">De mayor a menor stock</option> 
+                    <option value="stockDescendente" >De menor a mayor stock</option>
                 </select>
             </form>
         </div>
         <div class="">
-            <div class="row row-cols-1 row-cols-md-3 ">
-                <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productos "></app-producto-tarjeta>
+            <div class="row row-cols-1 row-cols-md-3">
+                <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productos"></app-producto-tarjeta>
             </div>
         </div>
     </div>
