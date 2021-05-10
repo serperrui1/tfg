@@ -62,16 +62,16 @@
 
                         <div class="form-group">
                             <label for="unidadesMinimas">Unidades mínimas</label>
-                            <input type="number" class="form-control" id="unidadesMinimas" name="unidadesMinimas" min="1" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
+                            <input type="number" class="form-control" id="unidadesMinimas" name="unidadesMinimas" min="1" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido ">
                             <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
-                            <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Formato inválido</small>
+                            <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Debe haber más stock que unidades mínimas</small>
                         </div>
 
                         <div class="form-group">
                             <label for="stock">Stock</label>
                             <input type="stock" class="form-control" id="stock" name="stock" min="0" formControlName="stock" [class.is-invalid]="stockNoValido">
                             <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
-                            <small *ngIf="stockFormato && !stockCampoRequerido" class="text-danger">Formato inválido</small>
+                            <small *ngIf="stockFormato && !stockCampoRequerido" class="text-danger">Debe haber más stock que unidades mínimas</small>
                         </div>
 
                         <div class="form-group">

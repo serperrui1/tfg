@@ -143,6 +143,15 @@
             <input type="text" rows="4" type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion" [class.is-invalid]="campoNoValido('direccion')">
             <small *ngIf="campoNoValido('direccion')" class="text-danger">Dirección requerida</small>
         </div>
+        <div class="form-group">
+            <label>Coordenadas de la empresa : Latitud</label>
+            <input type="number" class="form-control" name="lat" id="lat" formControlName="lat" [class.is-invalid]="campoNoValido('lat')">
+            <small *ngIf="latitudRequerida" class="text-danger">Latitud requerida</small></div>
+        <div class="form-group">
+            <label>Coordenadas de la empresa : Longitud</label>
+            <input type="munber" class="form-control" name="lng" id="lng" formControlName="lng" [class.is-invalid]="campoNoValido('lng')">
+            <small *ngIf="longitudRequerida" class="text-danger">Longitud requerida</small>
+        </div>
 
         <div class="form-group" [hidden]="autonomo">
             <label for="registroMercantil">CIF</label><a class="aviso" style="text-decoration: none;"> (Código de identificación fiscal de la empresa)</a>

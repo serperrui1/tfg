@@ -159,10 +159,10 @@ export class CrearProductoComponent implements OnInit{
     return this.unidadesMinimasCampoRequerido || this.unidadesMinimasFormato
   }
   get unidadesMinimasCampoRequerido(){
-    return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.required && this.crearProductoForm.get('unidadesMinimas').touched : null
+    return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.required && this.crearProductoForm.get('unidadesMinimas').touched && this.crearProductoForm.get('stock').touched  : null
   }
   get unidadesMinimasFormato(){
-    return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.unidadesMinimasIncorrecto && this.crearProductoForm.get('unidadesMinimas').touched : null
+    return this.crearProductoForm.get('unidadesMinimas').errors ? this.crearProductoForm.get('unidadesMinimas').errors.unidadesMinimasIncorrecto && this.crearProductoForm.get('unidadesMinimas').touched && this.crearProductoForm.get('stock').touched : null
   }
   unidadesMinimasIncorrecto = (control:FormControl):{[s:string]:boolean} =>{
     const pattern = "^[0-9]+$"
@@ -182,7 +182,7 @@ export class CrearProductoComponent implements OnInit{
     return this.stockCampoRequerido || this.stockFormato
   }
   get stockCampoRequerido(){
-    return this.crearProductoForm.get('stock').errors ? this.crearProductoForm.get('stock').errors.required && this.crearProductoForm.get('stock').touched : null
+    return this.crearProductoForm.get('stock').errors ? this.crearProductoForm.get('stock').errors.required && this.crearProductoForm.get('stock').touched  : null
   }
   get stockFormato(){
     return this.crearProductoForm.get('stock').errors ? this.crearProductoForm.get('stock').errors.stockIncorrecto && this.crearProductoForm.get('stock').touched : null
