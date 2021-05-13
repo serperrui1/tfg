@@ -10,6 +10,8 @@ import { Comprador } from '../../models/comprador';
 import {Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import { ProductoConVenta } from 'src/app/models/productoConVenta.interface';
+import { FormBuilder } from '@angular/forms';
+
 declare var $: any;
 
 
@@ -22,7 +24,7 @@ export class DashboardComponent implements OnInit {
   p: number = 1;
   p2: number = 1;
 
-  public visible = "";
+  public visible = "pedidos";
   public administrador: Administrador;
   public proveedor: Proveedor;
   public compName: string;
@@ -88,7 +90,9 @@ export class DashboardComponent implements OnInit {
   public chartType: string = 'line';
   public chartTypeB: string = 'bar';
   public chartDatasets: Array<any> = [{ data: [] }, { data: [] }];
+  public chartDatasetsCopia: Array<any> = [{ data: [] }, { data: [] }];
   public chartDatasetsB: Array<any> = [{ data: [] }];
+  public chartDatasetsVentasCopia: Array<any> = [{ data: [] }];
   public chartLabels: Array<any> = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   public chartColors: Array<any> = [
@@ -113,11 +117,41 @@ export class DashboardComponent implements OnInit {
   public chartOptions: any = {
     responsive: true
   };
-  
+
+  public buscadorPedidos = this.fb.group({
+    nombre:[''],
+    busqueda:['producto'],
+    año:["esteAño"],
+    meses:['todo'],
+    categoria:['todas']
+  });
+
+  public buscadorProductos = this.fb.group({
+    nombre:[''],
+    busqueda:['producto'],
+    año:["esteAño"],
+    meses:['todo'],
+    categoria:['todas']
+  });
+
+  public filtroGraficaRegistros = this.fb.group({
+    meses:['todo'],
+    busqueda:['proveedor'],
+    nombre:[''],
+    año:["esteAño"]
+  });
+
+  public filtroGraficaVentas = this.fb.group({
+    meses:['todo'],
+    busqueda:['proveedor'],
+    nombre:[''],
+    año:["esteAño"]
+  });
   
   constructor(private usuarioService: UsuarioService,
     private productoService: ProductoService,
-    private pedidoService: PedidosService
+    private pedidoService: PedidosService,
+    private fb:FormBuilder
     ) {
       /* this.sortedData = this.todosPedidos.slice();
       this.sortedData2 = this.todosProductos.slice(); */
@@ -165,14 +199,43 @@ export class DashboardComponent implements OnInit {
       this.data3 = this.data3 = this.datosTablaProductos;
     }
     
+    if(this.administrador){
+      this.pedidos = await this.pedidoService.getPedidos();
+      this.compradores = await this.usuarioService.getCompradores();
+      this.proveedores = await this.usuarioService.getProveedores();
+    }
     if(this.administrador || this.proveedor){
       if(this.administrador){
-        this.pedidos = await this.pedidoService.getPedidos();
-        this.compradores = await this.usuarioService.getCompradores();
-        this.proveedores = await this.usuarioService.getProveedores();
-        if(this.compradores != null){
-          for(let comprador of this.compradores){
-            //compradores registrado cada mes del año
+
+        this.graficaDeRegistros();
+        
+        
+      }
+
+      else if(this.proveedor){
+        this.sortedData = this.pedidosProveedor; 
+        for(let pedido of this.pedidosProveedor){
+          this.pedidos.push(pedido);
+        }
+      }
+
+      this.graficaVentas(this.pedidos)
+
+    }
+    if(this.administrador){
+          
+          this.sortedData = this.todosPedidos;
+    }
+    this.sortedData3= this.data3;
+
+  }
+  graficaDeRegistros(){
+    if(this.compradores != null){
+      for(let comprador of this.compradores){
+        //compradores registrado cada mes del año
+        var fecha = new Date(comprador.fechaRegistro);
+        if(this.filtroGraficaRegistros.controls['año'].value == "esteAño"){
+          if(fecha.getFullYear() == new Date().getFullYear() ){
             if (comprador.fechaRegistro != null){
               var fecha = new Date(comprador.fechaRegistro);
               if(fecha.getMonth() + 1 === 1){
@@ -203,10 +266,47 @@ export class DashboardComponent implements OnInit {
             }
           }
         }
-        
-        if(this.proveedores != null){
-          for(let proveedor of this.proveedores){
-            //proveedores registrado cada mes del año
+        if(this.filtroGraficaRegistros.controls['año'].value == "añoPasado"){
+          if(fecha.getFullYear() == new Date().getFullYear() -1 ){
+            if (comprador.fechaRegistro != null){
+              var fecha = new Date(comprador.fechaRegistro);
+              if(fecha.getMonth() + 1 === 1){
+                this.EneroC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 2){
+                this.FebreroC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 3){
+                this.MarzoC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 4){
+                this.AbrilC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 5){
+                this.MayoC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 6){
+                this.JunioC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 7){
+                this.JulioC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 8){
+                this.AgostoC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 9){
+                this.SeptiembreC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 10){
+                this.OctubreC.push(comprador);
+              }else if(fecha.getMonth() + 1 === 11){
+                this.NoviembreC.push(comprador);
+              }else{
+                this.DiciembreC.push(comprador);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    if(this.proveedores != null){
+      for(let proveedor of this.proveedores){
+        //proveedores registrado cada mes del año
+        var fecha = new Date(proveedor.fechaRegistro);
+        if(this.filtroGraficaRegistros.controls['año'].value == "esteAño"){
+          if(fecha.getFullYear() == new Date().getFullYear() ){
             if (proveedor.fechaRegistro != null){
               var fecha = new Date(proveedor.fechaRegistro);
               if(fecha.getMonth() + 1 === 1){
@@ -237,33 +337,91 @@ export class DashboardComponent implements OnInit {
             }
           }
         }
-        
-        this.chartDatasets = [
-          { data: [this.EneroC.length, this.FebreroC.length, this.MarzoC.length,
-             this.AbrilC.length, this.MayoC.length, this.JunioC.length, this.JulioC.length,
-            this.AgostoC.length, this.SeptiembreC.length, this.OctubreC.length, this.NoviembreC.length, this.DiciembreC.length
-          ], label: 'Compradores' },
-          { data: [this.EneroP.length, this.FebreroP.length, this.MarzoP.length,
-            this.AbrilP.length, this.MayoP.length, this.JunioP.length, this.JulioP.length,
-           this.AgostoP.length, this.SeptiembreP.length, this.OctubreP.length, this.NoviembreP.length, this.DiciembreP.length
-         ], label: 'Proveedores' }
-        ];
-        
-
-      }
-
-      else if(this.proveedor){
-        this.sortedData = this.pedidosProveedor; 
-        for(let pedido of this.pedidosProveedor){
-          this.pedidos.push(pedido);
+        if(this.filtroGraficaRegistros.controls['año'].value == "añoPasdo"){
+          if(fecha.getFullYear() == new Date().getFullYear() -1 ){
+            if (proveedor.fechaRegistro != null){
+              var fecha = new Date(proveedor.fechaRegistro);
+              if(fecha.getMonth() + 1 === 1){
+                this.EneroP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 2){
+                this.FebreroP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 3){
+                this.MarzoP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 4){
+                this.AbrilP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 5){
+                this.MayoP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 6){
+                this.JunioP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 7){
+                this.JulioP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 8){
+                this.AgostoP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 9){
+                this.SeptiembreP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 10){
+                this.OctubreP.push(proveedor);
+              }else if(fecha.getMonth() + 1 === 11){
+                this.NoviembreP.push(proveedor);
+              }else{
+                this.DiciembreP.push(proveedor);
+              }
+            }
+          }
         }
       }
+    }
 
+    this.chartDatasets = [
+      { data: [this.EneroC.length, this.FebreroC.length, this.MarzoC.length,
+         this.AbrilC.length, this.MayoC.length, this.JunioC.length, this.JulioC.length,
+        this.AgostoC.length, this.SeptiembreC.length, this.OctubreC.length, this.NoviembreC.length, this.DiciembreC.length
+      ], label: 'Compradores' },
+      { data: [this.EneroP.length, this.FebreroP.length, this.MarzoP.length,
+        this.AbrilP.length, this.MayoP.length, this.JunioP.length, this.JulioP.length,
+       this.AgostoP.length, this.SeptiembreP.length, this.OctubreP.length, this.NoviembreP.length, this.DiciembreP.length
+     ], label: 'Proveedores' }
+    ];
 
-      for(let pedido of this.pedidos){
-        //pedidos realizados cada mes
-        if (pedido.fechaCompra != null){
-          var fecha = new Date(pedido.fechaCompra);
+    this.chartDatasetsCopia = this.chartDatasets;
+
+  }
+  graficaVentas(pedidos:Pedido[]){
+    console.log(pedidos);
+    for(let pedido of pedidos){
+    //pedidos realizados cada mes
+    if (pedido.fechaCompra != null){
+      var fecha = new Date(pedido.fechaCompra);
+      if(this.filtroGraficaVentas.controls['año'].value == "esteAño"){
+        if(fecha.getFullYear() == new Date().getFullYear() ){
+          if (fecha.getMonth() + 1 === 1){
+            this.Enero.push(pedido);
+          }else if(fecha.getMonth() + 1 === 2){
+            this.Febrero.push(pedido);
+          }else if(fecha.getMonth() + 1 === 3){
+            this.Marzo.push(pedido);
+          }else if(fecha.getMonth() + 1 === 4){
+            this.Abril.push(pedido);
+          }else if(fecha.getMonth() + 1 === 5){
+            this.Mayo.push(pedido);
+          }else if(fecha.getMonth() + 1 === 6){
+            this.Junio.push(pedido);
+          }else if(fecha.getMonth() + 1 === 7){
+            this.Julio.push(pedido);
+          }else if(fecha.getMonth() + 1 === 8){
+            this.Agosto.push(pedido);
+          }else if(fecha.getMonth() + 1 === 9){
+            this.Septiembre.push(pedido);
+          }else if(fecha.getMonth() + 1 === 10){
+            this.Octubre.push(pedido);
+          }else if(fecha.getMonth() + 1 === 11){
+            this.Noviembre.push(pedido);
+          }else{
+            this.Diciembre.push(pedido);
+          }
+        }
+      }if(this.filtroGraficaVentas.controls['año'].value == "añoPasado"){
+        if(fecha.getFullYear() == new Date().getFullYear() -1 ){
           if (fecha.getMonth() + 1 === 1){
             this.Enero.push(pedido);
           }else if(fecha.getMonth() + 1 === 2){
@@ -291,21 +449,62 @@ export class DashboardComponent implements OnInit {
           }
         }
       }
-
-      this.chartDatasetsB = [
-        { data: [this.Enero.length, this.Febrero.length, this.Marzo.length,
-           this.Abril.length, this.Mayo.length, this.Junio.length, this.Julio.length,
-          this.Agosto.length, this.Septiembre.length, this.Octubre.length, this.Noviembre.length, this.Diciembre.length
-        ], label: 'Pedidos' }
-      ];
+      
     }
-    if(this.administrador){
-          
-          this.sortedData = this.todosPedidos;
-    }
-    this.sortedData3= this.data3;
-
   }
+
+  this.chartDatasetsB = [
+    { data: [this.Enero.length, this.Febrero.length, this.Marzo.length,
+       this.Abril.length, this.Mayo.length, this.Junio.length, this.Julio.length,
+      this.Agosto.length, this.Septiembre.length, this.Octubre.length, this.Noviembre.length, this.Diciembre.length
+    ], label: 'Pedidos' }
+  ];
+      
+  this.chartDatasetsVentasCopia = this.chartDatasetsB;
+}
+  resetMesesVentas(){
+    this.Enero = []
+    this.Febrero =[];
+    this.Marzo =[]; 
+    this.Abril=[]; 
+    this.Mayo =[];
+    this.Junio =[]; 
+    this.Julio =[]; 
+    this.Agosto =[]; 
+    this.Septiembre =[]; 
+    this.Octubre =[]; 
+    this.Noviembre =[]; 
+    this.Diciembre = [];
+  }
+  resetMesesRegistro(){
+    this.EneroC = []
+    this.FebreroC =[];
+    this.MarzoC =[]; 
+    this.AbrilC=[]; 
+    this.MayoC =[];
+    this.JunioC =[]; 
+    this.JulioC =[]; 
+    this.AgostoC =[]; 
+    this.SeptiembreC =[]; 
+    this.OctubreC =[]; 
+    this.NoviembreC =[]; 
+    this.DiciembreC = [];
+    this.EneroP = [];
+    this.FebreroP =[];
+    this.MarzoP =[]; 
+    this.AbrilP=[]; 
+    this.MayoP =[];
+    this.JunioP =[]; 
+    this.JulioP =[]; 
+    this.AgostoP =[]; 
+    this.SeptiembreP =[]; 
+    this.OctubreP =[]; 
+    this.NoviembreP =[]; 
+    this.DiciembreP = [];
+  }
+
+
+
 
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
@@ -328,8 +527,11 @@ export class DashboardComponent implements OnInit {
       switch (sort.active) {
         case 'precio': return compare(a.precio, b.precio, isAsc);
         case 'unidades': return compare(a.unidades, b.unidades, isAsc);
+        case 'fecha': return (a.fechaCompra.getTime < b.fechaCompra.getTime ? -1 : 1) * (isAsc ? 1 : -1);
         default: return 0;
       }
+      
+      
     });
 
     // for(let i = 0; i< this.sortedData.length; i++){
@@ -373,16 +575,355 @@ export class DashboardComponent implements OnInit {
     console.log(activo);
   }
 
+  buscarPedidosAdmin(){
+    let pedidos:Pedido[]=[]
+    let pedidosPorAño:Pedido[]=[];
+    if(this.buscadorPedidos.controls['busqueda'].value == "producto"){
+      for(let pedido of this.todosPedidos){
+        if(pedido.tituloProducto!= undefined){
+          if (pedido.tituloProducto.toLowerCase().includes(
+            this.buscadorPedidos.controls['nombre'].value.toLowerCase())) {
+            pedidos.push(pedido);
+          }
+        }
+      }
+    }
+    if(this.buscadorPedidos.controls['busqueda'].value == "proveedor"){
+      for(let pedido of this.todosPedidos){
+        
+          if (pedido.proveedor.includes(
+            this.buscadorPedidos.controls['nombre'].value)) {
+            pedidos.push(pedido);
+          }
+        
+      }
+      
+    }
+    if(this.buscadorPedidos.controls['busqueda'].value == "comprador"){
+      for(let pedido of this.todosPedidos){
+        
+          if (pedido.comprador.includes(
+            this.buscadorPedidos.controls['nombre'].value)) {
+            pedidos.push(pedido);
+          }
+        
+      }
+      
+    }
+    
+    if(this.buscadorPedidos.controls['año'].value == "esteAño"){
+      pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear == new Date().getFullYear)
+    }
+    if(this.buscadorPedidos.controls['año'].value == "añoPasado"){
+      pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear() == (new Date().getFullYear() -1) )
+      
+    }
+    
+      if(this.buscadorPedidos.controls['meses'].value == "enero"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 0);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "febrero"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 1);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "marzo"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 2);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "abril"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 3);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "mayo"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 4);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "junio"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 5);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "julio"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 6);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "agosto"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 7);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "septiembre"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 8);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "octubre"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 9);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "noviembre"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 10);
+      }
+      if(this.buscadorPedidos.controls['meses'].value == "diciembre"){
+        pedidosPorAño = pedidosPorAño.filter((e)=> new Date(e.fechaCompra).getMonth() === 11);
+      }
+    
+    this.sortedData = pedidosPorAño;
+    
+      
+  }
+  buscarProductosAdmin(){
+    let productos:Producto[]=[];
+    if(this.buscadorProductos.controls['busqueda'].value == "producto"){
+      for(let producto of this.data3){
+        if(producto.titulo!= undefined){
+          if (producto.titulo.toLowerCase().includes(
+            this.buscadorProductos.controls['nombre'].value.toLowerCase())) {
+              productos.push(producto);
+          }
+        }
+        
+      }
+    }
+    if(this.buscadorProductos.controls['busqueda'].value == "proveedor"){
+      productos = this.data3.filter((e)=> e.proveedor.includes(this.buscadorProductos.controls['nombre'].value))
+      
+    }
+    if(this.buscadorProductos.controls['categoria'].value == "todas"){
+      productos = productos;
+    }else{
+      productos = productos.filter((e)=> e.categoria == this.buscadorProductos.controls['categoria'].value)
+      
+    }
+    
+    this.sortedData3 = productos;
+    
+      
+  }
 
+  buscarPedidosProveedor(){
+    let pedidos:Pedido[]=[]
+    if(this.buscadorPedidos.controls['busqueda'].value == "producto"){
+      for(let pedido of this.pedidosProveedor){
+        if(pedido.tituloProducto!= undefined){
+          if (pedido.tituloProducto.toLowerCase().includes(
+            this.buscadorPedidos.controls['nombre'].value.toLowerCase())) {
+            pedidos.push(pedido);
+          }
+        }
+      }
+    }
+    
+    this.sortedData = pedidos;
+      
+  }
 
+  buscarProductosProveedor(){
+    let productos:Producto[]=[]
+    if(this.buscadorProductos.controls['busqueda'].value == "producto"){
+      for(let producto of this.datosTablaProductos){
+        if(producto.titulo!= undefined){
+          if (producto.titulo.toLowerCase().includes(
+            this.buscadorProductos.controls['nombre'].value.toLowerCase())) {
+              productos.push(producto);
+          }
+        }
+        
+      }
+    }
+    
+    this.sortedData3 = productos;
+    
+      
+  }
+  filtrarGraficaRegistros(){
+    this.resetMesesRegistro();
+    this.graficaDeRegistros();
+    
+    if (this.filtroGraficaRegistros.controls['meses'].value == "todo") {
+      this.chartDatasets = this.chartDatasetsCopia;
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "enero") {
+      this.chartDatasets = [
+        { data: [this.chartDatasetsCopia[0].data[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [this.chartDatasetsCopia[1].data[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Proveedores' }
 
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "febrero") {
+      this.chartDatasets = [
+        { data: [ 0, this.chartDatasetsCopia[0].data[1], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, this.chartDatasetsCopia[1].data[1], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Proveedores' }
 
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "marzo") {
+      this.chartDatasets = [
+        { data: [ 0, 0, this.chartDatasetsCopia[0].data[2], 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, this.chartDatasetsCopia[1].data[2], 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Proveedores' }
 
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "abril") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, this.chartDatasetsCopia[0].data[3], 0, 0, 0, 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, this.chartDatasetsCopia[1].data[3], 0, 0, 0, 0, 0, 0, 0, 0], label: 'Proveedores' }
 
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "mayo") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, this.chartDatasetsCopia[0].data[4], 0, 0, 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, this.chartDatasetsCopia[1].data[4], 0, 0, 0, 0, 0, 0, 0], label: 'Proveedores' }
 
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "junio") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[5], 0, 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[5], 0, 0, 0, 0, 0, 0], label: 'Proveedores' }
+
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "julio") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[6], 0, 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[6], 0, 0, 0, 0, 0], label: 'Proveedores' }
+
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "agosto") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[7], 0, 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[7], 0, 0, 0, 0], label: 'Proveedores' }
+
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "septiembre") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[8], 0, 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[8], 0, 0, 0], label: 'Proveedores' }
+
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "octubre") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[9], 0, 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[9], 0, 0], label: 'Proveedores' }
+
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "noviembre") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[10], 0], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[10], 0], label: 'Proveedores' }
+
+      ];
+    }
+    if (this.filtroGraficaRegistros.controls['meses'].value == "diciembre") {
+      this.chartDatasets = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[0].data[11]], label: 'Compradores' },
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsCopia[1].data[11]], label: 'Proveedores' }
+
+      ];
+    }
+  }
+
+  filtrarGraficaVentas(){
+    this.resetMesesVentas();
+
+    if(this.filtroGraficaVentas.controls['busqueda'].value == "proveedor"){
+        let ventas:Pedido[] = [];
+        for(let venta of this.pedidos){
+          if(venta.proveedor.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+
+            ventas.push(venta)
+          }
+        }
+
+        this.graficaVentas(ventas);
+
+    }
+    if(this.filtroGraficaVentas.controls['busqueda'].value == "producto"){
+      let ventas:Pedido[] = [];
+      for(let venta of this.pedidos){
+        if(venta.producto.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+
+          ventas.push(venta)
+        }
+      }
+
+      this.graficaVentas(ventas);
+
+  }
+  if(this.filtroGraficaVentas.controls['busqueda'].value == "comprador"){
+    let ventas:Pedido[] = [];
+    for(let venta of this.pedidos){
+      if(venta.comprador.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+
+        ventas.push(venta)
+      }
+    }
+
+    this.graficaVentas(ventas);
 
 }
 
+
+
+    if (this.filtroGraficaVentas.controls['meses'].value == "todo") {
+      this.chartDatasetsB = this.chartDatasetsVentasCopia;
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "enero") {
+      this.chartDatasetsB = [
+        { data: [this.chartDatasetsVentasCopia[0].data[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "febrero") {
+      this.chartDatasetsB = [
+        { data: [ 0, this.chartDatasetsVentasCopia[0].data[1], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "marzo") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, this.chartDatasetsVentasCopia[0].data[2], 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "abril") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, this.chartDatasetsVentasCopia[0].data[3], 0, 0, 0, 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "mayo") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[4], 0, 0, 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "junio") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[5], 0, 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "julio") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[6], 0, 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "agosto") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[7], 0, 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "septiembre") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[8], 0, 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "octubre") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[9], 0, 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "noviembre") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[10], 0], label: 'Pedidios' }
+      ];
+    }
+    if (this.filtroGraficaVentas.controls['meses'].value == "diciembre") {
+      this.chartDatasetsB = [
+        { data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, this.chartDatasetsVentasCopia[0].data[11]], label: 'Pedidios' }
+      ];
+    }
+  }
+  }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

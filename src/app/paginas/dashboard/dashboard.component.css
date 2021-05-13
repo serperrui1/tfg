@@ -93,3 +93,14 @@ table th:hover {
 .sidebar-element {
     cursor: pointer;
 }
+
+.subrayado {
+    border-bottom: 1px solid rgb(255, 255, 255);
+    margin-bottom: 3px;
+}
+
+.selected {
+    background-color: #343a40;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 3px;
+}
