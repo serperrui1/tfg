@@ -1,0 +1,16 @@
+<div class="col mb-4 animated fadeIn ">
+    <div class="card h-100 ">
+        <div class="container">
+            <img class="card-img-top img-hover-zoom" src="{{direccionImagen + asistente.img}}" alt="Card image cap">
+        </div>
+        <div class="card-body nombre">
+            <h5 class="card-title">{{asistente.nombre}} {{asistente.apellidos}}</h5>
+            <div class="row">
+                <strong class="col-md-12">{{asistente.email}}</strong>
+            </div>
+            <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-1" *ngIf="admin" style="width: 50%; margin-left:25%;" (click)="borrarAsistente()">
+                Eliminar asistente
+            </button>
+        </div>
+    </div>
+</div>

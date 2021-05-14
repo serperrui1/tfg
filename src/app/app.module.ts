@@ -66,6 +66,12 @@ import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { SoporteComponent } from './paginas/soporte/soporte.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { MapaProveedorComponent } from './components/mapa-proveedor/mapa-proveedor.component';
+import { ProveedoresComponent } from './paginas/proveedores/proveedores.component';
+import { ProveedorTarjetaComponent } from './components/proveedor-tarjeta/proveedor-tarjeta.component';
+import { CompradoresComponent } from './paginas/compradores/compradores.component';
+import { CompradorTarjetaComponent } from './components/comprador-tarjeta/comprador-tarjeta.component';
+import { AsistentesComponent } from './paginas/asistentes/asistentes.component';
+import { AsistenteTarjetaComponent } from './components/asistente-tarjeta/asistente-tarjeta.component';
 
 
 
@@ -121,7 +127,13 @@ import { MapaProveedorComponent } from './components/mapa-proveedor/mapa-proveed
     DashboardComponent,
     SoporteComponent,
     MapaComponent,
-    MapaProveedorComponent
+    MapaProveedorComponent,
+    ProveedoresComponent,
+    ProveedorTarjetaComponent,
+    CompradoresComponent,
+    CompradorTarjetaComponent,
+    AsistentesComponent,
+    AsistenteTarjetaComponent
 
 
 

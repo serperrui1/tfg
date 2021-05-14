@@ -14,12 +14,12 @@
         <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
         <form [formGroup]="orden" id="buscadorform" class="orden">
             <select formControlName="orden" (change)="ordenar()">
-            <option value="pedidosMasRecientes" selected="selected" >Pedidos más recientes</option>
-            <option value="pedidosMasAntiguos" >Pedidos más antiguos</option>
-            <option value="unidadesAscendente">De más a menos unidades</option> 
-            <option value="unidadesDescendente" >De menos a más unidades</option>
-            <option value="precioAscendente">De mayor a menor precio</option> 
-            <option value="precioDescendente" >De menor a mayor precio</option>
+            <option value="pedidosMasRecientes" selected="selected" >Más recientes primero</option>
+            <option value="pedidosMasAntiguos" >Más antiguos primero</option>
+            <option value="unidadesAscendente">Unidades (descendente)</option> 
+            <option value="unidadesDescendente" >Unidades (ascendente)</option>
+            <option value="precioAscendente">Precio (descendente)</option> 
+            <option value="precioDescendente" >Precio (ascendente)</option>
         </select>
         </form>
     </div>

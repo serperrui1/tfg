@@ -36,6 +36,8 @@ import { CambiarContrasenaComponent} from './cambiar-contrasena/cambiar-contrase
 import { GOATComponent } from './goat/goat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SoporteComponent } from './soporte/soporte.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { CompradoresComponent } from './compradores/compradores.component';
 //Guards
 import { AuthGuard } from '../guards/auth.guard';
 import { CompradorGuard } from '../guards/comprador.guard';
@@ -43,6 +45,9 @@ import { CompradorProveedorGuard } from '../guards/comprador-proveedor.guard';
 import { ProveedorGuard } from '../guards/proveedor.guard';
 import { AdministradorGuard } from '../guards/administrador.guard';
 import { AsistenteGuard } from '../guards/asistente.guard';
+import { AsistentesComponent } from './asistentes/asistentes.component';
+
+
 
 
 const routes: Routes = [
@@ -66,6 +71,9 @@ const routes: Routes = [
             { path: 'faqs', component: FaqsComponent},
             { path: 'soporte', component: SoporteComponent},
             { path: 'garantia', component: GarantiaComponent},
+            { path: 'proveedores', component: ProveedoresComponent},
+            { path: 'compradores', component: CompradoresComponent},
+            { path: 'asistentes', component: AsistentesComponent},
             { path: 'spam', canActivate: [AdministradorGuard], component: SpamComponent},
             { path: 'buscador/:producto', component: BuscadorComponent},
             { path: 'mi-carrito', component: CarritoComponent},

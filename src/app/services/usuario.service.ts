@@ -3,7 +3,7 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { HttpClient } from '@angular/common/http';
 import { tap, map, catchError } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { RegisterCompradorComponent } from '../auth/register-comprador/register-comprador.component';
 import { RegisterProveedorComponent } from '../auth/register-proveedor/register-proveedor.component';
@@ -110,7 +110,71 @@ export class UsuarioService {
               localStorage.setItem('usuario', "asistenteTecnico" );
             })
            )
+  }
 
+
+  borrarAsistenteTecnico(_id: string) {
+    const url = `${ base_url }/administradores/eliminar/asistente/${ _id }`;
+    return this.http.delete( url, this.headers );
+  }
+
+  borrarProveedor(_id: string) {
+    const url = `${ base_url }/administradores/eliminar/proveedor/${ _id }`;
+    return this.http.delete( url, this.headers );
+  }
+
+  borrarComprador(_id: string) {
+    const url = `${ base_url }/administradores/eliminar/comprador/${ _id }`;
+    return this.http.delete( url, this.headers );
+  }
+
+  borrarMiCuentaComprador(uid: string) {
+    const url = `${ base_url }/compradores/${ uid }`;
+    return this.http.delete( url, this.headers );
+  }
+
+  borrarMiCuentaProveedor(uid: string) {
+    const url = `${ base_url }/proveedores/${ uid }`;
+    return this.http.delete( url, this.headers );
+  }
+
+  getBuscadorProveedores(data:any):Promise<Proveedor[]>{
+    return new Promise<Proveedor[]>(
+      resolve => {
+        this.http.post(`${base_url}/proveedores/buscador`,data,{
+         }).subscribe(data=>{
+          const proveedores = data["proveedores"];
+          resolve(proveedores);
+        });
+      })
+  }
+
+  getBuscadorCompradores(data:any):Promise<Comprador[]>{
+    return new Promise<Comprador[]>(
+      resolve => {
+        this.http.post(`${base_url}/compradores/buscador`,data,{
+          headers: { 
+            'x-token': this.token
+          }
+         }).subscribe(data=>{
+          const compradores = data["compradores"];
+          resolve(compradores);
+        });
+      })
+  }
+
+  getBuscadorAsistentes(data:any):Promise<AsistenteTecnico[]>{
+    return new Promise<AsistenteTecnico[]>(
+      resolve => {
+        this.http.post(`${base_url}/asistentesTecnicos/buscador`,data,{
+          headers: { 
+            'x-token': this.token
+          }
+         }).subscribe(data=>{
+          const asistentes = data["asistentes"];
+          resolve(asistentes);
+        });
+      })
   }
 
   crearProveedor( formData: RegisterProveedorComponent) {
@@ -288,19 +352,28 @@ export class UsuarioService {
     })
   }
 
+  getAsistentes():Promise<AsistenteTecnico[]>{
+    return new Promise<AsistenteTecnico[]>(
+      resolve => {
+        this.http.get(`${base_url}/asistentesTecnicos/`,{
+        }).subscribe(data=>{
+          const asistentes = data["asistentesTecnicos"];
+          resolve(asistentes);
+        });
+      })
+    }
+
   getProveedores():Promise<Proveedor[]>{
     return new Promise<Proveedor[]>(
       resolve => {
         this.http.get(`${base_url}/proveedores/`,{
-          headers: {
-            'x-token': this.token
-          }
         }).subscribe(data=>{
           const proveedores = data["proveedores"];
           resolve(proveedores);
         });
       })
     }
+    
   
   getProveedorNombre(id:string):Promise<string>{
 

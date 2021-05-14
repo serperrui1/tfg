@@ -1,0 +1,21 @@
+<div class="col mb-4 animated fadeIn " (click)="verProveedor()">
+    <div class="card h-100 ">
+        <div class="container">
+
+            <img class="card-img-top img-hover-zoom" src="{{direccionImagen + proveedor.img}}" alt="Card image cap">
+        </div>
+        <div class="card-body nombre">
+            <h5 class="card-title">{{proveedor.nombreEmpresa}}</h5>
+            <div>
+                <div class="row">
+                    <strong class="col-md-12">{{proveedor.sector}}</strong>
+                    <p style="margin: auto;">Ventas: {{proveedor.unidadesVendidas}}</p>
+                </div>
+                <ngb-rating [max]="5" [(rate)]="estrellas" [readonly]="true"></ngb-rating> ({{proveedor.puntuacionMedia}})
+            </div>
+            <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-1" *ngIf="admin" style="width: 50%; margin-left:25%;" (click)="borrarProveedor()">
+                Eliminar proveedor
+            </button>
+        </div>
+    </div>
+</div>

@@ -13,8 +13,8 @@
         <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
         <form [formGroup]="orden" id="buscadorform" class="orden">
             <select formControlName="orden" (change)="ordenar()">
-                <option value="mensajesMasRecientes" selected="selected" >Mensajes más recientes</option> 
-                <option value="mensajesMasAntiguos" >Mensajes más antiguos</option>
+                <option value="mensajesMasRecientes" selected="selected" >Mensajes más recientes primero</option> 
+                <option value="mensajesMasAntiguos" >Mensajes más antiguos primero</option>
                 <option value="asignadasPrimero" >Asignadas primero</option>
                 <option value="resueltasPrimero" >Resueltas primero</option>
                 <option value="noLeidasPrimero" >No leídas primero</option>

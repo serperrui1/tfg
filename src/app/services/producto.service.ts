@@ -91,6 +91,20 @@ export class ProductoService {
         });
       })
   }
+
+  getBuscadorMisProductos(data:any):Promise<Producto[]>{
+    return new Promise<Producto[]>(
+      resolve => {
+        this.http.post(`${base_url}/productos/buscador-mios`,data,{
+          headers: { 
+            'x-token': this.token
+          }
+        }).subscribe(data=>{
+          const productos = data["resultadoProductos"];
+          resolve(productos);
+        });
+      })
+  }
   
 
   /* getProductos() {

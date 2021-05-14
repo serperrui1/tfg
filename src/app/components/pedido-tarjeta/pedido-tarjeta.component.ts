@@ -31,8 +31,5 @@ export class PedidoTarjetaComponent implements OnInit {
     this.producto= await this.productoService.getProductoPorID(this.pedido.producto);
     this.productoId = this.producto._id;
     this.pedidoId = this.pedido._id;
-
-
-    
   }
 }
