@@ -1,0 +1,19 @@
+<form class="form-signin form-inline" style="width: 100%; margin-left:13%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
+    <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 1%;">Nombre del asistente: </p>
+    <input type="text" class="form-control " formControlName="asistente" style="width: 50%; margin-left: 1%" />
+    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 7%" type="submit">Buscar</button>
+</form>
+
+<div class="row centrado mt-3">
+    <div class="col-md-4">
+        <h1 class="mt-3 mb-4" style="margin-left:42%">Asistentes</h1>
+    </div>
+</div>
+
+<div class="home">
+    <div class="w-75 centrado ">
+        <div class="row row-cols-1 row-cols-md-3 ">
+            <app-asistente-tarjeta [asistente]="asistente" id="asistentes" *ngFor="let asistente of asistentes"></app-asistente-tarjeta>
+        </div>
+    </div>
+</div>

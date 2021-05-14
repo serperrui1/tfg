@@ -1,0 +1,60 @@
+<form class="form-signin form-inline" style="width: 100%; margin-left:13%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
+    <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 1%;">Nombre del proveedor: </p>
+    <input type="text" class="form-control " formControlName="proveedor" style="width: 50%; margin-left: 1%" />
+    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 7%" type="submit">Buscar</button>
+</form>
+
+
+<div class="row centrado mt-3">
+    <div class="col-md-4">
+        <h1 class="mt-3 mb-4" style="margin-left:42%">Proveedores</h1>
+    </div>
+    <div class="col-md-3 mt-4 ordena" style="margin-left:5%">
+        <a style="text-decoration: none; color: rgb(122, 122, 122); ">Filtrar por: </a>
+        <form [formGroup]="buscadorForm" id="buscadorform" (submit)="buscar()">
+            <select class="form-control form-control-sm" id="sector" [(ngModel)]="sector" name="sector" formControlName="sector">
+                <option value="" selected="selected">Seleccione categoría</option> 
+                <option class="Libros, Música, Vídeo y DVD" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                <option class="Consolas y videojuegos" value="Consolas y videojuegos">Consolas y videojuegos</option>
+                <option class="Informática" value="Informática">Informática</option>
+                <option class="Electrónica" value="Electrónica">Electrónica</option>
+                <option class="Accesorios de electrónica" value="Accesorios de electrónica">Accesorios de electrónica</option>
+                <option class="Electrodomésticos grandes" value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                <option class="Hogar y cocina" value="Hogar y cocina">Hogar y cocina</option>
+                <option class="Software y videojuegos para PC" value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                <option class="Juguetes y juegos" value="Juguetes y juegos">Juguetes y juegos</option>
+                <option class="Zapatos y Complementos" value="Zapatos y Complementos">Zapatos y Complementos</option>
+                <option class="Relojes" value="Relojes">Relojes</option>
+                <option class="Productos para bebé" value="Productos para bebé">Productos para bebé</option>
+                <option class="Coche y moto" value="Coche y moto">Coche y moto</option>
+                <option class="Deportes y aire libre" value="Deportes y aire libre">Deportes y aire libre</option>
+                <option class="Joyería" value="Joyería">Joyería</option>
+                <option class="Equipaje" value="Equipaje">Equipaje</option>
+                <option class="Iluminación" value="Iluminación">Iluminación</option>
+                <option class="Oficina y papelería" value="Oficina y papelería">Oficina y papelería</option>
+                <option class="Salud y cuidado personal" value="Salud y cuidado personal">Salud y cuidado personal</option>
+                <option class="Instrumentos musicales" value="Instrumentos musicales">Instrumentos musicales</option>
+                <option class="Ropa y Accesorios" value="Ropa y Accesorios">Ropa y Accesorios</option>
+                <option class="Jardín" value="Jardín">Jardín</option>
+                <option class="Belleza" value="Belleza">Belleza</option>
+            </select>
+        </form>
+    </div>
+    <div class="col-md-4 mt-4 ordena" style="margin-left:3%">
+        <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
+        <form [formGroup]="orden" id="buscadorform" class="orden">
+            <select formControlName="orden" (change)="ordenar()">
+                <option value="unidadesVendidasDescendente" selected="selected" >Unidades vendidas (descendente)</option>
+                <option value="puntuacionMediaDescendente" >Puntuación media (descendente)</option>
+            </select>
+        </form>
+    </div>
+</div>
+
+<div class="home">
+    <div class="w-75 centrado ">
+        <div class="row row-cols-1 row-cols-md-3 ">
+            <app-proveedor-tarjeta [proveedor]="proveedor" id="proveedores" (proveedorSeleccionado)="verProveedor($event)" *ngFor="let proveedor of proveedores "></app-proveedor-tarjeta>
+        </div>
+    </div>
+</div>

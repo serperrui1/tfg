@@ -20,6 +20,7 @@ export class Producto {
     },
     public unidadesVendidas?:number,
     public puntuacionMedia?:number,
+    public productoEstrella?:boolean,
     public _id?: string,
     public subcategoria?: string,
     ){}

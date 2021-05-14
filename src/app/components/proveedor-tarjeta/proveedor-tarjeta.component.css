@@ -1,0 +1,70 @@
+.card-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.card-text {
+    text-align: center;
+}
+
+.col {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card-img-top {
+    cursor: pointer;
+    height: 100%;
+    object-fit: contain;
+}
+
+ngb-rating {
+    color: #2a1fc7;
+    font-size: 25px;
+}
+
+.img-hover-zoom:hover {
+    transform: scale(1.05);
+    transform-origin: 50% 50%;
+    transition: transform 1s, filter 2s ease-in-out;
+}
+
+.container {
+    height: 250px;
+    margin-top: 10px;
+}
+
+.nombre {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.card {
+    border: none;
+}
+
+.container-imagen {
+    height: 250px;
+    margin-top: 10px;
+}
+
+.tarjeta {
+    background-color: rgb(240, 240, 240);
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #771515;
+    border-color: #771515;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #500d0d;
+    border-color: #500d0d;
+}

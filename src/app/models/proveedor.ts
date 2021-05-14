@@ -18,4 +18,5 @@ export interface Proveedor {
         lng:number
     },
     unidadesVendidas?:number,
+    puntuacionMedia?:number,
 }

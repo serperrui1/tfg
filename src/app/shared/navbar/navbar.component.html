@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/GOAT">GOAT<span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/proveedores">Proveedores<span class="sr-only">(current)</span></a>
+            </li>
             <li class="nav-item dropdown  " *ngIf=" prov">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Proveedor
@@ -59,13 +62,17 @@
                     <a class="dropdown-item" routerLink="dashboard">Dashboard</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" routerLink="/register/asistente-tecnico">Nuevo A.Técnico</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/compradores">Compradores</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/asistentes">Asistentes técnicos</a>
 
 
                 </div>
             </li>
         </ul>
-        <form class="form-signin form-inline" style="width: 100%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
-            <input type="text" class="form-control " formControlName="producto" style="width: 70%;" />
+        <form class="form-signin form-inline" style="width: 100%; margin: auto; padding-left: 15%;" autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
+            <input type="text" class="form-control " formControlName="producto" style="width: 60%;" />
             <button class="btn btn-outline-light boton-search" style="width: 15%;" type="submit">Buscar</button>
         </form>
 

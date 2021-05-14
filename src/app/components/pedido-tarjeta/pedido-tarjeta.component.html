@@ -1,21 +1,31 @@
 <div class="col mb-4 animated fadeIn tarjeta">
     <div class="row ">
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="producto">
             <img class="card-img-top mt-4" style="max-height: 90px;" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
         </div>
+        <div class="col-md-1" *ngIf="!producto"></div>
+        <div class="col-md-1 mt-3" *ngIf="!producto">
+            <p class="logo">🗑️</p>
+        </div>
+        <div class="col-md-1" *ngIf="!producto"></div>
         <div class="col-md-4">
             <div class="titulo mt-4">
-                <h6 class="card-title">"{{producto.titulo}}"</h6>
+                <h6 class="card-title">"{{pedido.tituloProducto}}"</h6>
+                <p class="card-title" style="color: rgb(122, 122, 122); ">Proveedor: {{pedido.nombreProveedor}}</p>
             </div>
         </div>
         <div class="col-md-5 px-0">
             <div class="titulo">
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Compra de {{pedido.unidades}} unidades realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}} por un total de {{pedido.precio }} €</p>
             </div>
-
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!producto">
+        <div class="col-md-12 botones-container">
+            <p class="card-title text-center" style="color: rgb(255, 0, 0); ">El proveedor de este producto fue eliminado. Ante cualquier problema contacte con un asistente técnico.</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="producto">
         <div class="col-md-3 botones-container">
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top: 13px;" routerLink="/producto/{{productoId}}">Valorar el producto</a>
         </div>

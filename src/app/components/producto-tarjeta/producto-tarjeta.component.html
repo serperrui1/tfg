@@ -7,8 +7,13 @@
         <div class="card-body nombre">
             <h5 class="card-title">{{producto.titulo}}</h5>
             <div>
-                <strong>{{producto.precio}}€ </strong>
-                <br>Unidades mínimas: {{producto.unidadesMinimas}}
+                <div class="row col-md-12" *ngIf="producto.productoEstrella">
+                    <strong style="margin-top:4%; margin-left:25%; margin-right:10%;">{{producto.precio}} €</strong><img style="margin-top:0%; margin-bottom:0%;" src="/assets/images/producto-estrella.png" width="25%">
+                </div>
+                <div class="row" *ngIf="!producto.productoEstrella">
+                    <strong class="col-md-12">{{producto.precio}} €</strong>
+                </div>
+                Unidades mínimas: {{producto.unidadesMinimas}}
                 <br> Stock: {{producto.stock}} unidades
                 <br> Nº de valoraciones: {{producto.valoraciones.length}}
                 <br> Unidades vendidas: {{producto.unidadesVendidas}}

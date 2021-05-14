@@ -10,7 +10,7 @@
             <div class="form-group">
                 <label for="categoria">Categoría</label>
                 <select class="form-control form-control-sm" id="categoria" [(ngModel)]="categoria" name="categoria" formControlName="categoria">
-                    <option value="" selected="selected">Seleccione categoria</option> 
+                    <option value="" selected="selected">Seleccione categoría</option> 
                     <option class="Libros, Música, Vídeo y DVD" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
                     <option class="Consolas y videojuegos" value="Consolas y videojuegos">Consolas y videojuegos</option>
                     <option class="Informática" value="Informática">Informática</option>
@@ -42,7 +42,7 @@
                 <select class="form-control form-control-sm" id="subcategoria" name="subcategoria" formControlName="subcategoria">
 
                     <optgroup class="Libros, Música, Vídeo y DVD" [hidden]="categoria != 'Libros, Música, Vídeo y DVD'">
-                        <option value="" selected="selected">Seleccione subcategoria</option>
+                        <option value="" selected="selected">Seleccione subcatégoria</option>
                         <option value="Música">Música</option>
                         <option value="Libros">Libros</option>
                         <option value="Vídeo">Vídeo</option>
@@ -354,6 +354,7 @@
                     <option value="masVendidos" selected="selected">Más vendidos primero</option> 
                     <option value="masValorados">Más valorados primero</option>
                     <option value="mejorValorados">Mejor valorados primero</option>
+                    <option value="productosEstrella">Productos estrella primero</option>
                     <option value="precioAscendente">Precio (descendente)</option>
                     <option value="precioDescendente">Precio (ascendente)</option>
                     <option value="unidadesAscendente">Unidades mínimas (descendente)</option> 

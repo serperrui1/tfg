@@ -102,12 +102,15 @@ export class BuscadorComponent {
       this.productos.sort(((a, b) => (a.stock < b.stock) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="stockDescendente")
       this.productos.sort(((a, b) => (a.stock > b.stock) ? 1 : -1))
+    else if(this.orden.controls['orden'].value=="productosEstrella")
+      this.productos.sort(((a, b) => ( a.productoEstrella.valueOf() === b.productoEstrella.valueOf())  ? -1 : 1))
     else if(this.orden.controls['orden'].value=="masValorados")
       this.productos.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="mejorValorados")
       this.productos.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
     else if(this.orden.controls['orden'].value=="masVendidos")
       this.productos.sort(((a, b) => (a.unidadesVendidas < b.unidadesVendidas) ? 1 : -1))
+    
   }
 
   openDialog() {
