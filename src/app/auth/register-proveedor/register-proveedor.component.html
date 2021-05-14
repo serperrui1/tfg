@@ -143,6 +143,9 @@
             <input type="text" rows="4" type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion" [class.is-invalid]="campoNoValido('direccion')">
             <small *ngIf="campoNoValido('direccion')" class="text-danger">Dirección requerida</small>
         </div>
+        <div class="col-md-4">
+            <button mat-raised-button (click)="openDialog()">Ver en el mapa</button>
+        </div>
         <div class="form-group">
             <label>Coordenadas de la empresa : Latitud</label>
             <input type="number" class="form-control" name="lat" id="lat" formControlName="lat" [class.is-invalid]="campoNoValido('lat')">

@@ -138,14 +138,18 @@ export class DashboardComponent implements OnInit {
     meses:['todo'],
     busqueda:['proveedor'],
     nombre:[''],
-    año:["esteAño"]
+    año:["esteAño"],
+    sector:['todos'],
+    usuarios:['todos']
   });
 
   public filtroGraficaVentas = this.fb.group({
     meses:['todo'],
     busqueda:['proveedor'],
     nombre:[''],
-    año:["esteAño"]
+    año:["esteAño"],
+    categoria:['todas']
+
   });
   
   constructor(private usuarioService: UsuarioService,
@@ -207,7 +211,7 @@ export class DashboardComponent implements OnInit {
     if(this.administrador || this.proveedor){
       if(this.administrador){
 
-        this.graficaDeRegistros();
+        this.graficaDeRegistros(this.compradores, this.proveedores);
         
         
       }
@@ -229,9 +233,9 @@ export class DashboardComponent implements OnInit {
     this.sortedData3= this.data3;
 
   }
-  graficaDeRegistros(){
-    if(this.compradores != null){
-      for(let comprador of this.compradores){
+  graficaDeRegistros(compradores:Comprador[], proveedores:Proveedor[]){
+    if(compradores != null){
+      for(let comprador of compradores){
         //compradores registrado cada mes del año
         var fecha = new Date(comprador.fechaRegistro);
         if(this.filtroGraficaRegistros.controls['año'].value == "esteAño"){
@@ -301,8 +305,8 @@ export class DashboardComponent implements OnInit {
       }
     }
     
-    if(this.proveedores != null){
-      for(let proveedor of this.proveedores){
+    if(proveedores != null){
+      for(let proveedor of proveedores){
         //proveedores registrado cada mes del año
         var fecha = new Date(proveedor.fechaRegistro);
         if(this.filtroGraficaRegistros.controls['año'].value == "esteAño"){
@@ -527,6 +531,8 @@ export class DashboardComponent implements OnInit {
       switch (sort.active) {
         case 'precio': return compare(a.precio, b.precio, isAsc);
         case 'unidades': return compare(a.unidades, b.unidades, isAsc);
+        case 'titulo': return compare(a.tituloProducto, b.tituloProducto, isAsc);
+        case 'categoria': return compare(a.categoria, b.categoria, isAsc);
         case 'fecha': return (a.fechaCompra.getTime < b.fechaCompra.getTime ? -1 : 1) * (isAsc ? 1 : -1);
         default: return 0;
       }
@@ -564,6 +570,8 @@ export class DashboardComponent implements OnInit {
         case 'stock': return compare(a.stock, b.stock, isAsc);
         case 'numValoraciones': return compare(a.valoraciones.length, b.valoraciones.length, isAsc);
         case 'numeroVentas': return compare(a.unidadesVendidas, b.unidadesVendidas, isAsc);
+        case 'categoria': return compare(a.categoria, b.categoria, isAsc);
+        case 'titulo': return compare(a.titulo, b.titulo, isAsc);
         default: return 0;
       }
     });
@@ -610,6 +618,10 @@ export class DashboardComponent implements OnInit {
       }
       
     }
+    if(this.buscadorPedidos.controls['categoria'].value!= "todas"){
+      pedidos = pedidos.filter((e)=> e.categoria == this.buscadorPedidos.controls['categoria'].value);
+    }
+    
     
     if(this.buscadorPedidos.controls['año'].value == "esteAño"){
       pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear == new Date().getFullYear)
@@ -726,7 +738,29 @@ export class DashboardComponent implements OnInit {
   }
   filtrarGraficaRegistros(){
     this.resetMesesRegistro();
-    this.graficaDeRegistros();
+    let proveedores;
+    let compradores;
+    if(this.filtroGraficaRegistros.controls['usuarios'].value=="todos"){
+      compradores = this.compradores;
+      if(this.filtroGraficaRegistros.controls['sector'].value=="todos"){
+        proveedores = this.proveedores
+      }else{
+        proveedores = this.proveedores.filter((e)=>e.sector == this.filtroGraficaRegistros.controls['sector'].value );
+      }
+    }else if(this.filtroGraficaRegistros.controls['usuarios'].value=="compradores"){
+      compradores = this.compradores;
+      proveedores = [];
+    }else if(this.filtroGraficaRegistros.controls['usuarios'].value=="proveedores"){
+      if(this.filtroGraficaRegistros.controls['sector'].value=="todos"){
+        proveedores = this.proveedores
+      }else{
+        proveedores = this.proveedores.filter((e)=>e.sector == this.filtroGraficaRegistros.controls['sector'].value );
+      }
+      compradores = [];
+    }
+    
+    
+    this.graficaDeRegistros(compradores, proveedores);
     
     if (this.filtroGraficaRegistros.controls['meses'].value == "todo") {
       this.chartDatasets = this.chartDatasetsCopia;
@@ -819,43 +853,35 @@ export class DashboardComponent implements OnInit {
 
   filtrarGraficaVentas(){
     this.resetMesesVentas();
-
+    let ventas:Pedido[] = [];
     if(this.filtroGraficaVentas.controls['busqueda'].value == "proveedor"){
-        let ventas:Pedido[] = [];
         for(let venta of this.pedidos){
           if(venta.proveedor.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
-
             ventas.push(venta)
           }
         }
-
-        this.graficaVentas(ventas);
-
     }
     if(this.filtroGraficaVentas.controls['busqueda'].value == "producto"){
-      let ventas:Pedido[] = [];
       for(let venta of this.pedidos){
         if(venta.producto.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
-
           ventas.push(venta)
         }
       }
-
-      this.graficaVentas(ventas);
-
-  }
-  if(this.filtroGraficaVentas.controls['busqueda'].value == "comprador"){
-    let ventas:Pedido[] = [];
-    for(let venta of this.pedidos){
-      if(venta.comprador.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
-
-        ventas.push(venta)
+    }
+    if(this.filtroGraficaVentas.controls['busqueda'].value == "comprador"){
+      for(let venta of this.pedidos){
+        if(venta.comprador.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+          ventas.push(venta)
+        }
       }
     }
+    if(this.filtroGraficaVentas.controls['categoria'].value!= "todas"){
+      ventas = ventas.filter((e)=> e.categoria == this.filtroGraficaVentas.controls['categoria'].value )
+    }
+    
 
     this.graficaVentas(ventas);
 
-}
 
 
 

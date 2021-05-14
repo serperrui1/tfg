@@ -101,6 +101,8 @@ comprar(){
         this.pedido.unidades = this.cantidades[i];
         this.pedido.precio = this.productos[i].precio * this.cantidades[i];
         this.pedido.proveedor = this.productos[i].proveedor;
+        this.pedido.tituloProducto = this.productos[i].titulo;
+        this.pedido.categoria = this.productos[i].categoria;
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)
@@ -126,6 +128,7 @@ comprar(){
         this.pedido.precio = this.productos[i].precio * this.cantidades[i];
         this.pedido.proveedor = this.productos[i].proveedor;
         this.pedido.tituloProducto = this.productos[i].titulo;
+        this.pedido.categoria = this.productos[i].categoria;
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)

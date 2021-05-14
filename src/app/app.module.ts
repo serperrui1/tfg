@@ -66,6 +66,7 @@ import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { SoporteComponent } from './paginas/soporte/soporte.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { MapaProveedorComponent } from './components/mapa-proveedor/mapa-proveedor.component';
+import { MapaRegistroComponent } from './components/mapa-registro/mapa-registro.component';
 
 
 
@@ -121,7 +122,8 @@ import { MapaProveedorComponent } from './components/mapa-proveedor/mapa-proveed
     DashboardComponent,
     SoporteComponent,
     MapaComponent,
-    MapaProveedorComponent
+    MapaProveedorComponent,
+    MapaRegistroComponent
 
 
 

@@ -70,18 +70,18 @@
             <div class=" form-div ">
                 <div *ngIf="administrador">
                     <div class="row ">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <form class="form-signin form-inline" autocomplete="off" [formGroup]="buscadorPedidos" (ngSubmit)="buscarPedidosAdmin()">
                                 <select class="form-control form-control-sm mr-1" name="busqueda" formControlName="busqueda">
                                     <option value="producto" selected="selected">Producto</option> 
                                     <option value="proveedor">Proveedor ID</option> 
                                     <option value="comprador">Comprador ID</option> 
                                 </select>
-                                <input type="text" class="form-control " formControlName="nombre" style="width: 70%; margin-right: 5px;" />
+                                <input type="text" class="form-control " formControlName="nombre" style="width: 60%; margin-right: 5px;" />
                                 <button class="btn btn-outline-dark boton-search" type="submit">Buscar</button>
                             </form>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <form [formGroup]="buscadorPedidos" style="float: right;">
                                 <select formControlName="año" class="mr-1" (change)="buscarPedidosAdmin()">
                                     <option value="esteAño" selected="selected">Este año</option> 
@@ -105,13 +105,44 @@
 
                             </form>
                         </div>
+                        <div class="col-md-3" style="float: right;">
+                            <form [formGroup]="buscadorPedidos">
+                                <select formControlName="categoria" class="mr-1" (change)="buscarPedidosAdmin()">
+                                    <option value="todas">Todas las caregorías</option> 
+                                    <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                                    <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                                    <option value="Informática">Informática</option>
+                                    <option value="Electrónica">Electrónica</option>
+                                    <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                                    <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                                    <option value="Hogar y cocina">Hogar y cocina</option>
+                                    <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                                    <option value="Juguetes y juegos">Juguetes y juegos</option>
+                                    <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                                    <option value="Relojes">Relojes</option>
+                                    <option value="Productos para bebé">Productos para bebé</option>
+                                    <option value="Coche y moto">Coche y moto</option>
+                                    <option value="Deportes y aire libre">Deportes y aire libre</option>
+                                    <option value="Joyería">Joyería</option>
+                                    <option value="Equipaje">Equipaje</option>
+                                    <option value="Iluminación">Iluminación</option>
+                                    <option value="Oficina y papelería">Oficina y papelería</option>
+                                    <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                                    <option value="Instrumentos musicales">Instrumentos musicales</option>
+                                    <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                                    <option value="Jardín">Jardín</option>
+                                    <option value="Belleza">Belleza</option>
+                                </select>
+                            </form>
+                        </div>
                     </div>
                     <h3 class="card-title text-center">Historial de todos los pedidos</h3>
                     <div class="descripcion-container">
                         <table matSort (matSortChange)="sortData($event) " style="margin: auto;">
                             <tr>
                                 <th>ID del Pedido</th>
-                                <th>Título del Producto</th>
+                                <th mat-sort-header="titulo">Título del Producto</th>
+                                <th mat-sort-header="categoria">Categoría</th>
                                 <th mat-sort-header="precio">Precio</th>
                                 <th mat-sort-header="unidades">Unidades</th>
                                 <th mat-sort-header="fecha">Fecha</th>
@@ -123,6 +154,7 @@
                             <tr *ngFor="let pedido of sortedData | paginate: { itemsPerPage: 10, currentPage: p }">
                                 <td>{{pedido._id}}</td>
                                 <td>{{pedido.tituloProducto | slice:0:25}}...</td>
+                                <td>{{pedido.categoria}}</td>
                                 <td>{{pedido.precio}}</td>
                                 <td>{{pedido.unidades}}</td>
                                 <td>{{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</td>
@@ -154,7 +186,8 @@
                         <table matSort (matSortChange)="sortData($event)" style="margin: auto;">
                             <tr>
                                 <th>ID del Producto</th>
-                                <th>Título del Producto</th>
+                                <th mat-sort-header="titulo">Título del Producto</th>
+                                <th mat-sort-header="categoria">Categoria</th>
                                 <th mat-sort-header="precio">Precio</th>
                                 <th mat-sort-header="unidades">Unidades</th>
                                 <th mat-sort-header="fecha">Fecha</th>
@@ -164,6 +197,7 @@
                             <tr *ngFor="let pedido of sortedData | paginate: { itemsPerPage: 10, currentPage: p }">
                                 <td>{{pedido._id}}</td>
                                 <td>{{pedido.tituloProducto | slice:0:25}}...</td>
+                                <td>{{pedido.categoria}}</td>
                                 <td>{{pedido.precio}}€</td>
                                 <td>{{pedido.unidades}}</td>
                                 <td>{{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</td>
@@ -231,7 +265,8 @@
                         <table matSort (matSortChange)="sortData2($event)" style="margin: auto;">
                             <tr>
                                 <th class="px-2">ID del Producto</th>
-                                <th class="px-2">Título del Producto</th>
+                                <th mat-sort-header="titulo" class="px-2">Título del Producto</th>
+                                <th mat-sort-header="categoria" class="px-2">Categoria</th>
                                 <th mat-sort-header="precio" class="px-2">Precio</th>
                                 <th mat-sort-header="stock" class="px-2">Stock</th>
                                 <th mat-sort-header="numValoraciones" class="px-2">Valoraciones</th>
@@ -241,6 +276,7 @@
                             <tr *ngFor="let producto of sortedData3 | paginate: { itemsPerPage: 10, currentPage: p2 }; let i=index">
                                 <td class="px-2">{{producto._id}}</td>
                                 <td class="px-2">{{producto.titulo | slice:0:25}}...</td>
+                                <td class="px-2">{{producto.categoria}}</td>
                                 <td class="px-2">{{producto.precio}}</td>
                                 <td class="px-2">{{producto.stock}}</td>
                                 <td class="px-2">{{producto.valoraciones.length}}</td>
@@ -268,7 +304,8 @@
                         <table matSort (matSortChange)="sortData2($event)" matSortActive="precio" matSortDirection="asc" matSortDisableClear style="margin: auto;">
                             <tr>
                                 <th>ID del Producto</th>
-                                <th>Título del Producto</th>
+                                <th mat-sort-header="titulo">Título del Producto</th>
+                                <th mat-sort-header="categoria">Categoría</th>
                                 <th mat-sort-header="precio">Precio</th>
                                 <th mat-sort-header="stock">Stock</th>
                                 <th mat-sort-header="numValoraciones">Nº de valoraciones</th>
@@ -277,6 +314,7 @@
                             <tr *ngFor="let producto of sortedData3 | paginate: { itemsPerPage: 10, currentPage: p2 }; let i=index">
                                 <td>{{producto._id}}</td>
                                 <td>{{producto.titulo | slice:0:25}}...</td>
+                                <td>{{producto.categoria}}</td>
                                 <td>{{producto.precio}}</td>
                                 <td>{{producto.stock}}</td>
                                 <td>{{producto.valoraciones.length}}</td>
@@ -293,14 +331,14 @@
         </div>
 
         <div class="row" *ngIf="visible=='registros' && administrador">
-            <div class=" row w-100">
+            <div class=" row " style="width: 90%; float: right;">
                 <div class="col"></div>
-                <form [formGroup]="filtroGraficaRegistros" class="form-signin form-inline col-md-3">
+                <form [formGroup]="filtroGraficaRegistros" class="form-signin form-inline ">
                     <select formControlName="año" class="mr-1" (change)="filtrarGraficaRegistros()">
                             <option value="esteAño" selected="selected">Este año</option> 
                             <option value="añoPasado">El año pasado</option>
                         </select>
-                    <select formControlName="meses" (change)="filtrarGraficaRegistros()">
+                    <select formControlName="meses" class="mr-1" (change)="filtrarGraficaRegistros()">
                             <option value="todo" selected="selected">Todo el año</option> 
                             <option value="enero">Enero</option>
                             <option value="febrero">Febrero</option>
@@ -316,6 +354,41 @@
                             <option value="diciembre">Diciembre</option>
                         </select>
                 </form>
+                <div style="float: right;">
+                    <form [formGroup]="filtroGraficaRegistros" style="float: right;">
+                        <select formControlName="usuarios" class="mr-1" (change)="filtrarGraficaRegistros()">
+                            <option value="todos">Compradores y proveedores</option> 
+                            <option value="compradores">Solo compradores</option> 
+                            <option value="proveedores">Solo proveedores</option>
+                        </select>
+                        <select formControlName="sector" class="mr-1" (change)="filtrarGraficaRegistros()">
+                            <option value="todos">Todos los sectores</option> 
+                            <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                            <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                            <option value="Informática">Informática</option>
+                            <option value="Electrónica">Electrónica</option>
+                            <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                            <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                            <option value="Hogar y cocina">Hogar y cocina</option>
+                            <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                            <option value="Juguetes y juegos">Juguetes y juegos</option>
+                            <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                            <option value="Relojes">Relojes</option>
+                            <option value="Productos para bebé">Productos para bebé</option>
+                            <option value="Coche y moto">Coche y moto</option>
+                            <option value="Deportes y aire libre">Deportes y aire libre</option>
+                            <option value="Joyería">Joyería</option>
+                            <option value="Equipaje">Equipaje</option>
+                            <option value="Iluminación">Iluminación</option>
+                            <option value="Oficina y papelería">Oficina y papelería</option>
+                            <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                            <option value="Instrumentos musicales">Instrumentos musicales</option>
+                            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                            <option value="Jardín">Jardín</option>
+                            <option value="Belleza">Belleza</option>
+                        </select>
+                    </form>
+                </div>
 
             </div>
             <div class="col-md-10 form-div ">
@@ -331,10 +404,9 @@
         <div class="row" *ngIf="visible=='ventas'">
 
             <div class=" row w-100 ">
-                <div class="col"></div>
-                <div class="col-md-10">
+                <div class="col">
                     <div class="row p-0">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <form class="form-signin form-inline" autocomplete="off" [formGroup]="filtroGraficaVentas" (ngSubmit)="filtrarGraficaVentas()">
 
                                 <select name="busqueda" class="mr-1" formControlName="busqueda">
@@ -347,27 +419,57 @@
                                 <button class="btn btn-outline-dark boton-search" type="submit">Buscar</button>
                             </form>
                         </div>
-                        <div class="col-md-4">
-                            <form [formGroup]="filtroGraficaVentas" id="filtroGraficaVentas">
+                        <div class="col-md-3">
+                            <form [formGroup]="filtroGraficaVentas" id="filtroGraficaVentas" style="float: right;">
                                 <select formControlName="año" class="mr-1" (change)="filtrarGraficaVentas()">
-                            <option value="esteAño" selected="selected">Este año</option> 
-                            <option value="añoPasado">El año pasado</option>
-                        </select>
+                                <option value="esteAño" selected="selected">Este año</option> 
+                                <option value="añoPasado">El año pasado</option>
+                                </select>
                                 <select formControlName="meses" (change)="filtrarGraficaVentas()">
-                            <option value="todo" selected="selected">Todo el año</option> 
-                            <option value="enero">Enero</option>
-                            <option value="febrero">Febrero</option>
-                            <option value="marzo">Marzo</option>
-                            <option value="abril">Abril</option>
-                            <option value="mayo">Mayo</option>
-                            <option value="junio">Junio</option>
-                            <option value="julio">Julio</option>
-                            <option value="agosto">Agosto</option>
-                            <option value="septiembre">Septiembre</option>
-                            <option value="octubre">Octubre</option>
-                            <option value="noviembre">Noviembre</option>
-                            <option value="diciembre">Diciembre</option>
-                        </select>
+                                    <option value="todo" selected="selected">Todo el año</option> 
+                                    <option value="enero">Enero</option>
+                                    <option value="febrero">Febrero</option>
+                                    <option value="marzo">Marzo</option>
+                                    <option value="abril">Abril</option>
+                                    <option value="mayo">Mayo</option>
+                                    <option value="junio">Junio</option>
+                                    <option value="julio">Julio</option>
+                                    <option value="agosto">Agosto</option>
+                                    <option value="septiembre">Septiembre</option>
+                                    <option value="octubre">Octubre</option>
+                                    <option value="noviembre">Noviembre</option>
+                                    <option value="diciembre">Diciembre</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="col-md-3" style="float: right;">
+                            <form [formGroup]="filtroGraficaVentas" style="float: right;">
+                                <select formControlName="categoria" class="mr-1" (change)="filtrarGraficaVentas()">
+                                    <option value="todas">Todas las caregorías</option> 
+                                    <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                                    <option value="Consolas y videojuegos">Consolas y videojuegos</option>
+                                    <option value="Informática">Informática</option>
+                                    <option value="Electrónica">Electrónica</option>
+                                    <option value="Accesorios de electrónica">Accesorios de electrónica</option>
+                                    <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                                    <option value="Hogar y cocina">Hogar y cocina</option>
+                                    <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                                    <option value="Juguetes y juegos">Juguetes y juegos</option>
+                                    <option value="Zapatos y Complementos">Zapatos y Complementos</option>
+                                    <option value="Relojes">Relojes</option>
+                                    <option value="Productos para bebé">Productos para bebé</option>
+                                    <option value="Coche y moto">Coche y moto</option>
+                                    <option value="Deportes y aire libre">Deportes y aire libre</option>
+                                    <option value="Joyería">Joyería</option>
+                                    <option value="Equipaje">Equipaje</option>
+                                    <option value="Iluminación">Iluminación</option>
+                                    <option value="Oficina y papelería">Oficina y papelería</option>
+                                    <option value="Salud y cuidado personal">Salud y cuidado personal</option>
+                                    <option value="Instrumentos musicales">Instrumentos musicales</option>
+                                    <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+                                    <option value="Jardín">Jardín</option>
+                                    <option value="Belleza">Belleza</option>
+                                </select>
                             </form>
                         </div>
                     </div>
