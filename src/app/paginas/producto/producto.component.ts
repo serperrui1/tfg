@@ -16,6 +16,7 @@ import { Valoracion } from 'src/app/models/valoracion';
 import Swal from 'sweetalert2';
 import { Proveedor } from 'src/app/models/proveedor';
 import { ChatService } from '../../services/chat.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 const base_url = environment.base_url;
@@ -28,7 +29,7 @@ const base_url = environment.base_url;
 })
 export class ProductoComponent implements OnInit {
 
-  starRating = 0; 
+  starRating = 0;
   public productoForm: FormGroup;
   public valoracionForm: FormGroup;
   public producto: Producto;
@@ -71,7 +72,8 @@ export class ProductoComponent implements OnInit {
     private usuarioService: UsuarioService,
     private pedidosService: PedidosService,
     private fb:FormBuilder,
-    private chatService: ChatService){
+    private chatService: ChatService,
+    private cookieService: CookieService){
 
      this.usuario =localStorage.getItem('usuario');
      this.token =localStorage.getItem('token');
@@ -149,24 +151,30 @@ export class ProductoComponent implements OnInit {
         }
       }
     }
-
-    /* this.yaExisteDevolucion(); */
+    
+    if(this.cookieService.check('productosVistos')){
+      var ids:string = this.cookieService.get('productosVistos');
+      /* var categoriasCookie:string = this.cookieService.get('categoriasDeInteres'); */
+      if(!ids.includes(this.producto._id)){
+        this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
+        console.log("más de dos productos")
+      }
+      /* if(!categoriasCookie.includes(this.producto.categoria)){
+        this.cookieService.set('categoriasDeInteres', this.cookieService.get('categoriasDeInteres')+' '+this.producto.categoria);
+      } */
+      
+    } else {
+      console.log("primer producto")
+      this.cookieService.set('productosVistos', this.producto._id);
+      /* this.cookieService.set('categoriasDeInteres', this.producto.categoria); */
+    }
+    
   }
 
   get cantidadProducto() {
      return this.productoForm.get('cantidadProducto').value; 
   }
 
-  /* async yaExisteDevolucion(){
-    this.misChats = await this.chatService.getMisChats();
-    for(let chat of this.misChats){
-      if(chat.mensajes[0].includes(" - DEV/RCL: "+this.pedidoId)){ //es una devolución
-        this.noValora = true;
-      }
-    }
-  } */
-
-  
   borrarValoracion(valoracion:Valoracion) {
     Swal.fire({
         title: '¿Borrar esta valoración?',

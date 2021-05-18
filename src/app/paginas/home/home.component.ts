@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ProductoService } from '../../services/producto.service';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -11,16 +12,191 @@ import { Producto } from 'src/app/models/producto';
 export class HomeComponent implements OnInit  {
 
   public productos: Producto[];
+  public shuffled: Producto[] = [];
+  public vistos: Producto[] = [];
+  public ultimos3: Producto[] = [];
+  public productosSegunCategoria: Producto[] = [];
+  public idsArray: string[] = [];
+  public categorias: string[] = [];
+  public noVistos:boolean = false;
+  public noHayRelacionados:boolean = false;
+  public productosMasVendidos: Producto[] = [];
+  public productosMasValorados: Producto[] = [];
+  public productosMejorValorados: Producto[] = [];
 
   constructor(private productoService : ProductoService,
     private router: Router,
-    private elementRef: ElementRef) { }
+    private elementRef: ElementRef,
+    private cookieService: CookieService) { }
 
   async ngOnInit() {
+    
     this.productos = await (this.productoService.getProductos());
+    this.shuffled = this.productos;
+    console.log(this.shuffled);
+
+
+    //COOKIE VISTOS RECIENTEMENTE
+    if(this.cookieService.check('productosVistos')){
+      var productosVistos:string = this.cookieService.get('productosVistos');
+      if(productosVistos.includes(" ")){ //hay más de un producto visto
+        this.idsArray = productosVistos.split(' ');
+
+
+        for(let productoId of this.idsArray){
+          var producto = await this.productoService.getProductoPorID(productoId);
+          this.vistos.push(producto);
+        }
+
+
+        if(this.vistos.length > 2){
+          var ultimo = this.vistos[this.vistos.length - 1];
+          var penultimo = this.vistos[this.vistos.length - 2];
+          var antepenultimo = this.vistos[this.vistos.length - 3];
+          this.ultimos3.push(antepenultimo, penultimo, ultimo);
+          
+          var producto1Categoria = this.shuffled.find(element => 
+            (!this.cookieService.get('productosVistos').includes(element._id)) && element.categoria == ultimo.categoria);
+          var producto2Categoria = this.shuffled.find(element => 
+            (!this.cookieService.get('productosVistos').includes(element._id)) && element.categoria == penultimo.categoria
+            && element._id != producto1Categoria._id);
+          var producto3Categoria = this.shuffled.find(element => 
+            (!this.cookieService.get('productosVistos').includes(element._id)) && element.categoria == antepenultimo.categoria
+            && element._id != producto1Categoria._id  && element._id != producto2Categoria._id);
+          if(!producto1Categoria){
+            this.noHayRelacionados = true;
+          }else if (producto1Categoria && !producto2Categoria && !producto3Categoria){
+            this.productosSegunCategoria.push(producto1Categoria);
+            this.cookieService.set('productosVistos', ultimo._id);
+          }else if (producto1Categoria && producto2Categoria && !producto3Categoria){
+            this.productosSegunCategoria.push(producto1Categoria, producto2Categoria);
+            this.cookieService.set('productosVistos', ultimo._id+' '+penultimo._id);
+          }else{
+            this.productosSegunCategoria.push(producto1Categoria, producto2Categoria, producto3Categoria);
+            this.cookieService.set('productosVistos', ultimo._id+' '+penultimo._id+' '+antepenultimo._id);
+          }
+
+          
+        }
+        
+        
+        
+        else if (this.vistos.length == 2){
+          var ultimo = this.vistos[this.vistos.length - 1];
+          var penultimo = this.vistos[this.vistos.length - 2];
+          this.ultimos3.push(penultimo, ultimo);
+
+
+          var producto1Categoria = this.shuffled.find(element => 
+            (!this.cookieService.get('productosVistos').includes(element._id)) && element.categoria == ultimo.categoria);
+          var producto2Categoria = this.shuffled.find(element => 
+            (!this.cookieService.get('productosVistos').includes(element._id)) && element.categoria == penultimo.categoria
+            && element._id != producto1Categoria._id);
+          if(!producto1Categoria){
+            this.noHayRelacionados = true;
+          }else if (producto1Categoria && !producto2Categoria){
+            this.productosSegunCategoria.push(producto1Categoria);
+            this.cookieService.set('productosVistos', ultimo._id);
+          }else{
+            this.productosSegunCategoria.push(producto1Categoria, producto2Categoria);
+            this.cookieService.set('productosVistos', ultimo._id+' '+penultimo._id);
+          }
+        }
+
+        this.ultimos3.reverse();
+
+
+
+      } else { //solo existe un producto visto en la cookie
+        var unaId:string = this.cookieService.get('productosVistos');
+        var producto1 = await this.productoService.getProductoPorID(unaId);
+        this.ultimos3.push(producto1);
+
+
+        console.log(this.ultimos3);
+        var producto1Categoria = this.shuffled.find(element => 
+          (!this.cookieService.get('productosVistos').includes(element._id)) && element.categoria == producto1.categoria);
+          console.log(producto1Categoria);
+        if(!producto1Categoria){
+          this.noHayRelacionados = true;
+        }else{
+          this.productosSegunCategoria.push(producto1Categoria);
+          this.cookieService.set('productosVistos', producto1._id);
+          console.log(this.productosSegunCategoria);
+        }
+      }
+
+    } else {
+      this.noVistos = true;
+    }
+
+    if(this.productosSegunCategoria.length != 0){ //no cookies
+      //Mas vendidos, mas valorados y mejor valorados personalizados.
+      for (let producto of this.productosSegunCategoria){
+        console.log(1)
+        this.categorias.push(producto.categoria)
+        console.log(this.categorias);
+      }
+  
+      if (this.categorias.length == 1){ //solo hay una categoria
+        this.productosMasVendidos = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
+        this.productosMasVendidos.sort(((a, b) => (a.unidadesVendidas < b.unidadesVendidas) ? 1 : -1));
+        this.productosMasVendidos = this.productosMasVendidos.slice(0, 3);
+  
+        this.productosMasValorados = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
+        this.productosMasValorados.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+        this.productosMasValorados = this.productosMasValorados.slice(0, 3);
+    
+        this.productosMejorValorados = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
+        this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
+        this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
+      }
+  
+      if (this.categorias.length == 2){ //hay dos categorias
+        this.productosMasVendidos = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0] || e.categoria == this.categorias[1]);
+        this.productosMasVendidos.sort(((a, b) => (a.unidadesVendidas < b.unidadesVendidas) ? 1 : -1));
+        this.productosMasVendidos = this.productosMasVendidos.slice(0, 3);
+  
+        this.productosMasValorados = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0] || e.categoria == this.categorias[1]);
+        this.productosMasValorados.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+        this.productosMasValorados = this.productosMasValorados.slice(0, 3);
+    
+        this.productosMejorValorados = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0] || e.categoria == this.categorias[1]);
+        this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
+        this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
+      }
+  
+      if (this.categorias.length >= 3){
+        this.productosMasVendidos = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0] || e.categoria == this.categorias[1] || e.categoria == this.categorias[2]);
+        this.productosMasVendidos.sort(((a, b) => (a.unidadesVendidas < b.unidadesVendidas) ? 1 : -1));
+        this.productosMasVendidos = this.productosMasVendidos.slice(0, 3);
+  
+        this.productosMasValorados = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0] || e.categoria == this.categorias[1] || e.categoria == this.categorias[2]);
+        this.productosMasValorados.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+        this.productosMasValorados = this.productosMasValorados.slice(0, 3);
+    
+        this.productosMejorValorados = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0] || e.categoria == this.categorias[1] || e.categoria == this.categorias[2]);
+        this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
+        this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
+      }
+    }
+
+    else if(this.productosSegunCategoria.length == 0){
+      //Mas vendidos, mas valorados y mejor valorados genéricos.
+      this.productosMasVendidos = await this.productoService.getProductos();
+      this.productosMasVendidos.sort(((a, b) => (a.unidadesVendidas < b.unidadesVendidas) ? 1 : -1));
+      this.productosMasVendidos = this.productosMasVendidos.slice(0, 3);
+      
+      this.productosMasValorados = await this.productoService.getProductos();
+      this.productosMasValorados.sort(((a, b) => (a.valoraciones.length < b.valoraciones.length) ? 1 : -1))
+      this.productosMasValorados = this.productosMasValorados.slice(0, 3);
+  
+      this.productosMejorValorados = await this.productoService.getProductos();
+      this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
+      this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
+    }
 
   }
-
 
   verProducto(id: number ){
     this.router.navigate(['/producto', id]);
