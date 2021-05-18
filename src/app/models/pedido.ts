@@ -7,6 +7,7 @@ export class Pedido {
         fechaCompra: Date;
         producto: string;
         tituloProducto: string;
+        categoria: string;
         unidades: number;
         precio: number;
         numeroTelefono:number;        
