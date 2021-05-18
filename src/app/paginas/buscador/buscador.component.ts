@@ -5,7 +5,6 @@ import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { MapaComponent } from 'src/app/components/mapa/mapa.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-buscador',
@@ -15,7 +14,6 @@ import { CookieService } from 'ngx-cookie-service';
 export class BuscadorComponent {
 
   currentRate = 0;
-  cookieValue: string;
 
   datos:any = {
     titulo:"",
@@ -57,8 +55,7 @@ export class BuscadorComponent {
     private router:Router,
     private fb: FormBuilder,
     private productoService:ProductoService,
-    public dialog: MatDialog,
-    private cookieService: CookieService) { }
+    public dialog: MatDialog) { }
 
   async ngOnInit(){
 
@@ -81,10 +78,6 @@ export class BuscadorComponent {
       }
       this.productos = await this.productoService.getBuscadorProductos(this.datos);
       })
-
-      /* this.cookieService.set('cookie name', 'our cookie value'); */
-      this.cookieValue = this.cookieService.get('cookie name');
-      console.log(this.cookieValue);
   }
 
   verProducto(id: number ){
