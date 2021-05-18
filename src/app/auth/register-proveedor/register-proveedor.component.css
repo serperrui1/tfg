@@ -71,3 +71,7 @@ input[type="password"] {
 .link {
     color: #2114db;
 }
+
+#map {
+    height: 100%;
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { MapaRegistroComponent } from 'src/app/components/mapa-registro/mapa-registro.component';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -36,7 +38,8 @@ export class RegisterProveedorComponent {
 
   constructor(private fb:FormBuilder,
               private usuarioService: UsuarioService,
-              private router:Router) {
+              private router:Router,
+              public dialog: MatDialog) {
 
    }
 
@@ -61,7 +64,11 @@ export class RegisterProveedorComponent {
     }
 
   
+    openDialog() {
+      let dialogRef = this.dialog.open(MapaRegistroComponent,{});
   
+      dialogRef.afterClosed().subscribe(result => console.log(result))  
+    }
 
   aceptaTerminos(){
     return !this.registrarProveedorForm.get('terminos').value && this.formSubmited;
