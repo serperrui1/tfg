@@ -5,3 +5,79 @@
         </div>
     </div>
 </div>
+
+<div class="row centrado mt-5">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● Productos vistos recientemente ●</h5>
+        <p class="text-center" style="font-size: 30px; color: rgb(122, 122, 122);" *ngIf="noVistos">¡No has visitado ningún producto aún! 🤔</p>
+    </div>
+</div>
+
+<div class="home mb-4" *ngIf="!noVistos">
+    <div class="w-75 centrado">
+        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of ultimos3"></app-producto-tarjeta>
+        </div>
+    </div>
+</div>
+
+<div class="row centrado mt-5">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● Productos de interés ●</h5>
+        <p class="text-center" style="font-size: 30px; color: rgb(122, 122, 122);" *ngIf="noVistos">¡No has visitado ningún producto aún! 🤔</p>
+        <p class="text-center" style="font-size: 30px; color: rgb(122, 122, 122);" *ngIf="noHayRelacionados">No hay productos relacionados, ¡vea otros productos!</p>
+    </div>
+</div>
+
+<div class="home mb-4" *ngIf="!noVistos && !noHayRelacionados">
+    <div class="w-75 centrado">
+        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosSegunCategoria"></app-producto-tarjeta>
+        </div>
+    </div>
+</div>
+
+<div class="row centrado mt-5">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" *ngIf="productosSegunCategoria.length == 0" style="color: rgb(122, 122, 122);">● Productos más vendidos ●</h5>
+        <h5 class="mt-3 mb-2 text-center" *ngIf="productosSegunCategoria.length != 0" style="color: rgb(122, 122, 122);">● Productos relacionados más vendidos ●</h5>
+    </div>
+</div>
+
+<div class="home mb-4">
+    <div class="w-75 centrado">
+        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosMasVendidos"></app-producto-tarjeta>
+        </div>
+    </div>
+</div>
+
+<div class="row centrado mt-5">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" *ngIf="productosSegunCategoria.length == 0" style="color: rgb(122, 122, 122);">● Productos más valorados ●</h5>
+        <h5 class="mt-3 mb-2 text-center" *ngIf="productosSegunCategoria.length != 0" style="color: rgb(122, 122, 122);">● Productos relacionados más valorados ●</h5>
+    </div>
+</div>
+
+<div class="home mb-4">
+    <div class="w-75 centrado">
+        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosMasValorados"></app-producto-tarjeta>
+        </div>
+    </div>
+</div>
+
+<div class="row centrado mt-5">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" *ngIf="productosSegunCategoria.length == 0" style="color: rgb(122, 122, 122);">● Productos mejor valorados ●</h5>
+        <h5 class="mt-3 mb-2 text-center" *ngIf="productosSegunCategoria.length != 0" style="color: rgb(122, 122, 122);">● Productos relacionados mejor valorados ●</h5>
+    </div>
+</div>
+
+<div class="home mb-4">
+    <div class="w-75 centrado">
+        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosMejorValorados"></app-producto-tarjeta>
+        </div>
+    </div>
+</div>
