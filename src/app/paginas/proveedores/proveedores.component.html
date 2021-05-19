@@ -1,8 +1,8 @@
-<form class="form-signin form-inline" style="width: 100%; margin-left:13%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
+<!-- <form class="form-signin form-inline" style="width: 100%; margin-left:13%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
     <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 1%;">Nombre del proveedor: </p>
     <input type="text" class="form-control " formControlName="proveedor" style="width: 50%; margin-left: 1%" />
     <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 7%" type="submit">Buscar</button>
-</form>
+</form> -->
 
 
 <div class="row centrado mt-3">
@@ -11,7 +11,7 @@
     </div>
     <div class="col-md-3 mt-4 ordena" style="margin-left:5%">
         <a style="text-decoration: none; color: rgb(122, 122, 122); ">Filtrar por: </a>
-        <form [formGroup]="buscadorForm" id="buscadorform" (submit)="buscar()">
+        <form [formGroup]="buscadorForm" id="buscadorform" (change)="buscar()">
             <select class="form-control form-control-sm" id="sector" [(ngModel)]="sector" name="sector" formControlName="sector">
                 <option value="" selected="selected">Seleccione categoría</option> 
                 <option class="Libros, Música, Vídeo y DVD" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 

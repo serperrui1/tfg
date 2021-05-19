@@ -11,11 +11,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" routerLink="/">Inicio<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="/proveedores">Proveedores<span class="sr-only">(current)</span></a>
-            </li>
+            </li> -->
             <li class="nav-item dropdown  " *ngIf=" prov">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Proveedor
@@ -69,9 +69,13 @@
                 </div>
             </li>
         </ul>
-        <form class="form-signin form-inline" style="width: 100%; margin: auto; padding-left: 15%;" autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
-            <input type="text" class="form-control " formControlName="producto" style="width: 60%;" />
-            <button class="btn btn-outline-light boton-search" style="width: 15%;" type="submit">Buscar</button>
+        <form class="form-signin form-inline" style="width: 100%; margin: auto; " autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
+            <select class="form-control form-control-md mr-1 bg-dark" name="busqueda" formControlName="busqueda" style="color: white;">
+                <option value="producto" selected="selected">Producto</option> 
+                <option value="proveedor">Proveedor</option> 
+            </select>
+            <input type="text" class="form-control" formControlName="producto" style="width: 60%;" />
+            <button class="btn btn-outline-light boton-search mx-2" style="width: 15%;" type="submit">Buscar</button>
         </form>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -93,7 +97,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!token">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/login">Iniciar sesión</a>
                 </li>
             </ul>
         </div>
@@ -200,8 +204,78 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Proveedores</a>
+                    <a href="#ProveedoresSector" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proveedores</a>
+                    <ul class="collapse list-unstyled" id="ProveedoresSector">
+                        <li>
+                            <a routerLink="/proveedores/Accesorios de electrónica/todos">• Accesorios de electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Belleza/todos">• Belleza</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Coche y moto/todos">• Coche y moto</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Consolas y videojuegos/todos">• Consolas y videojuegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Deportes y aire libre/todos">• Deportes y aire libre</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Electrodomésticos grandes/todos">• Electrodomésticos grandes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Electrónica/todos">• Electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Equipaje/todos">• Equipaje</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Hogar y cocina/todos">• Hogar y cocina</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Iluminación/todos">• Iluminación</a>
+                        </li>
+                        <li>
+                            <a routerLink="/cproveedores/Informática/todos">• Informática</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Instrumentos musicales/todos">• Instrumentos musicales</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Jardín/todos">• Jardín</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Joyería/todos">• Joyería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Juguetes y juegos/todos">• Juguetes y juegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Libros, Música, Vídeo y DVD/todos">• Libros, Música, Vídeo y DVD</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Oficina y papelería/todos">• Oficina y papelería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Productos para bebé/todos">• Productos para bebé</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Relojes/todos">• Relojes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Salud y cuidado personal/todos">• Salud y cuidado personal</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Software y videojuegos para PC/todos">• Software y videojuegos para PC</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Zapatos y Complementos/todos">• Zapatos y Complementos</a>
+                        </li>
+
+                    </ul>
                 </li>
+
             </ul>
 
         </li>

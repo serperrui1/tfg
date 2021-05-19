@@ -72,7 +72,7 @@ const routes: Routes = [
             { path: 'faqs', component: FaqsComponent},
             { path: 'soporte', component: SoporteComponent},
             { path: 'garantia', component: GarantiaComponent},
-            { path: 'proveedores', component: ProveedoresComponent},
+            { path: 'proveedores/:sector/:nombre', component: ProveedoresComponent},
             { path: 'compradores', component: CompradoresComponent},
             { path: 'asistentes', component: AsistentesComponent},
             { path: 'spam', canActivate: [AdministradorGuard], component: SpamComponent},
