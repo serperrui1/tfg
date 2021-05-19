@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -73,6 +73,7 @@ import { CompradoresComponent } from './paginas/compradores/compradores.componen
 import { CompradorTarjetaComponent } from './components/comprador-tarjeta/comprador-tarjeta.component';
 import { AsistentesComponent } from './paginas/asistentes/asistentes.component';
 import { AsistenteTarjetaComponent } from './components/asistente-tarjeta/asistente-tarjeta.component';
+import { ProductosCategoriaComponent } from './paginas/productos-categoria/productos-categoria.component';
 
 
 @NgModule({
@@ -132,7 +133,8 @@ import { AsistenteTarjetaComponent } from './components/asistente-tarjeta/asiste
     CompradoresComponent,
     CompradorTarjetaComponent,
     AsistentesComponent,
-    AsistenteTarjetaComponent
+    AsistenteTarjetaComponent,
+    ProductosCategoriaComponent
 
 
   ],

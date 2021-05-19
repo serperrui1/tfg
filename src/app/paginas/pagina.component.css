@@ -8,5 +8,6 @@
 } */
 
 .espacio {
-    min-height: 86vh;
+    min-height: 95vh;
+    padding-top: 80px;
 }

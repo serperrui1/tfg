@@ -191,4 +191,15 @@ export class ProductoService {
     } )
   }
 
+  getProductosPorCategoria(categoria:string):Promise<Producto[]>{
+    return new Promise<Producto[]>(
+      resolve => {
+        this.http.get(`${base_url}/productos/productosCategoria/${ categoria }`,{
+        }).subscribe(data=>{
+          const productos = data["productos"];
+          resolve(productos);
+        });
+      })
+  }
+
 }

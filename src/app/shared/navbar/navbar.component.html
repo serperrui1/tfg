@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark espacio">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark espacio ">
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
     <div class="col-md-1 info">
         <img class="card-img-top img-hover-zoom" src="/assets/images/logo.png" alt="Card image cap" width="100%">
     </div>
+    <i class='fas fa-bars selected' (click)="abirMenuLateral()"></i>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,9 +12,6 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/GOAT">GOAT<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/proveedores">Proveedores<span class="sr-only">(current)</span></a>
@@ -122,3 +120,99 @@
         </a>
     </ul>
 </nav>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="cerrarMenuLateral()">&times;</a>
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorias</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a href="#ProductosCategoria" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Productos</a>
+                    <ul class="collapse list-unstyled" id="ProductosCategoria">
+                        <li>
+                            <a routerLink="/categoria/Accesorios de electrónica">• Accesorios de electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Belleza">• Belleza</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Coche y moto">• Coche y moto</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Consolas y videojuegos">• Consolas y videojuegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Deportes y aire libre">• Deportes y aire libre</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Electrodomésticos grandes">• Electrodomésticos grandes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Electrónica">• Electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Equipaje">• Equipaje</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Hogar y cocina">• Hogar y cocina</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Iluminación">• Iluminación</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Informática">• Informática</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Instrumentos musicales">• Instrumentos musicales</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Jardín">• Jardín</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Joyería">• Joyería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Juguetes y juegos">• Juguetes y juegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Libros, Música, Vídeo y DVD">• Libros, Música, Vídeo y DVD</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Oficina y papelería">• Oficina y papelería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Productos para bebé">• Productos para bebé</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Relojes">• Relojes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Salud y cuidado personal">• Salud y cuidado personal</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Software y videojuegos para PC">• Software y videojuegos para PC</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Zapatos y Complementos">• Zapatos y Complementos</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Proveedores</a>
+                </li>
+            </ul>
+
+        </li>
+        <li>
+            <a routerLink="/GOAT">GOAT</a>
+        </li>
+
+    </ul>
+
+
+</div>
+<div [className]=" sidebar ? 'text-white position-fixed h-100 m-0 oscuro' : ''" (click)="cerrarMenuLateral()">
+
+</div>
