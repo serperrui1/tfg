@@ -36,6 +36,7 @@ export class NavbarComponent implements OnInit{
   public admin: Administrador;
   public comp: Comprador;
   public prov: Proveedor;
+  sidebar:boolean = false;
   
   constructor(private fb:FormBuilder,
     private usuarioService: UsuarioService,
@@ -43,6 +44,9 @@ export class NavbarComponent implements OnInit{
     private carritoService: CarritoService,
     private incidenciaService: IncidenciaService,
     private chatService: ChatService) { 
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
       this.proveedor();
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
@@ -176,5 +180,16 @@ export class NavbarComponent implements OnInit{
 
   buscarProducto( ){
     this.router.navigate( ['/buscador',this.buscadorForm.value['producto']] );
+  }
+  abirMenuLateral(){
+    document.getElementById("mySidenav").style.width = "350px";
+    this.sidebar = true;
+
+
+  }
+  cerrarMenuLateral(){
+    document.getElementById("mySidenav").style.width = "0";
+    this.sidebar = false;
+
   }
 }

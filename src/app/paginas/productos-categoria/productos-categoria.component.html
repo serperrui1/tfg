@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col"></div>
+    <div class="col-md-3">
+        <form [formGroup]="orden" id="buscadorform" class="orden">
+            <select formControlName="orden" (change)="ordenar()">
+        <option value="masVendidos" selected="selected">Más vendidos primero</option> 
+        <option value="masValorados">Más valorados primero</option>
+        <option value="mejorValorados">Mejor valorados primero</option>
+        <option value="productosEstrella">Productos estrella primero</option>
+        <option value="precioAscendente">Precio (descendente)</option>
+        <option value="precioDescendente">Precio (ascendente)</option>
+        <option value="unidadesAscendente">Unidades mínimas (descendente)</option> 
+        <option value="unidadesDescendente">Unidades mínimas (ascendente)</option>
+        <option value="stockAscendente">Stock (descendente)</option> 
+        <option value="stockDescendente">Stock (ascendente)</option>
+    </select>
+        </form>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col"></div>
+    <div class="col-md-10">
+        <div class="row row-cols-1 row-cols-md-3">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productos | paginate: { itemsPerPage: 9, currentPage: p }"></app-producto-tarjeta>
+        </div>
+        <div style="text-align: center;">
+            <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>

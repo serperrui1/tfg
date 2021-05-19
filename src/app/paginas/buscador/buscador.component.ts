@@ -55,11 +55,20 @@ export class BuscadorComponent {
     private router:Router,
     private fb: FormBuilder,
     private productoService:ProductoService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {
+     }
 
   async ngOnInit(){
 
     this.activatedRoute.params.subscribe(async params =>{
+      this.categoria = params['categoria'];
+      
+      if(this.categoria){
+        this.filtro.controls['categoria'].setValue(this.categoria);
+        this.productos = await this.productoService.getProductosPorCategoria(this.categoria);
+      }else{
+
+      
       this.titulo = params['producto'] ||"";
       this.valoraciones = 0;
       this.filtro.controls['titulo'].setValue(this.titulo);
@@ -77,6 +86,7 @@ export class BuscadorComponent {
         valoraciones: this.valoraciones
       }
       this.productos = await this.productoService.getBuscadorProductos(this.datos);
+    }
       })
   }
 

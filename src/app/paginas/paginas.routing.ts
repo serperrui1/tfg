@@ -38,6 +38,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SoporteComponent } from './soporte/soporte.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { CompradoresComponent } from './compradores/compradores.component';
+import { ProductosCategoriaComponent } from './productos-categoria/productos-categoria.component';
 //Guards
 import { AuthGuard } from '../guards/auth.guard';
 import { CompradorGuard } from '../guards/comprador.guard';
@@ -93,6 +94,7 @@ const routes: Routes = [
             { path: 'mis-ventas',canActivate: [ProveedorGuard], component: DashboardComponent},
             { path: 'mi-cuenta', canActivate: [AuthGuard] , component: MiCuentaComponent},
             { path: 'perfil/cambiar-contrasena', canActivate: [AuthGuard], component: CambiarContrasenaComponent},
+            { path: 'categoria/:categoria', component: BuscadorComponent},
             { path: '**', pathMatch: 'full', redirectTo: ''},
         ]
     },
