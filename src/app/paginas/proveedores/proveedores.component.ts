@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Proveedor } from '../../models/proveedor';
 import { UsuarioService } from '../../services/usuario.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ProveedoresComponent implements OnInit {
 
-  sector: string;
+  sector: string = "";
   /* public filtro = this.fb.group({
     sector:['']
   }); */
@@ -22,16 +22,41 @@ export class ProveedoresComponent implements OnInit {
     proveedor:[''],
     sector:['']
   });
-
+  public nombre:string ="";
   public proveedores: Proveedor[] = [];
 
   constructor(private usuarioService : UsuarioService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder) { }
 
     async ngOnInit() {
-      this.proveedores = await (this.usuarioService.getProveedores());
-    }
+      this.activatedRoute.params.subscribe(async params =>{
+        
+        
+        if(params['nombre']){
+          if(params['nombre']=="todos"){
+            this.nombre = "";
+          }else{
+            this.nombre = params['nombre'];
+          }
+          this.buscadorForm.controls['proveedor'].setValue(this.nombre);
+
+        }if(params['sector']){
+          if(params['sector']=="todos"){
+            this.sector = "";
+          }else {
+            this.sector = params['sector'].replace("%20", " ");
+          }
+          this.buscadorForm.controls['sector'].setValue(this.sector);
+          
+        }
+        this.proveedores = await this.usuarioService.getBuscadorProveedores(this.buscadorForm.value);    
+
+        console.log(this.nombre);
+        console.log(this.sector);
+
+      })}
 
     async ordenar(){
       if(this.orden.controls['orden'].value=="unidadesVendidasDescendente")
@@ -41,6 +66,8 @@ export class ProveedoresComponent implements OnInit {
     }
 
     async buscar(){
+      console.log(this.nombre);
+        console.log(this.sector);
       this.proveedores = await this.usuarioService.getBuscadorProveedores(this.buscadorForm.value);
       this.updateDiv();
     }

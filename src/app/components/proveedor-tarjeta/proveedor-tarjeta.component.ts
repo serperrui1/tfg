@@ -34,7 +34,9 @@ export class ProveedorTarjetaComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.admin = await this.usuarioService.getAdministrador();
+    if(localStorage.getItem("usuario")=="administrador"){
+      this.admin = await this.usuarioService.getAdministrador();
+    }
     this.estrellas = this.proveedor.puntuacionMedia;
     let estrella = String(this.estrellas);
     if (estrella.includes(".")){//es decimal

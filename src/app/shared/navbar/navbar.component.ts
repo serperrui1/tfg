@@ -53,17 +53,19 @@ export class NavbarComponent implements OnInit{
   }
 
   public buscadorForm = this.fb.group({
-    producto:['']
+    producto:[''],
+    busqueda:['producto']
   })
   
   async ngOnInit() {
     if(localStorage.getItem("token")){
       this.admin = await this.usuarioService.getAdministrador();
+      this.notifica();
+      await this.hayChatsSinLeer();
+      await this.hayIncidenciasSinLeer();
     }
     
-    this.notifica();
-    await this.hayChatsSinLeer();
-    await this.hayIncidenciasSinLeer();
+
   }
 
   notifica(){
@@ -179,7 +181,32 @@ export class NavbarComponent implements OnInit{
   }
 
   buscarProducto( ){
-    this.router.navigate( ['/buscador',this.buscadorForm.value['producto']] );
+    if(this.buscadorForm.controls['busqueda'].value == "producto"){
+      this.router.navigate( ['/buscador',this.buscadorForm.value['producto']] );
+    }if(this.buscadorForm.controls['busqueda'].value == "proveedor"){
+      let ruta = this.router.url;
+      console.log(ruta);
+      let sector = "";
+      let proveedor = "";
+      if(ruta.includes("/proveedores")){
+        let rutaSplit = ruta.split("/proveedores/");
+        let sector1 = rutaSplit[1].split("/")[0];
+        sector = decodeURIComponent(sector1)
+        console.log(sector);
+      }
+      else{
+        sector = "todos";
+      }
+      if(this.buscadorForm.value['producto']==""){
+        proveedor = "todos"
+      }
+      else{
+        proveedor = this.buscadorForm.value['producto']
+      }
+      
+      this.router.navigate( ['/proveedores',sector,proveedor] );
+    }
+    
   }
   abirMenuLateral(){
     document.getElementById("mySidenav").style.width = "350px";
