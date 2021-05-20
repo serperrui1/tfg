@@ -6,18 +6,18 @@
                 <div class="col-md-8 form-div">
 
                     <div class="card-body formulario">
-                        <h5 class="card-title text-left" *ngIf="(comp || prov) && incidencia.asignado">Incidencia con el asistente técnico: {{asistenteTecnicoNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="(comp || prov) && incidencia.asignado">Incidencia con el asistente técnico: {{asistenteTecnicoNombre}} {{apellidosAsistente}}</h5>
                         <h5 class="card-title text-left" *ngIf="(comp || prov) && !incidencia.asignado">Incidencia sin asignar</h5>
-                        <h5 class="card-title text-left" *ngIf="aT && compradorNombre && !proveedorNombre">Incidencia del comprador {{compradorNombre}}</h5>
-                        <h5 class="card-title text-left" *ngIf="aT && !compradorNombre && proveedorNombre">Incidencia del proveedor {{proveedorNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="aT && compradorNombre && !proveedorNombre">Incidencia del comprador: {{compradorNombre}} {{apellidosComprador}}</h5>
+                        <h5 class="card-title text-left" *ngIf="aT && !compradorNombre && proveedorNombre">Incidencia del proveedor: {{proveedorNombre}}</h5>
 
                         <p class="card-title" style="color: rgb(122, 122, 122); ">Título: "{{incidencia.titulo}}"</p>
                         <p class="card-title" style="color: rgb(122, 122, 122); ">Temática: {{incidencia.tematica}}</p>
-                        <p class="card-title" style="color: rgb(122, 122, 122); ">Detalles: {{incidencia.descripcion}}</p>
+                        <p class="card-title" style="color: rgb(122, 122, 122); ">Detalles: "{{incidencia.descripcion}}"</p>
                         <p class="card-title" *ngIf="!incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: pendiente de asignación</p>
                         <p class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: por resolver</p>
                         <p class="card-title" *ngIf="incidencia.resuelto" style="color: rgb(122, 122, 122); ">Estado: resuelta</p>
-                        <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</p>
+                        <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}.</p>
 
                         <hr>
                         <div class="form-group" *ngIf="comp || prov && !incidencia.resuelto">
@@ -31,16 +31,16 @@
                             <small *ngIf="mensajes.errors.esSpam && !mensajeCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                         </div>
 
-                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="prov || comp" [disabled]="!puedesActualizar">
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="prov || comp" [disabled]="!puedesActualizar" style="width: 20%; margin-left: 80%;">
                             Actualizar
                         </button>
-                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="aT" [disabled]="!puedesActualizar">
+                        <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="aT" [disabled]="!puedesActualizar" style="width: 20%; margin-left: 80%;">
                             Enviar
                         </button>
 
                     </div>
 
-                    <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-2" [disabled]="!puedesBorrar" *ngIf="aT" (click)="borrarIncidencia(incidencia)">
+                    <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-2" [disabled]="!puedesBorrar" *ngIf="aT" (click)="borrarIncidencia(incidencia)" style="width: 20%; margin-right: 80%;">
                         Borrar incidencia
                     </button>
 

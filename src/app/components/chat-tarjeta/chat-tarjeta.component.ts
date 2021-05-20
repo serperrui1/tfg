@@ -23,9 +23,12 @@ export class ChatTarjetaComponent implements OnInit {
   public prov: Proveedor;
   public notificacion: boolean = false;
   public nombreComprador: string;
+  public apellidosComprador: string;
   public flag: boolean = false;
   public pedidoId: string = "";
   public unPedido: Pedido;
+  public lePedido: Pedido;
+
   public producto: Producto;
 
   constructor(private usuarioService: UsuarioService,
@@ -39,7 +42,9 @@ export class ChatTarjetaComponent implements OnInit {
     for(let mensaje of this.chat.mensajes){
       if(mensaje.includes(" - DEV/RCL: ")){
         this.pedidoId = mensaje.split(' - DEV/RCL: ').pop();
+        console.log(this.pedidoId);
         this.unPedido = await this.pedidosService.getPedidoPorID(this.pedidoId);
+        console.log(this.unPedido);
         this.producto = await this.productoService.getProductoPorID(this.unPedido.producto);
         this.flag = true;
       } else {
@@ -61,7 +66,13 @@ export class ChatTarjetaComponent implements OnInit {
       this.notificacion = true;
     }
 
-    this.nombreComprador = await this.usuarioService.getCompradorNombre(this.chat.compradorId);
+    if(this.prov){
+      this.nombreComprador = await this.usuarioService.getCompradorNombre(this.chat.compradorId);
+      var compradores = (await this.usuarioService.getCompradores()).filter((e) => e.uid == this.chat.compradorId);
+      this.apellidosComprador = compradores[0].apellidos;
+    }
+    
+
   }
 
   verChat(){

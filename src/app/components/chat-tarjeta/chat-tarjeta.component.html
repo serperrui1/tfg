@@ -4,8 +4,8 @@
             <div class="titulo">
                 <h5 class="card-title mb-3" *ngIf="comp && !flag">Chat con el proveedor: {{chat.proveedorNombre}}</h5>
                 <h5 class="card-title mb-3" *ngIf="comp && flag">Reclamación al proveedor: {{chat.proveedorNombre}} </h5>
-                <h5 class="card-title mb-3" *ngIf="prov && !flag">Chat con el comprador: {{nombreComprador}}</h5>
-                <h5 class="card-title mb-3" *ngIf="prov && flag">Reclamación del comprador: {{nombreComprador}}</h5>
+                <h5 class="card-title mb-3" *ngIf="prov && !flag">Chat con el comprador: {{nombreComprador}} {{apellidosComprador}}</h5>
+                <h5 class="card-title mb-3" *ngIf="prov && flag">Reclamación del comprador: {{nombreComprador}} {{apellidosComprador}}</h5>
                 <p class="card-title" style="color: rgb(122, 122, 122); " *ngIf="!flag && producto">Sobre el producto "{{producto.titulo}}" con último mensaje del {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}}. </p>
                 <p class="card-title" style="color: rgb(122, 122, 122); " *ngIf="flag && unPedido && producto">Del pedido realizado el {{unPedido.fechaCompra | date: 'dd/MM/yyyy'}} del producto "{{producto.titulo}}" con último mensaje del {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}}. </p>
                 <!-- <p class="card-title" style="color: rgb(122, 122, 122); " *ngIf="unPedido">Pedido realizado el {{unPedido.fechaCompra | date: 'dd/MM/yyyy'}}</p>

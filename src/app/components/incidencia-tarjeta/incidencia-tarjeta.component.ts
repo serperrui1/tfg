@@ -24,6 +24,8 @@ export class IncidenciaTarjetaComponent implements OnInit {
   public nombreProveedor: string;
   public nombreComprador: string;
   public nombreAsistente: string;
+  public apellidosAsistente: string;
+  public apellidosComprador: string;
 
   constructor(private incidenciaService: IncidenciaService,
     private usuarioService: UsuarioService) {
@@ -54,13 +56,21 @@ export class IncidenciaTarjetaComponent implements OnInit {
     }
 
     this.nombreComprador = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
+    if(this.nombreComprador != "" && this.nombreComprador != null){
+      var compradores = (await this.usuarioService.getCompradores()).filter((e) => e.uid == this.incidencia.creadorId);
+      this.apellidosComprador = compradores[0].apellidos;
+    }
+    
+    
     if(this.nombreComprador == "" || this.nombreComprador == null){
       this.nombreProveedor = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
     }
 
     if(this.incidencia.asignado){
       this.nombreAsistente = await this.usuarioService.getAsistenteTecnicoNombre(this.incidencia.asistenteId);
-      
+      var asistentes = (await this.usuarioService.getAsistentes()).filter((e) => e.uid == this.incidencia.asistenteId);
+      console.log(asistentes);
+      this.apellidosAsistente = asistentes[0].apellidos;
     }
 
   }

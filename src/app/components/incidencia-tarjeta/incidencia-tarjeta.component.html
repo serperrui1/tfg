@@ -2,9 +2,9 @@
     <div class="row ">
         <div class="col-md-10">
             <div class="titulo">
-                <h5 class="card-title" *ngIf="(comp || prov) && incidencia.asignado">Incidencia con el asistente técnico: {{nombreAsistente}}</h5>
+                <h5 class="card-title" *ngIf="(comp || prov) && incidencia.asignado">Incidencia con el asistente técnico: {{nombreAsistente}} {{apellidosAsistente}}</h5>
                 <h5 class="card-title text-left" *ngIf="(comp || prov) && !incidencia.asignado">Incidencia sin asignar</h5>
-                <h5 class="card-title" *ngIf="aT && nombreComprador && !nombreProveedor">Incidencia del comprador: {{nombreComprador}}</h5>
+                <h5 class="card-title" *ngIf="aT && nombreComprador && !nombreProveedor">Incidencia del comprador: {{nombreComprador}} {{apellidosComprador}}</h5>
                 <h5 class="card-title" *ngIf="aT && nombreProveedor && !nombreComprador">Incidencia del proveedor: {{nombreProveedor}}</h5>
 
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Título: "{{incidencia.titulo}}"</p>

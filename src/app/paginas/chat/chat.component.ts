@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit {
   public unPedido: Pedido;
   public autor: string = "";
   public todosMensajes: string[] = [];
+  public apellidosComprador: string;
   public message: string = "";
   public pedidoId: string = "";
   public cont: number;
@@ -65,19 +66,28 @@ export class ChatComponent implements OnInit {
     for(let mensaje of this.chat.mensajes){
       if(mensaje.includes(" - DEV/RCL: ")){
         this.pedidoId = mensaje.split(' - DEV/RCL: ').pop();
+        console.log(this.pedidoId);
         this.unPedido = await this.pedidosService.getPedidoPorID(this.pedidoId);
+        console.log(this.unPedido);
         this.flag = true;
       }
     }
+    console.log(this.flag);
 
-    this.ultimoNombre = this.chat.mensajes[0].substring(0,this.chat.mensajes[0].indexOf(":"));
+    this.ultimoNombre = this.chat.mensajes[this.chat.mensajes.length - 1].substring(0,this.chat.mensajes[this.chat.mensajes.length - 1].indexOf(":"));
+    console.log(this.ultimoNombre);
     //----------------------------------------------------------------
     this.producto = await this.productoService.getProductoPorID(this.chat.productoId);
+    console.log(this.producto);
     this.compradorNombre = await this.usuarioService.getCompradorNombre(this.chat.compradorId);
+    console.log(this.compradorNombre);
     this.comp = await this.usuarioService.getComprador();
-        if(this.comp === null){
-          this.prov = await this.usuarioService.getProveedor();
-        }
+    console.log(this.comp);
+    if(this.comp === null){
+      this.prov = await this.usuarioService.getProveedor();
+      var compradores = (await this.usuarioService.getCompradores()).filter((e) => e.uid == this.chat.compradorId);
+      this.apellidosComprador = compradores[0].apellidos;
+    }
     
     if (this.token != null && (this.usuario === "comprador" && this.comp != null)){
       this.autor = this.comp.nombre.trim() + ": ";

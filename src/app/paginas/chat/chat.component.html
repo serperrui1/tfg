@@ -8,10 +8,10 @@
                     <div class="card-body formulario">
                         <h5 class="card-title text-left" *ngIf="comp && !flag">Chat con el proveedor: {{chat.proveedorNombre}}</h5>
                         <h5 class="card-title text-left" *ngIf="comp && flag">Reclamación al proveedor: {{chat.proveedorNombre}}</h5>
-                        <h5 class="card-title text-left" *ngIf="prov && !flag">Chat con el comprador: {{compradorNombre}}</h5>
-                        <h5 class="card-title text-left" *ngIf="prov && flag">Reclamación del comprador: {{compradorNombre}}</h5>
+                        <h5 class="card-title text-left" *ngIf="prov && !flag">Chat con el comprador: {{compradorNombre}} {{apellidosComprador}}</h5>
+                        <h5 class="card-title text-left" *ngIf="prov && flag">Reclamación del comprador: {{compradorNombre}} {{apellidosComprador}}</h5>
                         <!-- <h5 class="card-title">Creado el {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}}</h5> -->
-                        <p class="card-title text-left" style="color: rgb(122, 122, 122); ">Último mensaje el {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}} enviado por {{ultimoNombre}}</p>
+                        <p class="card-title text-left" style="color: rgb(122, 122, 122); ">Último mensaje el {{chat.fechaPublicacion | date: 'dd/MM/yyyy'}} enviado por {{ultimoNombre}}.</p>
                         <hr>
                         <div class="form-group">
                             <p class="card-title text-left" style="color: rgb(122, 122, 122); ">Nuevo mensaje</p>

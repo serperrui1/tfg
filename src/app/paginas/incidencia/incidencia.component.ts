@@ -42,6 +42,8 @@ export class IncidenciaComponent implements OnInit {
   public cont: number;
   public spam: Spam;
   public expresionesSpam: string[];
+  public apellidosAsistente: string;
+  public apellidosComprador: string;
 
 
   constructor(private fb:FormBuilder,
@@ -81,6 +83,8 @@ export class IncidenciaComponent implements OnInit {
       if(this.aT != null){
           if(await this.usuarioService.getCompradorNombre(this.incidencia.creadorId) != ""){
             this.compradorNombre = await this.usuarioService.getCompradorNombre(this.incidencia.creadorId);
+            var compradores = (await this.usuarioService.getCompradores()).filter((e) => e.uid == this.incidencia.creadorId);
+            this.apellidosComprador = compradores[0].apellidos;
           } else if (await this.usuarioService.getProveedorNombre(this.incidencia.creadorId) != ""){
             this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
           }
@@ -102,6 +106,8 @@ export class IncidenciaComponent implements OnInit {
 
       if(this.incidencia.asistenteId != ""){
         this.asistenteTecnicoNombre = await this.usuarioService.getAsistenteTecnicoNombre(this.incidencia.asistenteId);
+        var asistentes = (await this.usuarioService.getAsistentes()).filter((e) => e.uid == this.incidencia.asistenteId);
+        this.apellidosAsistente = asistentes[0].apellidos;
       }
 
       if(this.incidencia.asistenteId === ""){
