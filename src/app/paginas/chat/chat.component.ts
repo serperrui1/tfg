@@ -12,6 +12,9 @@ import Swal from 'sweetalert2';
 import { PedidosService } from '../../services/pedidos.service';
 import { Pedido } from 'src/app/models/pedido';
 import { environment } from 'src/environments/environment';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 
 const base_url = environment.base_url;
 @Component({
@@ -44,6 +47,8 @@ export class ChatComponent implements OnInit {
   public direccionImagen = base_url+"/upload/productos/";
   public ultimoNombre = "";
   public imagenMostrar:string;
+  public spam: Spam;
+  public expresionesSpam: string[];
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -51,6 +56,7 @@ export class ChatComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
     private pedidosService: PedidosService,
+    private spamService: SpamService,
     private router: Router) {
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');
@@ -90,14 +96,16 @@ export class ChatComponent implements OnInit {
     }
     
     if (this.token != null && (this.usuario === "comprador" && this.comp != null)){
-      this.autor = this.comp.nombre.trim() + ": ";
+      this.autor = this.comp.nombre.trim() + " " + this.comp.apellidos + ": ";
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
       this.chatForm = this.fb.group({
         compradorId: [ this.chat.compradorId ],
         proveedorId: [ this.chat.proveedorId ],
         proveedorNombre: [ this.chat.proveedorNombre ],
         compradorNombre: [ this.comp.nombre],
         productoId: [  this.chat.productoId ],
-        mensajes: ['', Validators.required ],
+        mensajes: ['', [Validators.required, SpamValidator(this.expresionesSpam)]],
         fechaPublicacion: [ this.chat.fechaPublicacion ]
       });
       this.chat = await this.chatService.chatLeido(this.chatId);
@@ -105,13 +113,15 @@ export class ChatComponent implements OnInit {
 
     if (this.token != null && (this.usuario === "proveedor" && this.prov != null)){
       this.autor = this.prov.nombreEmpresa + ": ";
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
       this.chatForm = this.fb.group({
         compradorId: [ this.chat.compradorId ],
         proveedorId: [ this.chat.proveedorId ],
         proveedorNombre: [ this.chat.proveedorNombre ],
         compradorNombre: [ this.compradorNombre],
         productoId: [  this.chat.productoId ],
-        mensajes: ['', Validators.required ],
+        mensajes: ['', [Validators.required, SpamValidator(this.expresionesSpam)]],
         fechaPublicacion: [ this.chat.fechaPublicacion ]
       });
       this.chat = await this.chatService.chatLeido(this.chatId);
@@ -126,6 +136,11 @@ export class ChatComponent implements OnInit {
     //--------------------------------------------------------------------------
 
     this.imagenMostrar = this.producto.imagenes[0];
+  }
+
+  get mensajes()
+  {
+    return this.chatForm.get('mensajes');
   }
 
   verProducto(id: number ){

@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 import { FileUploadService } from '../../services/file-upload.service';
 import { SubirImagenService } from 'src/app/services/subir-imagen.service';
 import { Proveedor } from '../../models/proveedor';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 
 
 const base_url = environment.base_url;
@@ -40,6 +43,8 @@ export class ActualizarProductoComponent implements OnInit {
   public accesoDenegado: boolean = false;
   public direccionImagen = base_url+"/upload/productos/"
   public imagenesSubir: File[];
+  public spam: Spam;
+  public expresionesSpam: string[];
 
   constructor(private activatedRoute: ActivatedRoute,
     private fb:FormBuilder,
@@ -48,6 +53,7 @@ export class ActualizarProductoComponent implements OnInit {
     private http: HttpClient,
     private router:Router,
     private usuarioService: UsuarioService,
+    private spamService: SpamService,
     private subirImagenService: SubirImagenService){
 
       this.usuario =localStorage.getItem('usuario');
@@ -78,10 +84,12 @@ export class ActualizarProductoComponent implements OnInit {
       this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
       this.producto.proveedorNombre = this.proveedor;
       
-  
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
+
       this.productoForm = this.fb.group({
-        titulo: [ this.producto.titulo, Validators.required ],
-        descripcion: [ this.producto.descripcion, Validators.required ],
+        titulo: [ this.producto.titulo, [Validators.required, SpamValidator(this.expresionesSpam)]],
+        descripcion: [ this.producto.descripcion, [Validators.required, SpamValidator(this.expresionesSpam)]],
         categoria: [ this.producto.categoria,  Validators.required ],
         unidadesMinimas: [this.producto.unidadesMinimas, [Validators.required, this.unidadesMinimasIncorrecto]],
         stock: [ this.producto.stock, [Validators.required, this.stockIncorrecto]],
@@ -100,6 +108,16 @@ export class ActualizarProductoComponent implements OnInit {
   
   get datosTecnicos() {
     return this.productoForm.get('datosTecnicos') as FormArray;
+  }
+
+  get titulo()
+  {
+    return this.productoForm.get('titulo');
+  }
+
+  get descripcion()
+  {
+    return this.productoForm.get('descripcion');
   }
 
   addDatosTecnicos() {

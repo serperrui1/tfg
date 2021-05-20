@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="usuario != 'administrador' && incidencia">
+<div class="wrapper" *ngIf="usuario != 'administrador' && incidencia && incidenciaForm">
 
     <div class="row">
         <form class="form-registro" autocomplete="off" [formGroup]="incidenciaForm" (submit)="actualizarIncidencia()">
@@ -17,7 +17,7 @@
                         <p class="card-title" *ngIf="!incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: pendiente de asignación</p>
                         <p class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: por resolver</p>
                         <p class="card-title" *ngIf="incidencia.resuelto" style="color: rgb(122, 122, 122); ">Estado: resuelta</p>
-                        <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}.</p>
+                        <p class="card-title" style="color: rgb(122, 122, 122); " *ngIf="incidencia.mensajes.length != 0">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}} enviado por {{ultimoNombre}}.</p>
 
                         <hr>
                         <div class="form-group" *ngIf="comp || prov && !incidencia.resuelto">
