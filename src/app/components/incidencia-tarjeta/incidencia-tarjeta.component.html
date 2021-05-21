@@ -12,7 +12,7 @@
                 <p class="card-title" *ngIf="!incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: pendiente de asignación</p>
                 <p class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: por resolver</p>
                 <p class="card-title" *ngIf="incidencia.resuelto" style="color: rgb(122, 122, 122); ">Estado: resuelta</p>
-                <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}</p>
+                <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}.</p>
 
             </div>
         </div>

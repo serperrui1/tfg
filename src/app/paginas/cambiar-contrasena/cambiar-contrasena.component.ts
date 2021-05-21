@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -12,42 +15,53 @@ import Swal from 'sweetalert2';
 export class CambiarContrasenaComponent implements OnInit {
 
   formSubmited:boolean = false;
-
-  public contrasenaForm = this.fb.group({
-
-    password:['', [Validators.required, this.passwordFormatoNoValido]],
-    nuevaPassword:['', [Validators.required, this.passwordFormatoNoValido]],
-    nuevaPassword2:['', [Validators.required,]],
-    
-  },{
-    validators: this.passwordsIguales('nuevaPassword', 'nuevaPassword2')
-  })
+  public spam: Spam;
+  public expresionesSpam: string[];
+  public contrasenaForm: FormGroup;
   
-
   constructor(private usuarioService: UsuarioService, 
     private fb:FormBuilder,
+    private spamService: SpamService,
     private router:Router) { }
 
-  ngOnInit(){
-
-   
+  async ngOnInit(){
+    this.spam = (await this.spamService.getSpam())[0];
+    this.expresionesSpam = this.spam.expresiones;
+    this.contrasenaForm = this.fb.group({
+      password:['', [Validators.required, this.passwordFormatoNoValido, SpamValidator(this.expresionesSpam)]],
+      nuevaPassword:['', [Validators.required, this.passwordFormatoNoValido, SpamValidator(this.expresionesSpam)]],
+      nuevaPassword2:['', [Validators.required,  SpamValidator(this.expresionesSpam)]],
+    },{
+      validators: this.passwordsIguales('nuevaPassword', 'nuevaPassword2')
+    })
   }
 
   passwordsIguales(passName1:string, passName2:string){
     return(formGroup : FormGroup) =>{
-
-    const pass1Control = formGroup.get(passName1);
-    const pass2Control = formGroup.get(passName2);
-
-    if(pass1Control.value===pass2Control.value){
-      pass2Control.setErrors(null)
-    }else{
-      pass2Control.setErrors({noEsIgual:true})
+      const pass1Control = formGroup.get(passName1);
+      const pass2Control = formGroup.get(passName2);
+  
+      if(pass1Control.value===pass2Control.value){
+        pass2Control.setErrors(null)
+      }else{
+        pass2Control.setErrors({noEsIgual:true})
+      }
     }
+  }
 
+  get password()
+  {
+    return this.contrasenaForm.get('password');
+  }
 
-    }
-     
+  get nuevaPassword()
+  {
+    return this.contrasenaForm.get('nuevaPassword');
+  }
+
+  get nuevaPassword2()
+  {
+    return this.contrasenaForm.get('nuevaPassword2');
   }
   
 

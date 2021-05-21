@@ -7,8 +7,10 @@ import { SubirImagenService } from 'src/app/services/subir-imagen.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment'
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Producto } from 'src/app/models/producto';
 import { CargaImagenenesService } from 'src/app/services/carga-imagenenes.service';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 const base_url = environment.base_url;
 
 @Component({
@@ -28,6 +30,8 @@ export class CrearProductoComponent implements OnInit{
   public imgTemp: any = null;
   formSubmited:boolean = false;
   public urlImagenes:string[] = [];
+  public spam: Spam;
+  public expresionesSpam: string[];
   /* public stock: Number;
   public unidadesMinimas: Number; */
 
@@ -38,6 +42,7 @@ export class CrearProductoComponent implements OnInit{
     private usuarioService: UsuarioService,
     private subirImagenService: SubirImagenService,
     private cargaImagenService: CargaImagenenesService,
+    private spamService: SpamService,
     private router:Router) {
 
       this.usuario =localStorage.getItem('usuario');
@@ -47,11 +52,13 @@ export class CrearProductoComponent implements OnInit{
 
   async ngOnInit() {
     if(this.usuario === "proveedor" && this.token != null){
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
       
 
       this.crearProductoForm = this.fb.group({
-        titulo:['', Validators.required],
-        descripcion:['', Validators.required],
+        titulo:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
+        descripcion:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
         categoria:['Libros, Música, Vídeo y DVD', ],
         unidadesMinimas:['', [Validators.required, this.unidadesMinimasIncorrecto]],
         stock:['', [Validators.required, this.stockIncorrecto]],
@@ -72,6 +79,16 @@ export class CrearProductoComponent implements OnInit{
 
   get datosTecnicos() {
     return this.crearProductoForm.get('datosTecnicos') as FormArray;
+  }
+
+  get titulo()
+  {
+    return this.crearProductoForm.get('titulo');
+  }
+
+  get descripcion()
+  {
+    return this.crearProductoForm.get('descripcion');
   }
 
   addDatosTecnicos() {

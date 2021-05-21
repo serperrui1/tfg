@@ -44,6 +44,7 @@ export class IncidenciaComponent implements OnInit {
   public expresionesSpam: string[];
   public apellidosAsistente: string;
   public apellidosComprador: string;
+  public ultimoNombre = "";
 
 
   constructor(private fb:FormBuilder,
@@ -78,6 +79,10 @@ export class IncidenciaComponent implements OnInit {
         asignado: [ this.incidencia.asignado],
         resuelto: [ this.incidencia.resuelto],
       });
+      if(this.incidencia.mensajes.length != 0){
+        this.ultimoNombre = this.incidencia.mensajes[this.incidencia.mensajes.length - 1].substring(0,this.incidencia.mensajes[this.incidencia.mensajes.length - 1].indexOf(":"));
+      }
+      
 
       this.aT = await this.usuarioService.getAsistenteTecnico();
       if(this.aT != null){
@@ -88,13 +93,13 @@ export class IncidenciaComponent implements OnInit {
           } else if (await this.usuarioService.getProveedorNombre(this.incidencia.creadorId) != ""){
             this.proveedorNombre = await this.usuarioService.getProveedorNombre(this.incidencia.creadorId);
           }
-        this.autor = this.aT.nombre + ": ";
+        this.autor = this.aT.nombre + " " + this.aT.apellidos + ": ";
       }
 
       if(this.aT === null){
         this.comp = await this.usuarioService.getComprador();
         if(this.comp != null){
-          this.autor = this.comp.nombre + ": ";
+          this.autor = this.comp.nombre + " " + this.comp.apellidos + ": ";
         }
         if(this.comp === null){
           this.prov = await this.usuarioService.getProveedor();

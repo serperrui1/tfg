@@ -6,7 +6,6 @@ import { FaqService } from '../../services/faq.service';
 import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2';
 import { SpamValidator } from '../../Validaciones-Customizadas.directive';
-/* import { SpumValidator } from '../../spum-validator.component'; */
 import { Spam } from '../../models/spam';
 import { SpamService } from '../../services/spam.service';
 import { Router } from '@angular/router';

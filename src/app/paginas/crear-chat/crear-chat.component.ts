@@ -9,6 +9,9 @@ import { Producto } from '../../models/producto';
 import { ProductoService } from '../../services/producto.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 
 @Component({
   selector: 'app-crear-chat',
@@ -30,10 +33,13 @@ export class CrearChatComponent implements OnInit {
   public autor: string = "";
   public message: string = "";
   public chatId: string = "";
+  public spam: Spam;
+  public expresionesSpam: string[];
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
     private productoService : ProductoService,
+    private spamService: SpamService,
     private usuarioService: UsuarioService,
     private router: Router) {
       this.usuario =localStorage.getItem('usuario');
@@ -51,6 +57,8 @@ export class CrearChatComponent implements OnInit {
       this.productoId = JSON.parse(localStorage.getItem('productoId'));
       this.producto = await this.productoService.getProductoPorID(this.productoId);
       this.autor = this.compradorNombre.trim() + ": ";
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
 
 
       this.chatForm = this.fb.group({
@@ -58,13 +66,18 @@ export class CrearChatComponent implements OnInit {
         proveedorId: [ this.proveedorId ],
         productoId: [  this.productoId ],
         proveedorNombre: [ this.proveedorNombre ],
-        mensajes: ['', Validators.required ],
+        mensajes: ['', [Validators.required, SpamValidator(this.expresionesSpam)]],
       });
  
     } else{
       console.log("Para abrir un chat debes ser un comprador");
     };
 
+  }
+
+  get mensajes()
+  {
+    return this.chatForm.get('mensajes');
   }
 
   verProducto(id: number ){

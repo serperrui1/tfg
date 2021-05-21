@@ -17,6 +17,9 @@ import Swal from 'sweetalert2';
 import { Proveedor } from 'src/app/models/proveedor';
 import { ChatService } from '../../services/chat.service';
 import { CookieService } from 'ngx-cookie-service';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 
 
 const base_url = environment.base_url;
@@ -47,7 +50,6 @@ export class ProductoComponent implements OnInit {
   public items: Producto[] = [];
   public cantidades: number[] = [];
   public nombres: string[] = [];
-  /* public misChats: Chat[]; */
   public new: number;
   public estrellas: number;
   public contains:number = -1;
@@ -55,7 +57,6 @@ export class ProductoComponent implements OnInit {
   public token: string;
   public usuario:string;
   public flag: boolean = false;
-  /* public noValora: boolean = false; */
   public prov:Proveedor;
   public soyElProveedor:boolean = false;
   public yaValorado = false;
@@ -65,6 +66,8 @@ export class ProductoComponent implements OnInit {
   imagenFirebase:boolean= false;
   imagenesDeFirebase:boolean[]=[];
   precioTotal:number = 0;
+  public spam: Spam;
+  public expresionesSpam: string[];
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -73,6 +76,7 @@ export class ProductoComponent implements OnInit {
     private http: HttpClient,
     private usuarioService: UsuarioService,
     private pedidosService: PedidosService,
+    private spamService: SpamService,
     private fb:FormBuilder,
     private chatService: ChatService,
     private cookieService: CookieService){
@@ -93,6 +97,9 @@ export class ProductoComponent implements OnInit {
     this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
     this.producto.proveedorNombre = this.proveedor;
     this.precioTotal = (Math.round(this.producto.precio *this.producto.unidadesMinimas*100)/100)
+    console.log(this.producto.proveedor)
+    this.spam = (await this.spamService.getSpam())[0];
+    this.expresionesSpam = this.spam.expresiones;
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
@@ -161,28 +168,23 @@ export class ProductoComponent implements OnInit {
           this.pedidoId = pedido._id;
           this.valoracionForm = this.fb.group({
 
-              comentario:[ ,[Validators.required]],
+              comentario:[ ,[Validators.required , SpamValidator(this.expresionesSpam)]],
               puntuacion: ["0" , [Validators.required]]
           });
         }
       }
     }
     
-    if(this.cookieService.check('productosVistos')){
-      var ids:string = this.cookieService.get('productosVistos');
-      /* var categoriasCookie:string = this.cookieService.get('categoriasDeInteres'); */
-      if(!ids.includes(this.producto._id)){
-        this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
-        console.log("más de dos productos")
+    if(this.cookieService.get('cookiesAceptadas') == 'Sí'){
+      if(this.cookieService.check('productosVistos')){
+        var ids:string = this.cookieService.get('productosVistos');
+        if(!ids.includes(this.producto._id)){
+          this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
+        }
+        
+      } else {
+        this.cookieService.set('productosVistos', this.producto._id);
       }
-      /* if(!categoriasCookie.includes(this.producto.categoria)){
-        this.cookieService.set('categoriasDeInteres', this.cookieService.get('categoriasDeInteres')+' '+this.producto.categoria);
-      } */
-      
-    } else {
-      console.log("primer producto")
-      this.cookieService.set('productosVistos', this.producto._id);
-      /* this.cookieService.set('categoriasDeInteres', this.producto.categoria); */
     }
     
   }
@@ -192,6 +194,11 @@ export class ProductoComponent implements OnInit {
   }
   get cantidadProducto() {
      return this.productoForm.get('cantidadProducto').value; 
+  }
+
+  get comentario()
+  {
+    return this.valoracionForm.get('comentario');
   }
 
   borrarValoracion(valoracion:Valoracion) {
@@ -285,6 +292,13 @@ export class ProductoComponent implements OnInit {
       
    
     }
+  }
+
+  get comentarioNoValido(){
+    return this.comentarioCampoRequerido
+  }
+  get comentarioCampoRequerido(){
+    return this.valoracionForm.get('comentario').errors ? this.valoracionForm.get('comentario').errors.required && this.valoracionForm.get('comentario').touched : null
   }
 
 
