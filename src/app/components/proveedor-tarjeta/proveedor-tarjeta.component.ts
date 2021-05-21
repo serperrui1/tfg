@@ -21,6 +21,7 @@ export class ProveedorTarjetaComponent implements OnInit {
   public direccionImagen = base_url+"/upload/proveedores/"
   @Output() proveedorSeleccionado: EventEmitter<string>;
   estrellas= 0;
+  imagenFirebase:boolean=false;
 
   constructor(private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
@@ -36,6 +37,9 @@ export class ProveedorTarjetaComponent implements OnInit {
   async ngOnInit() {
     if(localStorage.getItem("usuario")=="administrador"){
       this.admin = await this.usuarioService.getAdministrador();
+    }
+    if(this.proveedor.img.startsWith("https")){
+      this.imagenFirebase = true;
     }
     this.estrellas = this.proveedor.puntuacionMedia;
     let estrella = String(this.estrellas);
