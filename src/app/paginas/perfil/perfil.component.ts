@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment'
 import { Proveedor } from 'src/app/models/proveedor';
 import { Administrador } from 'src/app/models/administrador';
 import { AsistenteTecnico } from 'src/app/models/asistente';
+import { CargaImagenenesService } from 'src/app/services/carga-imagenenes.service';
 const base_url = environment.base_url;
 
 @Component({
@@ -30,10 +31,12 @@ export class perfilComponent implements OnInit {
   public imagenSubir: File;
   public imgTemp: any = null;
   public usuario:string;
+  public urlImagen:string
   /* public accesoDenegado: boolean = false; */
 
   constructor(private fb: FormBuilder,
     private usuarioService: UsuarioService,
+    private cargaImagenService: CargaImagenenesService,
     private fileUploadService: FileUploadService) { 
    this.usuario =localStorage.getItem('usuario') || "";
   }
@@ -54,6 +57,7 @@ export class perfilComponent implements OnInit {
       localidad:[this.comprador.localidad,[ Validators.required] ],
       direccionResidencia:[this.comprador.direccionResidencia,[ Validators.required] ],
       codigoPostal:[this.comprador.codigoPostal,[ Validators.required, this.codigoPostalFormatoNoValido] ],
+      img:['']
     });
 
   }else if(this.usuario==="proveedor"){
@@ -69,7 +73,8 @@ export class perfilComponent implements OnInit {
       nif:[this.proveedor.nif,[, Validators.pattern('^[0-9]{8}[A-Z]{1}$')] ],
       direccion: [ this.proveedor.direccion , Validators.required ],
       cuentaBancariaIBAN:[this.proveedor.cuentaBancariaIBAN,[ Validators.required, Validators.pattern('^[A-Z]{2}[0-9]{22}$')] ],
-      titularCuenta: [ this.proveedor.titularCuenta , Validators.required ]
+      titularCuenta: [ this.proveedor.titularCuenta , Validators.required ],
+      img:['']
 
     });
 
@@ -80,6 +85,7 @@ export class perfilComponent implements OnInit {
       nombre: [ this.administrador.nombre , Validators.required ],
       apellidos: [ this.administrador.apellidos , Validators.required ],
       email:[this.administrador.email],
+      img:['']
     });
 
   }else if(this.usuario==="asistenteTecnico"){
@@ -89,24 +95,25 @@ export class perfilComponent implements OnInit {
       nombre: [ this.asistenteTecnico.nombre , Validators.required ],
       apellidos: [ this.asistenteTecnico.apellidos , Validators.required ],
       email:[this.asistenteTecnico.email],
+      img:['']
 
     });
   }
   }
 
 
-actualizarCompradorPerfil() {
+async actualizarCompradorPerfil() {
 
     if(this.perfilCompradorForm.invalid){
       this.perfilCompradorForm.markAllAsTouched()
       return;
     }
-
+    await this.subirImagen(this.imagenSubir);
+    this.perfilCompradorForm.controls['img'].setValue(this.urlImagen);
     this.usuarioService.actualizarCompradorPerfil( this.perfilCompradorForm.value, this.comprador.uid ).subscribe( () => {
     /* const { nombre, email } = this.perfilCompradorForm.value;
     this.comprador.nombre = nombre;
     this.comprador.email = email; */
-    this.subirImagen();
     Swal.fire('Guardado', 'Perfil actualizado.', 'success');
     location.reload();
     }, (err)=> {
@@ -115,7 +122,7 @@ actualizarCompradorPerfil() {
 
   }
   
-actualizarProveedorPerfil() {
+  async actualizarProveedorPerfil() {
 
   
 
@@ -132,9 +139,9 @@ actualizarProveedorPerfil() {
     
     this.perfilProveedorForm.value["nif"] = "";
   }
-
+  await this.subirImagen(this.imagenSubir);
+  this.perfilProveedorForm.controls['img'].setValue(this.urlImagen);
   this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid ).subscribe( () => {
-    this.subirImagen();
     Swal.fire('Guardado', 'Perfil actualizado.', 'success');
     location.reload();
   }, (err)=> {
@@ -143,15 +150,17 @@ actualizarProveedorPerfil() {
 
 }
 
-actualizarAdministradorPerfil() {
+async actualizarAdministradorPerfil() {
 
     if(this.perfilAdministradorForm.invalid){
       this.perfilAdministradorForm.markAllAsTouched()
       return;
     }
-
+    
+    await this.subirImagen(this.imagenSubir);
+    this.perfilAdministradorForm.controls['img'].setValue(this.urlImagen);
     this.usuarioService.actualizarAdministradorPerfil( this.perfilAdministradorForm.value, this.administrador.uid ).subscribe( () => {
-      this.subirImagen();
+
       Swal.fire('Guardado', 'Perfil actualizado.', 'success');
       location.reload();
     }, (err) => {
@@ -159,15 +168,15 @@ actualizarAdministradorPerfil() {
     });
   }
 
-actualizarAsistenteTecnicoPerfil() {
+  async actualizarAsistenteTecnicoPerfil() {
 
   if(this.perfilAsistenteTecnicoForm.invalid){
     this.perfilAsistenteTecnicoForm.markAllAsTouched()
     return;
   }
-
+  await this.subirImagen(this.imagenSubir);
+  this.perfilAsistenteTecnicoForm.controls['img'].setValue(this.urlImagen);
   this.usuarioService.actualizarAsistenteTecnicoPerfil( this.perfilAsistenteTecnicoForm.value, this.asistenteTecnico.uid ).subscribe( () => {
-      this.subirImagen();
       Swal.fire('Guardado', 'Perfil actualizado.', 'success');
       location.reload();
     }, (err) => {
@@ -192,48 +201,55 @@ actualizarAsistenteTecnicoPerfil() {
   }
 
 
-  subirImagen() {
-    if(this.usuario==="comprador"){
-      this.fileUploadService
-      .actualizarFoto( this.imagenSubir, 'compradores', this.comprador.uid )
-      .then( img => {
-        this.comprador.img = img;
-      }).catch( err => {
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      })
-    }
+  // subirImagen() {
+  //   if(this.usuario==="comprador"){
+  //     this.fileUploadService
+  //     .actualizarFoto( this.imagenSubir, 'compradores', this.comprador.uid )
+  //     .then( img => {
+  //       this.comprador.img = img;
+  //     }).catch( err => {
+  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+  //     })
+  //   }
 
-    else if(this.usuario==="proveedor"){
-      this.fileUploadService
-      .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
-      .then( img => {
-        this.proveedor.img = img;
-      }).catch( err => {
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      })
-    }
-    else if(this.usuario==="asistenteTecnico"){
-      this.fileUploadService
-      .actualizarFoto( this.imagenSubir, 'asistentes', this.asistenteTecnico.uid )
-      .then( img => {
-        this.asistenteTecnico.img = img;
-      }).catch( err => {
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      })
-    }
-    else if(this.usuario==="administrador"){
-      this.fileUploadService
-      .actualizarFoto( this.imagenSubir, 'administradores', this.administrador.uid )
-      .then( img => {
-        this.administrador.img = img;
-      }).catch( err => {
-        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-      })
-    }
+  //   else if(this.usuario==="proveedor"){
+  //     this.fileUploadService
+  //     .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
+  //     .then( img => {
+  //       this.proveedor.img = img;
+  //     }).catch( err => {
+  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+  //     })
+  //   }
+  //   else if(this.usuario==="asistenteTecnico"){
+  //     this.fileUploadService
+  //     .actualizarFoto( this.imagenSubir, 'asistentes', this.asistenteTecnico.uid )
+  //     .then( img => {
+  //       this.asistenteTecnico.img = img;
+  //     }).catch( err => {
+  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+  //     })
+  //   }
+  //   else if(this.usuario==="administrador"){
+  //     this.fileUploadService
+  //     .actualizarFoto( this.imagenSubir, 'administradores', this.administrador.uid )
+  //     .then( img => {
+  //       this.administrador.img = img;
+  //     }).catch( err => {
+  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+  //     })
+  //   }
     
    
     
+  // }
+
+  async subirImagen(imagenSubir:File){
+    let nombre = Math.random().toString() + imagenSubir.name; 
+    await this.cargaImagenService.subirCloudStorage(nombre, imagenSubir);
+    this.urlImagen = await this.cargaImagenService.referenciaCloudStorage(nombre);
   }
+  
 
   get imagenUrl(){
     if(this.usuario==="comprador"){

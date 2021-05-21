@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Producto } from '../models/producto';
 import { map, tap } from 'rxjs/operators';
 import { CrearProductoComponent } from '../paginas/crear-producto/crear-producto.component';
+import Swal from 'sweetalert2';
 
 const base_url = environment.base_url;
 
@@ -14,7 +15,8 @@ const base_url = environment.base_url;
 
 export class ProductoService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private router:Router) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -140,14 +142,29 @@ export class ProductoService {
   
 
 
-  crearProducto( formData: CrearProductoComponent):Promise<string>{
+  crearProducto( formData: FormData, urlImagenes:string[]):Promise<string>{
 
+    let data={
+      formData,
+      urlImagenes
+    }
+    
+    console.log(formData);
     return new Promise<string> (resolve=> {
 
-      this.http.post(`${ base_url }/productos`, formData, this.headers )
+      this.http.post(`${ base_url }/productos`, data, this.headers )
       .subscribe(data =>{
-        const productoId:string= data["producto"]["_id"];
-        resolve(productoId);
+        if(data["ok"]==true){
+          const productoId:string= data["producto"]["_id"];
+          resolve(productoId);
+          Swal.fire('Guardado', 'Producto creado.', 'success');
+          this.router.navigateByUrl("/producto/"+productoId);
+
+        }else{
+          resolve(data["msg"]);
+          Swal.fire('Error', 'No se ha creado el producto, ha habido un error.', 'error');
+        }
+        
       });
     } )
   }

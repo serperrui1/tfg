@@ -18,12 +18,16 @@ export class CompradorTarjetaComponent implements OnInit {
   @Input() comprador: Comprador;
   public admin: Administrador;
   public direccionImagen = base_url+"/upload/compradores/"
+  imagenFirebase:boolean= false;
 
   constructor(private usuarioService: UsuarioService,
     private router: Router) { }
 
   async ngOnInit() {
     this.admin = await this.usuarioService.getAdministrador();
+    if(this.comprador.img.startsWith("https")){
+      this.imagenFirebase = true;
+    }
   }
 
   borrarComprador(){

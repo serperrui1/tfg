@@ -18,12 +18,16 @@ export class AsistenteTarjetaComponent implements OnInit {
   @Input() asistente: AsistenteTecnico;
   public admin: Administrador;
   public direccionImagen = base_url+"/upload/asistentes/"
+  imagenFirebase:boolean= false;
 
   constructor(private usuarioService: UsuarioService,
     private router: Router) { }
 
     async ngOnInit() {
     this.admin = await this.usuarioService.getAdministrador();
+    if(this.asistente.img.startsWith("https")){
+      this.imagenFirebase = true;
+    }
   }
 
   borrarAsistente(){

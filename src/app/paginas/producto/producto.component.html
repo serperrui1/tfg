@@ -7,11 +7,13 @@
 
         <div class="col-md-3 producto-izquierda">
             <div style="height: 250px;">
-                <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
+                <img *ngIf="!imagenFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen">
+                <img *ngIf="imagenFirebase" src="{{imagenMostrar}}" class="imagen">
             </div>
             <div class="row">
-                <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
-                    <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                <div *ngFor="let imagen of producto.imagenes; let i = index" class="col-md-2 imagenes-container">
+                    <img *ngIf="!imagenesDeFirebase[i]" src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                    <img *ngIf="imagenesDeFirebase[i]" src="{{imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                 </div>
             </div>
         </div>
@@ -47,10 +49,10 @@
         <div class="col-md-2 infoFinal " *ngIf="!soyElProveedor">
             <div class="contenido-infoFinal">
                 <div *ngIf="!(producto.unidadesMinimas >= producto.stock); else noStock">
-                    <strong style="color:red">{{producto.precio * cantidadProducto}}€</strong> con {{cantidadProducto}} unidades
+                    <strong style="color:red">{{precioTotal}}€</strong> con {{cantidadProducto}} unidades
                     <div>
                         <strong style="color: green;">En stock</strong>
-                        <form [formGroup]="productoForm">
+                        <form [formGroup]="productoForm" (change)="cambiaPrecioTotal()">
                             <label for="cantidad"><a>Cantidad : </a></label>
                             <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
                         </form>

@@ -63,9 +63,11 @@ export class ProductoComponent implements OnInit {
   public miValoracion :Valoracion;
   public imagenMostrar :string;
   public existeChat:string;
+  imagenFirebase:boolean= false;
+  imagenesDeFirebase:boolean[]=[];
+  precioTotal:number = 0;
   public spam: Spam;
   public expresionesSpam: string[];
-
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -92,15 +94,35 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
+    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
+    this.producto.proveedorNombre = this.proveedor;
+    this.precioTotal = (Math.round(this.producto.precio *this.producto.unidadesMinimas*100)/100)
     console.log(this.producto.proveedor)
     this.spam = (await this.spamService.getSpam())[0];
     this.expresionesSpam = this.spam.expresiones;
-
-   
-    
     this.productoForm = new FormGroup({
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
+    
+    for(let i =0;i <= this.producto.imagenes.length; i++){
+      if(this.producto.imagenes[i].startsWith("https")){
+        this.imagenesDeFirebase.push(true);
+      }else{
+        this.imagenesDeFirebase.push(false);
+      }
+    if(this.producto.imagenes[0].startsWith("https")){
+      this.imagenFirebase = true;
+    }else{
+      this.imagenFirebase = false;
+    }
+    this.imagenMostrar = this.producto.imagenes[0];
+    }
+    this.proveedorId = this.producto.proveedor;
+
+
+   
+    
+   
     
     if (this.usuario =="proveedor"){
       this.soyElProveedor = await this.productoService.soyElProveedor(this.id);
@@ -113,7 +135,7 @@ export class ProductoComponent implements OnInit {
     }
  
     this.producto.descripcion = this.producto.descripcion.replace(/(?:\r\n|\r|\n)/g, '\n');
-    this.imagenMostrar = this.producto.imagenes[0];
+ 
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
       this.nombres.push(this.valoradoPor);
@@ -127,12 +149,7 @@ export class ProductoComponent implements OnInit {
     };
     
 
-    this.proveedorId = this.producto.proveedor;
-          
 
-
-    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
-    this.producto.proveedorNombre = this.proveedor;
 
     this.productoForm.get('cantidadProducto').valueChanges.subscribe(val => {
       const formattedMessage = val;
@@ -172,6 +189,9 @@ export class ProductoComponent implements OnInit {
     
   }
 
+  cambiaPrecioTotal(){
+    this.precioTotal = Math.round(this.producto.precio * this.productoForm.get('cantidadProducto').value *100)/100;
+  }
   get cantidadProducto() {
      return this.productoForm.get('cantidadProducto').value; 
   }

@@ -20,6 +20,7 @@ export class PedidoTarjetaComponent implements OnInit {
   public pedidoId: string = "";
   @Input() pedido: Pedido;
   public direccionImagen = base_url+"/upload/productos/"
+  imagenFirebase:boolean= false;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
@@ -29,6 +30,12 @@ export class PedidoTarjetaComponent implements OnInit {
 
   async ngOnInit() {
     this.producto= await this.productoService.getProductoPorID(this.pedido.producto);
+
+    if(this.producto.imagenes.length>0){
+      if(this.producto.imagenes[0].startsWith("https")){
+        this.imagenFirebase = true;
+      }
+    }
     this.productoId = this.producto._id;
     this.pedidoId = this.pedido._id;
   }

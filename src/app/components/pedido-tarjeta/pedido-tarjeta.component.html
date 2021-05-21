@@ -1,7 +1,8 @@
 <div class="col mb-4 animated fadeIn tarjeta">
     <div class="row ">
         <div class="col-md-3" *ngIf="producto">
-            <img class="card-img-top mt-4" style="max-height: 90px;" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img *ngIf="!imagenFirebase" class="card-img-top mt-4" style="max-height: 90px;" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img *ngIf="imagenFirebase" class="card-img-top mt-4" style="max-height: 90px;" src="{{producto.imagenes[0]}}" alt="Card image cap">
         </div>
         <div class="col-md-1" *ngIf="!producto"></div>
         <div class="col-md-1 mt-3" *ngIf="!producto">
