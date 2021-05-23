@@ -56,6 +56,7 @@ export class ProductoComponent implements OnInit {
   public comp: Comprador;
   public token: string;
   public usuario:string;
+  public stars = 0;
   public flag: boolean = false;
   public prov:Proveedor;
   public soyElProveedor:boolean = false;
@@ -94,6 +95,14 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
+
+    this.stars = this.producto.puntuacionMedia;
+    let estrella = String(this.stars);
+    if (estrella.includes(".")){//es decimal
+      let entero = estrella.charAt(0);
+      this.stars = Number(entero);
+    }
+    
     this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
     this.producto.proveedorNombre = this.proveedor;
     this.precioTotal = (Math.round(this.producto.precio *this.producto.unidadesMinimas*100)/100)
@@ -121,7 +130,7 @@ export class ProductoComponent implements OnInit {
 
 
    
-    
+    console.log(1)
    
     
     if (this.usuario =="proveedor"){
@@ -176,6 +185,7 @@ export class ProductoComponent implements OnInit {
     }
     
     if(this.cookieService.get('cookiesAceptadas') == 'Sí'){
+      console.log("viendo el producto")
       if(this.cookieService.check('productosVistos')){
         var ids:string = this.cookieService.get('productosVistos');
         if(!ids.includes(this.producto._id)){

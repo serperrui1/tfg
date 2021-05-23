@@ -10,30 +10,35 @@
                 <img *ngIf="!imagenFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen">
                 <img *ngIf="imagenFirebase" src="{{imagenMostrar}}" class="imagen">
             </div>
-            <div class="row">
+            <div class="row mt-5">
                 <div *ngFor="let imagen of producto.imagenes; let i = index" class="col-md-2 imagenes-container">
                     <img *ngIf="!imagenesDeFirebase[i]" src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                     <img *ngIf="imagenesDeFirebase[i]" src="{{imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                 </div>
             </div>
+            <div class="row mt-2" style="margin-left: 25%">
+                <ngb-rating [max]="5" [(rate)]="stars" [readonly]="true"></ngb-rating>
+                <p style="margin-top: 6px">({{producto.puntuacionMedia}}) </p>
+            </div>
         </div>
 
 
         <div class="col-md-5 producto-derecha">
-            <h3 style="text-align: left;">{{producto.titulo}}</h3>
-            Tienda de:
-            <a routerLink="/escaparate/{{proveedorId}}" class="link">{{producto.proveedorNombre}} </a> <br> Categoría del producto: <a>{{producto.categoria}} </a> <br> Subcategoría: <a>{{producto.subcategoria}} </a> <br>
-            <div>
-                <p class="precio-unidades">Precio por unidad: {{producto.precio}}€ </p>
-                <p class="precio-unidades">Unidades mínimas: {{producto.unidadesMinimas}}</p>
-                <br>
-            </div>
-            <p style="white-space: pre-wrap">
-                {{producto.descripcion}}
-            </p>
+            <h4 style="text-align: left;">{{producto.titulo}}</h4>
+            Tienda:
+            <a routerLink="/escaparate/{{proveedorId}}" class="link">{{producto.proveedorNombre}} </a>
+            <br> Categoría: <a>{{producto.categoria}} </a>
+            <br> Subcategoría: <a>{{producto.subcategoria}} </a>
+            <p class="precio-unidades">Precio por unidad: {{producto.precio}}€ </p>
+            <p class="precio-unidades">Unidades mínimas: {{producto.unidadesMinimas}}</p>
+            <p class="precio-unidades">Stock: {{producto.stock}}</p>
+            <p class="precio-unidades">Ventas: {{producto.unidadesVendidas}} </p>
+            <p class="precio-unidades">Valoraciones: {{producto.valoraciones.length}}</p>
+            <br>
+            <p><u>Descripción:</u><br> {{producto.descripcion}}</p>
             <br>
             <div class="detalles-tecnicos" *ngIf="producto.datosTecnicos[0]">
-                <h4 class="titulo-detalles text-left">Detalles técnicos</h4>
+                <h5 class="titulo-detalles text-left">Detalles técnicos</h5>
                 <table class="table table-bordered titulo-detalles">
                     <tbody>
                         <tr *ngFor="let datos of producto.datosTecnicos">
