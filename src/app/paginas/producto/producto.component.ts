@@ -68,6 +68,7 @@ export class ProductoComponent implements OnInit {
   imagenesDeFirebase:boolean[]=[];
   precioTotal:number = 0;
   public spam: Spam;
+  public apellidosComprador: string;
   public expresionesSpam: string[];
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -95,6 +96,19 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
+    
+    if(this.cookieService.get('cookiesAceptadas') == 'Sí'){
+      console.log("viendo el producto")
+      if(this.cookieService.check('productosVistos')){
+        var ids:string = this.cookieService.get('productosVistos');
+        if(!ids.includes(this.producto._id)){
+          this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
+        }
+        
+      } else {
+        this.cookieService.set('productosVistos', this.producto._id);
+      }
+    }
 
     this.stars = this.producto.puntuacionMedia;
     let estrella = String(this.stars);
@@ -113,7 +127,7 @@ export class ProductoComponent implements OnInit {
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
     
-    for(let i =0;i <= this.producto.imagenes.length; i++){
+    for(let i =0;i <= this.producto.imagenes.length -1; i++){
       if(this.producto.imagenes[i].startsWith("https")){
         this.imagenesDeFirebase.push(true);
       }else{
@@ -148,6 +162,9 @@ export class ProductoComponent implements OnInit {
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
       this.nombres.push(this.valoradoPor);
+      var buyer = (await this.usuarioService.getCompradores()).filter((e) => e.uid == val.comprador);
+      this.apellidosComprador = buyer[0].apellidos;
+      console.log(this.nombres);
       if(this.comp){
         if(val.comprador == this.comp.uid) {
         this.miValoracion = val;
@@ -184,18 +201,7 @@ export class ProductoComponent implements OnInit {
       }
     }
     
-    if(this.cookieService.get('cookiesAceptadas') == 'Sí'){
-      console.log("viendo el producto")
-      if(this.cookieService.check('productosVistos')){
-        var ids:string = this.cookieService.get('productosVistos');
-        if(!ids.includes(this.producto._id)){
-          this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
-        }
-        
-      } else {
-        this.cookieService.set('productosVistos', this.producto._id);
-      }
-    }
+    
     
   }
 

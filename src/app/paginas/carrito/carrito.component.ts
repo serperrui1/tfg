@@ -54,7 +54,7 @@ export class CarritoComponent implements OnInit{
 
     for (let i = 0; i < this.items.length; i++) {
       this.cantidad = Number(this.cantidades[i]);
-      this.costeLinea = this.items[i].precio * (Number(this.cantidades[i]));
+      this.costeLinea = Math.round(this.items[i].precio * (Number(this.cantidades[i]))*100)/100;
       this.subtotal = this.subtotal + this.costeLinea;
 
       this.total = this.subtotal 

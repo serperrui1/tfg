@@ -55,7 +55,6 @@ export class ActualizarProductoComponent implements OnInit {
     private http: HttpClient,
     private router:Router,
     private usuarioService: UsuarioService,
-    private subirImagenService: SubirImagenService,
     private cargaImagenService: CargaImagenenesService,
     private spamService: SpamService){
 

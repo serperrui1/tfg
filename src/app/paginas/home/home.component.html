@@ -88,7 +88,7 @@
 <h3 class="mt-5 mb-1 text-center" *ngIf="productosSegunCategoria.length == 0" style="color: rgb(68, 68, 68);">Tal vez te pueda interesar...</h3>
 
 <div class="row centrado mt-0" *ngIf="productosSegunCategoria.length == 0">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="!productosCategoriaRandom1.length==0">
         <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● {{productosCategoriaRandom1[0].categoria}} ●</h5>
     </div>
 </div>
@@ -103,7 +103,7 @@
 
 <div class="row centrado mt-0" *ngIf="productosSegunCategoria.length == 0">
     <div class="col-md-12">
-        <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● {{productosCategoriaRandom2[0].categoria}} ●</h5>
+        <h5 class="mt-3 mb-2 text-center" *ngIf="!productosCategoriaRandom2.length==0" style="color: rgb(122, 122, 122);">● {{productosCategoriaRandom2[0].categoria}} ●</h5>
     </div>
 </div>
 
