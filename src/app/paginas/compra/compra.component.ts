@@ -44,7 +44,7 @@ export class CompraComponent implements OnInit {
       this.cantidades.push(cantidad)
     }
     for(let i = 0; i< this.productos.length; i++){
-      this.precioTotal = this.precioTotal + (this.productos[i].precio * this.cantidades[i]);
+      this.precioTotal = this.precioTotal + (Math.round(this.productos[i].precio * this.cantidades[i]*100)/100);
       if(this.productos[i].unidadesMinimas>this.cantidades[i] || this.productos[i].stock<this.cantidades[i]){
         this.quitarDelCarrito(i)
         Swal.fire('Error', 'no hay suficiente stock de' + this.productos[i].titulo).then((result) => {
@@ -87,7 +87,7 @@ export class CompraComponent implements OnInit {
     }).render(this.paypalElement.nativeElement);
 }
 
-comprar(){
+async comprar(){
   if(this.nuevoComprador){
     let nuevaDireccion = this.datosPedidoForm.value;
     for(let i = this.productos.length -1 ; i>=0 ; i--){
@@ -99,14 +99,14 @@ comprar(){
         this.pedido.numeroTelefono = nuevaDireccion.numeroTelefono;
         this.pedido.producto = this.productos[i]._id;
         this.pedido.unidades = this.cantidades[i];
-        this.pedido.precio = this.productos[i].precio * this.cantidades[i];
+        this.pedido.precio = Math.round((this.productos[i].precio * this.cantidades[i]*100)/100);
         this.pedido.proveedor = this.productos[i].proveedor;
         this.pedido.tituloProducto = this.productos[i].titulo;
         this.pedido.categoria = this.productos[i].categoria;
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)
-  
+        await this.crearTracking();
         Swal.fire('éxito', 'se realizo el pedido', 'success');
         this.router.navigateByUrl('/mis-pedidos');
       }else{
@@ -125,7 +125,7 @@ comprar(){
         this.pedido.numeroTelefono = this.comprador.numeroTelefono;
         this.pedido.producto = this.productos[i]._id;
         this.pedido.unidades = this.cantidades[i];
-        this.pedido.precio = this.productos[i].precio * this.cantidades[i];
+        this.pedido.precio = Math.round((this.productos[i].precio * this.cantidades[i]*100)/100);
         this.pedido.proveedor = this.productos[i].proveedor;
         this.pedido.tituloProducto = this.productos[i].titulo;
         this.pedido.categoria = this.productos[i].categoria;
@@ -133,7 +133,8 @@ comprar(){
         
         this.quitarDelCarrito(i)
   
-    
+        await this.crearTracking();
+
         Swal.fire('éxito', 'se realizo el pedido', 'success');
         this.router.navigateByUrl('/mis-pedidos');
         
@@ -162,6 +163,41 @@ comprar(){
     localStorage.removeItem('cantidades');
     localStorage.setItem('items', JSON.stringify(items));
     localStorage.setItem('cantidades', JSON.stringify(cantidades));
+  }
+
+  async crearTracking(){
+
+    
+    var body = {
+      'platform_name': 'Amazon',
+      'platform_order_number': '#1234',
+      'selected_courier_id': 'b8d528a7-a2d4-4510-a7ac-11cbbb6542cd',
+      'destination_country_alpha2': 'US',
+      'destination_city': 'New York',
+      'destination_postal_code': '10022',
+      'destination_state': 'NY',
+      'destination_name': 'Aloha Chen',
+      'destination_company_name': 'My Company',
+      'destination_address_line_1': '300 Park Avenue',
+      'destination_address_line_2': null,
+      'destination_phone_number': '+1 234-567-890',
+      'destination_email_address': 'api-support@easyship.com',
+      'items': [
+        {
+          'description': 'Silk dress',
+          'sku': 'test',
+          'actual_weight': 1.2,
+          'height': 10,
+          'width': 15,
+          'length': 20,
+          'category': 'fashion',
+          'declared_currency': 'EUR',
+          'declared_customs_value': 100
+        }
+      ]
+    };
+    await this.compraService.creareEnvio(body);
+
   }
 
 }

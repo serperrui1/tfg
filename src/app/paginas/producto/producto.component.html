@@ -1,5 +1,5 @@
 <!-- <app-navbar [cuant]=(cantidades)></app-navbar> -->
-<div class="wrapper" style="margin: auto; padding-top: 20px;" *ngIf="producto">
+<div class="wrapper" style="margin: auto; padding-top: 20px;" *ngIf="producto && productoForm">
 
     <div class="row">
 
@@ -111,9 +111,9 @@
         <div class="col-md-5 titulo-valorar" *ngIf="flag || yaValorado">
             <h4 *ngIf="yaValorado"> Todas las valoraciones </h4>
             <h4 *ngIf="!yaValorado && producto.valoraciones.length>0"> Valoraciones </h4>
-            <div class="alert" *ngFor="let item of producto.valoraciones; let i = index">
+            <div class="alert" *ngFor="let item of producto.valoraciones; let i = index" >
                 <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
-                <p>Publicado por: {{this.nombres[i]}}</p>
+                <p >Publicado por: {{this.nombres[i]}}</p>
                 <p> {{item.comentario}}</p>
             </div>
         </div>

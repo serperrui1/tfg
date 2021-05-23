@@ -45,6 +45,24 @@ export class CompraService {
     } )
   }
 
+  creareEnvio( data: any):Promise<any>{
+
+    return new Promise<any> (resolve=> {
+
+      this.http.post('https://api.easyship.com/shipment/v1/shipments', data, {
+        headers: {
+          'Content-Type' : 'application/json',
+          'Authorization': 'Bearer sand_FARyvq2UDXZWY4zpHqYUXUSG+kbvJyfs5JH/EK99g8U='
+        }
+        
+      } )
+      .subscribe(data =>{
+        console.log(data);
+        resolve(data);
+      });
+    } )
+  }
+
 
   
   redsys(pedido: Pedido):Promise<any>{

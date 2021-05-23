@@ -104,7 +104,7 @@ export class ProductoComponent implements OnInit {
       cantidadProducto: new FormControl(this.producto.unidadesMinimas)
     });
     
-    for(let i =0;i <= this.producto.imagenes.length; i++){
+    for(let i =0;i <= this.producto.imagenes.length -1; i++){
       if(this.producto.imagenes[i].startsWith("https")){
         this.imagenesDeFirebase.push(true);
       }else{
