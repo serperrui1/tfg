@@ -19,11 +19,13 @@ export class ProductoTarjetaComponent implements OnInit{
   public direccionImagen = base_url+"/upload/productos/"
   @Output() productoSeleccionado: EventEmitter<string>;
   estrellas= 0;
+  imagenFirebase:boolean= false;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
     private http: HttpClient,
     private router: Router){
+      
       this.productoSeleccionado = new EventEmitter();
   }
 
@@ -32,6 +34,11 @@ export class ProductoTarjetaComponent implements OnInit{
   }
 
   async ngOnInit() {
+    if(this.producto.imagenes.length>0){
+      if(this.producto.imagenes[0].startsWith("https")){
+        this.imagenFirebase = true;
+      }
+    }
     this.estrellas = this.producto.puntuacionMedia;
     let estrella = String(this.estrellas);
     if (estrella.includes(".")){//es decimal

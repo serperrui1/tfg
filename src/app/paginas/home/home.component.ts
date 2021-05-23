@@ -3,6 +3,7 @@ import { ProductoService } from '../../services/producto.service';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,35 @@ export class HomeComponent implements OnInit  {
     private cookieService: CookieService) { }
 
   async ngOnInit() {
+
+    /* this.cookieService.set('cookiesAceptadas', ""); */
+    if(!this.cookieService.check('cookiesAceptadas')){
+      Swal.fire({
+        title: '<strong>COOKIES</strong>',
+        icon: 'info',
+        html: 'Utilizamos <b>cookies propias</b> para ofrecerte una mejor experiencia '+
+        'y servicio, de acuerdo a tus hábitos de navegación.<br><b>¿Estás conforme?</b><br>'+
+        'Puedes revisar nuestra política de cookies en nuestros '+
+        '<a href="/terminos-uso-y-aviso-legal">términos de uso</a>.',
+        /* showCloseButton: true, */
+        showCancelButton: true,
+        focusConfirm: false,
+        position: 'bottom-end',
+        allowOutsideClick: false,
+        confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i> Sí',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+          '<i class="fa fa-thumbs-down"></i> No',
+        cancelButtonAriaLabel: 'Thumbs down'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.cookieService.set('cookiesAceptadas', "Sí");
+        } else {
+          this.cookieService.set('cookiesAceptadas', "No");
+        }
+      })
+    }
     
     this.productos = await (this.productoService.getProductos());
     this.productosCopy = this.productos;

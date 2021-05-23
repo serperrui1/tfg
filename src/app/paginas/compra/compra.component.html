@@ -81,7 +81,7 @@
                             <br>
                             <h5 class="card-title">Resumen de compra ({{productos.length}} productos)</h5>
                             <div class="espacio" *ngFor="let producto of productos; let i=index">
-                                {{i+1}}- Usted va a comprar {{cantidades[i]}} unidades del producto "{{producto.titulo}}" por un total de {{producto.precio * cantidades[i]}}€.
+                                {{i+1}}- Usted va a comprar {{cantidades[i]}} unidades del producto "{{producto.titulo}}" por un total de {{precioTotal}}€.
                             </div>
                             <br>
                             <div class="card-title text-center" #paypal></div>

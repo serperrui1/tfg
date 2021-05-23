@@ -88,6 +88,7 @@ export class NavbarComponent implements OnInit{
       }
     }
     if(this.comp){
+      if(this.misIncidencias.length>0){
       for (let i = 0; i < this.misIncidencias.length; i++) {
         this.incidencia = this.misIncidencias[i];
         if(!this.incidencia.leida && this.incidencia.ultimoEmisor != this.comp.uid){
@@ -95,9 +96,10 @@ export class NavbarComponent implements OnInit{
         }else{
           this.incidenciasNoLeidas = false;
         }
-      }
+      }}
     }
     if(this.prov){
+      if(this.misIncidencias.length>0){
       for (let i = 0; i < this.misIncidencias.length; i++) {
         this.incidencia = this.misIncidencias[i];
         if(!this.incidencia.leida && this.incidencia.ultimoEmisor != this.prov.uid){
@@ -106,6 +108,7 @@ export class NavbarComponent implements OnInit{
           this.incidenciasNoLeidas = false;
         }
       }
+    }
     }
     if(this.aT ){
       for (let i = 0; i < this.misIncidencias.length; i++) {

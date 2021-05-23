@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AngularFireStorageModule } from "@angular/fire/storage";
+import { AngularFireModule } from "@angular/fire";
 
 
 
@@ -154,7 +156,17 @@ import { ProductosCategoriaComponent } from './paginas/productos-categoria/produ
     MatButtonModule,
     MatDialogModule,
     MatPaginatorModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyCSLd2fV-Xu-7hd_m6Grf6-RswNY3bgctE",
+    authDomain: "sellersplaza-41a82.firebaseapp.com",
+    projectId: "sellersplaza-41a82",
+    storageBucket: "sellersplaza-41a82.appspot.com",
+    messagingSenderId: "20830206757",
+    appId: "1:20830206757:web:bcd62b932b5668021938cc",
+    measurementId: "G-GGCB453GBP"
+    }),
+    AngularFireStorageModule,
 
 
   ],

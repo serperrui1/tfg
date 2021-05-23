@@ -7,6 +7,10 @@ import { SubirImagenService } from 'src/app/services/subir-imagen.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment'
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { CargaImagenenesService } from 'src/app/services/carga-imagenenes.service';
+import { SpamValidator } from '../../Validaciones-Customizadas.directive';
+import { Spam } from '../../models/spam';
+import { SpamService } from '../../services/spam.service';
 import { Producto } from 'src/app/models/producto';
 const base_url = environment.base_url;
 
@@ -26,6 +30,9 @@ export class CrearProductoComponent implements OnInit{
   public imagenesSubir: File[];
   public imgTemp: any = null;
   formSubmited:boolean = false;
+  public urlImagenes:string[] = [];
+  public spam: Spam;
+  public expresionesSpam: string[];
   /* public stock: Number;
   public unidadesMinimas: Number; */
 
@@ -35,6 +42,8 @@ export class CrearProductoComponent implements OnInit{
     private productoService: ProductoService,
     private usuarioService: UsuarioService,
     private subirImagenService: SubirImagenService,
+    private cargaImagenService: CargaImagenenesService,
+    private spamService: SpamService,
     private router:Router) {
 
       this.usuario =localStorage.getItem('usuario');
@@ -44,11 +53,13 @@ export class CrearProductoComponent implements OnInit{
 
   async ngOnInit() {
     if(this.usuario === "proveedor" && this.token != null){
+      this.spam = (await this.spamService.getSpam())[0];
+      this.expresionesSpam = this.spam.expresiones;
       
 
       this.crearProductoForm = this.fb.group({
-        titulo:['', Validators.required],
-        descripcion:['', Validators.required],
+        titulo:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
+        descripcion:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
         categoria:['Libros, Música, Vídeo y DVD', ],
         unidadesMinimas:['', [Validators.required, this.unidadesMinimasIncorrecto]],
         stock:['', [Validators.required, this.stockIncorrecto]],
@@ -71,6 +82,16 @@ export class CrearProductoComponent implements OnInit{
     return this.crearProductoForm.get('datosTecnicos') as FormArray;
   }
 
+  get titulo()
+  {
+    return this.crearProductoForm.get('titulo');
+  }
+
+  get descripcion()
+  {
+    return this.crearProductoForm.get('descripcion');
+  }
+
   addDatosTecnicos() {
     this.datosTecnicos.push(this.fb.group({
       datosTecnicosTitulo:[' ' ],
@@ -88,23 +109,30 @@ export class CrearProductoComponent implements OnInit{
       return;
     }
     if(this.imagenesSubir!= undefined){
-    this.formSubmited = true;
-    const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value);
-    
-    for(let imagen of this.imagenesSubir)
-    this.subirImagenService.postearImagen(imagen, 'productos', productoId)
-    .then( () => {
-      Swal.fire('Guardado', 'Producto creado.', 'success');
-      this.router.navigateByUrl("/producto/"+productoId);
+    this.formSubmited = true;    
+    for(let imagen of this.imagenesSubir){
+      await this.subirImagen(imagen);
+    }
+    const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value, this.urlImagenes);
+    console.log(productoId);
 
-    }).catch( err => {
-      Swal.fire('Error', 'No se ha creado el producto, ha habido un error.', 'error');
-    });
+    // this.subirImagenService.postearImagen(imagen, 'productos', productoId)
+    // .then( () => {
+    //   Swal.fire('Guardado', 'Producto creado.', 'success');
+    //   this.router.navigateByUrl("/producto/"+productoId);
+
+    // }).catch( err => {
+    //   Swal.fire('Error', 'No se ha creado el producto, ha habido un error.', 'error');
+    // });
   }else{
     Swal.fire('Error', 'La foto es obligatoria', 'error');
   }
   }
-
+  async subirImagen(imagenSubir:File){
+    let nombre = Math.random().toString() + imagenSubir.name; 
+    await this.cargaImagenService.subirCloudStorage(nombre, imagenSubir);
+    this.urlImagenes.push(await this.cargaImagenService.referenciaCloudStorage(nombre));
+  }
   
 
   campoNoValido (campo:string) :boolean{
