@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit  {
       }).then((result) => {
         if (result.isConfirmed) {
           this.cookieService.set('cookiesAceptadas', "Sí");
+          console.log("cookies aceptadas")
         } else {
           this.cookieService.set('cookiesAceptadas', "No");
         }

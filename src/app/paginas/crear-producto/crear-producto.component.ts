@@ -11,7 +11,8 @@ import { CargaImagenenesService } from 'src/app/services/carga-imagenenes.servic
 import { SpamValidator } from '../../Validaciones-Customizadas.directive';
 import { Spam } from '../../models/spam';
 import { SpamService } from '../../services/spam.service';
-import { Producto } from 'src/app/models/producto';
+import { Producto } from '../../models/producto';
+
 const base_url = environment.base_url;
 
 @Component({

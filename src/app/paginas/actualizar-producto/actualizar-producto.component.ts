@@ -56,8 +56,7 @@ export class ActualizarProductoComponent implements OnInit {
     private router:Router,
     private usuarioService: UsuarioService,
     private cargaImagenService: CargaImagenenesService,
-    private spamService: SpamService,
-    private subirImagenService: SubirImagenService){
+    private spamService: SpamService){
 
       this.usuario =localStorage.getItem('usuario');
       this.token =localStorage.getItem('token');

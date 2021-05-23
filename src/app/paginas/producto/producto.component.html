@@ -10,35 +10,40 @@
                 <img *ngIf="!imagenFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen">
                 <img *ngIf="imagenFirebase" src="{{imagenMostrar}}" class="imagen">
             </div>
-            <div class="row">
+            <div class="row mt-5">
                 <div *ngFor="let imagen of producto.imagenes; let i = index" class="col-md-2 imagenes-container">
                     <img *ngIf="!imagenesDeFirebase[i]" src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                     <img *ngIf="imagenesDeFirebase[i]" src="{{imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                 </div>
             </div>
+            <div class="row mt-2" style="margin-left: 25%">
+                <ngb-rating [max]="5" [(rate)]="stars" [readonly]="true"></ngb-rating>
+                <p style="margin-top: 6px" class="text-info"> {{producto.puntuacionMedia}}</p>
+            </div>
         </div>
 
 
         <div class="col-md-5 producto-derecha">
-            <h3 style="text-align: left;">{{producto.titulo}}</h3>
-            Tienda de:
-            <a routerLink="/escaparate/{{proveedorId}}" class="link">{{producto.proveedorNombre}} </a> <br> Categoría del producto: <a>{{producto.categoria}} </a> <br> Subcategoría: <a>{{producto.subcategoria}} </a> <br>
-            <div>
-                <p class="precio-unidades">Precio por unidad: {{producto.precio}}€ </p>
-                <p class="precio-unidades">Unidades mínimas: {{producto.unidadesMinimas}}</p>
-                <br>
-            </div>
-            <p style="white-space: pre-wrap">
-                {{producto.descripcion}}
-            </p>
+            <h4 style="text-align: left;">{{producto.titulo}}</h4>
+            Tienda:
+            <a routerLink="/escaparate/{{proveedorId}}" class="link">{{producto.proveedorNombre}} </a>
+            <br> Categoría: <a class="text-secondary" style="text-decoration: none;">{{producto.categoria}} </a>
+            <br> Subcategoría: <a class="text-secondary" style="text-decoration: none;">{{producto.subcategoria}} </a>
+            <p class="precio-unidades">Precio por unidad: <strong class="text-success">{{producto.precio}}€</strong></p>
+            <p class="precio-unidades">Unidades mínimas: <a class="text-secondary" style="text-decoration: none;">{{producto.unidadesMinimas}} </a></p>
+            <p class="precio-unidades">Stock: <a class="text-secondary" style="text-decoration: none;">{{producto.stock}}</a></p>
+            <p class="precio-unidades">Ventas: <strong><a class="text-secondary" style="text-decoration: none;">{{producto.unidadesVendidas}}</a></strong></p>
+            <p class="precio-unidades">Valoraciones: <strong><a class="text-secondary" style="text-decoration: none;">{{producto.valoraciones.length}}</a></strong></p>
+            <br>
+            <p><u>Descripción:</u><br> <a class="text-secondary" style="text-decoration: none;">{{producto.descripcion}}</a></p>
             <br>
             <div class="detalles-tecnicos" *ngIf="producto.datosTecnicos[0]">
-                <h4 class="titulo-detalles text-left">Detalles técnicos</h4>
+                <h5 class="titulo-detalles text-left">Detalles técnicos</h5>
                 <table class="table table-bordered titulo-detalles">
                     <tbody>
                         <tr *ngFor="let datos of producto.datosTecnicos">
-                            <td>{{datos.datosTecnicosTitulo}}</td>
-                            <td>{{datos.datosTecnicosDescripcion}}</td>
+                            <td class="text-light bg-dark">{{datos.datosTecnicosTitulo}}</td>
+                            <td class="text-secondary">{{datos.datosTecnicosDescripcion}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -49,9 +54,9 @@
         <div class="col-md-2 infoFinal " *ngIf="!soyElProveedor">
             <div class="contenido-infoFinal">
                 <div *ngIf="!(producto.unidadesMinimas >= producto.stock); else noStock">
-                    <strong style="color:red">{{precioTotal}}€</strong> con {{cantidadProducto}} unidades
+                    <strong class="text-success">{{precioTotal}}€</strong> con {{cantidadProducto}} unidades
                     <div>
-                        <strong style="color: green;">En stock</strong>
+                        <strong class="text-info">En stock</strong>
                         <form [formGroup]="productoForm" (change)="cambiaPrecioTotal()">
                             <label for="cantidad"><a>Cantidad : </a></label>
                             <input type="number" min="{{producto.unidadesMinimas}}" max="{{producto.stock}}" step="1" id="cantidad" formControlName="cantidadProducto">
@@ -65,7 +70,7 @@
                 </a>
                 </div>
                 <ng-template #noStock>
-                    <strong style="color: red; ">No hay stock</strong>
+                    <strong class="text-warning">No hay stock</strong>
                     <br><br>
                 </ng-template>
                 <a *ngIf="!existeChat && comp" class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/crear-chat/{{producto._id}}">
@@ -111,10 +116,10 @@
         <div class="col-md-5 titulo-valorar" *ngIf="flag || yaValorado">
             <h4 *ngIf="yaValorado"> Todas las valoraciones </h4>
             <h4 *ngIf="!yaValorado && producto.valoraciones.length>0"> Valoraciones </h4>
-            <div class="alert" *ngFor="let item of producto.valoraciones; let i = index" >
+            <div class="alert" *ngFor="let item of producto.valoraciones; let i = index">
                 <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
-                <p >Publicado por: {{this.nombres[i]}}</p>
-                <p> {{item.comentario}}</p>
+                <p *ngIf="nombres[i] != ''">{{this.nombres[i]}} {{apellidosComprador}}: <i class="text-secondary">"{{item.comentario}}"</i></p>
+                <p *ngIf="nombres[i] === ''" class="text-danger">Usuario eliminado: <i class="text-secondary">"{{item.comentario}}"</i></p>
             </div>
         </div>
 
@@ -123,8 +128,8 @@
             <h4 *ngIf="!yaValorado && producto.valoraciones.length>0"> Valoraciones </h4>
             <div class="alert" *ngFor="let item of producto.valoraciones; let i = index">
                 <ngb-rating [max]="5" [(rate)]="item.puntuacion" [readonly]="true"></ngb-rating>
-                <p>Publicado por: {{this.nombres[i]}}</p>
-                <p> {{item.comentario}}</p>
+                <p *ngIf="nombres[i] != ''">{{this.nombres[i]}} {{apellidosComprador}}: <i class="text-secondary">"{{item.comentario}}"</i></p>
+                <p *ngIf="nombres[i] === ''" class="text-danger">Usuario eliminado: <i class="text-secondary">"{{item.comentario}}"</i></p>
             </div>
         </div>
 
