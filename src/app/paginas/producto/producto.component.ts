@@ -56,6 +56,7 @@ export class ProductoComponent implements OnInit {
   public comp: Comprador;
   public token: string;
   public usuario:string;
+  public stars = 0;
   public flag: boolean = false;
   public prov:Proveedor;
   public soyElProveedor:boolean = false;
@@ -67,6 +68,7 @@ export class ProductoComponent implements OnInit {
   imagenesDeFirebase:boolean[]=[];
   precioTotal:number = 0;
   public spam: Spam;
+  public apellidosComprador: string;
   public expresionesSpam: string[];
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -94,6 +96,27 @@ export class ProductoComponent implements OnInit {
       this.id = params['id']; 
     });
     this.producto = await this.productoService.getProductoPorID(this.id);
+    
+    if(this.cookieService.get('cookiesAceptadas') == 'Sí'){
+      console.log("viendo el producto")
+      if(this.cookieService.check('productosVistos')){
+        var ids:string = this.cookieService.get('productosVistos');
+        if(!ids.includes(this.producto._id)){
+          this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
+        }
+        
+      } else {
+        this.cookieService.set('productosVistos', this.producto._id);
+      }
+    }
+
+    this.stars = this.producto.puntuacionMedia;
+    let estrella = String(this.stars);
+    if (estrella.includes(".")){//es decimal
+      let entero = estrella.charAt(0);
+      this.stars = Number(entero);
+    }
+    
     this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor);
     this.producto.proveedorNombre = this.proveedor;
     this.precioTotal = (Math.round(this.producto.precio *this.producto.unidadesMinimas*100)/100)
@@ -121,7 +144,7 @@ export class ProductoComponent implements OnInit {
 
 
    
-    
+    console.log(1)
    
     
     if (this.usuario =="proveedor"){
@@ -139,6 +162,9 @@ export class ProductoComponent implements OnInit {
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
       this.nombres.push(this.valoradoPor);
+      var buyer = (await this.usuarioService.getCompradores()).filter((e) => e.uid == val.comprador);
+      this.apellidosComprador = buyer[0].apellidos;
+      console.log(this.nombres);
       if(this.comp){
         if(val.comprador == this.comp.uid) {
         this.miValoracion = val;
@@ -175,17 +201,7 @@ export class ProductoComponent implements OnInit {
       }
     }
     
-    if(this.cookieService.get('cookiesAceptadas') == 'Sí'){
-      if(this.cookieService.check('productosVistos')){
-        var ids:string = this.cookieService.get('productosVistos');
-        if(!ids.includes(this.producto._id)){
-          this.cookieService.set('productosVistos', this.cookieService.get('productosVistos')+' '+this.producto._id);
-        }
-        
-      } else {
-        this.cookieService.set('productosVistos', this.producto._id);
-      }
-    }
+    
     
   }
 
