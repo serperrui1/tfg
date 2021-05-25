@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit{
   public comp: Comprador;
   public prov: Proveedor;
   sidebar:boolean = false;
+  sidebarMovil:boolean = false;
   
   constructor(private fb:FormBuilder,
     private usuarioService: UsuarioService,
@@ -220,6 +221,19 @@ export class NavbarComponent implements OnInit{
   cerrarMenuLateral(){
     document.getElementById("mySidenav").style.width = "0";
     this.sidebar = false;
+
+  }
+
+  abirMenuLateralMovil(){
+    document.getElementById("mySidenavMovil").style.width = "350px";
+    this.sidebarMovil = true;
+
+
+  }
+
+  cerrarMenuLateralMovil(){
+    document.getElementById("mySidenavMovil").style.width = "0";
+    this.sidebarMovil = false;
 
   }
 }
