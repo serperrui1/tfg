@@ -10,14 +10,14 @@
             <label for="pregunta">Pregunta</label>
             <textarea type="text" class="form-control" id="pregunta" formControlName="pregunta" [class.is-invalid]="preguntaNoValido"></textarea>
             <small *ngIf="preguntaCampoRequerido" class="text-danger">Pregunta requerida.</small>
-            <small *ngIf="pregunta.errors.esSpam && !preguntaCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+            <small *ngIf="pregunta.errors?.esSpam && !preguntaCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
         </div>
 
         <div class="form-group">
             <label for="respuesta">Respuesta</label>
             <textarea type="text" class="form-control" id="respuesta" formControlName="respuesta" [class.is-invalid]="respuestaNoValido"></textarea>
             <small *ngIf="respuestaCampoRequerido" class="text-danger">Respuesta requerida.</small>
-            <small *ngIf="respuesta.errors.esSpam && !respuestaCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+            <small *ngIf="respuesta.errors?.esSpam && !respuestaCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
         </div>
 
         <div class="form-group">

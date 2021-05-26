@@ -28,7 +28,7 @@
                             <label for="mensajes">Nuevo mensaje</label>
                             <textarea type="text" class="form-control" id="mensajes" formControlName="mensajes" [class.is-invalid]="mensajeNoValido"></textarea>
                             <small *ngIf="mensajeCampoRequerido" class="text-danger">Mensaje requerido.</small>
-                            <small *ngIf="mensajes.errors.esSpam && !mensajeCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+                            <small *ngIf="mensajes.errors?.esSpam && !mensajeCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                         </div>
 
                         <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block" *ngIf="prov || comp" [disabled]="!puedesActualizar" style="width: 20%; margin-left: 80%;">
