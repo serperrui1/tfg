@@ -48,10 +48,12 @@
 </div>
 
 <div class="home mb-4">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosMasVendidos"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -63,10 +65,12 @@
 </div>
 
 <div class="home mb-4">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosMasValorados"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -78,10 +82,12 @@
 </div>
 
 <div class="home mb-5">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosMejorValorados"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -94,10 +100,12 @@
 </div>
 
 <div class="home mb-4" *ngIf="productosSegunCategoria.length == 0">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosCategoriaRandom1"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -108,10 +116,12 @@
 </div>
 
 <div class="home mb-4" *ngIf="productosSegunCategoria.length == 0">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosCategoriaRandom2"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -125,10 +135,12 @@
 </div>
 
 <div class="home mb-4" *ngIf="productosCategoria1.length != 0">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosCategoria1"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -140,10 +152,12 @@
 </div>
 
 <div class="home mb-4" *ngIf="productosCategoria2.length != 0">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosCategoria2"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -154,9 +168,11 @@
 </div>
 
 <div class="home mb-4" *ngIf="productosCategoria3.length != 0">
-    <div class="w-75 centrado">
-        <div class="row row-cols-1 row-cols-md-3 tarjeta">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosCategoria3"></app-producto-tarjeta>
         </div>
+        <div class="col"></div>
     </div>
 </div>
