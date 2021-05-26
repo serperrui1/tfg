@@ -51,7 +51,14 @@ export class RegisterCompradorComponent {
       this.registrarCompradorForm.markAllAsTouched()
       return;
     }
-
+    /* this.message = this.chatForm.controls['mensajes'].value; */
+    this.registrarCompradorForm.controls['nombre'].setValue(this.registrarCompradorForm.controls['nombre'].value.trim());
+    this.registrarCompradorForm.controls['apellidos'].setValue(this.registrarCompradorForm.controls['apellidos'].value.trim());
+    this.registrarCompradorForm.controls['paisResidencia'].setValue(this.registrarCompradorForm.controls['paisResidencia'].value.trim());
+    this.registrarCompradorForm.controls['ciudad'].setValue(this.registrarCompradorForm.controls['ciudad'].value.trim());
+    this.registrarCompradorForm.controls['localidad'].setValue(this.registrarCompradorForm.controls['localidad'].value.trim());
+    this.registrarCompradorForm.controls['direccionResidencia'].setValue(this.registrarCompradorForm.controls['direccionResidencia'].value.trim());
+    
     this.usuarioService.crearComprador(this.registrarCompradorForm.value).subscribe( resp => {
       Swal.fire('Guardado', 'Comprador registrado correctamente', 'success');
       this.router.navigateByUrl('/login/empleado');
