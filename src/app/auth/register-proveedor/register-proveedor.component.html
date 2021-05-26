@@ -109,7 +109,7 @@
         </div>
 
         <div class="form-group">
-            <label for="sector">Elija un nicho de mercado</label>
+            <label for="sector">Sector principal</label>
             <select class="form-control form-control-sm" id="sector" formControlName="sector">
                 <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
                 <option value="Consolas y videojuegos">Consolas y videojuegos</option>
@@ -147,11 +147,11 @@
             <button mat-raised-button (click)="openDialog()">Ver en el mapa</button>
         </div>
         <div class="form-group">
-            <label>Coordenadas de la empresa : Latitud</label>
+            <label>Coordenadas de la empresa: Latitud</label>
             <input type="number" class="form-control" name="lat" id="lat" formControlName="lat" [class.is-invalid]="campoNoValido('lat')">
             <small *ngIf="latitudRequerida" class="text-danger">Latitud requerida</small></div>
         <div class="form-group">
-            <label>Coordenadas de la empresa : Longitud</label>
+            <label>Coordenadas de la empresa: Longitud</label>
             <input type="munber" class="form-control" name="lng" id="lng" formControlName="lng" [class.is-invalid]="campoNoValido('lng')">
             <small *ngIf="longitudRequerida" class="text-danger">Longitud requerida</small>
         </div>

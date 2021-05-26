@@ -55,6 +55,10 @@ export class RegisterProveedorComponent {
       delete this.registrarProveedorForm.value["registroMercantil"];
     }else delete this.registrarProveedorForm.value["nif"];
 
+    this.registrarProveedorForm.controls['nombreEmpresa'].setValue(this.registrarProveedorForm.controls['nombreEmpresa'].value.trim());
+    this.registrarProveedorForm.controls['titularCuenta'].setValue(this.registrarProveedorForm.controls['titularCuenta'].value.trim());
+    this.registrarProveedorForm.controls['direccion'].setValue(this.registrarProveedorForm.controls['direccion'].value.trim());
+
     this.usuarioService.crearProveedor(this.registrarProveedorForm.value).subscribe( resp => {
       Swal.fire('Guardado', 'Proveedor registrado correctamente', 'success');
       this.router.navigateByUrl('/login');

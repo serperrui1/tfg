@@ -10,10 +10,10 @@
         <h1 class="mt-3 mb-4" style="margin-left:42%">Proveedores</h1>
     </div>
     <div class="col-md-3 mt-4 ordena" style="margin-left:5%">
-        <a style="text-decoration: none; color: rgb(122, 122, 122); ">Filtrar por: </a>
+        <a style="text-decoration: none; color: rgb(122, 122, 122); ">Sector: </a>
         <form [formGroup]="buscadorForm" id="buscadorform" (change)="buscar()">
             <select class="form-control form-control-sm" id="sector" [(ngModel)]="sector" name="sector" formControlName="sector">
-                <option value="" selected="selected">Seleccione categoría</option> 
+                <option value="" selected="selected">Seleccione sector</option> 
                 <option class="Libros, Música, Vídeo y DVD" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
                 <option class="Consolas y videojuegos" value="Consolas y videojuegos">Consolas y videojuegos</option>
                 <option class="Informática" value="Informática">Informática</option>
