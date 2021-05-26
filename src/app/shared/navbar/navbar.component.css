@@ -119,3 +119,22 @@
     height: 100%;
     z-index: 1;
 }
+
+.inicio-movil {
+    text-decoration: inherit;
+    color: white;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.boton-menu-movil {
+    margin: auto;
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 0px;
+}
+
+.borde-inferior {
+    border-bottom: white solid 1px;
+}

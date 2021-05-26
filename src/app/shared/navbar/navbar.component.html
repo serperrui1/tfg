@@ -1,128 +1,130 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark espacio ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark espacio d-none  d-xl-block sticky-top">
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-    <div class="col-md-1 info">
-        <img class="card-img-top img-hover-zoom" src="/assets/images/logo.png" alt="Card image cap" width="100%">
-    </div>
-    <i class='fas fa-bars selected' (click)="abirMenuLateral()"></i>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="row">
+        <div class="col-md-1 info">
+            <img class="card-img-top img-hover-zoom" src="/assets/images/logo.png" alt="Card image cap" width="100%">
+        </div>
+        <i class='fas fa-bars selected' style="margin-top: 26px;" (click)="abirMenuLateral()"></i>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/">Inicio<span class="sr-only">(current)</span></a>
-            </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="/proveedores">Proveedores<span class="sr-only">(current)</span></a>
-            </li> -->
-            <li class="nav-item dropdown  " *ngIf=" prov">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Proveedor
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/mis-productos">Mis productos</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="/crear-producto">Nuevo producto</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="/mis-ventas">Dashboard</a>
-
-
-                </div>
-            </li>
-
-            <li class="nav-item dropdown  " *ngIf="aT ">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Asistente
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="mis-incidencias">Mis incidencias</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="incidencias">Incidencias libres</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown  " *ngIf="comp">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Comprador
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="mis-pedidos">Mis pedidos</a>
-
-                </div>
-            </li>
-            <li class="nav-item dropdown  " *ngIf="admin">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Administrador
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="spam">Spam</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="dashboard">Dashboard</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="/register/asistente-tecnico">Nuevo A.Técnico</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="/compradores">Compradores</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="/asistentes">Asistentes técnicos</a>
-
-
-                </div>
-            </li>
-        </ul>
-        <form class="form-signin form-inline" style="width: 100%; margin: auto; " autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
-            <select class="form-control form-control-md mr-1 bg-dark" name="busqueda" formControlName="busqueda" style="color: white;">
-                <option value="producto" selected="selected">Producto</option> 
-                <option value="proveedor">Proveedor</option> 
-            </select>
-            <input type="text" class="form-control" formControlName="producto" style="width: 60%;" />
-            <button class="btn btn-outline-light boton-search mx-2" style="width: 15%;" type="submit">Buscar</button>
-        </form>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown  " *ngIf="token">
-                    <a class="nav-link dropdown-toggle" routerLink="mi-cuenta" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Mi cuenta
-            </a>
-                    <div class="dropdown-menu dropdown-content" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" routerLink="mi-perfil">Mi perfil</a>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="/">Inicio<span class="sr-only">(current)</span></a>
+                </li>
+                <!-- <li class="nav-item">
+                <a class="nav-link" href="/proveedores">Proveedores<span class="sr-only">(current)</span></a>
+            </li> -->
+                <li class="nav-item dropdown  " *ngIf=" prov">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Proveedor
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="/mis-productos">Mis productos</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" (click)="logout()">Cerrar sesion</a>
-                        <div class="dropdown-divider" *ngIf="existeTokenYProveedor"></div>
-                        <a class="dropdown-item" *ngIf="existeTokenYProveedor" routerLink="ser-comprador">Crear cuenta de comprador</a>
+                        <a class="dropdown-item" routerLink="/crear-producto">Nuevo producto</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="/mis-ventas">Dashboard</a>
+
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown  " *ngIf="aT ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Asistente
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="mis-incidencias">Mis incidencias</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="incidencias">Incidencias libres</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown  " *ngIf="comp">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Comprador
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="mis-pedidos">Mis pedidos</a>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown  " *ngIf="admin">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Administrador
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="spam">Spam</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="dashboard">Dashboard</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="/register/asistente-tecnico">Nuevo A.Técnico</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="/compradores">Compradores</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" routerLink="/asistentes">Asistentes técnicos</a>
+
+
                     </div>
                 </li>
             </ul>
+            <form class="form-signin form-inline" style="width: 100%; margin: auto; " autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
+                <select class="form-control form-control-md mr-1 bg-dark" name="busqueda" formControlName="busqueda" style="color: white;">
+                <option value="producto" selected="selected">Producto</option> 
+                <option value="proveedor">Proveedor</option> 
+            </select>
+                <input type="text" class="form-control" formControlName="producto" style="width: 55%;" />
+                <button class="btn btn-outline-light boton-search mx-2" style="width: 15%;" type="submit">Buscar</button>
+            </form>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown  " *ngIf="token">
+                        <a class="nav-link dropdown-toggle" routerLink="mi-cuenta" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Mi cuenta
+            </a>
+                        <div class="dropdown-menu dropdown-content" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" routerLink="mi-perfil">Mi perfil</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" (click)="logout()">Cerrar sesion</a>
+                            <div class="dropdown-divider" *ngIf="existeTokenYProveedor"></div>
+                            <a class="dropdown-item" *ngIf="existeTokenYProveedor" routerLink="ser-comprador">Crear cuenta de comprador</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!token">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/login">Iniciar sesión</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!token">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/login">Iniciar sesión</a>
-                </li>
-            </ul>
-        </div>
-
-
-
+        <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token && !mensajesNoLeidos">
+            <i class="fas fa-comments" style="color: rgb(134, 134, 134); margin-top: 26px;" routerLink="/mis-chats"></i>
+        </ul>
+        <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token && mensajesNoLeidos">
+            <i class="fas fa-comments" style="color: rgb(50, 165, 15); margin-top: 26px;" routerLink="/mis-chats"></i>
+        </ul>
+        <ul *ngIf="usuario != 'administrador' && token && !incidenciasNoLeidas">
+            <i class="fas fa-exclamation-triangle " style="color: rgb(134, 134, 134); margin-top: 26px;" routerLink="/mis-incidencias"></i>
+        </ul>
+        <ul *ngIf="usuario != 'administrador' && token && incidenciasNoLeidas">
+            <i class="fas fa-exclamation-triangle " style="color: rgb(243, 207, 0); margin-top: 26px;" routerLink="/mis-incidencias"></i>
+        </ul>
+        <ul>
+            <a routerLink="/mi-carrito" class="nav-link navbar-link-2 waves-effect">
+                <span class="badge badge-pill red" style="color: white;">{{ res }}</span>
+                <i class="fas fa-shopping-cart pl-0" style="color: white; margin-top: 20px;"> </i>
+            </a>
+        </ul>
     </div>
-    <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token && !mensajesNoLeidos">
-        <i class="fas fa-comments" style="color: rgb(134, 134, 134);" routerLink="/mis-chats"></i>
-    </ul>
-    <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token && mensajesNoLeidos">
-        <i class="fas fa-comments" style="color: rgb(50, 165, 15);" routerLink="/mis-chats"></i>
-    </ul>
-    <ul *ngIf="usuario != 'administrador' && token && !incidenciasNoLeidas">
-        <i class="fas fa-exclamation-triangle " style="color: rgb(134, 134, 134);" routerLink="/mis-incidencias"></i>
-    </ul>
-    <ul *ngIf="usuario != 'administrador' && token && incidenciasNoLeidas">
-        <i class="fas fa-exclamation-triangle " style="color: rgb(243, 207, 0);" routerLink="/mis-incidencias"></i>
-    </ul>
-    <ul>
-        <a routerLink="/mi-carrito" class="nav-link navbar-link-2 waves-effect">
-            <span class="badge badge-pill red" style="color: white;">{{ res }}</span>
-            <i class="fas fa-shopping-cart pl-0" style="color: white;"> </i>
-        </a>
-    </ul>
 </nav>
 
 <div id="mySidenav" class="sidenav">
@@ -288,5 +290,288 @@
 
 </div>
 <div [className]=" sidebar ? 'text-white position-fixed h-100 m-0 oscuro' : ''" (click)="cerrarMenuLateral()">
+
+</div>
+
+
+
+<div class=" bg-dark d-xl-none sticky-top" style="z-index: 1;">
+    <div class="row">
+
+        <div>
+            <img class="card-img-top img-hover-zoom " src="/assets/images/logo.png" alt="Card image cap" style="width: 150px; margin-left: 10px;" routerLink="/">
+        </div>
+
+        <a class="nav-link inicio-movil" routerLink="/">Inicio<span class="sr-only">(current)</span></a>
+
+        <i class='fas fa-bars selected boton-menu-movil' (click)="abirMenuLateralMovil()"></i>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    </button>
+    </div>
+
+</div>
+
+<div id="mySidenavMovil" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="cerrarMenuLateralMovil()">&times;</a>
+
+    <div class="row">
+        <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token && !mensajesNoLeidos">
+            <i class="fas fa-comments" style="color: rgb(134, 134, 134); margin-top: 26px;" routerLink="/mis-chats"></i>
+        </ul>
+        <ul *ngIf="usuario != 'administrador' && usuario != 'asistenteTecnico' && token && mensajesNoLeidos">
+            <i class="fas fa-comments" style="color: rgb(50, 165, 15); margin-top: 26px;" routerLink="/mis-chats"></i>
+        </ul>
+        <ul *ngIf="usuario != 'administrador' && token && !incidenciasNoLeidas">
+            <i class="fas fa-exclamation-triangle " style="color: rgb(134, 134, 134); margin-top: 26px;" routerLink="/mis-incidencias"></i>
+        </ul>
+        <ul *ngIf="usuario != 'administrador' && token && incidenciasNoLeidas">
+            <i class="fas fa-exclamation-triangle " style="color: rgb(243, 207, 0); margin-top: 26px;" routerLink="/mis-incidencias"></i>
+        </ul>
+        <ul>
+            <a routerLink="/mi-carrito" class="nav-link navbar-link-2 waves-effect pl-0">
+                <span class="badge badge-pill red" style="color: white;">{{ res }}</span>
+                <i class="fas fa-shopping-cart pl-0" style="color: white; margin-top: 20px;"> </i>
+            </a>
+        </ul>
+    </div>
+
+    <form class="form-signin form-inline" style="width: 100%; margin: auto; margin-bottom: 10px; " autocomplete="off" [formGroup]="buscadorForm" (ngSubmit)="buscarProducto()">
+        <select class="form-control form-control-md mx-2 bg-dark" name="busqueda" formControlName="busqueda" style="color: white; max-width: 123px;">
+        <option value="producto" selected="selected">Producto</option> 
+        <option value="proveedor">Proveedor</option> 
+    </select>
+        <input type="text" class="form-control" formControlName="producto" style="width: 203px;" />
+        <button class="btn btn-outline-light boton-search mx-2 mt-2" style="width: 100%;" type="submit">Buscar</button>
+    </form>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#homeSubmenuMovil" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorias</a>
+            <ul class="collapse list-unstyled" id="homeSubmenuMovil">
+                <li>
+                    <a href="#ProductosCategoriaMovil" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Productos</a>
+                    <ul class="collapse list-unstyled" id="ProductosCategoriaMovil">
+                        <li>
+                            <a routerLink="/categoria/Accesorios de electrónica">• Accesorios de electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Belleza">• Belleza</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Coche y moto">• Coche y moto</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Consolas y videojuegos">• Consolas y videojuegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Deportes y aire libre">• Deportes y aire libre</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Electrodomésticos grandes">• Electrodomésticos grandes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Electrónica">• Electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Equipaje">• Equipaje</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Hogar y cocina">• Hogar y cocina</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Iluminación">• Iluminación</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Informática">• Informática</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Instrumentos musicales">• Instrumentos musicales</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Jardín">• Jardín</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Joyería">• Joyería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Juguetes y juegos">• Juguetes y juegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Libros, Música, Vídeo y DVD">• Libros, Música, Vídeo y DVD</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Oficina y papelería">• Oficina y papelería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Productos para bebé">• Productos para bebé</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Relojes">• Relojes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Salud y cuidado personal">• Salud y cuidado personal</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Software y videojuegos para PC">• Software y videojuegos para PC</a>
+                        </li>
+                        <li>
+                            <a routerLink="/categoria/Zapatos y Complementos">• Zapatos y Complementos</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ProveedoresSectorMovil" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proveedores</a>
+                    <ul class="collapse list-unstyled" id="ProveedoresSectorMovil">
+                        <li>
+                            <a routerLink="/proveedores/Accesorios de electrónica/todos">• Accesorios de electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Belleza/todos">• Belleza</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Coche y moto/todos">• Coche y moto</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Consolas y videojuegos/todos">• Consolas y videojuegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Deportes y aire libre/todos">• Deportes y aire libre</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Electrodomésticos grandes/todos">• Electrodomésticos grandes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Electrónica/todos">• Electrónica</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Equipaje/todos">• Equipaje</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Hogar y cocina/todos">• Hogar y cocina</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Iluminación/todos">• Iluminación</a>
+                        </li>
+                        <li>
+                            <a routerLink="/cproveedores/Informática/todos">• Informática</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Instrumentos musicales/todos">• Instrumentos musicales</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Jardín/todos">• Jardín</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Joyería/todos">• Joyería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Juguetes y juegos/todos">• Juguetes y juegos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Libros, Música, Vídeo y DVD/todos">• Libros, Música, Vídeo y DVD</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Oficina y papelería/todos">• Oficina y papelería</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Productos para bebé/todos">• Productos para bebé</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Relojes/todos">• Relojes</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Salud y cuidado personal/todos">• Salud y cuidado personal</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Software y videojuegos para PC/todos">• Software y videojuegos para PC</a>
+                        </li>
+                        <li>
+                            <a routerLink="/proveedores/Zapatos y Complementos/todos">• Zapatos y Complementos</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </li>
+        <li class="borde-inferior">
+            <a routerLink="/GOAT">GOAT</a>
+        </li>
+
+        <li *ngIf=" prov">
+            <a href="#ProveedorMovil" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proveedor</a>
+            <ul class="collapse list-unstyled" id="ProveedorMovil">
+                <li>
+                    <a routerLink="/mis-productos">• Mis productos</a>
+                </li>
+                <li>
+                    <a routerLink="/crear-producto">• Nuevo producto</a>
+                </li>
+                <li>
+                    <a routerLink="/mis-ventas">• Dashboard</a>
+                </li>
+            </ul>
+        </li>
+
+        <li *ngIf="aT">
+            <a href="#AsistenteMovil" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Asistente técnico</a>
+            <ul class="collapse list-unstyled" id="AsistenteMovil">
+                <li>
+                    <a routerLink="/mis-productos">• Mis incidencias</a>
+                </li>
+                <li>
+                    <a routerLink="/crear-producto">• Incidencias libres</a>
+                </li>
+            </ul>
+        </li>
+
+
+        <li *ngIf="admin">
+            <a href="#AdminMovil" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administrador</a>
+            <ul class="collapse list-unstyled" id="AdminMovil">
+                <li>
+                    <a routerLink="spam">• Spam</a>
+                </li>
+                <li>
+                    <a routerLink="dashboard">• Dashboard</a>
+                </li>
+                <li>
+                    <a routerLink="/register/asistente-tecnico">• Nuevo A.Técnico</a>
+                </li>
+                <li>
+                    <a routerLink="compradores">• Compradores</a>
+                </li>
+                <li>
+                    <a routerLink="asistentes">• Asistentes técnicos</a>
+                </li>
+            </ul>
+        </li>
+
+        <li *ngIf="comp">
+            <a routerLink="mis-pedidos">Mis pedidos</a>
+        </li>
+
+        <li *ngIf="token">
+            <a routerLink="mi-cuenta">Mi cuenta</a>
+        </li>
+        <li *ngIf="token">
+            <a (click)="logout()">Cerrar Sesión</a>
+        </li>
+        <li *ngIf="existeTokenYProveedor">
+            <a routerLink="ser-comprador">Crear cuenta de comprador</a>
+        </li>
+        <li *ngIf="!token">
+            <a href="/login">Iniciar sesión</a>
+        </li>
+
+
+
+    </ul>
+
+
+</div>
+<div [className]=" sidebarMovil ? 'text-white position-fixed h-100 m-0 oscuro' : ''" (click)="cerrarMenuLateralMovil()">
 
 </div>
