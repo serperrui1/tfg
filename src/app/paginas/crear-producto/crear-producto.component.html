@@ -30,36 +30,276 @@
 
                         <div class="form-group">
                             <label for="categoria">Categoría</label>
-                            <select class="form-control form-control-sm" id="categoria" formControlName="categoria">
-                                    <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
-                                    <option value="Consolas y videojuegos">Consolas y videojuegos</option>
-                                    <option value="Informática">Informática</option>
-                                    <option value="Electrónica">Electrónica</option>
-                                    <option value="Accesorios de electrónica">Accesorios de electrónica</option>
-                                    <option value="Electrodomésticos grandes">Electrodomésticos grandes</option>
-                                    <option value="Hogar y cocina">Hogar y cocina</option>
-                                    <option value="Software y videojuegos para PC">Software y videojuegos para PC</option>
-                                    <option value="Juguetes y juegos">Juguetes y juegos</option>
-                                    <option value="Zapatos y Complementos">Zapatos y Complementos</option>
-                                    <option value="Relojes">Relojes</option>
-                                    <option value="Productos para bebé">Productos para bebé</option>
-                                    <option value="Coche y moto">Coche y moto</option>
-                                    <option value="Deportes y aire libre">Deportes y aire libre</option>
-                                    <option value="Joyería">Joyería</option>
-                                    <option value="Equipaje">Equipaje</option>
-                                    <option value="Iluminación">Iluminación</option>
-                                    <option value="Oficina y papelería">Oficina y papelería</option>
-                                    <option value="Salud y cuidado personal">Salud y cuidado personal</option>
-                                    <option value="Instrumentos musicales">Instrumentos musicales</option>
-                                    <option value="Ropa y Accesorios">Ropa y Accesorios</option>
-                                    <option value="Jardín">Jardín</option>
-                                    <option value="Belleza">Belleza</option>
+                            <select class="form-control form-control-sm" [(ngModel)]="categoria" name="categoria" formControlName="categoria">
+                                <option class="Libros, Música, Vídeo y DVD" selected="selected" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
+                                <option class="Consolas y videojuegos" value="Consolas y videojuegos">Consolas y videojuegos</option>
+                                <option class="Informática" value="Informática">Informática</option>
+                                <option class="Electrónica" value="Electrónica">Electrónica</option>
+                                <option class="Accesorios de electrónica" value="Accesorios de electrónica">Accesorios de electrónica</option>
+                                <option class="Electrodomésticos grandes" value="Electrodomésticos grandes">Electrodomésticos grandes</option>
+                                <option class="Hogar y cocina" value="Hogar y cocina">Hogar y cocina</option>
+                                <option class="Software y videojuegos para PC" value="Software y videojuegos para PC">Software y videojuegos para PC</option>
+                                <option class="Juguetes y juegos" value="Juguetes y juegos">Juguetes y juegos</option>
+                                <option class="Zapatos y Complementos" value="Zapatos y Complementos">Zapatos y Complementos</option>
+                                <option class="Relojes" value="Relojes">Relojes</option>
+                                <option class="Productos para bebé" value="Productos para bebé">Productos para bebé</option>
+                                <option class="Coche y moto" value="Coche y moto">Coche y moto</option>
+                                <option class="Deportes y aire libre" value="Deportes y aire libre">Deportes y aire libre</option>
+                                <option class="Joyería" value="Joyería">Joyería</option>
+                                <option class="Equipaje" value="Equipaje">Equipaje</option>
+                                <option class="Iluminación" value="Iluminación">Iluminación</option>
+                                <option class="Oficina y papelería" value="Oficina y papelería">Oficina y papelería</option>
+                                <option class="Salud y cuidado personal" value="Salud y cuidado personal">Salud y cuidado personal</option>
+                                <option class="Instrumentos musicales" value="Instrumentos musicales">Instrumentos musicales</option>
+                                <option class="Ropa y Accesorios" value="Ropa y Accesorios">Ropa y Accesorios</option>
+                                <option class="Jardín" value="Jardín">Jardín</option>
+                                <option class="Belleza" value="Belleza">Belleza</option>
                                 </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="subcategoria">Subcategoría</label><a class="aviso" style="text-decoration: none;"> (*)</a>
-                            <input type="text" class="form-control" id="subcategoria" placeholder="Ejemplo: Cafeteras" formControlName="subcategoria">
+                            <label for="subcategoria">Subcategoría</label>
+                            <select class="form-control form-control-sm" id="subcategoria" name="subcategoria" formControlName="subcategoria">
+            
+                                <optgroup class="Libros, Música, Vídeo y DVD" [hidden]="categoria != 'Libros, Música, Vídeo y DVD'">
+                                    <option value="" selected="selected">Seleccione subcatégoria</option>
+                                    <option value="Música">Música</option>
+                                    <option value="Libros">Libros</option>
+                                    <option value="Vídeo">Vídeo</option>
+                                    <option value="DVD">DVD</option>
+                                    <option value="Blu-ray">Blu-ray</option>
+                                </optgroup>
+            
+                                <optgroup class="Consolas y videojuegos" [hidden]="categoria != 'Consolas y videojuegos'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Consolas">Consolas</option>
+                                    <option value="Videojuegos">Videojuegos</option>
+                                </optgroup>
+            
+                                <optgroup class="Informática" [hidden]="categoria != 'Informática'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Ordenadores de sobremesa">Ordenadores de sobremesa</option>
+                                    <option value="Ordenadores portátiles">Ordenadores portátiles</option>
+                                    <option value="Tablets">Tablets</option>
+                                    <option value="Accesorios para el tablet">Accesorios para el tablet</option>
+                                    <option value="Almacenamiento">Almacenamiento</option>
+                                    <option value="Monitores">Monitores</option>
+                                    <option value="Teclados">Teclados</option>
+                                    <option value="Alfombrillas">Alfombrillas</option>
+                                    <option value="Ratones">Ratones</option>
+                                    <option value="Altavoces">Altavoces</option>
+                                    <option value="Auriculares y micrófonos">Auriculares y micrófonos</option>
+                                    <option value="Lectores de tarjetas">Lectores de tarjetas</option>
+                                    <option value="Componentes del ordenador">Componentes del ordenador</option>
+                                    <option value="Periféricos USB WIFI">Periféricos USB WIFI</option>
+                                    <option value="Periféricos USB Bluetooth">Periféricos USB Bluetooth</option>
+                                    <option value="Cables">Cables</option>
+                                    <option value="Herramientas de reparación">Herramientas de reparación</option>
+                                    <option value="Otros periféricos y accesorios">Otros periféricos y accesorios</option>
+                                </optgroup>
+            
+                                <optgroup class="Electrónica" [hidden]="categoria != 'Electrónica'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Televisores">Televisores</option>
+                                    <option value="Equipos de sonido">Equipos de sonido</option>
+                                    <option value="Proyectores">Proyectores</option>
+                                    <option value="Reproductores de vídeo">Reproductores de vídeo</option>
+                                    <option value="Radios de coche">Radios de coche</option>
+                                    <option value="Smart TV BOX">Smart TV BOX</option>
+                                    <option value="GPS">GPS</option>
+                                    <option value="Cámaras">Cámaras</option>
+                                    <option value="Teléfonos móviles">Teléfonos móviles</option>
+                                    <option value="Componentes electrónicos">Componentes electrónicos</option>
+                                    <option value="Componentes del teléfono móvil">Componentes del teléfono móvil</option>
+                                </optgroup>
+            
+                                <optgroup class="Accesorios de electrónica" [hidden]="categoria != 'Accesorios de electrónica'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Fundas">Fundas</option>
+                                    <option value="Cables">Cables</option>
+                                    <option value="Cargadores">Cargadores</option>
+                                    <option value="Soportes">Soportes</option>
+                                    <option value="Auriculares">Auriculares</option>
+                                    <option value="Accesorios para el móvil">Accesorios para el móvil</option>
+                                </optgroup>
+            
+                                <optgroup class="Electrodomésticos grandes" [hidden]="categoria != 'Electrodomésticos grandes'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Frigoríficos">Frigoríficos</option>
+                                    <option value="Lavavajillas">Lavavajillas</option>
+                                    <option value="Lavadoras">Lavadoras</option>
+                                    <option value="Secadoras">Secadoras</option>
+                                </optgroup>
+            
+                                <optgroup class="Hogar y cocina" [hidden]="categoria != 'Hogar y cocina'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Pequeño electrodoméstico">Pequeño electrodoméstico</option>
+                                    <option value="Mobiliario">Mobiliario</option>
+                                    <option value="Aspiradoras">Aspiradoras</option>
+                                    <option value="Accesorios para el hogar">Accesorios para el hogar</option>
+                                    <option value="Utensilios de cocina">Utensilios de cocina</option>
+                                </optgroup>
+            
+                                <optgroup class="Software y videojuegos para PC" [hidden]="categoria != 'Software y videojuegos para PC'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Software">Software</option>
+                                    <option value="Vídeo">Vídeo</option>
+                                    <option value="Videojuegos de PC">Videojuegos de PC</option>
+                                </optgroup>
+            
+                                <optgroup class="Juguetes y juegos" [hidden]="categoria != 'Juguetes y juegos'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Juguetes para bebés y niños preescolares">Juguetes para bebés y niños preescolares</option>
+                                    <option value="Juguetes educativos y de exploración">Juguetes educativos y de exploración</option>
+                                    <option value="Juguetes para montar">Juguetes para montar</option>
+                                    <option value="Muñecos de acción">Muñecos de acción</option>
+                                    <option value="Muñecas">Muñecas</option>
+                                    <option value="Juegos de mesa">Juegos de mesa</option>
+                                    <option value="Arte y manualidades">Arte y manualidades</option>
+                                    <option value="Aficiones">Aficiones</option>
+                                    <option value="Muebles infantiles">Muebles infantiles</option>
+                                </optgroup>
+            
+                                <optgroup class="Zapatos y Complementos" [hidden]="categoria != 'Zapatos y Complementos'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Zapatos">Zapatos</option>
+                                    <option value="Botas">Botas</option>
+                                    <option value="Sandalias">Sandalias</option>
+                                    <option value="Zapatillas de estar por casa">Zapatillas de estar por casa</option>
+                                    <option value="Zapatillas deportivas">Zapatillas deportivas</option>
+                                </optgroup>
+            
+                                <optgroup class="Relojes" [hidden]="categoria != 'Relojes'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Relojes automáticos">Relojes automáticos</option>
+                                    <option value="Relojes analógicos">Relojes analógicos</option>
+                                    <option value="Relojes digitales">Relojes digitales</option>
+                                </optgroup>
+            
+                                <optgroup class="Productos para bebé" [hidden]="categoria != 'Productos para bebé'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Regalos">Regalos</option>
+                                    <option value="Decoración y otros">Decoración y otros</option>
+                                    <option value="Mobiliario">Mobiliario</option>
+                                    <option value="Ropa de cama">Ropa de cama</option>
+                                    <option value="Seguridad">Seguridad</option>
+                                    <option value="Coche y dormitorio">Coche y dormitorio</option>
+                                    <option value="Higiene y salud">Higiene y salud</option>
+                                </optgroup>
+            
+                                <optgroup class="Coche y moto" [hidden]="categoria != 'Coche y moto'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Piezas">Piezas</option>
+                                    <option value="Herramientas">Herramientas</option>
+                                    <option value="Equipos">Equipos</option>
+                                    <option value="Accesorios">Accesorios</option>
+                                </optgroup>
+            
+                                <optgroup class="Deportes y aire libre" [hidden]="categoria != 'Deportes y aire libre'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Equipamiento deportivo">Equipamiento deportivo</option>
+                                    <option value="Bicicletas">Bicicletas</option>
+                                    <option value="Carpas">Carpas</option>
+                                </optgroup>
+            
+                                <optgroup class="Joyería" [hidden]="categoria != 'Joyería'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Pendientes">Pendientes</option>
+                                    <option value="Collares">Collares</option>
+                                    <option value="Anillos">Anillos</option>
+                                    <option value="Pulseras">Pulseras</option>
+                                </optgroup>
+            
+                                <optgroup class="Equipaje" [hidden]="categoria != 'Equipaje'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Maletas">Maletas</option>
+                                    <option value="Mochilas">Mochilas</option>
+                                    <option value="Bolsas escolares">Bolsas escolares</option>
+                                    <option value="Accesorios de viaje">Accesorios de viaje</option>
+                                    <option value="Otros">Otros</option>
+                                </optgroup>
+            
+                                <optgroup class="Iluminación" [hidden]="categoria != 'Iluminación'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Iluminación de interior y exterior">Iluminación de interior y exterior</option>
+                                    <option value="Linternas">Linternas</option>
+                                    <option value="Bombillas">Bombillas</option>
+                                    <option value="Accesorios de iluminación">Accesorios de iluminación</option>
+                                </optgroup>
+            
+                                <optgroup class="Oficina y papelería" [hidden]="categoria != 'Oficina y papelería'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Herramientas de escritura">Herramientas de escritura</option>
+                                    <option value="Material educativo">Material educativo</option>
+                                    <option value="Productos de papelería">Productos de papelería</option>
+                                    <option value="Productos de oficina">Productos de oficina</option>
+                                    <option value="Tinta y tóner">Tinta y tóner</option>
+                                </optgroup>
+            
+                                <optgroup class="Salud y cuidado personal" [hidden]="categoria != 'Salud y cuidado personal'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Cuidado del cabello">Cuidado del cabello</option>
+                                    <option value="Cuidado bucal">Cuidado bucal</option>
+                                    <option value="Cepillos y tratamientos corporales">Cepillos y tratamientos corporales</option>
+                                    <option value="Afeitado">Afeitado</option>
+                                    <option value="Suministros y equipo sanitarios">Suministros y equipo sanitarios</option>
+                                    <option value="Masaje y relax">Masaje y relax</option>
+                                    <option value="Lámparas de bronceado">Lámparas de bronceado</option>
+                                    <option value="Básculas de baño">Básculas de baño</option>
+                                    <option value="Ayudas a la movilidad">Ayudas a la movilidad</option>
+                                    <option value="Productos para la vida diaria">Productos para la vida diaria</option>
+                                </optgroup>
+            
+                                <optgroup class="Instrumentos musicales" [hidden]="categoria != 'Instrumentos musicales'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Instrumentos musicales y accesorios">Instrumentos musicales y accesorios</option>
+                                    <option value="Equipos de megafonía y escenarios">Equipos de megafonía y escenarios</option>
+                                    <option value="Equipos de DJ">Equipos de DJ</option>
+                                    <option value="Equipos de karaoke">Equipos de karaoke</option>
+                                </optgroup>
+            
+                                <optgroup class="Ropa y Accesorios" [hidden]="categoria != 'Ropa y Accesorios'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Complementos">Complementos</option>
+                                    <option value="Chaquetas">Chaquetas</option>
+                                    <option value="Sujetadores">Sujetadores</option>
+                                    <option value="Vestidos">Vestidos</option>
+                                    <option value="Sombreros">Sombreros</option>
+                                    <option value="Ropa de abrigo">Ropa de abrigo</option>
+                                    <option value="Pantalones">Pantalones</option>
+                                    <option value="Camisas">Camisas</option>
+                                    <option value="Pantalones cortos">Pantalones cortos</option>
+                                    <option value="Faldas">Faldas</option>
+                                    <option value="Pijamas">Pijamas</option>
+                                    <option value="Calcetines">Calcetines</option>
+                                    <option value="Medias">Medias</option>
+                                    <option value="Trajes">Trajes</option>
+                                    <option value="Jerséis">Jerséis</option>
+                                    <option value="Bañadores">Bañadores</option>
+                                    <option value="Ropa interior">Ropa interior</option>
+                                </optgroup>
+            
+                                <optgroup class="Jardín" [hidden]="categoria != 'Jardín'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Fertilizantes">Fertilizantes</option>
+                                    <option value="Mobiliario de jardín">Mobiliario de jardín</option>
+                                    <option value="Herramientas de jardinería">Herramientas de jardinería</option>
+                                    <option value="Invernaderos">Invernaderos</option>
+                                    <option value="Iluminación">Iluminación</option>
+                                    <option value="Decoración de jardín">Decoración de jardín</option>
+                                    <option value="Calefactores radiantes">Calefactores radiantes</option>
+                                    <option value="Barbacoas">Barbacoas</option>
+                                </optgroup>
+            
+                                <optgroup class="Belleza" [hidden]="categoria != 'Belleza'">
+                                    <option value="" selected="selected">Seleccione subcategoria</option>
+                                    <option value="Perfumes y fragancias">Perfumes y fragancias</option>
+                                    <option value="Maquillaje">Maquillaje</option>
+                                    <option value="Manicura y pedicura">Manicura y pedicura</option>
+                                    <option value="Cuidado de la piel">Cuidado de la piel</option>
+                                </optgroup>
+                                
+                            </select>
                         </div>
 
                         <div class="form-group">

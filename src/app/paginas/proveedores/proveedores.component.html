@@ -13,7 +13,7 @@
         <a style="text-decoration: none; color: rgb(122, 122, 122); ">Sector: </a>
         <form [formGroup]="buscadorForm" id="buscadorform" (change)="buscar()">
             <select class="form-control form-control-sm" id="sector" [(ngModel)]="sector" name="sector" formControlName="sector">
-                <option value="" selected="selected">Seleccione sector</option> 
+                <option value="" selected="selected">Todos los sectores</option> 
                 <option class="Libros, Música, Vídeo y DVD" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
                 <option class="Consolas y videojuegos" value="Consolas y videojuegos">Consolas y videojuegos</option>
                 <option class="Informática" value="Informática">Informática</option>

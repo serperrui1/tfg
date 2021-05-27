@@ -29,6 +29,7 @@ export class CrearProductoComponent implements OnInit{
   public producto: Producto;
   public token: string;
   public imagenesSubir: File[];
+  categoria: string;
   public imgTemp: any = null;
   formSubmited:boolean = false;
   public urlImagenes:string[] = [];
