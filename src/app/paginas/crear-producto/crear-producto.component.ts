@@ -60,8 +60,8 @@ export class CrearProductoComponent implements OnInit{
       
 
       this.crearProductoForm = this.fb.group({
-        titulo:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
-        descripcion:['', [Validators.required, SpamValidator(this.expresionesSpam)]],
+        titulo:['', [Validators.required , SpamValidator(this.expresionesSpam)]],
+        descripcion:['', [Validators.required , SpamValidator(this.expresionesSpam)]],
         categoria:['Libros, Música, Vídeo y DVD', ],
         unidadesMinimas:['', [Validators.required, this.unidadesMinimasIncorrecto]],
         stock:['', [Validators.required, this.stockIncorrecto]],
@@ -206,7 +206,16 @@ export class CrearProductoComponent implements OnInit{
     return null
   }
 
-
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.crearProductoForm.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    console.log(invalid);
+}
 
   get stockNoValido(){
     return this.stockCampoRequerido || this.stockFormato

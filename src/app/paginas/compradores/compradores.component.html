@@ -1,13 +1,23 @@
-<form class="form-signin form-inline" style="width: 100%; margin-left:13%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
-    <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 1%;">Nombre del comprador: </p>
-    <input type="text" class="form-control " formControlName="comprador" style="width: 50%; margin-left: 1%" />
-    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 7%" type="submit">Buscar</button>
+<form class="form-signin " style="width: 100%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
+    <div class="row">
+
+        <div class="col-md-3">
+            <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 1%;">Nombre del comprador: </p>
+        </div>
+        <div class="col-md-7">
+            <input type="text" class="form-control " formControlName="comprador" />
+        </div>
+        <div class="col-md-2">
+
+            <button class="btn btn-outline-secondary btn-light boton-search" type="submit">Buscar</button>
+        </div>
+    </div>
 </form>
 
-<div class="row centrado mt-3">
-    <div class="col-md-4">
-        <h1 class="mt-3 mb-4" style="margin-left:42%">Compradores</h1>
-    </div>
+<div class="centrado mt-3">
+
+    <h1 class="mt-3 mb-4 text-center">Compradores</h1>
+
 </div>
 
 <div class="home">

@@ -1,7 +1,8 @@
 <div class="col mb-4 animated fadeIn ">
     <div class="card h-100 ">
         <div class="container">
-            <img *ngIf="!imagenFirebase" class="card-img-top img-hover-zoom" src="{{direccionImagen + comprador.img}}" alt="Card image cap">
+            <img *ngIf="!imagenFirebase && !noImagen" class="card-img-top img-hover-zoom" src="{{direccionImagen + comprador.img}}" alt="Card image cap">
+            <img *ngIf="!imagenFirebase && noImagen" class="card-img-top img-hover-zoom" src="{{direccionImagen + 'no-img.jpg'}}" alt="Card image cap">
             <img *ngIf="imagenFirebase" class="card-img-top img-hover-zoom" src="{{comprador.img}}" alt="Card image cap">
         </div>
         <div class="card-body nombre">

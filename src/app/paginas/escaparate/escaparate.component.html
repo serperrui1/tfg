@@ -30,7 +30,9 @@
 
                 <div class="col-md-4" style="height: 250px;">
                     <div>
-                        <img src="{{ direccionImagen + proveedor.img }}" class="imagen">
+                        <img *ngIf="!imagenFirebase && !noImagen" src="{{ direccionImagen + proveedor.img }}" class="imagen">
+                        <img *ngIf="!imagenFirebase && noImagen" src="{{ direccionImagen + 'no-img.jpg' }}" class="imagen">
+                        <img *ngIf="imagenFirebase" src="{{ proveedor.img }}" class="imagen">
                     </div>
                 </div>
                 <div class="col-md-1"></div>

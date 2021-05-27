@@ -19,6 +19,7 @@ export class AsistenteTarjetaComponent implements OnInit {
   public admin: Administrador;
   public direccionImagen = base_url+"/upload/asistentes/"
   imagenFirebase:boolean= false;
+  noImagen:boolean = false;
 
   constructor(private usuarioService: UsuarioService,
     private router: Router) { }
@@ -27,6 +28,8 @@ export class AsistenteTarjetaComponent implements OnInit {
     this.admin = await this.usuarioService.getAdministrador();
     if(this.asistente.img.startsWith("https")){
       this.imagenFirebase = true;
+    }else if(this.asistente.img == ""){
+      this.noImagen = true;
     }
   }
 

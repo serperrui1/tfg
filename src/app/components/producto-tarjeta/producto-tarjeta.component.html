@@ -2,30 +2,26 @@
     <div class="card h-100 ">
         <div class="container">
 
-            <img *ngIf="!imagenFirebase" class="card-img-top img-hover-zoom" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img *ngIf="!imagenFirebase && !noImagen" class="card-img-top img-hover-zoom" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img *ngIf="!imagenFirebase && noImagen" class="card-img-top img-hover-zoom" src="{{direccionImagen + 'no-img.jpg'}}" alt="Card image cap">
             <img *ngIf="imagenFirebase" class="card-img-top img-hover-zoom" src="{{producto.imagenes[0]}}" alt="Card image cap">
         </div>
-        <div class="card-body nombre">
+        <div class="card-body nombre mb-3">
             <h5 class="card-title">{{producto.titulo}}</h5>
+            <h6 class="card-title">{{proveedor}}</h6>
+            <ngb-rating [max]="5" [(rate)]="estrellas" [readonly]="true"></ngb-rating><br>
+
             <div>
-                <div class="row col-md-12">
-                    <div class="col-md-6">
-                        <ngb-rating [max]="5" [(rate)]="estrellas" [readonly]="true"></ngb-rating>
-                    </div>
-                    <div class="col-md-6">
-                        <div style="margin-top: -26%">
-                            <br> Valoraciones: {{producto.valoraciones.length}}
-                            <br> Ventas: {{producto.unidadesVendidas}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row" *ngIf="!producto.productoEstrella">
-                    <strong class="col-md-12">{{producto.precio}} €</strong>
-                </div>
-                <div class="row col-md-12" *ngIf="producto.productoEstrella">
-                    <strong style="margin-top:4%; margin-left:25%; margin-right:10%;">{{producto.precio}} €</strong><img style="margin-top:0%; margin-bottom:0%;" src="/assets/images/producto-estrella.png" width="25%">
-                </div>
+                Valoraciones: {{producto.valoraciones.length}} Ventas: {{producto.unidadesVendidas}}
+            </div><br>
+
+            <div *ngIf="!producto.productoEstrella">
+                <strong>{{producto.precio}} €</strong>
+            </div>
+            <div *ngIf="producto.productoEstrella">
+                <strong style="margin-top:4%; margin-left:25%; margin-right:10%;">{{producto.precio}} €</strong><img style="margin-top:0%; margin-bottom:0%;" src="/assets/images/producto-estrella.png" width="25%">
             </div>
         </div>
+
     </div>
 </div>

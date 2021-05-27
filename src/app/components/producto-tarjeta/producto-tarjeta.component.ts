@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';;
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -20,9 +21,12 @@ export class ProductoTarjetaComponent implements OnInit{
   @Output() productoSeleccionado: EventEmitter<string>;
   estrellas= 0;
   imagenFirebase:boolean= false;
+  proveedor: string;
+  noImagen:boolean = false;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
+    private usuarioService: UsuarioService,
     private http: HttpClient,
     private router: Router){
       
@@ -34,9 +38,13 @@ export class ProductoTarjetaComponent implements OnInit{
   }
 
   async ngOnInit() {
+    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
+    
     if(this.producto.imagenes.length>0){
       if(this.producto.imagenes[0].startsWith("https")){
         this.imagenFirebase = true;
+      }else if(this.producto.imagenes[0]== ""){
+        this.noImagen = true;
       }
     }
     this.estrellas = this.producto.puntuacionMedia;

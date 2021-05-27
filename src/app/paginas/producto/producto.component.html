@@ -148,7 +148,7 @@
                         <div class="input-group-addon"><i class="ti-user"></i></div>
                         <textarea type="text" class="form-control" id="comentario" formControlName="comentario" [class.is-invalid]="comentarioNoValido"></textarea>
                         <small *ngIf="comentarioCampoRequerido" class="text-danger">Comentario requerido</small>
-                        <small *ngIf="comentario.errors.esSpam && !comentarioCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+                        <small *ngIf="comentario.errors?.esSpam && !comentarioCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                     </div>
                 </div>
             </form>

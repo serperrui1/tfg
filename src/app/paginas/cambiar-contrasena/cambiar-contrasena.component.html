@@ -11,7 +11,7 @@
             <input type="password" class="form-control" name="password" id="password" formControlName="password" [class.is-invalid]="passwordNoValido">
             <small *ngIf="passwordRequerido" class="text-danger">Contraseña actual requerida</small>
             <small *ngIf="passwordFormato && !passwordRequerido" class="text-danger">La contraseña debe tener una longitud mínima de entre 4 y 16 caracteres</small>
-            <small *ngIf="password.errors.esSpam && !passwordRequerido && !passwordFormato" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+            <small *ngIf="password.errors?.esSpam && !passwordRequerido && !passwordFormato" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
         </div>
 
         <div class="form-group">
@@ -19,7 +19,7 @@
             <input type="password" class="form-control" id="nuevaPassword" formControlName="nuevaPassword" [class.is-invalid]="passwordNoValido">
             <small *ngIf="nuevaPassRequerida" class="text-danger">Nueva contraseña requerida</small>
             <small *ngIf="nuevaPassFormato && !nuevaPassRequerida" class="text-danger">La contraseña debe tener una longitud mínima de entre 4 y 16 caracteres</small>
-            <small *ngIf="nuevaPassword.errors.esSpam && !nuevaPassRequerida && !nuevaPassFormato" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+            <small *ngIf="nuevaPassword.errors?.esSpam && !nuevaPassRequerida && !nuevaPassFormato" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
         </div>
 
         <div class="form-group">
@@ -27,7 +27,7 @@
             <input type="password" class="form-control" name="nuevaPassword2" id="nuevaPassword2" formControlName="nuevaPassword2" [class.is-invalid]="passwordNoValido || contrasenasNoValidas()">
             <small *ngIf="nuevaPass2Requerida" class="text-danger">Repetición de nueva contraseña requerida</small>
             <small *ngIf="contrasenasNoValidas() && !nuevaPass2Requerida" class="text-danger">La nueva contraseña no coincide con la repetida</small>
-            <small *ngIf="nuevaPassword2.errors.esSpam && !nuevaPass2Requerida && !contrasenasNoValidas()" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
+            <small *ngIf="nuevaPassword2.errors?.esSpam && !nuevaPass2Requerida && !contrasenasNoValidas()" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
         </div>
         <hr>
 
