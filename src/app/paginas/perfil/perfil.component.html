@@ -3,7 +3,7 @@
         <form class="form-registro" autocomplete="off" [formGroup]="perfilAdministradorForm" (ngSubmit)="actualizarAdministradorPerfil()" id="loginform">
             <div class="row">
                 <div class="col"></div>
-                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;">Mi perfil</h2>
                 <div class="col"></div>
             </div>
             <hr class="mt-0">
@@ -14,19 +14,19 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre"><strong>Nombre:</strong></label>
                         <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreAdministradorNoValido">
                         <small *ngIf="nombreAdministradorRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre">Apellidos</label>
+                        <label for="nombre"><strong>Apellidos:</strong></label>
                         <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosAdministradorNoValido">
                         <small *ngIf="apellidosAdministradorRequerido" class="text-danger">Apellidos requeridos.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email"><strong>Email:</strong></label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" [readonly]="true" formControlName="email">
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         <form class="form-registro" autocomplete="off" [formGroup]="perfilAsistenteTecnicoForm" (ngSubmit)="actualizarAsistenteTecnicoPerfil()" id="loginform">
             <div class="row">
                 <div class="col"></div>
-                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;">Mi perfil</h2>
                 <div class="col"></div>
             </div>
             <hr class="mt-0">
@@ -73,19 +73,19 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre"><strong>Nombre:</strong></label>
                         <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreAsistenteNoValido">
                         <small *ngIf="nombreAsistenteRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre">Apellidos</label>
+                        <label for="nombre"><strong>Apellidos:</strong></label>
                         <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosAsistenteNoValido">
                         <small *ngIf="apellidosAsistenteRequerido" class="text-danger">Apellidos requeridos.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email"><strong>Email:</strong></label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" [readonly]="true" formControlName="email">
                     </div>
                 </div>
@@ -116,12 +116,12 @@
 </div>
 
 
-<div class="wrapper login" *ngIf="usuario === 'proveedor' && proveedor">
+<div class="wrapper login mt-3" *ngIf="usuario === 'proveedor' && proveedor">
     <div class="row">
         <form class="form-registro" autocomplete="off" [formGroup]="perfilProveedorForm" (ngSubmit)="actualizarProveedorPerfil()" id="loginform">
             <div class="row">
                 <div class="col"></div>
-                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;">Mi perfil</h2>
                 <div class="col"></div>
             </div>
             <hr class="mt-0">
@@ -130,31 +130,30 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre">Empresa</label>
+                        <strong for="nombre">Empresa:</strong>
                         <input type="text" class="form-control" name="nombreEmpresa" id="nombreEmpresa" formControlName="nombreEmpresa" [class.is-invalid]="nombreEmpresaNoValido">
                         <small *ngIf="nombreEmpresaRequerido" class="text-danger">Nombre de empresa requerido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="fechaRegistro">Fecha de registro</label>
-                        <input rows="4" type="date" class="form-control" name="fechaRegistro" [readonly]="true" id="fechaRegistro" formControlName="fechaRegistro">
+                        <strong>Fecha de registro: </strong><a class="text-secondary" style="text-decoration: none;"><strong>{{proveedor.fechaRegistro | date: 'dd/MM/yyyy'}}</strong></a>
                     </div>
 
                     <div class="form-group">
-                        <input type="checkbox" name="autonomo" [(ngModel)]="autonomo" id="autonomo" formControlName="autonomo"> Soy autónomo <a class="aviso" style="text-decoration: none;">(*)</a>
+                        <input type="checkbox" name="autonomo" [(ngModel)]="autonomo" id="autonomo" formControlName="autonomo" style="margin-right: 2%;"> <strong>Soy autónomo </strong><a class="aviso" style="text-decoration: none;">(*)</a>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <strong>Email:</strong>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" formControlName="email" [class.is-invalid]="emailProveedorNoValido">
                         <small *ngIf="emailProveedorRequerido" class="text-danger">Email requerido.</small>
                         <small *ngIf="emailProveedorFormato" class="text-danger">Formato inválido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="sector">Nicho de mercado</label>
+                        <strong>Sector principal:</strong>
                         <select class="form-control form-control-sm" id="sector" formControlName="sector">
-                            <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                            <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
                             <option value="Consolas y videojuegos">Consolas y videojuegos</option>
                             <option value="Informática">Informática</option>
                             <option value="Electrónica">Electrónica</option>
@@ -181,35 +180,35 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="direccion" [hidden]="autonomo">Dirección de la empresa</label>
-                        <label for="direccion" [hidden]="!autonomo">Dirección de residencia</label>
+                        <label for="direccion" [hidden]="autonomo"><strong>Dirección de la empresa:</strong></label>
+                        <label for="direccion" [hidden]="!autonomo"><strong>Dirección de residencia:</strong></label>
                         <input type="text" rows="4" type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion" [class.is-invalid]="direccionProveedorNoValido">
                         <small *ngIf="direccionProveedorRequerido" class="text-danger">Dirección requerida.</small>
                     </div>
 
                     <div class="form-group" [hidden]="autonomo">
-                        <label for="registroMercantil">CIF</label><a class="aviso" style="text-decoration: none;"> (Código de identificación fiscal de la empresa)</a>
+                        <label for="registroMercantil"><strong>CIF:</strong></label>
                         <input type="text" class="form-control" name="registroMercantil" placeholder="Ejemplo: B-72313251" id="registroMercantil" formControlName="registroMercantil" [class.is-invalid]="nifCifNoValidos() || cifFormato">
                         <small *ngIf="nifCifNoValidos() && !cifFormato" class="text-danger">CIF requerido.</small>
                         <small *ngIf="cifFormato" class="text-danger">Formato inválido.</small>
                     </div>
 
                     <div class="form-group" [hidden]="!autonomo">
-                        <label for="nif">NIF</label>
+                        <label for="nif"><strong>NIF:</strong></label>
                         <input type="text" class="form-control" name="nif" placeholder="Ejemplo: 72849135X" id="nif" formControlName="nif" [class.is-invalid]="nifCifNoValidos() || nifFormato">
                         <small *ngIf="nifCifNoValidos() && !nifFormato" class="text-danger">NIF requerido.</small>
                         <small *ngIf="nifFormato" class="text-danger">Formato inválido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="cuentaBancariaIBAN">IBAN</label>
+                        <label for="cuentaBancariaIBAN"><strong>IBAN:</strong></label>
                         <input type="text" placeholder="Ejemplo: ES3912341234250123456789" class="form-control" name="cuentaBancariaIBAN" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="ibanProveedorNoValido">
                         <small *ngIf="ibanProveedorRequerido" class="text-danger">IBAN requerido.</small>
                         <small *ngIf="ibanProveedorFormato && !ibanProveedorRequerido" class="text-danger">Formato inválido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="titularCuenta">Titular de la cuenta</label>
+                        <label for="titularCuenta"><strong>Titular de la cuenta bancaria:</strong></label>
                         <input type="text" class="form-control" name="titularCuenta" id="titularCuenta" placeholder="Ejemplo: SERGIO PEREA RUIZ" formControlName="titularCuenta" [class.is-invalid]="titularProveedorNoValido || titularProveedorFormato">
                         <small *ngIf="titularProveedorRequerido && !titularProveedorFormato" class="text-danger">Titular de la cuenta requerido.</small>
                         <small *ngIf="titularProveedorFormato" class="text-danger">Formato inválido.</small>
@@ -217,7 +216,7 @@
                 </div>
 
 
-                <div class="col-md-4 fotografia">
+                <div class="col-md-6 fotografia">
                     <h4 class="card-title text-center" [hidden]="autonomo">Foto/Logo de empresa</h4>
                     <h4 class="card-title text-center" [hidden]="!autonomo">Foto del usuario</h4>
                     <div class="card" style="border: none;">
@@ -227,7 +226,7 @@
                                 <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
                             </div>
                             <br>
-                            <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" (change)="cambiarImagen($event.target.files[0])">
+                            <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" style="width: 70%; margin-left: 15%" (change)="cambiarImagen($event.target.files[0])">
 
                         </div>
                     </div>
@@ -235,7 +234,7 @@
 
                 <hr>
 
-                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar perfil</button>
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit" style="width: 20%; margin-left: 80%;">Actualizar perfil</button>
 
             </div>
         </form>

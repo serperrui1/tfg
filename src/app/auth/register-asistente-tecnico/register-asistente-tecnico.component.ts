@@ -45,6 +45,9 @@ export class RegisterAsistenteTecnicoComponent {
       this.registrarAsistenteForm.markAllAsTouched()
       return;
     }
+
+    this.registrarAsistenteForm.controls['nombre'].setValue(this.registrarAsistenteForm.controls['nombre'].value.trim());
+    this.registrarAsistenteForm.controls['apellidos'].setValue(this.registrarAsistenteForm.controls['apellidos'].value.trim());
     
     this.usuarioService.crearAsistenteTecnico(this.registrarAsistenteForm.value).subscribe( resp => {
       Swal.fire('Guardado', 'Asistente técnico registrado correctamente', 'success');

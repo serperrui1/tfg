@@ -110,12 +110,23 @@ async actualizarCompradorPerfil() {
     }
     await this.subirImagen(this.imagenSubir);
     this.perfilCompradorForm.controls['img'].setValue(this.urlImagen);
+    this.perfilCompradorForm.controls['nombre'].setValue(this.perfilCompradorForm.controls['nombre'].value.trim());
+    this.perfilCompradorForm.controls['apellidos'].setValue(this.perfilCompradorForm.controls['apellidos'].value.trim());
+    this.perfilCompradorForm.controls['paisResidencia'].setValue(this.perfilCompradorForm.controls['paisResidencia'].value.trim());
+    this.perfilCompradorForm.controls['ciudad'].setValue(this.perfilCompradorForm.controls['ciudad'].value.trim());
+    this.perfilCompradorForm.controls['localidad'].setValue(this.perfilCompradorForm.controls['localidad'].value.trim());
+    this.perfilCompradorForm.controls['direccionResidencia'].setValue(this.perfilCompradorForm.controls['direccionResidencia'].value.trim());
     this.usuarioService.actualizarCompradorPerfil( this.perfilCompradorForm.value, this.comprador.uid ).subscribe( () => {
-    /* const { nombre, email } = this.perfilCompradorForm.value;
-    this.comprador.nombre = nombre;
-    this.comprador.email = email; */
-    Swal.fire('Guardado', 'Perfil actualizado.', 'success');
-    location.reload();
+      Swal.fire({
+        title: 'Perfil actualizado.',
+        icon: 'success',
+        confirmButtonText: `Ok`,
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload();
+        }
+      });
     }, (err)=> {
       Swal.fire('Error', err.error.msg, 'error');
     });
@@ -124,26 +135,33 @@ async actualizarCompradorPerfil() {
   
   async actualizarProveedorPerfil() {
 
-  
-
   if(this.perfilProveedorForm.invalid){
     this.perfilProveedorForm.markAllAsTouched()
     return;
   }
 
   if(this.autonomo){
-    /* delete this.perfilProveedorForm.value["registroMercantil"]; */
     this.perfilProveedorForm.value["registroMercantil"] = "";
   }else{
-    /* delete this.perfilProveedorForm.value["nif"]; */
-    
     this.perfilProveedorForm.value["nif"] = "";
   }
+
   await this.subirImagen(this.imagenSubir);
   this.perfilProveedorForm.controls['img'].setValue(this.urlImagen);
+  this.perfilProveedorForm.controls['nombreEmpresa'].setValue(this.perfilProveedorForm.controls['nombreEmpresa'].value.trim());
+  this.perfilProveedorForm.controls['titularCuenta'].setValue(this.perfilProveedorForm.controls['titularCuenta'].value.trim());
+  this.perfilProveedorForm.controls['direccion'].setValue(this.perfilProveedorForm.controls['direccion'].value.trim());
   this.usuarioService.actualizarProveedorPerfil( this.perfilProveedorForm.value, this.proveedor.uid ).subscribe( () => {
-    Swal.fire('Guardado', 'Perfil actualizado.', 'success');
-    location.reload();
+    Swal.fire({
+      title: 'Perfil actualizado.',
+      icon: 'success',
+      confirmButtonText: `Ok`,
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.reload();
+      }
+    });
   }, (err)=> {
     Swal.fire('Error', err.error.msg, 'error');
   });
@@ -159,11 +177,20 @@ async actualizarAdministradorPerfil() {
     
     await this.subirImagen(this.imagenSubir);
     this.perfilAdministradorForm.controls['img'].setValue(this.urlImagen);
+    this.perfilAdministradorForm.controls['nombre'].setValue(this.perfilAdministradorForm.controls['nombre'].value.trim());
+    this.perfilAdministradorForm.controls['apellidos'].setValue(this.perfilAdministradorForm.controls['apellidos'].value.trim());
     this.usuarioService.actualizarAdministradorPerfil( this.perfilAdministradorForm.value, this.administrador.uid ).subscribe( () => {
-
-      Swal.fire('Guardado', 'Perfil actualizado.', 'success');
-      location.reload();
-    }, (err) => {
+      Swal.fire({
+        title: 'Perfil actualizado.',
+        icon: 'success',
+        confirmButtonText: `Ok`,
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload();
+        }
+      });
+    }, (err)=> {
       Swal.fire('Error', err.error.msg, 'error');
     });
   }
@@ -176,12 +203,22 @@ async actualizarAdministradorPerfil() {
   }
   await this.subirImagen(this.imagenSubir);
   this.perfilAsistenteTecnicoForm.controls['img'].setValue(this.urlImagen);
+  this.perfilAsistenteTecnicoForm.controls['nombre'].setValue(this.perfilAsistenteTecnicoForm.controls['nombre'].value.trim());
+  this.perfilAsistenteTecnicoForm.controls['apellidos'].setValue(this.perfilAsistenteTecnicoForm.controls['apellidos'].value.trim());
   this.usuarioService.actualizarAsistenteTecnicoPerfil( this.perfilAsistenteTecnicoForm.value, this.asistenteTecnico.uid ).subscribe( () => {
-      Swal.fire('Guardado', 'Perfil actualizado.', 'success');
-      location.reload();
-    }, (err) => {
-      Swal.fire('Error', err.error.msg, 'error');
-    }); 
+    Swal.fire({
+      title: 'Perfil actualizado.',
+      icon: 'success',
+      confirmButtonText: `Ok`,
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.reload();
+      }
+    });
+  }, (err)=> {
+    Swal.fire('Error', err.error.msg, 'error');
+  });
   
 }
 
@@ -199,50 +236,6 @@ async actualizarAdministradorPerfil() {
       this.imgTemp = reader.result;
     }
   }
-
-
-  // subirImagen() {
-  //   if(this.usuario==="comprador"){
-  //     this.fileUploadService
-  //     .actualizarFoto( this.imagenSubir, 'compradores', this.comprador.uid )
-  //     .then( img => {
-  //       this.comprador.img = img;
-  //     }).catch( err => {
-  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-  //     })
-  //   }
-
-  //   else if(this.usuario==="proveedor"){
-  //     this.fileUploadService
-  //     .actualizarFoto( this.imagenSubir, 'proveedores', this.proveedor.uid )
-  //     .then( img => {
-  //       this.proveedor.img = img;
-  //     }).catch( err => {
-  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-  //     })
-  //   }
-  //   else if(this.usuario==="asistenteTecnico"){
-  //     this.fileUploadService
-  //     .actualizarFoto( this.imagenSubir, 'asistentes', this.asistenteTecnico.uid )
-  //     .then( img => {
-  //       this.asistenteTecnico.img = img;
-  //     }).catch( err => {
-  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-  //     })
-  //   }
-  //   else if(this.usuario==="administrador"){
-  //     this.fileUploadService
-  //     .actualizarFoto( this.imagenSubir, 'administradores', this.administrador.uid )
-  //     .then( img => {
-  //       this.administrador.img = img;
-  //     }).catch( err => {
-  //       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-  //     })
-  //   }
-    
-   
-    
-  // }
 
   async subirImagen(imagenSubir:File){
     let nombre = Math.random().toString() + imagenSubir.name; 
@@ -320,22 +313,10 @@ async actualizarAdministradorPerfil() {
     return this.perfilProveedorForm.get('direccion').errors ? this.perfilProveedorForm.get('direccion').errors.required && this.perfilProveedorForm.get('direccion').touched : null
   }
 
-  /* get registroMercantilNoValido(){
-    return this.registroMercantilRequerido
-  }
-  get registroMercantilRequerido(){
-    return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.cifVacio && this.perfilProveedorForm.get('registroMercantil').touched : null
-  } */
   get cifFormato(){
     return this.perfilProveedorForm.get('registroMercantil').errors ? this.perfilProveedorForm.get('registroMercantil').errors.pattern && this.perfilProveedorForm.get('registroMercantil').touched : null
   }
 
-  /* get nifNoValido(){
-    return this.nifRequerido
-  } */
-  /* get nifRequerido(){
-    return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.nifVacio && this.perfilProveedorForm.get('nif').touched : null
-  } */
   get nifFormato(){
     return this.perfilProveedorForm.get('nif').errors ? this.perfilProveedorForm.get('nif').errors.pattern && this.perfilProveedorForm.get('nif').touched : null
   }
@@ -360,26 +341,6 @@ async actualizarAdministradorPerfil() {
     return this.perfilProveedorForm.get('titularCuenta').errors ? this.perfilProveedorForm.get('titularCuenta').errors.pattern && this.perfilProveedorForm.get('titularCuenta').touched : null
   }
 
-  /* private nifVacio(control:FormControl):{[s:string]:boolean}{
-    let cP = String(control.value);
-    if(cP == ""){
-      return {
-        nifVacio:true
-      }
-    }
-    return null
-  }
-
-  private cifVacio(control:FormControl):{[s:string]:boolean}{
-    let cP = String(control.value);
-    if(cP == ""){
-      return {
-        cifVacio:true
-      }
-    }
-    return null
-  } */
-
   nifCifNoValidos(){
     const cif = this.perfilProveedorForm.get('registroMercantil').value;
     const nif = this.perfilProveedorForm.get('nif').value;
@@ -389,8 +350,6 @@ async actualizarAdministradorPerfil() {
       return false;
     }
   }
-
-
 
   //ADMINISTRADOR VALIDACIONES
 get nombreAdministradorRequerido(){
@@ -407,9 +366,6 @@ get apellidosAdministradorNoValido(){
   return this.apellidosAdministradorRequerido
 }
 
-
-
-
 //ASISTENTE VALIDACIONES VALIDACIONES
 get nombreAsistenteRequerido(){
   return this.perfilAsistenteTecnicoForm.get('nombre').errors ? this.perfilAsistenteTecnicoForm.get('nombre').errors.required && this.perfilAsistenteTecnicoForm.get('nombre').touched : null
@@ -424,11 +380,6 @@ get apellidosAsistenteRequerido(){
 get apellidosAsistenteNoValido(){
   return this.apellidosAsistenteRequerido
 }
-
-
-
-
-
 
   //COMPRADOR VALIDACIONES
   get nombreCompradorRequerido(){
