@@ -92,11 +92,15 @@
                                 <i class="fa fa-trash-o" style="font-size:30px;color:rgb(163, 24, 24)" (click)="borrarImagen()"> </i>
                             </div>
                             <div class="col-md-8" style="height: 250px;">
-                                <img src="{{direccionImagen + imagenMostrar}}" class="imagen">
+                                <img *ngIf="!imagenMostrarFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen">
+                                <img *ngIf="imagenMostrarFirebase" src="{{imagenMostrar}}" class="imagen">
+
                             </div>
                             <div class="col-md-2">
-                                <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
-                                    <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                                <div *ngFor="let imagen of producto.imagenes; let i = index" class="col-md-2 imagenes-container">
+                                    <img *ngIf="!imagenesFirebase[i]" src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                                    <img *ngIf="imagenesFirebase[i]" src="{{imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+
                                 </div>
                             </div>
                         </div>

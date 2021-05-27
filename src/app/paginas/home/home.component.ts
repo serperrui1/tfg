@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit  {
   public productosCategoria3: Producto[] = [];
   public productosCategoriaRandom1: Producto[] = [];
   public productosCategoriaRandom2: Producto[] = [];
+  categoriaRandom1: Producto[] = [];
+  categoriaRandom2: Producto[] = [];
   
 
   constructor(private productoService : ProductoService,
@@ -71,9 +73,18 @@ export class HomeComponent implements OnInit  {
     }
     
     this.productos = await (this.productoService.getProductos());
+    let categoria1 = this.categoriaRandom()
+
+    this.categoriaRandom1 = (await this.productoService.getProductos()).filter((e) => e.categoria == categoria1);
+
+    this.categoriaRandom1 = this.categoriaRandom1.slice(0, 3);
+ 
+    let categoria2 = this.categoriaRandom()
+    this.categoriaRandom2 = (await this.productoService.getProductos()).filter((e) => e.categoria == categoria2);
+    this.categoriaRandom2 = this.categoriaRandom2.slice(0, 3);
+
     this.productosCopy = this.productos;
     this.shuffled = this.productos;
-    console.log(this.shuffled);
 
 
     //COOKIE VISTOS RECIENTEMENTE
@@ -234,9 +245,9 @@ export class HomeComponent implements OnInit  {
         this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
         this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
 
-        this.productosCategoria1 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
-        this.shuffle(this.productosCategoria1);
-        this.productosCategoria1 = this.productosCategoria1.slice(0, 3);
+        // this.productosCategoria1 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
+        // this.shuffle(this.productosCategoria1);
+        // this.productosCategoria1 = this.productosCategoria1.slice(0, 3);
       }
   
       if (this.categorias.length == 2){ //hay dos categorias
@@ -252,13 +263,13 @@ export class HomeComponent implements OnInit  {
         this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
         this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
 
-        this.productosCategoria1 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
-        this.shuffle(this.productosCategoria1);
-        this.productosCategoria1 = this.productosCategoria1.slice(0, 3);
+        // this.productosCategoria1 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
+        // this.shuffle(this.productosCategoria1);
+        // this.productosCategoria1 = this.productosCategoria1.slice(0, 3);
 
-        this.productosCategoria2 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[1]);
-        this.shuffle(this.productosCategoria2);
-        this.productosCategoria2 = this.productosCategoria2.slice(0, 3);
+        // this.productosCategoria2 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[1]);
+        // this.shuffle(this.productosCategoria2);
+        // this.productosCategoria2 = this.productosCategoria2.slice(0, 3);
       }
   
       if (this.categorias.length >= 3){
@@ -274,17 +285,17 @@ export class HomeComponent implements OnInit  {
         this.productosMejorValorados.sort(((a, b) => (a.puntuacionMedia < b.puntuacionMedia) ? 1 : -1))
         this.productosMejorValorados = this.productosMejorValorados.slice(0, 3);
 
-        this.productosCategoria1 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
-        this.shuffle(this.productosCategoria1);
-        this.productosCategoria1 = this.productosCategoria1.slice(0, 3);
+        // this.productosCategoria1 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[0]);
+        // this.shuffle(this.productosCategoria1);
+        // this.productosCategoria1 = this.productosCategoria1.slice(0, 3);
 
-        this.productosCategoria2 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[1]);
-        this.shuffle(this.productosCategoria2);
-        this.productosCategoria2 = this.productosCategoria2.slice(0, 3);
+        // this.productosCategoria2 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[1]);
+        // this.shuffle(this.productosCategoria2);
+        // this.productosCategoria2 = this.productosCategoria2.slice(0, 3);
 
-        this.productosCategoria3 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[2]);
-        this.shuffle(this.productosCategoria3);
-        this.productosCategoria3 = this.productosCategoria3.slice(0, 3);
+        // this.productosCategoria3 = (await this.productoService.getProductos()).filter((e) => e.categoria == this.categorias[2]);
+        // this.shuffle(this.productosCategoria3);
+        // this.productosCategoria3 = this.productosCategoria3.slice(0, 3);
       }
     }
 
@@ -307,23 +318,24 @@ export class HomeComponent implements OnInit  {
         this.categoriasCopy.push(producto.categoria);
       }
 
-      this.shuffle(this.categoriasCopy);
-      var categoria = this.categoriasCopy[Math.floor(Math.random() * this.categoriasCopy.length)];
-      this.productosCategoriaRandom1 = (await this.productoService.getProductos()).filter((e) => e.categoria == categoria);
-      this.shuffle(this.productosCategoriaRandom1);
-      this.productosCategoriaRandom1 = this.productosCategoriaRandom1.slice(0, 3);
+      // this.shuffle(this.categoriasCopy);
+      // var categoria = this.categoriasCopy[Math.floor(Math.random() * this.categoriasCopy.length)];
+      // this.productosCategoriaRandom1 = (await this.productoService.getProductos()).filter((e) => e.categoria == categoria);
+      // this.shuffle(this.productosCategoriaRandom1);
+      // this.productosCategoriaRandom1 = this.productosCategoriaRandom1.slice(0, 3);
 
-      this.shuffle(this.categoriasCopy);
-      var categoria2 = this.categoriasCopy.find(element => element != categoria);
-      this.productosCategoriaRandom2 = (await this.productoService.getProductos()).filter((e) => e.categoria == categoria2);
-      this.shuffle(this.productosCategoriaRandom2);
-      this.productosCategoriaRandom2 = this.productosCategoriaRandom2.slice(0, 3);
+      // this.shuffle(this.categoriasCopy);
+      // var categoria2 = this.categoriasCopy.find(element => element != categoria);
+      // this.productosCategoriaRandom2 = (await this.productoService.getProductos()).filter((e) => e.categoria == categoria2);
+      // this.shuffle(this.productosCategoriaRandom2);
+      // this.productosCategoriaRandom2 = this.productosCategoriaRandom2.slice(0, 3);
 
   
 
       
     }
 
+       
   }
 
   verProducto(id: number ){
@@ -339,6 +351,35 @@ export class HomeComponent implements OnInit  {
         a[j] = x;
     }
     return a;
+  }
+
+  categoriaRandom(){
+    let todasCategorias = [
+    "Libros, Música, Vídeo y DVD",
+    "Consolas y videojuegos",
+    "Informática",
+    "Electrónica",
+    "Accesorios de electrónica",
+    "Electrodomésticos grandes",
+    "Hogar y cocina",
+    "Software y videojuegos para PC",
+    "Juguetes y juegos",
+    "Zapatos y Complementos",
+    "Relojes",
+    "Productos para bebé",
+    "Coche y moto",
+    "Deportes y aire libre",
+    "Joyería",
+    "Equipaje",
+    "Iluminación",
+    "Oficina y papelería",
+    "Salud y cuidado personal",
+    "Instrumentos musicales",
+    "Ropa y Accesorios",
+    "Jardín",
+    "Belleza"]
+    let i = Math.floor(Math.random() * (23) )
+    return todasCategorias[i];
   }
 
 }

@@ -47,6 +47,8 @@ export class ActualizarProductoComponent implements OnInit {
   public urlImagen:string;
   public spam: Spam;
   public expresionesSpam: string[];
+  imagenMostrarFirebase:boolean= false;
+  imagenesFirebase:boolean[]= [];
 
   constructor(private activatedRoute: ActivatedRoute,
     private fb:FormBuilder,
@@ -76,7 +78,20 @@ export class ActualizarProductoComponent implements OnInit {
 
       this.prov = await this.usuarioService.getProveedor();
       this.producto = await this.productoService.getProductoPorID(this.id);
+      for(let i = this.producto.imagenes.length -1; i>=0; i--){
+        if(this.producto.imagenes[i].startsWith("http")){
+          this.imagenesFirebase.push(true)
+        }else{
+          this.imagenesFirebase.push(false)
+        }
+      }
+      console.log( this.imagenesFirebase);
       this.imagenMostrar = this.producto.imagenes[0];
+      if(this.imagenMostrar.startsWith("http")){
+        this.imagenMostrarFirebase = true;
+      }else{
+        this.imagenMostrarFirebase = false;
+      }
       this.stock = this.producto.stock;
       this.unidadesMinimas = this.producto.unidadesMinimas;
       if(this.producto.proveedor != this.prov.uid){
@@ -252,7 +267,6 @@ export class ActualizarProductoComponent implements OnInit {
         });
 
   }
-
   borrarImagen() {
     Swal.fire({
         title: '¿Borrar la imagen?',
