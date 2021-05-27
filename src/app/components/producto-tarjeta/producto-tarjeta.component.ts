@@ -22,6 +22,7 @@ export class ProductoTarjetaComponent implements OnInit{
   estrellas= 0;
   imagenFirebase:boolean= false;
   proveedor: string;
+  noImagen:boolean = false;
   
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
@@ -42,6 +43,8 @@ export class ProductoTarjetaComponent implements OnInit{
     if(this.producto.imagenes.length>0){
       if(this.producto.imagenes[0].startsWith("https")){
         this.imagenFirebase = true;
+      }else if(this.producto.imagenes[0]== ""){
+        this.noImagen = true;
       }
     }
     this.estrellas = this.producto.puntuacionMedia;

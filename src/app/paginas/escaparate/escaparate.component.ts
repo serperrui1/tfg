@@ -20,6 +20,8 @@ export class EscaparateComponent implements OnInit {
   public proveedorId: string;
   public productosProveedor: Producto[] = [];
   public direccionImagen = base_url+"/upload/proveedores/"
+  imagenFirebase:boolean=false;
+  noImagen:boolean = false;
 
   constructor(private usuarioService: UsuarioService,
     private activatedRoute: ActivatedRoute,
@@ -32,6 +34,12 @@ export class EscaparateComponent implements OnInit {
       this.proveedorId = params['id']; 
     });
     this.proveedor = await this.usuarioService.getProveedorPorID(this.proveedorId);
+    if(this.proveedor.img.startsWith("https")){
+      this.imagenFirebase = true;
+    }else if(this.proveedor.img == ""){
+      this.noImagen = true;
+      console.log(this.noImagen);
+    }
     this.productosProveedor = await this.productoService.getProductosPorProveedorId(this.proveedorId);
   }
 

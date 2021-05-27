@@ -19,6 +19,8 @@ export class CompradorTarjetaComponent implements OnInit {
   public admin: Administrador;
   public direccionImagen = base_url+"/upload/compradores/"
   imagenFirebase:boolean= false;
+  noImagen:boolean = false;
+
 
   constructor(private usuarioService: UsuarioService,
     private router: Router) { }
@@ -27,6 +29,8 @@ export class CompradorTarjetaComponent implements OnInit {
     this.admin = await this.usuarioService.getAdministrador();
     if(this.comprador.img.startsWith("https")){
       this.imagenFirebase = true;
+    }else if(this.comprador.img==""){
+      this.noImagen = true;
     }
   }
 

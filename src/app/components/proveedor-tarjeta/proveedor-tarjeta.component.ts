@@ -22,6 +22,7 @@ export class ProveedorTarjetaComponent implements OnInit {
   @Output() proveedorSeleccionado: EventEmitter<string>;
   estrellas= 0;
   imagenFirebase:boolean=false;
+  noImagen:boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
@@ -40,7 +41,11 @@ export class ProveedorTarjetaComponent implements OnInit {
     }
     if(this.proveedor.img.startsWith("https")){
       this.imagenFirebase = true;
+    }else if(this.proveedor.img == ""){
+      this.noImagen = true;
+
     }
+    
     this.estrellas = this.proveedor.puntuacionMedia;
     let estrella = String(this.estrellas);
     if (estrella.includes(".")){//es decimal
