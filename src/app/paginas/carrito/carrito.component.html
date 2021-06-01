@@ -50,13 +50,13 @@
                     </button>
                 </div>
 
-                <div class="product-line-price">{{ cantidades[i] * item.precio}}</div>
+                <div class="product-line-price">{{ cantidades[i] * item.precio | number : '1.2-2' }}</div>
             </div>
 
             <div class="totals">
                 <div class="totals-item totals-item-total">
                     <label>Total</label>
-                    <div class="totals-value" id="cart-total">{{total}}</div>
+                    <div class="totals-value" id="cart-total">{{total | number : '1.2-2'}}</div>
                 </div>
             </div>
             <div class="row">
