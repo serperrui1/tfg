@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="row centrado mt-5" *ngIf="!noVistos">
+<!-- <div class="row centrado mt-5" *ngIf="!noVistos">
     <div class="col-md-12">
         <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● Productos de tu interés ●</h5>
     </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="col"></div>
     </div>
-</div>
+</div> -->
 
 <div class="row centrado">
     <div class="col-md-12">
@@ -95,7 +95,7 @@
     </div>
 </div>
 
-<h3 class="mt-5 mb-1 text-center" *ngIf="productosSegunCategoria.length == 0" style="color: rgb(68, 68, 68);">Tal vez te pueda interesar...</h3>
+<!-- <h3 class="mt-5 mb-1 text-center" *ngIf="productosSegunCategoria.length == 0" style="color: rgb(68, 68, 68);">Tal vez te pueda interesar...</h3>
 
 <div class="row centrado mt-0" *ngIf="productosSegunCategoria.length == 0">
     <div class="col-md-12" *ngIf="!productosCategoriaRandom1.length==0">
@@ -127,7 +127,7 @@
         </div>
         <div class="col"></div>
     </div>
-</div>
+</div> -->
 
 <h3 class="mt-5 mb-1 text-center" *ngIf="productosCategoria1.length != 0" style="color: rgb(68, 68, 68);">Categorias recomendadas para tí</h3>
 
@@ -176,6 +176,42 @@
         <div class="col"></div>
         <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
             <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of productosCategoria3"></app-producto-tarjeta>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<!--  -->
+
+<h3 class="mt-5 mb-1 text-center" style="color: rgb(68, 68, 68);">Tal vez te pueda interesar...</h3>
+
+<div class="row centrado mt-0" *ngIf="categoriaRandom1.length!=0">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● {{categoriaRandom1[0].categoria}} ●</h5>
+    </div>
+</div>
+
+<div class="home mb-4" *ngIf="categoriaRandom1.length!=0">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of categoriaRandom1"></app-producto-tarjeta>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div class="row centrado mt-0" *ngIf="categoriaRandom2.length!=0">
+    <div class="col-md-12">
+        <h5 class="mt-3 mb-2 text-center" style="color: rgb(122, 122, 122);">● {{categoriaRandom2[0].categoria}} ●</h5>
+    </div>
+</div>
+
+<div class="home mb-4" *ngIf="categoriaRandom2.length!=0">
+    <div class="row">
+        <div class="col"></div>
+        <div class="row row-cols-1 row-cols-md-3 tarjeta col-md-10">
+            <app-producto-tarjeta [producto]="producto" (productoSeleccionado)="verProducto($event)" *ngFor="let producto of categoriaRandom2"></app-producto-tarjeta>
         </div>
         <div class="col"></div>
     </div>

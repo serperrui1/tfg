@@ -28,7 +28,7 @@
     </div>
     <div class="row" *ngIf="producto">
         <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top: 13px;" routerLink="/producto/{{productoId}}">Valorar el producto</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/producto/{{productoId}}">Valorar el producto</a>
         </div>
         <div class="col-md-3 botones-container">
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra">Seguimiento del pedido</a>
@@ -37,7 +37,7 @@
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/crear-chat/{{productoId}}">¿Dudas sobre el producto?</a>
         </div>
         <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top: 13px;" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar/devolver</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar / devolver</a>
         </div>
     </div>
 </div>

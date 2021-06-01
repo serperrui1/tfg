@@ -3,10 +3,10 @@
 
     <div class="row">
 
-        <div class="col-md-1"></div>
+        <div class="col"></div>
 
         <div class="col-md-3 producto-izquierda">
-            <div style="height: 250px;">
+            <div>
                 <img *ngIf="!imagenFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen">
                 <img *ngIf="imagenFirebase" src="{{imagenMostrar}}" class="imagen">
             </div>
@@ -35,7 +35,8 @@
             <p class="precio-unidades">Ventas: <strong><a class="text-secondary" style="text-decoration: none;">{{producto.unidadesVendidas}}</a></strong></p>
             <p class="precio-unidades">Valoraciones: <strong><a class="text-secondary" style="text-decoration: none;">{{producto.valoraciones.length}}</a></strong></p>
             <br>
-            <p><u>Descripción:</u><br> <a class="text-secondary" style="text-decoration: none;">{{producto.descripcion}}</a></p>
+            <p><u>Descripción:</u><br></p>
+            <p [innerHTML]="producto.descripcion"></p>
             <br>
             <div class="detalles-tecnicos" *ngIf="producto.datosTecnicos[0]">
                 <h5 class="titulo-detalles text-left">Detalles técnicos</h5>
@@ -101,7 +102,7 @@
             </div>
         </div>
 
-        <div class="col-md-1"></div>
+        <div class="col"></div>
 
     </div>
 
@@ -110,7 +111,7 @@
 
     <div class="row">
 
-        <div class="col-md-1"></div>
+        <div class="col"></div>
 
 
         <div class="col-md-5 titulo-valorar" *ngIf="flag || yaValorado">
@@ -174,7 +175,7 @@
             </div>
         </div>
 
-        <div class="col-md-1"></div>
+        <div class="col"></div>
 
     </div>
 

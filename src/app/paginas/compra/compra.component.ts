@@ -44,7 +44,8 @@ export class CompraComponent implements OnInit {
       this.cantidades.push(cantidad)
     }
     for(let i = 0; i< this.productos.length; i++){
-      this.precioTotal = this.precioTotal + (Math.round(this.productos[i].precio * this.cantidades[i]*100)/100);
+      this.precioTotal = Math.round(this.precioTotal)*100/100 + (Math.round(this.productos[i].precio * this.cantidades[i]*100)/100);
+      console.log(this.precioTotal);
       if(this.productos[i].unidadesMinimas>this.cantidades[i] || this.productos[i].stock<this.cantidades[i]){
         this.quitarDelCarrito(i)
         Swal.fire('Error', 'no hay suficiente stock de' + this.productos[i].titulo).then((result) => {
