@@ -157,7 +157,7 @@ export class ProductoComponent implements OnInit {
       this.existeChat = await this.chatService.existeChat(this.producto.proveedor);
     }
  
-    this.producto.descripcion = this.producto.descripcion.replace(/(?:\r\n|\r|\n)/g, '\n');
+    this.producto.descripcion = this.producto.descripcion.replace(new RegExp('\n', 'g'), "<br />")
  
     for(let val of this.producto.valoraciones){
       this.valoradoPor = await this.usuarioService.getCompradorNombre(val.comprador);
