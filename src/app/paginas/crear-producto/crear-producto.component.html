@@ -1,6 +1,6 @@
 <div class="wrapper" *ngIf="usuario === 'proveedor' && proveedor">
     <div class="row">
-        <form class="form-registro" autocomplete="off" [formGroup]="crearProductoForm" (submit)="crearProducto()">
+        <form class="form-registro mt-3" autocomplete="off" [formGroup]="crearProductoForm" (submit)="crearProducto()">
             <div class="row">
                 <div class="col"></div>
                 <h2 class="form-signin-heading col-md-8" style="text-align: center;">Nuevo producto</h2>
@@ -15,21 +15,21 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label for="nombre">Título</label>
+                            <label for="nombre"><strong>Título</strong></label>
                             <input type="text" class="form-control" id="titulo" formControlName="titulo" [class.is-invalid]="tituloNoValido">
                             <small *ngIf="tituloCampoRequerido" class="text-danger">Título requerido</small>
                             <small *ngIf="titulo.errors?.esSpam && !tituloCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="nombre">Descripción</label>
+                            <label for="nombre"><strong>Descripción</strong></label>
                             <textarea type="text" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
                             <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
                             <small *ngIf="descripcion.errors?.esSpam && !descripcionCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="categoria">Categoría</label>
+                            <label for="categoria"><strong>Categoría</strong></label>
                             <select class="form-control form-control-sm" [(ngModel)]="categoria" name="categoria" formControlName="categoria">
                                 <option class="Libros, Música, Vídeo y DVD" selected="selected" value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
                                 <option class="Consolas y videojuegos" value="Consolas y videojuegos">Consolas y videojuegos</option>
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="subcategoria">Subcategoría</label>
+                            <label for="subcategoria"><strong>Subcategoría</strong></label><a class="aviso" style="text-decoration: none; font-size: 15px;"> (*)</a>
                             <select class="form-control form-control-sm" id="subcategoria" name="subcategoria" formControlName="subcategoria">
             
                                 <optgroup class="Libros, Música, Vídeo y DVD" [hidden]="categoria != 'Libros, Música, Vídeo y DVD'">
@@ -303,32 +303,32 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="unidadesMinimas">Unidades mínimas</label>
+                            <label for="unidadesMinimas"><strong>Unidades mínimas</strong></label>
                             <input type="number" class="form-control" id="unidadesMinimas" name="unidadesMinimas" min="1" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido ">
                             <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
                             <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Debe haber más stock que unidades mínimas</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="stock">Stock</label>
+                            <label for="stock"><strong>Stock</strong></label>
                             <input type="stock" class="form-control" id="stock" name="stock" min="0" formControlName="stock" [class.is-invalid]="stockNoValido">
                             <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
                             <small *ngIf="stockFormato && !stockCampoRequerido" class="text-danger">Debe haber más stock que unidades mínimas</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="precio">Precio</label><a class="aviso" style="text-decoration: none;"> (€)</a>
+                            <label for="precio"><strong>Precio</strong></label><a class="aviso" style="text-decoration: none;"> (€)</a>
                             <input type="number" class="form-control" id="precio" placeholder="Ejemplo: 2.99" formControlName="precio" [class.is-invalid]="precioNoValido">
                             <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
-                            <small *ngIf="precioFormato && !precioCampoRequerido" class="text-danger">Formato inválido</small>
+                            <small *ngIf="precioFormato" class="text-danger">Formato inválido</small>
                         </div>
                     </div>
 
 
                 </div>
-                <div class="col-md-6 form-div">
+                <div class="col-md-6 form-div mt-4">
 
-                    <h4 class="card-title text-left">Fotos del producto</h4>
+                    <h4 class="card-title text-left" style="margin-left: 25%">Fotos del producto</h4>
                     <div class="card" style="border: none;">
                         <div class="card-body">
                             <div class="text-center">
@@ -336,14 +336,15 @@
                                 <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
                             </div>
                             <br>
-                            <input type="file" class="btn btn-light btn-block waves-effect waves-light m-r-10" multiple (change)="multiplesImagenes($event.target.files)">
+                            <input type="file" style="width: 65%; margin-left: 17%" class="btn btn-light btn-block waves-effect waves-light m-r-10" multiple (change)="multiplesImagenes($event.target.files)">
+                            <a class="text-warning" *ngIf="imagenRequerido" style="text-decoration: none; margin-left: 18%">Una foto como mínimo, es requerida.</a>
                         </div>
-                        <small *ngIf="imagenRequerido" class="text-danger">La imagen es obligatoria</small>
                     </div>
                     <br>
 
-                    <h4 class="card-title text-left">Datos técnicos</h4>
-                    <div formArrayName="datosTecnicos">
+
+                    <div formArrayName="datosTecnicos" class="mt-3">
+                        <h4 class="card-title text-left">Detalles técnicos<a class="aviso" style="text-decoration: none; font-size: 15px;"> (*)</a></h4>
                         <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
@@ -351,13 +352,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a class="btn btn-lg btn-primary btn-sm btn-block" (click)="addDatosTecnicos()">
-                                        Añadir dato técnico
+                                    <a class="btn btn-lg btn-primary btn-sm btn-block" style="width: 60%; margin-left: 17%" (click)="addDatosTecnicos()">
+                                        Añadir otro campo
                                     </a>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <a class="btn btn-lg btn-danger btn-sm btn-block" *ngIf="pointIndex !=  datosTecnicos.controls.length -1" (click)="deleteDatosTecnicos(pointIndex)">
+                                    <a class="btn btn-lg btn-danger btn-sm btn-block" style="width: 60%; margin-left: 25%" *ngIf="pointIndex !=  datosTecnicos.controls.length -1" (click)="deleteDatosTecnicos(pointIndex)">
                                         Borrar dato técnico
                                     </a>
                                 </div>
@@ -367,12 +368,12 @@
 
                 </div>
                 <hr>
-                <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block mt-3" [disabled]="crearProductoForm.invalid">
-                    Subir producto
+                <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block mt-3" style="width: 20%; margin-left: 80%;">
+                    Publicar producto
                 </button>
-                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" (click)="findInvalidControls()">
+                <!-- <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" (click)="findInvalidControls()">
                     ver 
-                </button>
+                </button> -->
             </div>
         </form>
     </div>

@@ -62,7 +62,7 @@ export class CrearProductoComponent implements OnInit{
       this.crearProductoForm = this.fb.group({
         titulo:['', [Validators.required , SpamValidator(this.expresionesSpam)]],
         descripcion:['', [Validators.required , SpamValidator(this.expresionesSpam)]],
-        categoria:['Libros, Música, Vídeo y DVD', ],
+        categoria:['Libros, Música, Vídeo y DVD',],
         unidadesMinimas:['', [Validators.required, this.unidadesMinimasIncorrecto]],
         stock:['', [Validators.required, this.stockIncorrecto]],
         precio:['', [Validators.required, this.precioIncorrecto]],
@@ -115,6 +115,8 @@ export class CrearProductoComponent implements OnInit{
     for(let imagen of this.imagenesSubir){
       await this.subirImagen(imagen);
     }
+    this.crearProductoForm.controls['titulo'].setValue(this.crearProductoForm.controls['titulo'].value.trim());
+    this.crearProductoForm.controls['descripcion'].setValue(this.crearProductoForm.controls['descripcion'].value.trim());
     const productoId =  await this.productoService.crearProducto(this.crearProductoForm.value, this.urlImagenes);
     console.log(productoId);
 
