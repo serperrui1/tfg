@@ -36,6 +36,7 @@ a.botones:hover {
     border: 2px solid rgb(122, 122, 122);
     border-radius: 10px;
     max-height: 750px;
+    z-index: 0;
 }
 
 .orden {
