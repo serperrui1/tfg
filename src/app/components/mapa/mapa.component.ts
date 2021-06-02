@@ -22,6 +22,10 @@ export class MapaComponent implements OnInit {
   public direccionImagen = base_url+"/upload/productos/"
   public direccionImagenProveedor = base_url+"/upload/proveedores/"
   mediaEstrellas= 0;
+  imagenFirebase:boolean= false;
+  imagenFirebaseProducto:boolean= false;
+  noImagen:boolean = false;
+  noImagenProducto:boolean = false;
 
   constructor( public dialogRef:MatDialogRef<MapaComponent>,
     @Inject( MAT_DIALOG_DATA) public data:Producto[],
@@ -30,6 +34,9 @@ export class MapaComponent implements OnInit {
      }
 
   async ngOnInit(){
+
+  this.proveedor = await this.usuarioService.getProveedorPorID(this.productoInfo.proveedor);
+  
     
   if(!navigator.geolocation){
     this.center= {
@@ -45,7 +52,7 @@ export class MapaComponent implements OnInit {
         
     });
   }
-  this.proveedor = await this.usuarioService.getProveedorPorID(this.productoInfo.proveedor);
+
   }
 
   save(productoId:Producto){
@@ -55,8 +62,27 @@ export class MapaComponent implements OnInit {
 
   }
   async openInfoWindow(marker: MapMarker, producto:Producto) {
+    this.imagenFirebaseProducto = false;
+    this.imagenFirebase = false;
+    this.noImagen = false;
+    this.noImagenProducto = false;
     this.productoInfo = producto;
-    this.proveedor = await this.usuarioService.getProveedorPorID(this.productoInfo.proveedor);
+    if(this.productoInfo.imagenes.length>0){
+      if(this.productoInfo.imagenes[0].startsWith("https")){
+        this.imagenFirebaseProducto = true;
+      }else if(this.productoInfo.imagenes[0]== ""){
+        this.noImagenProducto = true;
+      }
+    }
+     this.proveedor = await this.usuarioService.getProveedorPorID(this.productoInfo.proveedor);
+    if(this.proveedor.img.length>0){
+      if(this.proveedor.img.startsWith("https")){
+        this.imagenFirebase = true;
+      }else if(this.proveedor.img== ""){
+        this.noImagen = true;
+      }
+    }
+ 
     console.log(this.proveedor);
     this.productoInfo.proveedorNombre = this.proveedor.nombreEmpresa;
     for(let valoracion of this.productoInfo.valoraciones){

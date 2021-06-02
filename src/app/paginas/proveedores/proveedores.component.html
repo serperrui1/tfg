@@ -54,7 +54,10 @@
 <div class="home">
     <div class="w-75 centrado ">
         <div class="row row-cols-1 row-cols-md-3 ">
-            <app-proveedor-tarjeta [proveedor]="proveedor" id="proveedores" (proveedorSeleccionado)="verProveedor($event)" *ngFor="let proveedor of proveedores "></app-proveedor-tarjeta>
+            <app-proveedor-tarjeta [proveedor]="proveedor" id="proveedores" (proveedorSeleccionado)="verProveedor($event)" *ngFor="let proveedor of proveedores | paginate: { itemsPerPage: 9, currentPage: p }"></app-proveedor-tarjeta>
+        </div>
+        <div style="text-align: center;">
+            <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
         </div>
     </div>
 </div>

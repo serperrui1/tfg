@@ -71,7 +71,12 @@ export class RegisterProveedorComponent {
     openDialog() {
       let dialogRef = this.dialog.open(MapaRegistroComponent,{});
   
-      dialogRef.afterClosed().subscribe(result => console.log(result))  
+      dialogRef.afterClosed().subscribe(result => {
+        let posicion = result.posicion
+        console.log(posicion);
+        this.registrarProveedorForm.controls["lat"].setValue(posicion.lat);
+        this.registrarProveedorForm.controls["lng"].setValue(posicion.lng);
+      })  
     }
 
   aceptaTerminos(){

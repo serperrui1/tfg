@@ -1,4 +1,6 @@
-<google-map width="900px" height="700px" [center]="center" [zoom]=10>
+<google-map width="900px" height="700px" [center]="center" [zoom]=10 (mapClick)="click($event)">
 
+    <map-marker #marker="mapMarker" [position]="posicion"></map-marker>
 
 </google-map>
+<button (click)="save()">Añadir localización</button>

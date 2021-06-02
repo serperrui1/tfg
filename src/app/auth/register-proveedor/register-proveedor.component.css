@@ -75,3 +75,9 @@ input[type="password"] {
 #map {
     height: 100%;
 }
+
+.mapa {
+    background-color: #2a1fc7;
+    color: white;
+    margin-bottom: 10px;
+}

@@ -138,3 +138,8 @@
 .borde-inferior {
     border-bottom: white solid 1px;
 }
+
+.img {
+    max-width: 140px;
+    margin-right: 10px;
+}

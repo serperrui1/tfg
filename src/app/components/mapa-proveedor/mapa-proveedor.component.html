@@ -7,7 +7,9 @@
 
         <map-info-window>
             <div class="card ">
-                <img class="card-img-top img-hover-zoom proveedor-imagen" src="{{direccionImagenProveedor + data.img}}" alt="Card image cap">
+                <img *ngIf="!imagenFirebase && !noImagen" class="card-img-top img-hover-zoom proveedor-imagen" src="{{direccionImagenProveedor + data.img}}" alt="Card image cap">
+                <img *ngIf="!imagenFirebase && noImagen" class="card-img-top img-hover-zoom proveedor-imagen" src="{{direccionImagenProveedor + 'no-img.jpg'}}" alt="Card image cap">
+                <img *ngIf="imagenFirebase " class="card-img-top img-hover-zoom proveedor-imagen" src="{{data.img}}" alt="Card image cap">
                 <div class="card-body nombre">
                     <h4 class="card-title">{{data.nombreEmpresa}}</h4>
                     <h6>Dirección: {{data.direccion}}</h6>

@@ -17,6 +17,8 @@ export class MapaProveedorComponent implements OnInit {
   center:any;
   public direccionImagenProveedor = base_url+"/upload/proveedores/"
   mediaEstrellas= 0;
+  imagenFirebase:boolean= false;
+  noImagen:boolean= false;
 
   constructor(public dialogRef:MatDialogRef<MapaProveedorComponent>,
     @Inject( MAT_DIALOG_DATA) public data:Proveedor,
@@ -25,6 +27,14 @@ export class MapaProveedorComponent implements OnInit {
       }
 
   async ngOnInit() {
+    if(this.data.img.length>0){
+      if(this.data.img.startsWith("https")){
+        this.imagenFirebase = true;
+      }else if(this.data.img== ""){
+        this.noImagen = true;
+      }
+    }
+    
     if(!navigator.geolocation){
       this.center= {
         lat: 37.386892,

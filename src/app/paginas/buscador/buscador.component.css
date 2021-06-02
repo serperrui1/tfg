@@ -53,3 +53,9 @@ ngb-rating {
 .sticky-top {
     top: 5.6em;
 }
+
+.mapa {
+    background-color: #2a1fc7;
+    color: white;
+    margin-top: 10px;
+}

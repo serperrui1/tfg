@@ -24,6 +24,8 @@ export class ProveedoresComponent implements OnInit {
   });
   public nombre:string ="";
   public proveedores: Proveedor[] = [];
+  p: number = 1;
+  currentRate = 0;
 
   constructor(private usuarioService : UsuarioService,
     private activatedRoute: ActivatedRoute,

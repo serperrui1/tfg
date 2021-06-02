@@ -8,14 +8,16 @@
         </div>
         <div class="card-body nombre mb-3">
             <h5 class="card-title">{{producto.titulo}}</h5>
-            <h6 class="card-title text-white bg-secondary" style="margin-top:0px; margin-bottom:2px">{{proveedor}}</h6>
-            <ngb-rating [max]="5" [(rate)]="estrellas" [readonly]="true"></ngb-rating><a style="margin-left:5%">Valoraciones: {{producto.valoraciones.length}}</a><a style="margin-left:5%">Ventas: {{producto.unidadesVendidas}}</a>
-            <div style="margin-top:0%" *ngIf="!producto.productoEstrella">
-                <strong class="text-success">{{producto.precio}} €</strong>
+
+            <h6 class="card-title text-white bg-secondary" style="margin-top:0px; margin-bottom:2px;  cursor: pointer;">{{proveedor}}</h6>
+            <div style="height: auto;">
+                <img *ngIf="producto.productoEstrella" style="margin-left: 5px; float: left; max-width: 80px;" src="/assets/images/producto-estrella.png" width="20%">
+
+                <ngb-rating [max]="5" [(rate)]="estrellas" [readonly]="true"></ngb-rating> <a style="margin-left:5px; font-size: small;">({{producto.valoraciones.length}} Valoraciones)</a><br>
             </div>
-            <div *ngIf="producto.productoEstrella">
-                <strong style="margin-top:4%; margin-left:25%; margin-right:10%;" class="text-success">{{producto.precio}} €</strong><img style="margin-top:0%; margin-bottom:0%;" src="/assets/images/producto-estrella.png" width="25%">
-            </div>
+            <strong class="text-success">{{producto.precio}} €</strong> <a style="margin-left:5%; font-size: small; padding-bottom: 10px;">({{producto.unidadesVendidas}} Ud vendidas)</a>
+
+
         </div>
 
     </div>

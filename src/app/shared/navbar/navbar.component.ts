@@ -59,9 +59,9 @@ export class NavbarComponent implements OnInit{
   })
   
   async ngOnInit() {
+    this.notifica();
     if(localStorage.getItem("token")){
       this.admin = await this.usuarioService.getAdministrador();
-      this.notifica();
       await this.hayChatsSinLeer();
       await this.hayIncidenciasSinLeer();
     }

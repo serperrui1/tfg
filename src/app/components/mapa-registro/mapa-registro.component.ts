@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MapInfoWindow } from '@angular/google-maps';
+import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MapaComponent } from '../mapa/mapa.component';
 
@@ -11,7 +11,9 @@ import { MapaComponent } from '../mapa/mapa.component';
 export class MapaRegistroComponent implements OnInit {
 
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow;
+  @ViewChild(MapMarker) mapMarker: MapMarker;
   center:any;
+  posicion: any;
 
   constructor( public dialogRef:MatDialogRef<MapaComponent>
     ) {
@@ -38,9 +40,16 @@ export class MapaRegistroComponent implements OnInit {
 
   save(){
     this.dialogRef.close({
+      posicion : this.posicion
     });
 
   }
   
+  click(event: Event){
+    this.posicion = {
+      lat: event["latLng"].lat(),
+      lng: event["latLng"].lng()
+    }
+  }
   
 }

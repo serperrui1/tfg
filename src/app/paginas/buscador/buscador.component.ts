@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent {
-
+  p: number = 1;
   currentRate = 0;
 
   datos:any = {
