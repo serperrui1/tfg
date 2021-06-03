@@ -28,6 +28,7 @@ export class MisIncidenciasComponent implements OnInit {
 
     async ngOnInit() {
       this.incidencias = await (this.incidenciaService.getMisIncidencias());
+      console.log(this.incidencias)
       if(localStorage.getItem("usuario")== "comprador" || localStorage.getItem("usuario")== "proveedor" )
       {
         this.compradorOProveedor = true;

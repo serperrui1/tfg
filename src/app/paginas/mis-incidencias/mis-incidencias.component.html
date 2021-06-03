@@ -1,36 +1,44 @@
-<form class="form-signin form-inline" style="width: 77%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
-    <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 2%;">Busque por título: </p>
-    <input type="text" class="form-control " formControlName="incidencia" style="width: 65%; margin-left: 1%" />
-    <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 10%" type="submit">Buscar</button>
-</form>
-
-<div class="row centrado mt-5">
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
-        <h1 class="mt-3 mb-4">Mis incidencias</h1>
+<div *ngIf="incidencias == undefined">
+    <h1 class="text-info" style="margin-top:18%; margin-left:22%">🤔 Vaya..., aún no tienes incidencias abiertas.</h1>
+    <div class="col-md-2 centrado mt-5" *ngIf="compradorOProveedor" style="margin-left: 40%;">
+        <a routerLink="/crear-incidencia" class="btn btn-lg btn-primary btn-sm btn-block" style="margin-left: 20%">Nueva incidencia</a>
     </div>
-    <div class="col-md-2 mt-4 ordena">
-        <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
-        <form [formGroup]="orden" id="buscadorform" class="orden">
-            <select formControlName="orden" (change)="ordenar()">
-                <option value="mensajesMasRecientes" selected="selected" >Mensajes más recientes primero</option> 
-                <option value="mensajesMasAntiguos" >Mensajes más antiguos primero</option>
-                <option value="asignadasPrimero" >Asignadas primero</option>
-                <option value="resueltasPrimero" >Resueltas primero</option>
-                <option value="noLeidasPrimero" >No leídas primero</option>
-            </select>
-        </form>
-    </div>
-    <div class="col-md-2 centrado mt-5" *ngIf="compradorOProveedor" style="text-align: right;">
-        <a routerLink="/crear-incidencia" class="btn btn-lg btn-primary btn-sm btn-block" style="margin-left: 24%">Nueva incidencia</a>
-    </div>
-    <div class="col-md-2"></div>
 </div>
+<div *ngIf="incidencias != undefined">
+    <form class="form-signin form-inline" style="width: 77%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
+        <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 2%;">Busque por título: </p>
+        <input type="text" class="form-control " formControlName="incidencia" style="width: 65%; margin-left: 1%" />
+        <button class="btn btn-outline-secondary btn-light boton-search" style="margin-left: 2%; width: 10%" type="submit">Buscar</button>
+    </form>
 
-<div class="row centrado">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <app-incidencia-tarjeta [data]="incidencia" id="incidencias" (incidenciaSeleccionada)="verIncidencia($event)" *ngFor="let incidencia of incidencias"></app-incidencia-tarjeta>
+    <div class="row centrado mt-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <h1 class="mt-3 mb-4">Mis incidencias</h1>
+        </div>
+        <div class="col-md-2 mt-4 ordena">
+            <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
+            <form [formGroup]="orden" id="buscadorform" class="orden">
+                <select formControlName="orden" (change)="ordenar()">
+                    <option value="mensajesMasRecientes" selected="selected" >Mensajes más recientes primero</option> 
+                    <option value="mensajesMasAntiguos" >Mensajes más antiguos primero</option>
+                    <option value="asignadasPrimero" >Asignadas primero</option>
+                    <option value="resueltasPrimero" >Resueltas primero</option>
+                    <option value="noLeidasPrimero" >No leídas primero</option>
+                </select>
+            </form>
+        </div>
+        <div class="col-md-2 centrado mt-5" *ngIf="compradorOProveedor" style="text-align: right;">
+            <a routerLink="/crear-incidencia" class="btn btn-lg btn-primary btn-sm btn-block" style="margin-left: 24%">Nueva incidencia</a>
+        </div>
+        <div class="col-md-2"></div>
     </div>
-    <div class="col-md-2"></div>
+
+    <div class="row centrado">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <app-incidencia-tarjeta [data]="incidencia" id="incidencias" (incidenciaSeleccionada)="verIncidencia($event)" *ngFor="let incidencia of incidencias"></app-incidencia-tarjeta>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 </div>

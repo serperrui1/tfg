@@ -1,13 +1,12 @@
 <div class="wrapper login">
-
     <form class="form-registro" autocomplete="off" [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()" id="loginform">
-        <h2 class="form-signin-heading" style="text-align: center;">Nueva contraseña</h2>
+        <h2 class="form-signin-heading mt-3" style="text-align: center;">Nueva contraseña</h2>
         <hr>
 
         <p class="aviso">(*) Campos opcionales</p>
 
         <div class="form-group">
-            <label for="password">Contraseña actual</label>
+            <label for="password"><strong>Contraseña actual</strong></label>
             <input type="password" class="form-control" name="password" id="password" formControlName="password" [class.is-invalid]="passwordNoValido">
             <small *ngIf="passwordRequerido" class="text-danger">Contraseña actual requerida</small>
             <small *ngIf="passwordFormato && !passwordRequerido" class="text-danger">La contraseña debe tener una longitud mínima de entre 4 y 16 caracteres</small>
@@ -15,7 +14,7 @@
         </div>
 
         <div class="form-group">
-            <label for="nuevaPassword">Nueva contraseña</label>
+            <label for="nuevaPassword"><strong>Nueva contraseña</strong></label>
             <input type="password" class="form-control" id="nuevaPassword" formControlName="nuevaPassword" [class.is-invalid]="passwordNoValido">
             <small *ngIf="nuevaPassRequerida" class="text-danger">Nueva contraseña requerida</small>
             <small *ngIf="nuevaPassFormato && !nuevaPassRequerida" class="text-danger">La contraseña debe tener una longitud mínima de entre 4 y 16 caracteres</small>
@@ -23,7 +22,7 @@
         </div>
 
         <div class="form-group">
-            <label for="nuevaPassword2">Repita la nueva contraseña</label>
+            <label for="nuevaPassword2"><strong>Repita la nueva contraseña</strong></label>
             <input type="password" class="form-control" name="nuevaPassword2" id="nuevaPassword2" formControlName="nuevaPassword2" [class.is-invalid]="passwordNoValido || contrasenasNoValidas()">
             <small *ngIf="nuevaPass2Requerida" class="text-danger">Repetición de nueva contraseña requerida</small>
             <small *ngIf="contrasenasNoValidas() && !nuevaPass2Requerida" class="text-danger">La nueva contraseña no coincide con la repetida</small>
@@ -33,7 +32,7 @@
 
         <br>
 
-        <button class="btn btn-lg btn-primary btn-block btn-sm" id="submit" type="submit">Actualizar contraseña</button>
+        <button class="btn btn-lg btn-primary btn-block btn-sm" id="submit" style="width: 40%; margin-left: 60%;" type="submit">Actualizar contraseña</button>
 
     </form>
 </div>
