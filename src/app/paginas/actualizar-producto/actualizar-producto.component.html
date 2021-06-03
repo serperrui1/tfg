@@ -29,8 +29,8 @@
 
                     <div class="form-group">
                         <label for="categoria"><strong>Categoría</strong></label>
-                        <select class="form-control form-control-sm" [(ngModel)]="categoria" name="categoria" formControlName="categoria">
-                        <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
+                        <select class="form-control form-control-sm" name="categoria" formControlName="categoria" (change)="cambiaCategoria()">
+                        <option value="Libros, Música, Vídeo y DVD" >Libros, Música, Vídeo y DVD</option> 
                         <option value="Consolas y videojuegos">Consolas y videojuegos</option>
                         <option value="Informática">Informática</option>
                         <option value="Electrónica">Electrónica</option>

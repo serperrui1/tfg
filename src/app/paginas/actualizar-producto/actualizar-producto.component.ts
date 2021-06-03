@@ -79,6 +79,7 @@ export class ActualizarProductoComponent implements OnInit {
 
       this.prov = await this.usuarioService.getProveedor();
       this.producto = await this.productoService.getProductoPorID(this.id);
+      this.categoria = this.producto.categoria;
       for(let i = this.producto.imagenes.length -1; i>=0; i--){
         if(this.producto.imagenes[i].startsWith("http")){
           this.imagenesFirebase.push(true)
@@ -216,7 +217,9 @@ export class ActualizarProductoComponent implements OnInit {
     });
    
   }
-
+  cambiaCategoria(){
+    this.categoria = this.productoForm.get("categoria").value;
+  }
   cambiarImagen( file: File ) {
     this.imagenSubir = file;
     if ( !file ) { 
@@ -276,14 +279,18 @@ export class ActualizarProductoComponent implements OnInit {
         confirmButtonText: 'Sí, borrarlo'
       }).then((result) => {
         if (result.value) {
-          for(let imagen of this.producto.imagenes){
-            if(imagen == this.imagenMostrar){
-              // const index: number = this.producto.imagenes.indexOf(imagen);
-              // console.log(index);
-              // this.producto.imagenes.slice(index,1);
-              // console.log(this.producto.imagenes);
-              this.producto.imagenes = this.producto.imagenes.filter(item => item !== imagen);
+          if(this.producto.imagenes.length>1){
+            for(let imagen of this.producto.imagenes){
+              if(imagen == this.imagenMostrar){
+                // const index: number = this.producto.imagenes.indexOf(imagen);
+                // console.log(index);
+                // this.producto.imagenes.slice(index,1);
+                // console.log(this.producto.imagenes);
+                this.producto.imagenes = this.producto.imagenes.filter(item => item !== imagen);
+              }
             }
+          }else{
+            Swal.fire(  "","Debe haber al menos una imagen del producto", 'error' );
           }
           
     }
