@@ -41,6 +41,7 @@ export class MisProductosComponent {
 
   async ngOnInit() {
     this.productos = await (this.productoService.getMisProductos());
+    this.filtro.get('categoria').setValue(this.productos[0].categoria);
   }
 
   async buscar(){

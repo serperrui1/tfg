@@ -10,7 +10,7 @@ body {
 
 .form-registro {
     max-width: 50%;
-    padding: 15px 35px 45px;
+    padding: 15px 35px 15px;
     margin: 0 auto;
     background-color: #fff;
     border: 2px solid rgb(122, 122, 122);

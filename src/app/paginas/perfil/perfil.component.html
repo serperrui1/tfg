@@ -14,19 +14,19 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre"><strong>Nombre:</strong></label>
+                        <label for="nombre"><strong>Nombre</strong></label>
                         <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreAdministradorNoValido">
                         <small *ngIf="nombreAdministradorRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre"><strong>Apellidos:</strong></label>
+                        <label for="nombre"><strong>Apellidos</strong></label>
                         <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosAdministradorNoValido">
                         <small *ngIf="apellidosAdministradorRequerido" class="text-danger">Apellidos requeridos.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="email"><strong>Email:</strong></label>
+                        <label for="email"><strong>Email</strong></label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" [readonly]="true" formControlName="email">
                     </div>
                 </div>
@@ -73,19 +73,19 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre"><strong>Nombre:</strong></label>
+                        <label for="nombre"><strong>Nombre</strong></label>
                         <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreAsistenteNoValido">
                         <small *ngIf="nombreAsistenteRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre"><strong>Apellidos:</strong></label>
+                        <label for="nombre"><strong>Apellidos</strong></label>
                         <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosAsistenteNoValido">
                         <small *ngIf="apellidosAsistenteRequerido" class="text-danger">Apellidos requeridos.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="email"><strong>Email:</strong></label>
+                        <label for="email"><strong>Email</strong></label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" [readonly]="true" formControlName="email">
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <strong for="nombre">Empresa:</strong>
+                        <strong for="nombre">Empresa</strong>
                         <input type="text" class="form-control" name="nombreEmpresa" id="nombreEmpresa" formControlName="nombreEmpresa" [class.is-invalid]="nombreEmpresaNoValido">
                         <small *ngIf="nombreEmpresaRequerido" class="text-danger">Nombre de empresa requerido.</small>
                     </div>
@@ -144,14 +144,14 @@
                     </div>
 
                     <div class="form-group">
-                        <strong>Email:</strong>
+                        <strong>Email</strong>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" formControlName="email" [class.is-invalid]="emailProveedorNoValido">
                         <small *ngIf="emailProveedorRequerido" class="text-danger">Email requerido.</small>
                         <small *ngIf="emailProveedorFormato" class="text-danger">Formato inválido.</small>
                     </div>
 
                     <div class="form-group">
-                        <strong>Sector principal:</strong>
+                        <strong>Sector principal</strong>
                         <select class="form-control form-control-sm" id="sector" formControlName="sector">
                             <option value="Libros, Música, Vídeo y DVD">Libros, Música, Vídeo y DVD</option> 
                             <option value="Consolas y videojuegos">Consolas y videojuegos</option>
@@ -180,35 +180,35 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="direccion" [hidden]="autonomo"><strong>Dirección de la empresa:</strong></label>
-                        <label for="direccion" [hidden]="!autonomo"><strong>Dirección de residencia:</strong></label>
+                        <label for="direccion" [hidden]="autonomo"><strong>Dirección de la empresa</strong></label>
+                        <label for="direccion" [hidden]="!autonomo"><strong>Dirección de residencia</strong></label>
                         <input type="text" rows="4" type="text" class="form-control" name="direccion" id="direccion" formControlName="direccion" [class.is-invalid]="direccionProveedorNoValido">
                         <small *ngIf="direccionProveedorRequerido" class="text-danger">Dirección requerida.</small>
                     </div>
 
                     <div class="form-group" [hidden]="autonomo">
-                        <label for="registroMercantil"><strong>CIF:</strong></label>
+                        <label for="registroMercantil"><strong>CIF</strong></label>
                         <input type="text" class="form-control" name="registroMercantil" placeholder="Ejemplo: B-72313251" id="registroMercantil" formControlName="registroMercantil" [class.is-invalid]="nifCifNoValidos() || cifFormato">
                         <small *ngIf="nifCifNoValidos() && !cifFormato" class="text-danger">CIF requerido.</small>
                         <small *ngIf="cifFormato" class="text-danger">Formato inválido.</small>
                     </div>
 
                     <div class="form-group" [hidden]="!autonomo">
-                        <label for="nif"><strong>NIF:</strong></label>
+                        <label for="nif"><strong>NIF</strong></label>
                         <input type="text" class="form-control" name="nif" placeholder="Ejemplo: 72849135X" id="nif" formControlName="nif" [class.is-invalid]="nifCifNoValidos() || nifFormato">
                         <small *ngIf="nifCifNoValidos() && !nifFormato" class="text-danger">NIF requerido.</small>
                         <small *ngIf="nifFormato" class="text-danger">Formato inválido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="cuentaBancariaIBAN"><strong>IBAN:</strong></label>
+                        <label for="cuentaBancariaIBAN"><strong>IBAN</strong></label>
                         <input type="text" placeholder="Ejemplo: ES3912341234250123456789" class="form-control" name="cuentaBancariaIBAN" id="cuentaBancariaIBAN" formControlName="cuentaBancariaIBAN" [class.is-invalid]="ibanProveedorNoValido">
                         <small *ngIf="ibanProveedorRequerido" class="text-danger">IBAN requerido.</small>
                         <small *ngIf="ibanProveedorFormato && !ibanProveedorRequerido" class="text-danger">Formato inválido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="titularCuenta"><strong>Titular de la cuenta bancaria:</strong></label>
+                        <label for="titularCuenta"><strong>Titular de la cuenta bancaria</strong></label>
                         <input type="text" class="form-control" name="titularCuenta" id="titularCuenta" placeholder="Ejemplo: SERGIO PEREA RUIZ" formControlName="titularCuenta" [class.is-invalid]="titularProveedorNoValido || titularProveedorFormato">
                         <small *ngIf="titularProveedorRequerido && !titularProveedorFormato" class="text-danger">Titular de la cuenta requerido.</small>
                         <small *ngIf="titularProveedorFormato" class="text-danger">Formato inválido.</small>
@@ -248,81 +248,81 @@
         <form class="form-registro" autocomplete="off" [formGroup]="perfilCompradorForm" (ngSubmit)="actualizarCompradorPerfil()" id="loginform">
             <div class="row">
                 <div class="col"></div>
-                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Mi perfil</h2>
+                <h2 class="form-signin-heading col-md-8" style="text-align: center;">Mi perfil</h2>
                 <div class="col"></div>
             </div>
             <hr class="mt-0">
             <div class="row">
 
 
-                <div class="col-md-6 form-div mt-0">
+                <div class="col-md-6 form-div mt-0 pb-0">
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre"><strong>Nombre</strong></label>
                         <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre" [class.is-invalid]="nombreCompradorNoValido">
                         <small *ngIf="nombreCompradorRequerido" class="text-danger">Nombre requerido.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre">Apellidos</label>
+                        <label for="nombre"><strong>Apellidos</strong></label>
                         <input type="text" class="form-control" name="apellidos" id="apellidos" formControlName="apellidos" [class.is-invalid]="apellidosCompradorNoValido">
                         <small *ngIf="apellidosCompradorRequerido" class="text-danger">Apellidos requeridos</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="fechaRegistro">Fecha de registro</label>
+                        <label for="fechaRegistro"><strong>Fecha de registro</strong></label>
                         <input rows="4" type="date" class="form-control" name="fechaRegistro" [readonly]="true" id="fechaRegistro" formControlName="fechaRegistro">
                     </div>
 
                     <div class="form-group">
-                        <label for="fechaNacimiento">Número de teléfono</label>
+                        <label for="fechaNacimiento"><strong>Número de teléfono<</strong></label>
                         <input type="number" class="form-control" id="numeroTelefono" placeholder="Ejemplo: 638126389" formControlName="numeroTelefono" [class.is-invalid]="tlfCompradorNoValido">
                         <small *ngIf="tlfCompradorRequerido" class="text-danger">Teléfono requerido</small>
                         <small *ngIf="telefonoFormato && !tlfCompradorRequerido" class="text-danger">Formato inválido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email"><strong>Email</strong></label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Ejemplo: email@email.com" formControlName="email" [class.is-invalid]="emailCompradorNoValido">
                         <small *ngIf="emailCompradorRequerido" class="text-danger">Email requerido</small>
                         <small *ngIf="emailFormatoNoValido" class="text-danger">Formato inválido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        <label for="fechaNacimiento"><strong>Fecha de nacimiento</strong></label>
                         <input rows="4" type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" formControlName="fechaNacimiento" [class.is-invalid]="fechaNoValido">
                         <small *ngIf="fechaNacimientoRequerido" class="text-danger">Fecha de nacimiento requerida</small>
                         <small *ngIf="fechaFechaAnteriorAHoy && !fechaNacimientoRequerido" class="text-danger">La fecha de nacimiento no puede ser futura</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="paisResidencia">País de residencia</label>
+                        <label for="paisResidencia"><strong>País de residencia</strong></label>
                         <input type="text" class="form-control" id="paisResidencia" formControlName="paisResidencia" [class.is-invalid]="paisCompradorNoValido">
                         <small *ngIf="paisCompradorRequerido" class="text-danger">País de residencia requerido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="ciudad">Ciudad</label>
+                        <label for="ciudad"><strong>Ciudad</strong></label>
                         <input type="text" class="form-control" id="ciudad" formControlName="ciudad" [class.is-invalid]="ciudadCompradorNoValido">
                         <small *ngIf="ciudadCompradorRequerido" class="text-danger">Ciudad requerida</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="localidad">Localidad</label><a class="aviso" style="text-decoration: none; font-size: 14px;"> (Si no vive en una localidad, introduzca su ciudad)</a>
+                        <label for="localidad"><strong>Localidad</strong></label><a class="aviso" style="text-decoration: none; font-size: 14px;"> (Si no vive en una localidad, introduzca su ciudad)</a>
                         <input type="text" class="form-control" id="localidad" formControlName="localidad" [class.is-invalid]="localidadCompradorNoValido">
                         <small *ngIf="localidadCompradorRequerido" class="text-danger">Localidad requerida</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="codigoPostal">Código postal</label>
+                        <label for="codigoPostal"><strong>Código postal</strong></label>
                         <input type="number" class="form-control" id="codigoPostal" placeholder="Ejemplo: 41410" formControlName="codigoPostal" [class.is-invalid]="codigoPostalCompradorNoValido">
                         <small *ngIf="codigoPostalCompradorRequerido" class="text-danger">Código postal requerido</small>
                         <small *ngIf="codigoPostalFormato && !codigoPostalCompradorRequerido" class="text-danger">Formato inválido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="codigoPostal">Dirección de residencia</label>
+                        <label for="codigoPostal"><strong>Dirección de residencia</strong></label>
                         <input type="text" class="form-control" id="direccionResidencia" formControlName="direccionResidencia" [class.is-invalid]="direccionCompradorNoValido">
                         <small *ngIf="direccionCompradorRequerido" class="text-danger">Direccción requerida</small>
                     </div>
@@ -346,7 +346,7 @@
 
                 <hr>
 
-                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar perfil</button>
+                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" style="width: 20%; margin-left: 80%;" type="submit">Actualizar perfil</button>
 
             </div>
         </form>
