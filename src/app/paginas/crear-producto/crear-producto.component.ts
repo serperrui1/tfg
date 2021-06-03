@@ -129,7 +129,7 @@ export class CrearProductoComponent implements OnInit{
     //   Swal.fire('Error', 'No se ha creado el producto, ha habido un error.', 'error');
     // });
   }else{
-    Swal.fire('Error', 'La foto es obligatoria', 'error');
+    Swal.fire('Error', 'Una foto como mínimo, es requerida.', 'error');
   }
   }
   async subirImagen(imagenSubir:File){

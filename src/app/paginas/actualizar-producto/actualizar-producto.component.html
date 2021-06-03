@@ -1,9 +1,9 @@
-<div class="wrapper" *ngIf="producto && productoForm && !accesoDenegado">
+<div class="wrapper mt-4" *ngIf="producto && productoForm && !accesoDenegado">
     <div class="row">
-        <form class="form-registro" autocomplete="off" [formGroup]="productoForm" (ngSubmit)="actualizarProducto()" id="loginform">
+        <form class="form-registro mt-3" autocomplete="off" [formGroup]="productoForm" (ngSubmit)="actualizarProducto()" id="loginform">
             <div class="row">
                 <div class="col"></div>
-                <h2 class="form-signin-heading col-md-8" style="text-align: center;"> Actualizar producto</h2>
+                <h2 class="form-signin-heading col-md-8 mt-3" style="text-align: center;"> Actualizar producto</h2>
                 <div class="col"></div>
             </div>
             <hr class="mt-0">
@@ -14,22 +14,22 @@
                     <p class="aviso">(*) Campos opcionales</p>
 
                     <div class="form-group">
-                        <label for="nombre">Título</label>
+                        <label for="nombre"><strong>Título</strong></label>
                         <input type="text" class="form-control" id="titulo" formControlName="titulo" [class.is-invalid]="tituloNoValido">
                         <small *ngIf="tituloCampoRequerido" class="text-danger">Título requerido</small>
                         <small *ngIf="titulo.errors?.esSpam && !tituloCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre">Descripción</label>
+                        <label for="nombre"><strong>Descripción</strong></label>
                         <textarea type="text" rows="8" class="form-control" id="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido"></textarea>
                         <small *ngIf="descripcionCampoRequerido" class="text-danger">Descripción requerida</small>
                         <small *ngIf="descripcion.errors?.esSpam && !descripcionCampoRequerido" class="text-danger">No pueden usarse términos o palabras que poseen connotaciones negativas.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="categoria">Categoría</label>
-                        <select class="form-control form-control-sm" id="categoria" formControlName="categoria">
+                        <label for="categoria"><strong>Categoría</strong></label>
+                        <select class="form-control form-control-sm" [(ngModel)]="categoria" name="categoria" formControlName="categoria">
                         <option value="Libros, Música, Vídeo y DVD" selected="selected">Libros, Música, Vídeo y DVD</option> 
                         <option value="Consolas y videojuegos">Consolas y videojuegos</option>
                         <option value="Informática">Informática</option>
@@ -57,90 +57,326 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="subcategoria">Subcategoría</label>
-                        <a class="aviso" style="text-decoration: none;"> (*)</a>
-                        <input type="text" class="form-control" id="subcategoria" placeholder="Ejemplo: Cafeteras" formControlName="subcategoria">
+                        <label for="subcategoria"><strong>Subcategoría</strong></label><a class="aviso" style="text-decoration: none; font-size: 15px;"> (*)</a>
+                        <select class="form-control form-control-sm" id="subcategoria" name="subcategoria" formControlName="subcategoria">
+        
+                            <optgroup class="Libros, Música, Vídeo y DVD" [hidden]="categoria != 'Libros, Música, Vídeo y DVD'">
+                                <option value="" selected="selected">Seleccione subcatégoria</option>
+                                <option value="Música">Música</option>
+                                <option value="Libros">Libros</option>
+                                <option value="Vídeo">Vídeo</option>
+                                <option value="DVD">DVD</option>
+                                <option value="Blu-ray">Blu-ray</option>
+                            </optgroup>
+        
+                            <optgroup class="Consolas y videojuegos" [hidden]="categoria != 'Consolas y videojuegos'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Consolas">Consolas</option>
+                                <option value="Videojuegos">Videojuegos</option>
+                            </optgroup>
+        
+                            <optgroup class="Informática" [hidden]="categoria != 'Informática'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Ordenadores de sobremesa">Ordenadores de sobremesa</option>
+                                <option value="Ordenadores portátiles">Ordenadores portátiles</option>
+                                <option value="Tablets">Tablets</option>
+                                <option value="Accesorios para el tablet">Accesorios para el tablet</option>
+                                <option value="Almacenamiento">Almacenamiento</option>
+                                <option value="Monitores">Monitores</option>
+                                <option value="Teclados">Teclados</option>
+                                <option value="Alfombrillas">Alfombrillas</option>
+                                <option value="Ratones">Ratones</option>
+                                <option value="Altavoces">Altavoces</option>
+                                <option value="Auriculares y micrófonos">Auriculares y micrófonos</option>
+                                <option value="Lectores de tarjetas">Lectores de tarjetas</option>
+                                <option value="Componentes del ordenador">Componentes del ordenador</option>
+                                <option value="Periféricos USB WIFI">Periféricos USB WIFI</option>
+                                <option value="Periféricos USB Bluetooth">Periféricos USB Bluetooth</option>
+                                <option value="Cables">Cables</option>
+                                <option value="Herramientas de reparación">Herramientas de reparación</option>
+                                <option value="Otros periféricos y accesorios">Otros periféricos y accesorios</option>
+                            </optgroup>
+        
+                            <optgroup class="Electrónica" [hidden]="categoria != 'Electrónica'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Televisores">Televisores</option>
+                                <option value="Equipos de sonido">Equipos de sonido</option>
+                                <option value="Proyectores">Proyectores</option>
+                                <option value="Reproductores de vídeo">Reproductores de vídeo</option>
+                                <option value="Radios de coche">Radios de coche</option>
+                                <option value="Smart TV BOX">Smart TV BOX</option>
+                                <option value="GPS">GPS</option>
+                                <option value="Cámaras">Cámaras</option>
+                                <option value="Teléfonos móviles">Teléfonos móviles</option>
+                                <option value="Componentes electrónicos">Componentes electrónicos</option>
+                                <option value="Componentes del teléfono móvil">Componentes del teléfono móvil</option>
+                            </optgroup>
+        
+                            <optgroup class="Accesorios de electrónica" [hidden]="categoria != 'Accesorios de electrónica'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Fundas">Fundas</option>
+                                <option value="Cables">Cables</option>
+                                <option value="Cargadores">Cargadores</option>
+                                <option value="Soportes">Soportes</option>
+                                <option value="Auriculares">Auriculares</option>
+                                <option value="Accesorios para el móvil">Accesorios para el móvil</option>
+                            </optgroup>
+        
+                            <optgroup class="Electrodomésticos grandes" [hidden]="categoria != 'Electrodomésticos grandes'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Frigoríficos">Frigoríficos</option>
+                                <option value="Lavavajillas">Lavavajillas</option>
+                                <option value="Lavadoras">Lavadoras</option>
+                                <option value="Secadoras">Secadoras</option>
+                            </optgroup>
+        
+                            <optgroup class="Hogar y cocina" [hidden]="categoria != 'Hogar y cocina'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Pequeño electrodoméstico">Pequeño electrodoméstico</option>
+                                <option value="Mobiliario">Mobiliario</option>
+                                <option value="Aspiradoras">Aspiradoras</option>
+                                <option value="Accesorios para el hogar">Accesorios para el hogar</option>
+                                <option value="Utensilios de cocina">Utensilios de cocina</option>
+                            </optgroup>
+        
+                            <optgroup class="Software y videojuegos para PC" [hidden]="categoria != 'Software y videojuegos para PC'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Software">Software</option>
+                                <option value="Vídeo">Vídeo</option>
+                                <option value="Videojuegos de PC">Videojuegos de PC</option>
+                            </optgroup>
+        
+                            <optgroup class="Juguetes y juegos" [hidden]="categoria != 'Juguetes y juegos'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Juguetes para bebés y niños preescolares">Juguetes para bebés y niños preescolares</option>
+                                <option value="Juguetes educativos y de exploración">Juguetes educativos y de exploración</option>
+                                <option value="Juguetes para montar">Juguetes para montar</option>
+                                <option value="Muñecos de acción">Muñecos de acción</option>
+                                <option value="Muñecas">Muñecas</option>
+                                <option value="Juegos de mesa">Juegos de mesa</option>
+                                <option value="Arte y manualidades">Arte y manualidades</option>
+                                <option value="Aficiones">Aficiones</option>
+                                <option value="Muebles infantiles">Muebles infantiles</option>
+                            </optgroup>
+        
+                            <optgroup class="Zapatos y Complementos" [hidden]="categoria != 'Zapatos y Complementos'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Zapatos">Zapatos</option>
+                                <option value="Botas">Botas</option>
+                                <option value="Sandalias">Sandalias</option>
+                                <option value="Zapatillas de estar por casa">Zapatillas de estar por casa</option>
+                                <option value="Zapatillas deportivas">Zapatillas deportivas</option>
+                            </optgroup>
+        
+                            <optgroup class="Relojes" [hidden]="categoria != 'Relojes'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Relojes automáticos">Relojes automáticos</option>
+                                <option value="Relojes analógicos">Relojes analógicos</option>
+                                <option value="Relojes digitales">Relojes digitales</option>
+                            </optgroup>
+        
+                            <optgroup class="Productos para bebé" [hidden]="categoria != 'Productos para bebé'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Regalos">Regalos</option>
+                                <option value="Decoración y otros">Decoración y otros</option>
+                                <option value="Mobiliario">Mobiliario</option>
+                                <option value="Ropa de cama">Ropa de cama</option>
+                                <option value="Seguridad">Seguridad</option>
+                                <option value="Coche y dormitorio">Coche y dormitorio</option>
+                                <option value="Higiene y salud">Higiene y salud</option>
+                            </optgroup>
+        
+                            <optgroup class="Coche y moto" [hidden]="categoria != 'Coche y moto'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Piezas">Piezas</option>
+                                <option value="Herramientas">Herramientas</option>
+                                <option value="Equipos">Equipos</option>
+                                <option value="Accesorios">Accesorios</option>
+                            </optgroup>
+        
+                            <optgroup class="Deportes y aire libre" [hidden]="categoria != 'Deportes y aire libre'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Equipamiento deportivo">Equipamiento deportivo</option>
+                                <option value="Bicicletas">Bicicletas</option>
+                                <option value="Carpas">Carpas</option>
+                            </optgroup>
+        
+                            <optgroup class="Joyería" [hidden]="categoria != 'Joyería'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Pendientes">Pendientes</option>
+                                <option value="Collares">Collares</option>
+                                <option value="Anillos">Anillos</option>
+                                <option value="Pulseras">Pulseras</option>
+                            </optgroup>
+        
+                            <optgroup class="Equipaje" [hidden]="categoria != 'Equipaje'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Maletas">Maletas</option>
+                                <option value="Mochilas">Mochilas</option>
+                                <option value="Bolsas escolares">Bolsas escolares</option>
+                                <option value="Accesorios de viaje">Accesorios de viaje</option>
+                                <option value="Otros">Otros</option>
+                            </optgroup>
+        
+                            <optgroup class="Iluminación" [hidden]="categoria != 'Iluminación'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Iluminación de interior y exterior">Iluminación de interior y exterior</option>
+                                <option value="Linternas">Linternas</option>
+                                <option value="Bombillas">Bombillas</option>
+                                <option value="Accesorios de iluminación">Accesorios de iluminación</option>
+                            </optgroup>
+        
+                            <optgroup class="Oficina y papelería" [hidden]="categoria != 'Oficina y papelería'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Herramientas de escritura">Herramientas de escritura</option>
+                                <option value="Material educativo">Material educativo</option>
+                                <option value="Productos de papelería">Productos de papelería</option>
+                                <option value="Productos de oficina">Productos de oficina</option>
+                                <option value="Tinta y tóner">Tinta y tóner</option>
+                            </optgroup>
+        
+                            <optgroup class="Salud y cuidado personal" [hidden]="categoria != 'Salud y cuidado personal'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Cuidado del cabello">Cuidado del cabello</option>
+                                <option value="Cuidado bucal">Cuidado bucal</option>
+                                <option value="Cepillos y tratamientos corporales">Cepillos y tratamientos corporales</option>
+                                <option value="Afeitado">Afeitado</option>
+                                <option value="Suministros y equipo sanitarios">Suministros y equipo sanitarios</option>
+                                <option value="Masaje y relax">Masaje y relax</option>
+                                <option value="Lámparas de bronceado">Lámparas de bronceado</option>
+                                <option value="Básculas de baño">Básculas de baño</option>
+                                <option value="Ayudas a la movilidad">Ayudas a la movilidad</option>
+                                <option value="Productos para la vida diaria">Productos para la vida diaria</option>
+                            </optgroup>
+        
+                            <optgroup class="Instrumentos musicales" [hidden]="categoria != 'Instrumentos musicales'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Instrumentos musicales y accesorios">Instrumentos musicales y accesorios</option>
+                                <option value="Equipos de megafonía y escenarios">Equipos de megafonía y escenarios</option>
+                                <option value="Equipos de DJ">Equipos de DJ</option>
+                                <option value="Equipos de karaoke">Equipos de karaoke</option>
+                            </optgroup>
+        
+                            <optgroup class="Ropa y Accesorios" [hidden]="categoria != 'Ropa y Accesorios'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Complementos">Complementos</option>
+                                <option value="Chaquetas">Chaquetas</option>
+                                <option value="Sujetadores">Sujetadores</option>
+                                <option value="Vestidos">Vestidos</option>
+                                <option value="Sombreros">Sombreros</option>
+                                <option value="Ropa de abrigo">Ropa de abrigo</option>
+                                <option value="Pantalones">Pantalones</option>
+                                <option value="Camisas">Camisas</option>
+                                <option value="Pantalones cortos">Pantalones cortos</option>
+                                <option value="Faldas">Faldas</option>
+                                <option value="Pijamas">Pijamas</option>
+                                <option value="Calcetines">Calcetines</option>
+                                <option value="Medias">Medias</option>
+                                <option value="Trajes">Trajes</option>
+                                <option value="Jerséis">Jerséis</option>
+                                <option value="Bañadores">Bañadores</option>
+                                <option value="Ropa interior">Ropa interior</option>
+                            </optgroup>
+        
+                            <optgroup class="Jardín" [hidden]="categoria != 'Jardín'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Fertilizantes">Fertilizantes</option>
+                                <option value="Mobiliario de jardín">Mobiliario de jardín</option>
+                                <option value="Herramientas de jardinería">Herramientas de jardinería</option>
+                                <option value="Invernaderos">Invernaderos</option>
+                                <option value="Iluminación">Iluminación</option>
+                                <option value="Decoración de jardín">Decoración de jardín</option>
+                                <option value="Calefactores radiantes">Calefactores radiantes</option>
+                                <option value="Barbacoas">Barbacoas</option>
+                            </optgroup>
+        
+                            <optgroup class="Belleza" [hidden]="categoria != 'Belleza'">
+                                <option value="" selected="selected">Seleccione subcategoria</option>
+                                <option value="Perfumes y fragancias">Perfumes y fragancias</option>
+                                <option value="Maquillaje">Maquillaje</option>
+                                <option value="Manicura y pedicura">Manicura y pedicura</option>
+                                <option value="Cuidado de la piel">Cuidado de la piel</option>
+                            </optgroup>
+                            
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="unidadesMinimas">Unidades mínimas</label>
-                        <input type="number" class="form-control" id="unidadesMinimas" [(ngModel)]="unidadesMinimas" name="unidadesMinimas" min="1" max="{{producto.stock}}" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
-                        <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
-                        <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Formato inválido</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="stock">Stock</label>
+                        <label for="stock"><strong>Stock</strong></label>
                         <input type="stock" class="form-control" id="stock" [(ngModel)]="stock" name="stock" min="0" formControlName="stock" [class.is-invalid]="stockNoValido">
                         <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
                         <small *ngIf="stockFormato && !stockCampoRequerido" class="text-danger">Formato inválido</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="precio">Precio</label><a class="aviso" style="text-decoration: none;"> (€)</a>
+                        <label for="unidadesMinimas"><strong>Unidades mínimas</strong></label>
+                        <input type="number" class="form-control" id="unidadesMinimas" [(ngModel)]="unidadesMinimas" name="unidadesMinimas" min="1" max="{{producto.stock}}" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido">
+                        <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
+                        <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Formato inválido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precio"><strong>Precio</strong></label><a class="aviso" style="text-decoration: none;"> (€)</a>
                         <input type="number" class="form-control" id="precio" placeholder="Ejemplo: 2.99" formControlName="precio" [class.is-invalid]="precioNoValido">
                         <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
                         <small *ngIf="precioFormato && !precioCampoRequerido" class="text-danger">Formato inválido</small>
                     </div>
                 </div>
 
-                <div class="col-md-6 form-div">
-                    <h4 class="card-title text-center">Fotos del producto<a class="aviso" style="text-decoration: none;"> (*)</a></h4>
+                <div class="col-md-6 form-div  mt-4">
+                    <h4 class="card-title text-left" style="margin-left: 25%">Fotos del producto<a class="aviso" style="text-decoration: none;"> (*)</a></h4>
                     <div>
                         <div class="row">
-                            <div class="col-md-2 borrarImagen">
-                                <i class="fa fa-trash-o" style="font-size:30px;color:rgb(163, 24, 24)" (click)="borrarImagen()"> </i>
+                            <div class="col-md-2 borrarImagen mt-5">
+                                <i class="fa fa-trash-o" style="font-size:25px;color:rgb(163, 24, 24)" (click)="borrarImagen()"> </i>
                             </div>
                             <div class="col-md-8" style="height: 250px;">
                                 <img *ngIf="!imagenMostrarFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen">
                                 <img *ngIf="imagenMostrarFirebase" src="{{imagenMostrar}}" class="imagen">
-
                             </div>
                             <div class="col-md-2">
                                 <div *ngFor="let imagen of producto.imagenes; let i = index" class="col-md-2 imagenes-container">
                                     <img *ngIf="!imagenesFirebase[i]" src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
                                     <img *ngIf="imagenesFirebase[i]" src="{{imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
-
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div>
-
-                                <input type="file" class="btn btn-lg btn-light btn-sm btn-block " multiple (change)="multiplesImagenes($event.target.files)">
+                                <input type="file" style="width: 65%; margin-left: 17%; margin-top: 7%" class="btn btn-light btn-block waves-effect waves-light m-r-10" multiple (change)="multiplesImagenes($event.target.files)">
                             </div>
 
 
                         </div>
                     </div>
                     <br><br>
-                    <h4 class="card-title text-center">Datos técnicos<a class="aviso" style="text-decoration: none;"> (*)</a></h4>
+                    <h4 class="card-title text-left">Detalles técnicos<a class="aviso" style="text-decoration: none; font-size: 15px;"> (*)</a></h4>
                     <div formArrayName="datosTecnicos">
                         <table class="table table-bordered">
                             <tr *ngFor="let datos of producto.datosTecnicos">
-                                <td>{{datos.datosTecnicosTitulo}}</td>
-                                <td>{{datos.datosTecnicosDescripcion}}</td>
+                                <td class="text-light bg-dark">{{datos.datosTecnicosTitulo}}</td>
+                                <td class="text-secondary">{{datos.datosTecnicosDescripcion}}</td>
                                 <td class="text-nowrap text-center">
                                     <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="borrarDatosTecnicos(datos)">
-                                        <i class="fa fa-trash-o" style="font-size:24px;color:rgb(163, 24, 24)"></i>
+                                        <i class="fa fa-trash-o" style="font-size:20px;color:rgb(163, 24, 24)"></i>
                                     </a>
                                 </td>
                             </tr>
                         </table>
                         <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Ejemplo: Marca" formControlName="datosTecnicosTitulo">
-                                <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Ejemplo: Lotus" formControlName="datosTecnicosDescripcion">
+                                <input type="text" class="form-control text-light bg-dark" id="datosTecnicosTitulo" placeholder="Ejemplo: Marca" formControlName="datosTecnicosTitulo">
+                                <input type="text" class="form-control text-secondary" id="datosTecnicosDescripcion" placeholder="Ejemplo: Lotus" formControlName="datosTecnicosDescripcion">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a class="btn btn-lg btn-primary btn-sm btn-block" (click)="addDatosTecnicos()">
-                                        Añadir dato técnico
+                                    <a class="btn btn-lg btn-primary btn-sm btn-block" style="width: 60%; margin-left: 17%" (click)="addDatosTecnicos()">
+                                        Añadir otro campo
                                     </a>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <a type="submit" *ngIf="pointIndex !=  datosTecnicos.controls.length -1" class="btn btn-lg btn-danger btn-sm btn-block" (click)="deleteDatosTecnicos(pointIndex)">
+                                    <a class="btn btn-lg btn-danger btn-sm btn-block" style="width: 60%; margin-left: 25%" *ngIf="pointIndex !=  datosTecnicos.controls.length -1" (click)="deleteDatosTecnicos(pointIndex)">
                                         Borrar dato técnico
                                     </a>
                                 </div>
@@ -151,14 +387,12 @@
                 </div>
 
                 <hr>
-
-                <button class="btn btn-lg btn-primary btn-sm btn-block mt-3" id="submit" type="submit">Actualizar producto</button>
-
-                <a class="btn btn-lg btn-danger btn-block btn-sm borrar" (click)="borrarProducto(producto)">Eliminar producto</a>
-
+                <button type="submit" class="btn btn-lg btn-primary btn-sm btn-block mt-3" style="width: 20%; margin-left: 80%;">Actualizar producto</button>
             </div>
         </form>
+        <a class="btn btn-lg btn-danger btn-block btn-sm borrar mt-2" style="width: 18%; margin-left: 5%;" (click)="borrarProducto(producto)">Eliminar producto</a>
     </div>
+
 </div>
 
 

@@ -46,6 +46,7 @@ export class ActualizarProductoComponent implements OnInit {
   public imagenesSubir: File[];
   public urlImagen:string;
   public spam: Spam;
+  categoria: string;
   public expresionesSpam: string[];
   imagenMostrarFirebase:boolean= false;
   imagenesFirebase:boolean[]= [];
@@ -111,7 +112,7 @@ export class ActualizarProductoComponent implements OnInit {
         unidadesMinimas: [this.producto.unidadesMinimas, [Validators.required, this.unidadesMinimasIncorrecto]],
         stock: [ this.producto.stock, [Validators.required, this.stockIncorrecto]],
         precio: [ this.producto.precio, [Validators.required, this.precioIncorrecto]],
-        subcategoria:[ this.producto.subcategoria ],
+        subcategoria:[ this.producto.subcategoria],
         datosTecnicos: this.fb.array([this.fb.group({
           datosTecnicosTitulo:[],
           datosTecnicosDescripcion:[]

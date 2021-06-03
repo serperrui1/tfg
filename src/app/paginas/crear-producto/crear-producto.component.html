@@ -6,7 +6,7 @@
                 <h2 class="form-signin-heading col-md-8" style="text-align: center;">Nuevo producto</h2>
                 <div class="col"></div>
             </div>
-
+            <hr class="mt-0">
             <div class="row">
 
                 <div class="col-md-6 form-div mt-0">
@@ -62,7 +62,7 @@
                             <select class="form-control form-control-sm" id="subcategoria" name="subcategoria" formControlName="subcategoria">
             
                                 <optgroup class="Libros, Música, Vídeo y DVD" [hidden]="categoria != 'Libros, Música, Vídeo y DVD'">
-                                    <option value="" selected="selected">Seleccione subcatégoria</option>
+                                    <option value="" selected="selected">Seleccione subcategoría</option>
                                     <option value="Música">Música</option>
                                     <option value="Libros">Libros</option>
                                     <option value="Vídeo">Vídeo</option>
@@ -303,13 +303,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="unidadesMinimas"><strong>Unidades mínimas</strong></label>
-                            <input type="number" class="form-control" id="unidadesMinimas" name="unidadesMinimas" min="1" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido ">
-                            <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
-                            <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Debe haber más stock que unidades mínimas</small>
-                        </div>
-
-                        <div class="form-group">
                             <label for="stock"><strong>Stock</strong></label>
                             <input type="stock" class="form-control" id="stock" name="stock" min="0" formControlName="stock" [class.is-invalid]="stockNoValido">
                             <small *ngIf="stockCampoRequerido" class="text-danger">Stock requerido</small>
@@ -317,10 +310,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="unidadesMinimas"><strong>Unidades mínimas</strong></label>
+                            <input type="number" class="form-control" id="unidadesMinimas" name="unidadesMinimas" min="1" formControlName="unidadesMinimas" [class.is-invalid]="unidadesMinimasNoValido ">
+                            <small *ngIf="unidadesMinimasCampoRequerido" class="text-danger">Unidades mínimas requeridas</small>
+                            <small *ngIf="unidadesMinimasFormato && !unidadesMinimasCampoRequerido" class="text-danger">Debe haber más stock que unidades mínimas</small>
+                        </div>
+
+                        <div class="form-group">
                             <label for="precio"><strong>Precio</strong></label><a class="aviso" style="text-decoration: none;"> (€)</a>
                             <input type="number" class="form-control" id="precio" placeholder="Ejemplo: 2.99" formControlName="precio" [class.is-invalid]="precioNoValido">
                             <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
-                            <small *ngIf="precioFormato" class="text-danger">Formato inválido</small>
+                            <small *ngIf="precioFormato && !precioCampoRequerido" class="text-danger">Formato inválido</small>
                         </div>
                     </div>
 
@@ -347,8 +347,8 @@
                         <h4 class="card-title text-left">Detalles técnicos<a class="aviso" style="text-decoration: none; font-size: 15px;"> (*)</a></h4>
                         <div *ngFor="let item of datosTecnicos.controls; let pointIndex=index" [formGroupName]="pointIndex">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="datosTecnicosTitulo" placeholder="Título del dato técnico" formControlName="datosTecnicosTitulo">
-                                <input type="text" class="form-control" id="datosTecnicosDescripcion" placeholder="Descripción del dato técnico" formControlName="datosTecnicosDescripcion">
+                                <input type="text" class="form-control text-light bg-dark" id="datosTecnicosTitulo" placeholder="Ejemplo: Marca" formControlName="datosTecnicosTitulo">
+                                <input type="text" class="form-control text-secondary" id="datosTecnicosDescripcion" placeholder="Ejemplo: Nikon" formControlName="datosTecnicosDescripcion">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

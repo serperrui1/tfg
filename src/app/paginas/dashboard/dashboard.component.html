@@ -136,7 +136,7 @@
                             </form>
                         </div>
                     </div>
-                    <h3 class="card-title text-center">Historial de todos los pedidos</h3>
+                    <h3 class="card-title text-center mt-4">Historial de todos los pedidos</h3>
                     <div class="descripcion-container">
                         <table matSort (matSortChange)="sortData($event) " style="margin: auto;">
                             <tr>
@@ -181,7 +181,7 @@
                         <input type="text" class="form-control " formControlName="nombre" style="width: 70%; margin-right: 5px;" />
                         <button class="btn btn-outline-dark boton-search" type="submit">Buscar</button>
                     </form><br><br>
-                    <h3 class="card-title text-center">Historial de pedidos realizados a mi tienda</h3>
+                    <h3 class="card-title text-center mt-4">Historial de pedidos realizados a mi tienda</h3>
                     <div class="descripcion-container">
                         <table matSort (matSortChange)="sortData($event)" style="margin: auto;">
                             <tr>
@@ -260,7 +260,7 @@
                             </form>
                         </div>
                     </div>
-                    <h3 class="card-title text-center">Historial de todos los productos</h3>
+                    <h3 class="card-title text-center mt-4">Historial de todos los productos</h3>
                     <div class="descripcion-container">
                         <table matSort (matSortChange)="sortData2($event)" style="margin: auto;">
                             <tr>
@@ -299,7 +299,7 @@
                         <input type="text" class="form-control " formControlName="nombre" style="width: 70%; margin-right: 5px;" />
                         <button class="btn btn-outline-dark boton-search" type="submit">Buscar</button>
                     </form><br><br>
-                    <h3 class="card-title text-center">Historial de mis productos</h3>
+                    <h3 class="card-title text-center mt-4">Historial de mis productos</h3>
                     <div class="descripcion-container">
                         <table matSort (matSortChange)="sortData2($event)" matSortActive="precio" matSortDirection="asc" matSortDisableClear style="margin: auto;">
                             <tr>
@@ -393,7 +393,7 @@
             </div>
             <div class="col-md-10 form-div ">
                 <div style="display: block" *ngIf="administrador ">
-                    <h3 class="card-title text-center">Historial de registros de usuarios</h3>
+                    <h3 class="card-title text-center mt-4">Historial de registros de usuarios</h3>
                     <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
                     </canvas>
                 </div>
@@ -478,8 +478,8 @@
             </div>
             <div class="col-md-10 form-div ">
                 <div style="display: block" *ngIf="visible=='ventas'">
-                    <h3 class="card-title text-center" *ngIf="administrador">Historial de ventas por mes</h3>
-                    <h3 class="card-title text-center" *ngIf="proveedor">Historial de mis ventas por mes</h3>
+                    <h3 class="card-title text-center mt-4" *ngIf="administrador">Historial de ventas por mes</h3>
+                    <h3 class="card-title text-center mt-4" *ngIf="proveedor">Historial de mis ventas por mes</h3>
                     <canvas mdbChart [chartType]="chartTypeB" [datasets]="chartDatasetsB" [labels]="chartLabels" [colors]="chartColorsB" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
                 </div>
