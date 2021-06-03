@@ -79,6 +79,7 @@ export class ActualizarProductoComponent implements OnInit {
 
       this.prov = await this.usuarioService.getProveedor();
       this.producto = await this.productoService.getProductoPorID(this.id);
+      this.categoria = this.producto.categoria;
       for(let i = this.producto.imagenes.length -1; i>=0; i--){
         if(this.producto.imagenes[i].startsWith("http")){
           this.imagenesFirebase.push(true)
@@ -216,7 +217,9 @@ export class ActualizarProductoComponent implements OnInit {
     });
    
   }
-
+  cambiaCategoria(){
+    this.categoria = this.productoForm.get("categoria").value;
+  }
   cambiarImagen( file: File ) {
     this.imagenSubir = file;
     if ( !file ) { 
