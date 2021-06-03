@@ -20,6 +20,8 @@
     background-color: #f8f8f8;
     border: 2px solid rgb(122, 122, 122);
     border-radius: 10px;
+    padding-right: 0px;
+    margin: auto;
     color: black;
 }
 
@@ -46,7 +48,6 @@
 .card-img-top {
     cursor: pointer;
     width: 150px;
-    margin-right: 30px;
 }
 
 .img-hover-zoom:hover {
@@ -56,14 +57,16 @@
 }
 
 .botones-container {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin: auto;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 .decompra {
     width: 100%;
-    padding: 0.5em 1.2em;
-    margin: 0.4em 0.3em 0.3em 0.4em;
+    padding-top: 1%;
+    padding-bottom: 1%;
     border-radius: 10px;
 }
 

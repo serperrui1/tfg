@@ -1,43 +1,27 @@
-<div class="col mb-4 animated fadeIn tarjeta">
+<div class="col-md-10 mb-4 tarjeta">
     <div class="row ">
-        <div class="col-md-3" *ngIf="producto">
-            <img *ngIf="!imagenFirebase" class="card-img-top mt-4" style="max-height: 90px;" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
-            <img *ngIf="imagenFirebase" class="card-img-top mt-4" style="max-height: 90px;" src="{{producto.imagenes[0]}}" alt="Card image cap">
+        <div class="col-md-2 botones-container" *ngIf="producto">
+            <img *ngIf="!imagenFirebase" class="card-img-top" style="margin-top:5%; margin-bottom:5%" src="{{direccionImagen + producto.imagenes[0]}}" alt="Card image cap">
+            <img *ngIf="imagenFirebase" class="card-img-top" style="margin-top:5%;  margin-bottom:5%" src="{{producto.imagenes[0]}}" alt="Card image cap">
         </div>
-        <div class="col-md-1" *ngIf="!producto"></div>
-        <div class="col-md-1 mt-3" *ngIf="!producto">
-            <p class="logo">🗑️</p>
+        <div class="col-md-2 botones-container" *ngIf="!producto">
+            <img [src]="imagenUrl" style="margin-top:5%; margin-bottom:5%" class="card-img-top">
         </div>
-        <div class="col-md-1" *ngIf="!producto"></div>
-        <div class="col-md-4">
-            <div class="titulo mt-4">
+        <div class="col-md-6 botones-container" style="padding-right:0px;">
+            <div class="titulo mt-2">
                 <h6 class="card-title">"{{pedido.tituloProducto}}"</h6>
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Proveedor: {{pedido.nombreProveedor}}</p>
+                <p class="card-title" style="color: rgb(122, 122, 122); ">Compra de {{pedido.unidades}} unidades realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}} por un total de {{pedido.precio }} €.</p>
             </div>
         </div>
-        <div class="col-md-5 px-0">
-            <div class="titulo">
-                <p class="card-title" style="color: rgb(122, 122, 122); ">Compra de {{pedido.unidades}} unidades realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}} por un total de {{pedido.precio }} €</p>
-            </div>
+        <div class="col-md-4 botones-container" *ngIf="producto">
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:4%" routerLink="/producto/{{productoId}}">Valorar el producto</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%">Seguimiento del pedido</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%" routerLink="/crear-chat/{{productoId}}">¿Dudas sobre el producto?</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%; margin-bottom:4%" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar</a>
         </div>
-    </div>
-    <div class="row" *ngIf="!producto">
-        <div class="col-md-12 botones-container">
-            <p class="card-title text-center" style="color: rgb(255, 0, 0); ">El proveedor de este producto fue eliminado. Ante cualquier problema contacte con un asistente técnico.</p>
-        </div>
-    </div>
-    <div class="row" *ngIf="producto">
-        <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/producto/{{productoId}}">Valorar el producto</a>
-        </div>
-        <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra">Seguimiento del pedido</a>
-        </div>
-        <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/crear-chat/{{productoId}}">¿Dudas sobre el producto?</a>
-        </div>
-        <div class="col-md-3 botones-container">
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar / devolver</a>
+        <div class="col-md-4 botones-container" *ngIf="!producto">
+            <p class="card-title text-left" style="color: rgb(255, 0, 0); padding-left:15%">El proveedor de este producto fue eliminado. Ante cualquier problema contacte con un asistente técnico.</p>
         </div>
     </div>
 </div>

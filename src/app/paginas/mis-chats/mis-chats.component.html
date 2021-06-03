@@ -2,7 +2,7 @@
     <h1 class="text-info" style="margin-top:18%; margin-left:16%">🤔 Vaya..., aún no tienes chats ni reclamaciones abiertos.</h1>
 </div>
 
-<div *ngIf="chats1.length == 0 && chats2.length != 0 || chats1.length != 0 && chats2.length == 0">
+<div *ngIf="chats1.length == 0 && chats2.length != 0 || chats1.length != 0 && chats2.length == 0 || chats1.length != 0 && chats2.length != 0">
     <form class="form-signin form-inline" style="width: 77%; margin: auto; padding-left: 5%;" autocomplete="off" [formGroup]="buscadorForm" (submit)="buscar()">
         <p class="card-title mt-2" style="color: rgb(122, 122, 122); margin-left: 2%;">Busque por título del producto asociado al chat: </p>
         <input type="text" class="form-control " formControlName="chat" style="width: 45%; margin-left: 1%" />

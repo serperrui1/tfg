@@ -39,4 +39,8 @@ export class PedidoTarjetaComponent implements OnInit {
     this.productoId = this.producto._id;
     this.pedidoId = this.pedido._id;
   }
+
+  get imagenUrl(){
+      return `${base_url}/upload/productos/no-image`;
+  }
 }
