@@ -1,6 +1,6 @@
 <div class="row todo">
     <div class="d-flex flex-column p-3 text-white bg-secondary" style="width: 28vh; height: 90vh; margin-top: -2vh; padding-right: 200px;">
-        <div class="subrayado">
+        <div class="subrayado mt-3">
             <h5 style="padding-left: 16px">Dashboard</h5>
         </div>
 
@@ -74,8 +74,8 @@
                             <form class="form-signin form-inline" autocomplete="off" [formGroup]="buscadorPedidos" (ngSubmit)="buscarPedidosAdmin()">
                                 <select class="form-control form-control-sm mr-1" name="busqueda" formControlName="busqueda">
                                     <option value="producto" selected="selected">Producto</option> 
-                                    <option value="proveedor">Proveedor ID</option> 
-                                    <option value="comprador">Comprador ID</option> 
+                                    <option value="proveedor">Proveedor</option> 
+                                    <option value="comprador">Comprador</option> 
                                 </select>
                                 <input type="text" class="form-control " formControlName="nombre" style="width: 60%; margin-right: 5px;" />
                                 <button class="btn btn-outline-dark boton-search" type="submit">Buscar</button>
@@ -84,8 +84,8 @@
                         <div class="col-md-3">
                             <form [formGroup]="buscadorPedidos" style="float: right;">
                                 <select formControlName="año" class="mr-1" (change)="buscarPedidosAdmin()">
-                                    <option value="esteAño" selected="selected">Este año</option> 
-                                    <option value="añoPasado">El año pasado</option>
+                                    <option value="2021" selected="selected">2021</option> 
+                                    <option value="2020">2020</option>
                                 </select>
                                 <select formControlName="meses" (change)="buscarPedidosAdmin()">
                                     <option value="todo" selected="selected">Todo el año</option> 
@@ -158,9 +158,9 @@
                                 <td>{{pedido.precio}}</td>
                                 <td>{{pedido.unidades}}</td>
                                 <td>{{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</td>
-                                <td>{{pedido.comprador}}</td>
+                                <td>{{pedido.nombreComprador}}</td>
                                 <!-- <td>{{pedido.nombreComprador}}</td> -->
-                                <td>{{pedido.proveedor}}</td>
+                                <td>{{pedido.nombreProveedor}}</td>
                                 <!-- <td></td> -->
                             </tr>
                         </table>
@@ -201,7 +201,7 @@
                                 <td>{{pedido.precio}}€</td>
                                 <td>{{pedido.unidades}}</td>
                                 <td>{{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</td>
-                                <td>{{pedido.comprador}}</td>
+                                <td>{{pedido.nombreComprador}}</td>
 
                             </tr>
                         </table>
@@ -222,7 +222,7 @@
                             <form class="form-signin form-inline" autocomplete="off" [formGroup]="buscadorProductos" (ngSubmit)="buscarProductosAdmin()">
                                 <select class="form-control form-control-sm mr-1" name="busqueda" formControlName="busqueda">
                                 <option value="producto" selected="selected">Producto</option> 
-                                <option value="proveedor">Proveedor ID</option> 
+                                <option value="proveedor">Proveedor</option> 
 
                                 </select>
                                 <input type="text" class="form-control " formControlName="nombre" style="width: 70%; margin-right: 5px;" />
@@ -281,7 +281,7 @@
                                 <td class="px-2">{{producto.stock}}</td>
                                 <td class="px-2">{{producto.valoraciones.length}}</td>
                                 <td class="px-2">{{producto.unidadesVendidas}}</td>
-                                <td class="px-2">{{producto.proveedor}}</td>
+                                <td class="px-2">{{producto.proveedorNombre}}</td>
                             </tr>
                         </table>
                         <div style="text-align: center;">
@@ -335,8 +335,8 @@
                 <div class="col"></div>
                 <form [formGroup]="filtroGraficaRegistros" class="form-signin form-inline ">
                     <select formControlName="año" class="mr-1" (change)="filtrarGraficaRegistros()">
-                            <option value="esteAño" selected="selected">Este año</option> 
-                            <option value="añoPasado">El año pasado</option>
+                            <option value="2021" selected="selected">2021</option> 
+                            <option value="2020">2020</option>
                         </select>
                     <select formControlName="meses" class="mr-1" (change)="filtrarGraficaRegistros()">
                             <option value="todo" selected="selected">Todo el año</option> 
@@ -410,9 +410,9 @@
                             <form class="form-signin form-inline" autocomplete="off" [formGroup]="filtroGraficaVentas" (ngSubmit)="filtrarGraficaVentas()">
 
                                 <select name="busqueda" class="mr-1" formControlName="busqueda">
-                                    <option value="producto" selected="selected">Producto ID</option> 
-                                    <option value="proveedor">Proveedor ID</option> 
-                                    <option value="comprador">Comprador ID</option> 
+                                    <option value="producto" selected="selected">Producto</option> 
+                                    <option *ngIf="administrador" value="proveedor">Proveedor</option> 
+                                    <option value="comprador">Comprador</option> 
                                 </select>
 
                                 <input type="text" class="form-control " formControlName="nombre" style="width: 60%; margin-right: 5px;" />
@@ -422,8 +422,8 @@
                         <div class="col-md-3">
                             <form [formGroup]="filtroGraficaVentas" id="filtroGraficaVentas" style="float: right;">
                                 <select formControlName="año" class="mr-1" (change)="filtrarGraficaVentas()">
-                                <option value="esteAño" selected="selected">Este año</option> 
-                                <option value="añoPasado">El año pasado</option>
+                                <option value="2021" selected="selected">2021</option> 
+                                <option value="2020">2020</option>
                                 </select>
                                 <select formControlName="meses" (change)="filtrarGraficaVentas()">
                                     <option value="todo" selected="selected">Todo el año</option> 

@@ -9,7 +9,8 @@
         </div>
         <div class="col-md-6 botones-container" style="padding-right:0px;">
             <div class="titulo mt-2">
-                <h6 class="card-title">"{{pedido.tituloProducto}}"</h6>
+                <h6 class="card-title">{{pedido.tituloProducto}}</h6>
+                {{pedido._id}}
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Proveedor: {{pedido.nombreProveedor}}</p>
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Compra de {{pedido.unidades}} unidades realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}} por un total de {{pedido.precio }} €.</p>
             </div>

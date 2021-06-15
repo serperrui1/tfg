@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit {
   public buscadorPedidos = this.fb.group({
     nombre:[''],
     busqueda:['producto'],
-    año:["esteAño"],
+    año:["2021"],
     meses:['todo'],
     categoria:['todas']
   });
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit {
   public buscadorProductos = this.fb.group({
     nombre:[''],
     busqueda:['producto'],
-    año:["esteAño"],
+    año:["2021"],
     meses:['todo'],
     categoria:['todas']
   });
@@ -138,16 +138,16 @@ export class DashboardComponent implements OnInit {
     meses:['todo'],
     busqueda:['proveedor'],
     nombre:[''],
-    año:["esteAño"],
+    año:["2021"],
     sector:['todos'],
     usuarios:['todos']
   });
 
   public filtroGraficaVentas = this.fb.group({
     meses:['todo'],
-    busqueda:['proveedor'],
+    busqueda:['producto'],
     nombre:[''],
-    año:["esteAño"],
+    año:["2021"],
     categoria:['todas']
 
   });
@@ -167,6 +167,10 @@ export class DashboardComponent implements OnInit {
     
     if(this.administrador){
       this.todosPedidos = await this.pedidoService.getPedidos();
+      for(let pedido of this.todosPedidos){
+        pedido.nombreProveedor = await this.usuarioService.getProveedorNombre(pedido.proveedor)
+      }
+      
       this.todosProductos = await this.productoService.getProductos();
       this.datosTablaProductos = this.todosProductos;
       // for(let producto of this.datosTablaProductos){
@@ -205,6 +209,9 @@ export class DashboardComponent implements OnInit {
     
     if(this.administrador){
       this.pedidos = await this.pedidoService.getPedidos();
+      for(let pedido of this.pedidos){
+        pedido.nombreProveedor  = await this.usuarioService.getProveedorNombre(pedido.proveedor)
+      }
       this.compradores = await this.usuarioService.getCompradores();
       this.proveedores = await this.usuarioService.getProveedores();
     }
@@ -230,6 +237,9 @@ export class DashboardComponent implements OnInit {
           
           this.sortedData = this.todosPedidos;
     }
+    for( let producto of this.data3){
+      producto.proveedorNombre = await this.usuarioService.getProveedorNombre(producto.proveedor)
+    }
     this.sortedData3= this.data3;
 
   }
@@ -238,8 +248,8 @@ export class DashboardComponent implements OnInit {
       for(let comprador of compradores){
         //compradores registrado cada mes del año
         var fecha = new Date(comprador.fechaRegistro);
-        if(this.filtroGraficaRegistros.controls['año'].value == "esteAño"){
-          if(fecha.getFullYear() == new Date().getFullYear() ){
+        if(this.filtroGraficaRegistros.controls['año'].value == "2021"){
+          if(fecha.getFullYear() == 2021 ){
             if (comprador.fechaRegistro != null){
               var fecha = new Date(comprador.fechaRegistro);
               if(fecha.getMonth() + 1 === 1){
@@ -270,8 +280,8 @@ export class DashboardComponent implements OnInit {
             }
           }
         }
-        if(this.filtroGraficaRegistros.controls['año'].value == "añoPasado"){
-          if(fecha.getFullYear() == new Date().getFullYear() -1 ){
+        if(this.filtroGraficaRegistros.controls['año'].value == "2020"){
+          if(fecha.getFullYear() == 2020 ){
             if (comprador.fechaRegistro != null){
               var fecha = new Date(comprador.fechaRegistro);
               if(fecha.getMonth() + 1 === 1){
@@ -309,8 +319,8 @@ export class DashboardComponent implements OnInit {
       for(let proveedor of proveedores){
         //proveedores registrado cada mes del año
         var fecha = new Date(proveedor.fechaRegistro);
-        if(this.filtroGraficaRegistros.controls['año'].value == "esteAño"){
-          if(fecha.getFullYear() == new Date().getFullYear() ){
+        if(this.filtroGraficaRegistros.controls['año'].value == "2021"){
+          if(fecha.getFullYear() == 2021){
             if (proveedor.fechaRegistro != null){
               var fecha = new Date(proveedor.fechaRegistro);
               if(fecha.getMonth() + 1 === 1){
@@ -341,8 +351,8 @@ export class DashboardComponent implements OnInit {
             }
           }
         }
-        if(this.filtroGraficaRegistros.controls['año'].value == "añoPasdo"){
-          if(fecha.getFullYear() == new Date().getFullYear() -1 ){
+        if(this.filtroGraficaRegistros.controls['año'].value == "2020"){
+          if(fecha.getFullYear() == 2020 ){
             if (proveedor.fechaRegistro != null){
               var fecha = new Date(proveedor.fechaRegistro);
               if(fecha.getMonth() + 1 === 1){
@@ -396,8 +406,8 @@ export class DashboardComponent implements OnInit {
     //pedidos realizados cada mes
     if (pedido.fechaCompra != null){
       var fecha = new Date(pedido.fechaCompra);
-      if(this.filtroGraficaVentas.controls['año'].value == "esteAño"){
-        if(fecha.getFullYear() == new Date().getFullYear() ){
+      if(this.filtroGraficaVentas.controls['año'].value == "2021"){
+        if(fecha.getFullYear() == 2021 ){
           if (fecha.getMonth() + 1 === 1){
             this.Enero.push(pedido);
           }else if(fecha.getMonth() + 1 === 2){
@@ -424,8 +434,8 @@ export class DashboardComponent implements OnInit {
             this.Diciembre.push(pedido);
           }
         }
-      }if(this.filtroGraficaVentas.controls['año'].value == "añoPasado"){
-        if(fecha.getFullYear() == new Date().getFullYear() -1 ){
+      }if(this.filtroGraficaVentas.controls['año'].value == "2020"){
+        if(fecha.getFullYear() == 2020){
           if (fecha.getMonth() + 1 === 1){
             this.Enero.push(pedido);
           }else if(fecha.getMonth() + 1 === 2){
@@ -598,23 +608,23 @@ export class DashboardComponent implements OnInit {
     }
     if(this.buscadorPedidos.controls['busqueda'].value == "proveedor"){
       for(let pedido of this.todosPedidos){
-        
-          if (pedido.proveedor.includes(
-            this.buscadorPedidos.controls['nombre'].value)) {
+        if(pedido.nombreProveedor!= undefined){
+          if (pedido.nombreProveedor.toLowerCase().includes(
+            this.buscadorPedidos.controls['nombre'].value.toLowerCase())) {
             pedidos.push(pedido);
           }
-        
+        }
       }
       
     }
     if(this.buscadorPedidos.controls['busqueda'].value == "comprador"){
       for(let pedido of this.todosPedidos){
-        
-          if (pedido.comprador.includes(
-            this.buscadorPedidos.controls['nombre'].value)) {
+        if(pedido.nombreComprador!= undefined){
+          if (pedido.nombreComprador.toLowerCase().includes(
+            this.buscadorPedidos.controls['nombre'].value.toLowerCase())) {
             pedidos.push(pedido);
           }
-        
+        }
       }
       
     }
@@ -623,11 +633,11 @@ export class DashboardComponent implements OnInit {
     }
     
     
-    if(this.buscadorPedidos.controls['año'].value == "esteAño"){
-      pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear == new Date().getFullYear)
+    if(this.buscadorPedidos.controls['año'].value == "2021"){
+      pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear() == 2021)
     }
-    if(this.buscadorPedidos.controls['año'].value == "añoPasado"){
-      pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear() == (new Date().getFullYear() -1) )
+    if(this.buscadorPedidos.controls['año'].value == "2020"){
+      pedidosPorAño = pedidos.filter((e)=> new Date(e.fechaCompra).getFullYear() == 2020 )
       
     }
     
@@ -686,7 +696,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     if(this.buscadorProductos.controls['busqueda'].value == "proveedor"){
-      productos = this.data3.filter((e)=> e.proveedor.includes(this.buscadorProductos.controls['nombre'].value))
+      productos = this.data3.filter((e)=> e.proveedorNombre.toLowerCase().includes(this.buscadorProductos.controls['nombre'].value.toLowerCase()))
       
     }
     if(this.buscadorProductos.controls['categoria'].value == "todas"){
@@ -855,24 +865,31 @@ export class DashboardComponent implements OnInit {
     this.resetMesesVentas();
     let ventas:Pedido[] = [];
     if(this.filtroGraficaVentas.controls['busqueda'].value == "proveedor"){
+      
         for(let venta of this.pedidos){
-          if(venta.proveedor.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+          if(venta.nombreProveedor!= undefined){
+          if(venta.nombreProveedor.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
             ventas.push(venta)
           }
+        }
         }
     }
     if(this.filtroGraficaVentas.controls['busqueda'].value == "producto"){
       for(let venta of this.pedidos){
-        if(venta.producto.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+        if(venta.tituloProducto!= undefined){
+        if(venta.tituloProducto.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
           ventas.push(venta)
         }
+      }
       }
     }
     if(this.filtroGraficaVentas.controls['busqueda'].value == "comprador"){
       for(let venta of this.pedidos){
-        if(venta.comprador.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
+        if(venta.tituloProducto!= undefined){
+        if(venta.nombreComprador.toLowerCase().includes(this.filtroGraficaVentas.controls['nombre'].value.toLowerCase())){
           ventas.push(venta)
         }
+      }
       }
     }
     if(this.filtroGraficaVentas.controls['categoria'].value!= "todas"){

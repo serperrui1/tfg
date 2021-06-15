@@ -194,7 +194,7 @@ export class ProductoComponent implements OnInit {
           this.pedidoId = pedido._id;
           this.valoracionForm = this.fb.group({
 
-              comentario:[ ,[Validators.required , SpamValidator(this.expresionesSpam)]],
+              comentario:[ "",[Validators.required , SpamValidator(this.expresionesSpam)]],
               puntuacion: ["0" , [Validators.required]]
           });
         }
