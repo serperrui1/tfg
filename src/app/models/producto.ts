@@ -13,6 +13,7 @@ export class Producto {
     public valoraciones: Valoracion[],
     public proveedorNombre: string,
     public proveedor: string,
+    public tiempoEnvio: string,
     public datosTecnicos?: DatosTecnicos[],
     public posicion?: {
         lat:number,

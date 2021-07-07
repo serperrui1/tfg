@@ -1,0 +1,13 @@
+.resumen-envio {
+    min-width: 800px;
+    min-height: 300px;
+}
+
+.resumen-envio h6 {
+    text-align: center;
+}
+
+.estado {
+    color: green;
+    text-align: center;
+}

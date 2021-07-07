@@ -66,6 +66,7 @@ export class CrearProductoComponent implements OnInit{
         unidadesMinimas:['', [Validators.required, this.unidadesMinimasIncorrecto]],
         stock:['', [Validators.required, this.stockIncorrecto]],
         precio:['', [Validators.required, this.precioIncorrecto]],
+        tiempoEnvio:['', [Validators.required]],
         subcategoria:['', ],
         datosTecnicos: this.fb.array([this.fb.group({
           datosTecnicosTitulo:['' ],
@@ -239,8 +240,12 @@ export class CrearProductoComponent implements OnInit{
     }
     return null
   }
-
-
+  get envioRequerido(){
+    return this.crearProductoForm.get('tiempoEnvio').errors ? this.crearProductoForm.get('tiempoEnvio').errors.required && this.crearProductoForm.get('tiempoEnvio').touched : null
+  }
+  get envioNoValido(){
+    return this.envioRequerido;
+  }
 
   get precioNoValido(){
     return this.precioCampoRequerido || this.precioFormato

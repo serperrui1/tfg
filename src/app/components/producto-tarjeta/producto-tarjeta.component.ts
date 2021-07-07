@@ -38,8 +38,6 @@ export class ProductoTarjetaComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
-    
     if(this.producto.imagenes.length>0){
       if(this.producto.imagenes[0].startsWith("https")){
         this.imagenFirebase = true;
@@ -53,5 +51,6 @@ export class ProductoTarjetaComponent implements OnInit{
       let entero = estrella.charAt(0);
       this.estrellas = Number(entero);
     }
+    this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
   }
 }

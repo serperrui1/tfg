@@ -101,4 +101,22 @@ export class PedidosService {
      })
    }
 
+  actualizarEnvio(id:string, estado:string):Promise<Pedido>{
+    return new Promise<Pedido>(
+      resolve=> {
+        this.http.put(`${base_url}/pedidos/envio/${id}`,{estado: estado },{
+         headers: { 
+           'x-token': this.token
+         }
+        }).subscribe(data=>{
+          if(data["ok"]){
+            const pedido = data["pedido"];
+            resolve(pedido);
+            location.reload();
+          }
+          
+
+        });
+     })
+  }
 }

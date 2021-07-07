@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';import { Pedido } from 'src/app/models/pedido';
-;
+import {MatDialog} from '@angular/material/dialog';
+import { EstadoEnvioComponent } from 'src/app/components/estado-envio/estado-envio.component';
+
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { environment } from 'src/environments/environment';
@@ -25,8 +27,19 @@ export class PedidoTarjetaComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
     ){ }
+    openDialog() {
+      const dialogRef = this.dialog.open(EstadoEnvioComponent,{
+        data:this.pedido
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+  
 
   async ngOnInit() {
     this.producto= await this.productoService.getProductoPorID(this.pedido.producto);

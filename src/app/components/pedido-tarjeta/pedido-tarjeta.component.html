@@ -10,14 +10,14 @@
         <div class="col-md-6 botones-container" style="padding-right:0px;">
             <div class="titulo mt-2">
                 <h6 class="card-title">{{pedido.tituloProducto}}</h6>
-                {{pedido._id}}
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Proveedor: {{pedido.nombreProveedor}}</p>
                 <p class="card-title" style="color: rgb(122, 122, 122); ">Compra de {{pedido.unidades}} unidades realizada el {{pedido.fechaCompra | date: 'dd/MM/yyyy'}} por un total de {{pedido.precio }} €.</p>
             </div>
         </div>
         <div class="col-md-4 botones-container" *ngIf="producto">
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:4%" routerLink="/producto/{{productoId}}">Valorar el producto</a>
-            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%">Seguimiento del pedido</a>
+            <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%" (click)="openDialog()">Seguimiento del pedido</a>
+
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%" routerLink="/crear-chat/{{productoId}}">¿Dudas sobre el producto?</a>
             <a class="btn btn-lg btn-primary btn-sm btn-block decompra" style="margin-top:2%; margin-bottom:4%" routerLink="/devolver-reclamar/{{pedidoId}}">Reclamar</a>
         </div>

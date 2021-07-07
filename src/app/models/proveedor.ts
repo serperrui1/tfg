@@ -7,7 +7,7 @@ export interface Proveedor {
     direccion: string;
     cuentaBancariaIBAN: string;
     titularCuenta: string;
-    productosId: string[];
+    productosId?: string[];
     uid?: string;
     img?:string
     fechaRegistro?: Date,

@@ -1,4 +1,4 @@
-<div class="row animated fadeIn fast" *ngIf="cargando">
+<div class="row animated fadeIn fast" *ngIf="cargando && subtotal!=0">
     <div class="col-12">
         <div class="alert alert-info text-center">
             <h4 class="alert-heading">Cargando</h4>
@@ -27,7 +27,8 @@
             <div class="product" *ngFor="let item of items; let i = index">
 
                 <div class="product-image">
-                    <img src="{{ direccionImagen + item.imagenes[0] }}">
+                    <img *ngIf="!imagenesDeFirebase[i]" src="{{ direccionImagen + item.imagenes[0] }}">
+                    <img *ngIf="imagenesDeFirebase[i] " src="{{ item.imagenes[0] }}">
                 </div>
 
                 <div class="product-details">

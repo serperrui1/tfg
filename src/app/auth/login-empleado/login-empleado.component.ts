@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
-declare const gapi:any;
 @Component({
   selector: 'app-login-empleado',
   templateUrl: './login-empleado.component.html',
@@ -14,6 +13,8 @@ export class LoginEmpleadoComponent implements OnInit{
 
   formSubmited:boolean = false;
   public auth2: any;
+  public emailIncorrecto: boolean = false;
+  public passwordIncorrecta: boolean = false;
 
   public loginForm = this.fb.group({
     email:[localStorage.getItem('email') ||'',[ Validators.required, Validators.email] ],

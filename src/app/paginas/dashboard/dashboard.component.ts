@@ -11,6 +11,7 @@ import {Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import { ProductoConVenta } from 'src/app/models/productoConVenta.interface';
 import { FormBuilder } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -543,6 +544,7 @@ export class DashboardComponent implements OnInit {
         case 'unidades': return compare(a.unidades, b.unidades, isAsc);
         case 'titulo': return compare(a.tituloProducto, b.tituloProducto, isAsc);
         case 'categoria': return compare(a.categoria, b.categoria, isAsc);
+        case 'estado': return compare(a.estadoEnvio, b.estadoEnvio, isAsc);
         case 'fecha': return (a.fechaCompra.getTime < b.fechaCompra.getTime ? -1 : 1) * (isAsc ? 1 : -1);
         default: return 0;
       }
@@ -966,8 +968,22 @@ export class DashboardComponent implements OnInit {
       ];
     }
   }
+  marcarEnviado(pedido:Pedido){
+    Swal.fire({
+      text: '¿Desea confirmar la entrega del pedido?',
+      showCancelButton: true,
+      confirmButtonText: `Sí`, 
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.pedidoService.actualizarEnvio(pedido._id,"Enviado")
+        
+      }
+    });
+  }
+
   }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
+

@@ -36,6 +36,7 @@ a.botones:hover {
     border: 2px solid rgb(122, 122, 122);
     border-radius: 10px;
     max-height: 750px;
+    z-index: 0;
 }
 
 .orden {
@@ -47,4 +48,8 @@ a.botones:hover {
 ngb-rating {
     color: #000000;
     font-size: 25px;
+}
+
+.sticky-top {
+    top: 5.6em;
 }

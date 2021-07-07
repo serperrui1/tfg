@@ -13,8 +13,11 @@ export class Pedido {
         numeroTelefono:number;        
         proveedor: string;
         comprador: string;
+        fechaEsperada: string;
+        estadoEnvio:string;
         _id?: string;
         nombreProveedor?: string; 
+        
     
 }
 const pedido:Pedido = new Pedido();

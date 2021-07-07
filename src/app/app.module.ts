@@ -76,6 +76,7 @@ import { CompradorTarjetaComponent } from './components/comprador-tarjeta/compra
 import { AsistentesComponent } from './paginas/asistentes/asistentes.component';
 import { AsistenteTarjetaComponent } from './components/asistente-tarjeta/asistente-tarjeta.component';
 import { ProductosCategoriaComponent } from './paginas/productos-categoria/productos-categoria.component';
+import { EstadoEnvioComponent } from './components/estado-envio/estado-envio.component';
 
 
 @NgModule({
@@ -136,7 +137,8 @@ import { ProductosCategoriaComponent } from './paginas/productos-categoria/produ
     CompradorTarjetaComponent,
     AsistentesComponent,
     AsistenteTarjetaComponent,
-    ProductosCategoriaComponent
+    ProductosCategoriaComponent,
+    EstadoEnvioComponent
 
 
   ],

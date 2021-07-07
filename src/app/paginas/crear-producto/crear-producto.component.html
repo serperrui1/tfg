@@ -322,6 +322,11 @@
                             <small *ngIf="precioCampoRequerido" class="text-danger">Precio requerido</small>
                             <small *ngIf="precioFormato && !precioCampoRequerido" class="text-danger">Formato inválido</small>
                         </div>
+                        <div class="form-group">
+                            <label for="tiempoEnvio"><strong>Tiempo estimado de envío</strong></label>
+                            <input type="text" class="form-control" id="tiempoEnvio" placeholder="1-2 semanas" name="tiempoEnvio" formControlName="tiempoEnvio" [class.is-invalid]="envioNoValido ">
+                            <small *ngIf="envioRequerido" class="text-danger">Tiempo de envío requerido</small>
+                        </div>
                     </div>
 
 

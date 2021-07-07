@@ -112,6 +112,7 @@ export class ActualizarProductoComponent implements OnInit {
         categoria: [ this.producto.categoria,  Validators.required ],
         unidadesMinimas: [this.producto.unidadesMinimas, [Validators.required, this.unidadesMinimasIncorrecto]],
         stock: [ this.producto.stock, [Validators.required, this.stockIncorrecto]],
+        tiempoEnvio: [ this.producto.tiempoEnvio, [Validators.required]],
         precio: [ this.producto.precio, [Validators.required, this.precioIncorrecto]],
         subcategoria:[ this.producto.subcategoria],
         datosTecnicos: this.fb.array([this.fb.group({
@@ -355,7 +356,12 @@ export class ActualizarProductoComponent implements OnInit {
     return null
   }
 
-
+  get envioRequerido(){
+    return this.productoForm.get('tiempoEnvio').errors ? this.productoForm.get('tiempoEnvio').errors.required && this.productoForm.get('tiempoEnvio').touched : null
+  }
+  get envioNoValido(){
+    return this.envioRequerido;
+  }
 
   get stockNoValido(){
     return this.stockCampoRequerido || this.stockFormato

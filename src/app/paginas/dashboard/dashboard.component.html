@@ -149,6 +149,7 @@
                                 <th>Comprador</th>
                                 <!-- <th>Nombre</th> -->
                                 <th>Proveedor</th>
+                                <th mat-sort-header="estado">Estado</th>
 
                             </tr>
                             <tr *ngFor="let pedido of sortedData | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -161,7 +162,7 @@
                                 <td>{{pedido.nombreComprador}}</td>
                                 <!-- <td>{{pedido.nombreComprador}}</td> -->
                                 <td>{{pedido.nombreProveedor}}</td>
-                                <!-- <td></td> -->
+                                <td>{{pedido.estadoEnvio}}</td>
                             </tr>
                         </table>
 
@@ -192,6 +193,7 @@
                                 <th mat-sort-header="unidades">Unidades</th>
                                 <th mat-sort-header="fecha">Fecha</th>
                                 <th>Comprador</th>
+                                <th mat-sort-header="estado">Estado</th>
 
                             </tr>
                             <tr *ngFor="let pedido of sortedData | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -201,7 +203,9 @@
                                 <td>{{pedido.precio}}€</td>
                                 <td>{{pedido.unidades}}</td>
                                 <td>{{pedido.fechaCompra | date: 'dd/MM/yyyy'}}</td>
-                                <td>{{pedido.nombreComprador}}</td>
+                                <td>{{pedido.nombreComprador}} &nbsp;</td>
+                                <td>{{pedido.estadoEnvio}}&nbsp;</td>
+                                <td *ngIf="pedido.estadoEnvio == 'En trámite'"> <strong class="enviar" (click)="marcarEnviado(pedido)">Enviar</strong></td>
 
                             </tr>
                         </table>

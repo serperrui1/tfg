@@ -104,10 +104,11 @@ async comprar(){
         this.pedido.proveedor = this.productos[i].proveedor;
         this.pedido.tituloProducto = this.productos[i].titulo;
         this.pedido.categoria = this.productos[i].categoria;
+        this.pedido.fechaEsperada = this.productos[i].tiempoEnvio;
+        this.pedido.estadoEnvio = "En trámite";
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)
-        await this.crearTracking();
         Swal.fire('éxito', 'se realizo el pedido', 'success');
         this.router.navigateByUrl('/mis-pedidos');
       }else{
@@ -130,11 +131,13 @@ async comprar(){
         this.pedido.proveedor = this.productos[i].proveedor;
         this.pedido.tituloProducto = this.productos[i].titulo;
         this.pedido.categoria = this.productos[i].categoria;
+        this.pedido.fechaEsperada = this.productos[i].tiempoEnvio;
+        this.pedido.estadoEnvio = "En trámite";
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)
   
-        await this.crearTracking();
+        // await this.crearTracking();
 
         Swal.fire('éxito', 'se realizo el pedido', 'success');
         this.router.navigateByUrl('/mis-pedidos');
@@ -166,39 +169,39 @@ async comprar(){
     localStorage.setItem('cantidades', JSON.stringify(cantidades));
   }
 
-  async crearTracking(){
+  // async crearTracking(){
 
     
-    var body = {
-      'platform_name': 'Amazon',
-      'platform_order_number': '#1234',
-      'selected_courier_id': 'b8d528a7-a2d4-4510-a7ac-11cbbb6542cd',
-      'destination_country_alpha2': 'US',
-      'destination_city': 'New York',
-      'destination_postal_code': '10022',
-      'destination_state': 'NY',
-      'destination_name': 'Aloha Chen',
-      'destination_company_name': 'My Company',
-      'destination_address_line_1': '300 Park Avenue',
-      'destination_address_line_2': null,
-      'destination_phone_number': '+1 234-567-890',
-      'destination_email_address': 'api-support@easyship.com',
-      'items': [
-        {
-          'description': 'Silk dress',
-          'sku': 'test',
-          'actual_weight': 1.2,
-          'height': 10,
-          'width': 15,
-          'length': 20,
-          'category': 'fashion',
-          'declared_currency': 'EUR',
-          'declared_customs_value': 100
-        }
-      ]
-    };
-    await this.compraService.creareEnvio(body);
+  //   var body = {
+  //     'platform_name': 'Amazon',
+  //     'platform_order_number': '#1234',
+  //     'selected_courier_id': 'b8d528a7-a2d4-4510-a7ac-11cbbb6542cd',
+  //     'destination_country_alpha2': 'US',
+  //     'destination_city': 'New York',
+  //     'destination_postal_code': '10022',
+  //     'destination_state': 'NY',
+  //     'destination_name': 'Aloha Chen',
+  //     'destination_company_name': 'My Company',
+  //     'destination_address_line_1': '300 Park Avenue',
+  //     'destination_address_line_2': null,
+  //     'destination_phone_number': '+1 234-567-890',
+  //     'destination_email_address': 'api-support@easyship.com',
+  //     'items': [
+  //       {
+  //         'description': 'Silk dress',
+  //         'sku': 'test',
+  //         'actual_weight': 1.2,
+  //         'height': 10,
+  //         'width': 15,
+  //         'length': 20,
+  //         'category': 'fashion',
+  //         'declared_currency': 'EUR',
+  //         'declared_customs_value': 100
+  //       }
+  //     ]
+  //   };
+  //   await this.compraService.creareEnvio(body);
 
-  }
+  // }
 
 }

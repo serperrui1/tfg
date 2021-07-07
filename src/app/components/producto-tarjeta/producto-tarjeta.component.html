@@ -1,4 +1,4 @@
-<div class="col mb-4 animated fadeIn " (click)="verProducto()">
+<div class="col mb-4 animated fadeIn " id="producto" (click)="verProducto()">
     <div class="card h-100 ">
         <div class="container">
 
@@ -7,7 +7,7 @@
             <img *ngIf="imagenFirebase" class="card-img-top img-hover-zoom" src="{{producto.imagenes[0]}}" alt="Card image cap">
         </div>
         <div class="card-body nombre mb-3">
-            <h5 class="card-title">{{producto.titulo}}</h5>
+            <h5 class="card-title" id="titulo">{{producto.titulo}}</h5>
 
             <h6 class="card-title text-white bg-secondary" style="margin-top:0px; margin-bottom:2px;  cursor: pointer;">{{proveedor}}</h6>
             <div style="height: auto;">
@@ -15,7 +15,7 @@
 
                 <ngb-rating [max]="5" [(rate)]="estrellas" [readonly]="true"></ngb-rating> <a style="margin-left:5px; font-size: small;">({{producto.valoraciones.length}} Valoraciones)</a><br>
             </div>
-            <strong class="text-success">{{producto.precio}} €</strong> <a style="margin-left:5%; font-size: small; padding-bottom: 10px;">({{producto.unidadesVendidas}} Ud.vendidas)</a>
+            <strong class="text-success" id="precio">{{producto.precio}} €</strong> <a style="margin-left:5%; font-size: small; padding-bottom: 10px;" id="unidadesVendidas">({{producto.unidadesVendidas}} Ud.vendidas)</a>
 
 
         </div>

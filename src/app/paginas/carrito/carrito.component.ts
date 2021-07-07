@@ -28,6 +28,8 @@ export class CarritoComponent implements OnInit{
   public cantidades: number[] = [];
   public products: Producto[] = [];
   public quantities: number[] = [];
+  imagenesDeFirebase:boolean[]=[];
+  
 
   /* items = this.carritoService.getCarrito();
   cantidades = this.carritoService.getCantidades(); */
@@ -43,6 +45,14 @@ export class CarritoComponent implements OnInit{
   async ngOnInit() {
     this.esComprador = (localStorage.getItem('usuario') ==="comprador")
     this.getEverything();
+    for(let i = 0;i <= this.items.length -1; i++){
+      if(this.items[i].imagenes[0].startsWith("https")){
+        this.imagenesDeFirebase.push(true);
+      }else{
+        this.imagenesDeFirebase.push(false);
+      }
+    }
+    
   }
   
   getEverything(){
