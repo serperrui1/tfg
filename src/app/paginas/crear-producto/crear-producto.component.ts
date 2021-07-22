@@ -70,7 +70,7 @@ export class CrearProductoComponent implements OnInit{
         subcategoria:['', ],
         datosTecnicos: this.fb.array([this.fb.group({
           datosTecnicosTitulo:['' ],
-          datosTecnicosDescripcion:['' ]
+          datosTecnicosDescripcion:['']
       })]),
       });
 
@@ -257,7 +257,7 @@ export class CrearProductoComponent implements OnInit{
   get precioFormato(){
     return this.crearProductoForm.get('precio').errors ? this.crearProductoForm.get('precio').errors.precioIncorrecto && this.crearProductoForm.get('precio').touched : null
   }
-  private precioIncorrecto(control:FormControl):{[s:string]:boolean}{
+  precioIncorrecto(control:FormControl):{[s:string]:boolean}{
     let cX = Number(control.value);
     if(cX < 0){
       return {

@@ -104,7 +104,7 @@ export class CambiarContrasenaComponent implements OnInit {
     get nuevaPassFormato(){
       return this.contrasenaForm.get('nuevaPassword').errors ? this.contrasenaForm.get('nuevaPassword').errors.passwordFormatoNoValido && this.contrasenaForm.get('nuevaPassword').touched : null
     }
-    private passwordFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+     passwordFormatoNoValido(control:FormControl):{[s:string]:boolean}{
       let cP = String(control.value);
       if(cP.length < 4 || cP.length > 16){
         return {

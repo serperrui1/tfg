@@ -3,16 +3,16 @@
     <hr>
     <div class="row">
         <div class="col-md-7">
-            <p class="mb-2">Unidades compradas: <strong>{{data.unidades}}</strong> </p>
-            <p class="mb-2">Fecha de compra:<strong> {{data.fechaCompra | date : 'dd/MM/yyyy' }} </strong></p>
-            <p>Tiempo de envio estimado: <strong>{{data.fechaEsperada}}</strong></p>
+            <p class="mb-2">Unidades compradas: <strong id="unidades">{{data.unidades}}</strong> </p>
+            <p class="mb-2">Fecha de compra:<strong id="fechaCompra"> {{data.fechaCompra | date : 'dd/MM/yyyy' }} </strong></p>
+            <p>Tiempo de envio estimado: <strong id="fechaEsperada">{{data.fechaEsperada}}</strong></p>
         </div>
         <div class="col-md-5">
 
-            <div class="estado mb-2">Estado: <strong>{{data.estadoEnvio}}</strong>
+            <div class="estado mb-2">Estado: <strong id="estado">{{data.estadoEnvio}}</strong>
             </div>
             <div *ngIf="data.estadoEnvio == 'Enviado' " style="text-align: center;">
-                <button class="btn btn-success " (click)="marcarRecibido()"> Marcar como recibido </button>
+                <button class="btn btn-success " id="botonEnviar" (click)="marcarRecibido()"> Marcar como recibido </button>
             </div>
         </div>
     </div>

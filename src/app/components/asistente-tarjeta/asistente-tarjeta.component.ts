@@ -25,12 +25,13 @@ export class AsistenteTarjetaComponent implements OnInit {
     private router: Router) { }
 
     async ngOnInit() {
-    this.admin = await this.usuarioService.getAdministrador();
+
     if(this.asistente.img.startsWith("https")){
       this.imagenFirebase = true;
     }else if(this.asistente.img == ""){
       this.noImagen = true;
     }
+    this.admin = await this.usuarioService.getAdministrador();
   }
 
   borrarAsistente(){

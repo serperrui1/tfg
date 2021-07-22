@@ -34,6 +34,7 @@ describe('ProveedorTarjeta', () => {
         direccion: "dirección test",
         cuentaBancariaIBAN: 'ES1000492352082414205416',
         titularCuenta: "Empresa ",
+        img:"https://firebasestorage.googleapis.com/v0/b/sellersplaza-41a82.appspot.com/o/0.49014345173493457informatica-infocoste-min.jpg?alt=media&token=aa8ed00a-2178-438c-afea-d26e278e647f",
         fechaRegistro: new Date("2020-11-18T17:47:56.562+00:00"),
         registroMercantil: "B-46961041",
         posicion: {
@@ -59,43 +60,44 @@ describe('ProveedorTarjeta', () => {
     })
 
   
-    // it('Imagen de firebase: False', () => {
-    //   fixture.detectChanges();
-    //   productoTest.imagenes = ["noesFirebase"];
+    it('Imagen de firebase: False', () => {
+      fixture.detectChanges();
+      proveedorTest.img = "noesFirebase";
 
-    //   fixture.whenStable();
+      fixture.whenStable();
 
-    //   expect(component.producto.imagenes[0]).toEqual('noesFirebase')
-    //   // expect(component.imagenFirebase).toBeFalse()
-    //   // expect(component.noImagen).toBeFalse()
-    // })
+      expect(component.proveedor.img).toEqual('noesFirebase')
+    })
 
 
   })
 
   describe('HTML producto tarjeta', () => {
    
-  //   it('Título, precio y unidades vendidas correctos', () => {
-  //     let titulo = component.producto.titulo;
-  //     let precio = component.producto.precio;
-  //     let unidadesVendidas = component.producto.unidadesVendidas;
+    it('Título, precio y unidades vendidas correctos', () => {
+      let nombre = component.proveedor.nombreEmpresa;
+      let sector = component.proveedor.sector;
+      let unidadesVendidas = component.proveedor.unidadesVendidas;
+      let puntuacionMedia = component.proveedor.puntuacionMedia;
 
-  //     const tituloHtml = fixture.debugElement.nativeElement.querySelector('#titulo');
-  //     const precioHtml = fixture.debugElement.nativeElement.querySelector('#precio');
-  //     const unidadesVendidasHtml = fixture.debugElement.nativeElement.querySelector('#unidadesVendidas');
+      const nombreHtml = fixture.debugElement.nativeElement.querySelector('#nombreEmpresa');
+      const sectorHtml = fixture.debugElement.nativeElement.querySelector('#sector');
+      const unidadesVendidasHtml = fixture.debugElement.nativeElement.querySelector('#udVendidas');
+      const puntuacionMediaHtml = fixture.debugElement.nativeElement.querySelector('#puntuacionMedia');
 
 
-  //     expect(tituloHtml.innerHTML).toEqual(titulo);
-  //     expect(precioHtml.innerHTML).toEqual(precio+" €");
-  //     expect(unidadesVendidasHtml.innerHTML).toEqual("("+ unidadesVendidas + " Ud.vendidas)");
-  //   })
-  //   it('Click en el produto y envio de ID correcto', () => {
-  //     const producto = fixture.debugElement.nativeElement.querySelector('#producto');
-  //     spyOn(component.productoSeleccionado, 'emit');
-  //     producto.click();
-  //     fixture.detectChanges();
-  //     expect(component.productoSeleccionado.emit).toHaveBeenCalledWith(component.producto._id);
-  // })
+      expect(nombreHtml.innerHTML).toEqual(nombre);
+      expect(sectorHtml.innerHTML).toEqual(sector);
+      expect(unidadesVendidasHtml.innerHTML).toEqual( "Ventas: "+ unidadesVendidas );
+      expect(puntuacionMediaHtml.innerHTML).toEqual("("+puntuacionMedia+")");
+    })
+    it('Click en el produto y envio de ID correcto', () => {
+      const proveedor = fixture.debugElement.nativeElement.querySelector('#proveedor');
+      spyOn(component.proveedorSeleccionado, 'emit');
+      proveedor.click();
+      fixture.detectChanges();
+      expect(component.proveedorSeleccionado.emit).toHaveBeenCalledWith(component.proveedor.uid);
+  })
 
 });
 })

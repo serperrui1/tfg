@@ -20,22 +20,21 @@ export class RegisterAsistenteTecnicoComponent {
   constructor(private fb:FormBuilder,
     private usuarioService: UsuarioService,
     private router:Router) {
+
+      this.registrarAsistenteForm = this.fb.group({
+        nombre:['', Validators.required],
+        apellidos:['', Validators.required],
+        email:['',[ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')] ],
+        password:['', [Validators.required, this.passwordFormatoNoValido]],
+        password2:['', Validators.required],
+        terminos:['', Validators.required]
+      },{
+        validators: this.passwordsIguales('password', 'password2')
+      })
   }
  
   async ngOnInit() {
     this.admin = await this.usuarioService.getAdministrador();
-      if(this.admin != null){
-        this.registrarAsistenteForm = this.fb.group({
-          nombre:['', Validators.required],
-          apellidos:['', Validators.required],
-          email:['',[ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')] ],
-          password:['', [Validators.required, this.passwordFormatoNoValido]],
-          password2:['', Validators.required],
-          terminos:['', Validators.required]
-        },{
-          validators: this.passwordsIguales('password', 'password2')
-        })
-      }
   }
 
   crearAsistente(){

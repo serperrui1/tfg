@@ -9,7 +9,6 @@ import { Pedido } from 'src/app/models/pedido';
 import { Comprador } from '../../models/comprador';
 import {Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import { ProductoConVenta } from 'src/app/models/productoConVenta.interface';
 import { FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 

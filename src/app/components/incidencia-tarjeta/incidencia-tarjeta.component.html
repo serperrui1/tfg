@@ -4,15 +4,15 @@
             <div class="titulo">
                 <h5 class="card-title" *ngIf="(comp || prov) && incidencia.asignado">Incidencia con el asistente técnico: {{nombreAsistente}} {{apellidosAsistente}}</h5>
                 <h5 class="card-title text-left" *ngIf="(comp || prov) && !incidencia.asignado">Incidencia sin asignar</h5>
-                <h5 class="card-title" *ngIf="aT && nombreComprador && !nombreProveedor">Incidencia del comprador: {{nombreComprador}} {{apellidosComprador}}</h5>
+                <h5 class="card-title" id="compradorIncidencia" *ngIf="aT && nombreComprador && !nombreProveedor">Incidencia del comprador: {{nombreComprador}} {{apellidosComprador}}</h5>
                 <h5 class="card-title" *ngIf="aT && nombreProveedor && !nombreComprador">Incidencia del proveedor: {{nombreProveedor}}</h5>
 
-                <p class="card-title" style="color: rgb(122, 122, 122); ">Título: "{{incidencia.titulo}}"</p>
-                <p class="card-title" style="color: rgb(122, 122, 122); ">Temática: {{incidencia.tematica}}</p>
+                <p class="card-title" style="color: rgb(122, 122, 122); " id="titulo">Título: "{{incidencia.titulo}}"</p>
+                <p class="card-title" style="color: rgb(122, 122, 122); " id="tematica">Temática: {{incidencia.tematica}}</p>
                 <p class="card-title" *ngIf="!incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: pendiente de asignación</p>
                 <p class="card-title" *ngIf="!incidencia.resuelto && incidencia.asignado" style="color: rgb(122, 122, 122); ">Estado: por resolver</p>
                 <p class="card-title" *ngIf="incidencia.resuelto" style="color: rgb(122, 122, 122); ">Estado: resuelta</p>
-                <p class="card-title" style="color: rgb(122, 122, 122); ">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}.</p>
+                <p class="card-title" style="color: rgb(122, 122, 122); " id="fecha">Último mensaje enviado el {{incidencia.fechaPublicacion | date: 'dd/MM/yyyy'}}.</p>
 
             </div>
         </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-2">
             <div class="botones-container">
-                <a class="btn btn-lg btn-primary btn-sm btn-block" style="width: 100%" (click)="verIncidencia()">Ver mensajes</a>
+                <a class="btn btn-lg btn-primary btn-sm btn-block" style="width: 100%" id="verIncidencia" (click)="verIncidencia()">Ver mensajes</a>
             </div>
             <ul *ngIf="notificacion">
                 <i class="fas fa-exclamation-triangle" style="color: rgb(243, 207, 0);"></i>

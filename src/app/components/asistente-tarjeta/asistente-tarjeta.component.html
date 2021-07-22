@@ -6,11 +6,11 @@
             <img *ngIf="imagenFirebase" class="card-img-top img-hover-zoom" src="{{asistente.img}}" alt="Card image cap">
         </div>
         <div class="card-body nombre">
-            <h5 class="card-title">{{asistente.nombre}} {{asistente.apellidos}}</h5>
+            <h5 class="card-title" id="nombre">{{asistente.nombre}} {{asistente.apellidos}}</h5>
             <div class="row">
-                <strong class="col-md-12">{{asistente.email}}</strong>
+                <strong class="col-md-12" id="email">{{asistente.email}}</strong>
             </div>
-            <button type="submit" class="btn btn-lg btn-danger btn-sm btn-block mt-1" *ngIf="admin" style="width: 50%; margin-left:25%;" (click)="borrarAsistente()">
+            <button class="btn btn-lg btn-danger btn-sm btn-block mt-1" *ngIf="admin" style="width: 50%; margin-left:25%;" (click)="borrarAsistente()">
                 Eliminar asistente
             </button>
         </div>

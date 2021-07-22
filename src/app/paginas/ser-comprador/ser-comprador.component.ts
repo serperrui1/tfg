@@ -220,7 +220,7 @@ export class SerCompradorComponent implements OnInit {
   
 
   //Validaciones personalizadas
-  private fechaAnteriorAHoy(control:FormControl):{[s:string]:boolean}{
+   fechaAnteriorAHoy(control:FormControl):{[s:string]:boolean}{
     let f = Date.parse(control.value)
     let hoy = new Date().getTime()
     if(f > hoy){
@@ -232,7 +232,7 @@ export class SerCompradorComponent implements OnInit {
   }
 
 
-  private codigoPostalFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+   codigoPostalFormatoNoValido(control:FormControl):{[s:string]:boolean}{
     const pattern = "^[0-9]{5}$"
     let cP = String(control.value);
     if(!cP.match(pattern)){
@@ -243,7 +243,7 @@ export class SerCompradorComponent implements OnInit {
     return null
   }
 
-  private passwordFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+   passwordFormatoNoValido(control:FormControl):{[s:string]:boolean}{
     let cP = String(control.value);
     if(cP.length < 4 || cP.length > 16){
       return {
@@ -265,7 +265,7 @@ export class SerCompradorComponent implements OnInit {
     }
   }
 
-  private telefonoFormatoNoValido(control:FormControl):{[s:string]:boolean}{
+   telefonoFormatoNoValido(control:FormControl):{[s:string]:boolean}{
     const pattern = "^[0-9]{9}$"
     let cP = String(control.value);
     if(!cP.match(pattern)){
