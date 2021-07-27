@@ -79,6 +79,20 @@ export class ActualizarProductoComponent implements OnInit {
 
       this.prov = await this.usuarioService.getProveedor();
       this.producto = await this.productoService.getProductoPorID(this.id);
+      this.productoForm = this.fb.group({
+        titulo: [ this.producto.titulo, [Validators.required, SpamValidator(this.expresionesSpam)]],
+        descripcion: [ this.producto.descripcion, [Validators.required, SpamValidator(this.expresionesSpam)]],
+        categoria: [ this.producto.categoria,  Validators.required ],
+        unidadesMinimas: [this.producto.unidadesMinimas, [Validators.required, this.unidadesMinimasIncorrecto]],
+        stock: [ this.producto.stock, [Validators.required, this.stockIncorrecto]],
+        tiempoEnvio: [ this.producto.tiempoEnvio, [Validators.required]],
+        precio: [ this.producto.precio, [Validators.required, this.precioIncorrecto]],
+        subcategoria:[ this.producto.subcategoria],
+        datosTecnicos: this.fb.array([this.fb.group({
+          datosTecnicosTitulo:[],
+          datosTecnicosDescripcion:[]
+      })])
+      });
       this.categoria = this.producto.categoria;
       for(let i = this.producto.imagenes.length -1; i>=0; i--){
         if(this.producto.imagenes[i].startsWith("http")){
@@ -106,20 +120,7 @@ export class ActualizarProductoComponent implements OnInit {
       this.spam = (await this.spamService.getSpam())[0];
       this.expresionesSpam = this.spam.expresiones;
 
-      this.productoForm = this.fb.group({
-        titulo: [ this.producto.titulo, [Validators.required, SpamValidator(this.expresionesSpam)]],
-        descripcion: [ this.producto.descripcion, [Validators.required, SpamValidator(this.expresionesSpam)]],
-        categoria: [ this.producto.categoria,  Validators.required ],
-        unidadesMinimas: [this.producto.unidadesMinimas, [Validators.required, this.unidadesMinimasIncorrecto]],
-        stock: [ this.producto.stock, [Validators.required, this.stockIncorrecto]],
-        tiempoEnvio: [ this.producto.tiempoEnvio, [Validators.required]],
-        precio: [ this.producto.precio, [Validators.required, this.precioIncorrecto]],
-        subcategoria:[ this.producto.subcategoria],
-        datosTecnicos: this.fb.array([this.fb.group({
-          datosTecnicosTitulo:[],
-          datosTecnicosDescripcion:[]
-      })])
-      });
+     
 
     }else{
       console.log("Acceso denegado para actualizar este producto");
@@ -396,7 +397,7 @@ export class ActualizarProductoComponent implements OnInit {
   get precioFormato(){
     return this.productoForm.get('precio').errors ? this.productoForm.get('precio').errors.precioIncorrecto && this.productoForm.get('precio').touched : null
   }
-  private precioIncorrecto(control:FormControl):{[s:string]:boolean}{
+  precioIncorrecto(control:FormControl):{[s:string]:boolean}{
     let cX = Number(control.value);
     if(cX < 0){
       return {
