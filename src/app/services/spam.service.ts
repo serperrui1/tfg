@@ -48,6 +48,7 @@ export class SpamService {
         this.http.get(`${base_url}/spam/`,{
         }).subscribe(data=>{
           const spam = data["spam"];
+          console.log(spam)
           resolve(spam);
         });
       })

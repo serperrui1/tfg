@@ -241,6 +241,7 @@ export class ProductoComponent implements OnInit {
         }
         this.productoService.borrarValoracion(data,this.producto._id)    .subscribe( () => {
           Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+          location.reload()
         }, (err) => {
           Swal.fire('Error', err.error.msg, 'error');
         });
@@ -259,6 +260,7 @@ export class ProductoComponent implements OnInit {
     this.productoService.crearValoracion( this.valoracionForm.value, this.producto._id )
     .subscribe( () => {
       Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+      this.ngOnInit();
       
     }, (err) => {
       Swal.fire('Error', err.error.msg, 'error');

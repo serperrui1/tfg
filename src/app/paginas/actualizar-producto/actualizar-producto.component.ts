@@ -69,6 +69,8 @@ export class ActualizarProductoComponent implements OnInit {
   async ngOnInit() {
 
     this.prov = await this.usuarioService.getProveedor();
+    this.spam = (await this.spamService.getSpam())[0];
+    this.expresionesSpam = this.spam.expresiones;
 
 
     if(this.usuario === "proveedor" && this.token != null) {
@@ -117,8 +119,7 @@ export class ActualizarProductoComponent implements OnInit {
       this.proveedor = await this.usuarioService.getProveedorNombre(this.producto.proveedor)
       this.producto.proveedorNombre = this.proveedor;
       
-      this.spam = (await this.spamService.getSpam())[0];
-      this.expresionesSpam = this.spam.expresiones;
+
 
      
 
