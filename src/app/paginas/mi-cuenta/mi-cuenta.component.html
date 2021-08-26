@@ -63,7 +63,7 @@
 
     <div class="row fila-cuenta">
 
-        <div class="col"></div>
+        <div class="col" *ngIf=" prov || comp"></div>
 
         <div class="col-md-5 contenedor-card" *ngIf=" prov || comp" routerLink="/perfil/cambiar-contrasena">
             <div class="row ">
@@ -78,7 +78,8 @@
             </div>
         </div>
 
-        <div class="col" *ngIf="aT || comp || prov"></div>
+        <div class="col" *ngIf="comp || prov"></div>
+        <div class="col-md-1" *ngIf="aT"></div>
 
 
         <div class="col-md-5 contenedor-card" *ngIf=" aT || comp || prov" routerLink="/mis-incidencias">

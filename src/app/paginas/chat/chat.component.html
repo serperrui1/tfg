@@ -50,11 +50,18 @@
 
 
                 <div class="col-md-4 infoFinal" *ngIf="flag">
-                    <!-- <img class="card-img-top" style="height: 250px;" src="{{direccionImagen + imagenMostrar}" alt="Card image cap"> -->
-                    <img src="{{direccionImagen + imagenMostrar}}" class="imagen" style="margin-left: 0px;">
-                    <div *ngFor="let imagen of producto.imagenes" class="col-md-2 imagenes-container">
-                        <img src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                    <div class="row">
+                        <!-- <img class="card-img-top" style="height: 250px;" src="{{direccionImagen + imagenMostrar}" alt="Card image cap"> -->
+                        <img *ngIf="!imagenFirebase" src="{{direccionImagen + imagenMostrar}}" class="imagen" style="margin-left: 0px;">
+                        <img *ngIf="imagenFirebase" src="{{imagenMostrar}}" class="imagen" style="margin-left: 0px;">
+                        <div class="col">
+                            <div *ngFor="let imagen of producto.imagenes ; let i = index" class="col-md-1 imagenes-container">
+                                <img *ngIf="!imagenesDeFirebase[i]" src="{{direccionImagen + imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                                <img *ngIf="imagenesDeFirebase[i]" src="{{imagen}}" class="imagen-miniatura" (mouseover)="imagenMostrar=imagen">
+                            </div>
+                        </div>
                     </div>
+
                     <p class="card-text mt-4" style="color: rgb(122, 122, 122);"> Compra de {{unPedido.unidades}} unidades realizada el {{unPedido.fechaCompra | date: 'M/d/yy'}} del producto "{{producto.titulo}}" por un total de {{unPedido.precio }} €.</p>
                 </div>
 

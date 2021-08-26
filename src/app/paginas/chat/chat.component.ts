@@ -49,6 +49,8 @@ export class ChatComponent implements OnInit {
   public imagenMostrar:string;
   public spam: Spam;
   public expresionesSpam: string[];
+  imagenFirebase:boolean= false;
+  imagenesDeFirebase:boolean[]=[];
 
   constructor(private fb:FormBuilder,
     private chatService: ChatService,
@@ -135,7 +137,19 @@ export class ChatComponent implements OnInit {
     this.todosMensajes[0] = this.todosMensajes[0].replace(this.chat.mensajes[0], this.firstMessage);
     //--------------------------------------------------------------------------
 
+    for(let i =0;i <= this.producto.imagenes.length -1; i++){
+      if(this.producto.imagenes[i].startsWith("https")){
+        this.imagenesDeFirebase.push(true);
+      }else{
+        this.imagenesDeFirebase.push(false);
+      }
+    if(this.producto.imagenes[0].startsWith("https")){
+      this.imagenFirebase = true;
+    }else{
+      this.imagenFirebase = false;
+    }
     this.imagenMostrar = this.producto.imagenes[0];
+    }
   }
 
   get mensajes()

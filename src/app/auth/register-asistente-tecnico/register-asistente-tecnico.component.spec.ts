@@ -44,7 +44,7 @@ describe('Registro Asistente Técnico', () => {
     
   });
 
-  describe('Formulario crear comprador', () => {
+  describe('Formulario crear asistente Técnico', () => {
     it('Formulario: Iniciado correctamente', () => {
       
 
@@ -85,8 +85,8 @@ describe('Registro Asistente Técnico', () => {
     })
   })
 
-  describe('Crear comprador', () => {
-    it('Formulario comprador: Datos enviados correctamente', () => {
+  describe('Crear asistente', () => {
+    it('Formulario asistente: Datos enviados correctamente', () => {
       let nombre = component.registrarAsistenteForm.controls['nombre']
       let apellidos = component.registrarAsistenteForm.controls['apellidos']
       let email = component.registrarAsistenteForm.controls['email']
@@ -107,7 +107,7 @@ describe('Registro Asistente Técnico', () => {
       expect(usuarioService.crearAsistenteTecnico).toBeTruthy();
     })
 
-    it('Formulario comprador: Botón de submit funciona correctamente', () => {
+    it('Formulario asistente: Botón de submit funciona correctamente', () => {
       let nombre = component.registrarAsistenteForm.controls['nombre']
       let apellidos = component.registrarAsistenteForm.controls['apellidos']
       let email = component.registrarAsistenteForm.controls['email']
@@ -129,7 +129,7 @@ describe('Registro Asistente Técnico', () => {
 
     
 
-    it('Formulario comprador: Datos enviados erroneos', () => {
+    it('Formulario asistente: Datos enviados erroneos', () => {
       let nombre = component.registrarAsistenteForm.controls['nombre']
       let apellidos = component.registrarAsistenteForm.controls['apellidos']
       let email = component.registrarAsistenteForm.controls['email']

@@ -87,7 +87,6 @@ export class CarritoComponent implements OnInit{
 
   comprar(){
     if(localStorage.getItem("usuario") == "comprador"){
-      console.log("lol?");
       this.router.navigateByUrl("/compra")
     }else{
     Swal.fire({

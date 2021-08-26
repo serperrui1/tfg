@@ -63,9 +63,7 @@ export class DevolucionReclamacionComponent implements OnInit {
         this.pedidoId = params['id']; 
       });
       this.unPedido = await this.pedidosService.getPedidoPorID(this.pedidoId);
-      console.log(this.pedidoId)
       this.producto = await this.productoService.getProductoPorID(this.unPedido.producto);
-      console.log(this.producto)
       this.solicitud = " - DEV/RCL: "+this.pedidoId;
       this.compradorNombre = this.comp.nombre;
       this.proveedorNombre = JSON.parse(localStorage.getItem('proveedorNombre'));

@@ -92,7 +92,6 @@ async comprar(){
   if(this.nuevoComprador){
     let nuevaDireccion = this.datosPedidoForm.value;
     for(let i = this.productos.length -1 ; i>=0 ; i--){
-
       if(this.productos[i].unidadesMinimas<=this.cantidades[i] && this.productos[i].stock>=this.cantidades[i]){
         this.pedido.direccionEnvio = nuevaDireccion.direccionResidencia+", "+nuevaDireccion.localidad+", "+nuevaDireccion.ciudad+", "+nuevaDireccion.paisResidencia
         this.pedido.codigoPostal = nuevaDireccion.codigoPostal;
@@ -113,13 +112,9 @@ async comprar(){
         this.router.navigateByUrl('/mis-pedidos');
       }else{
         Swal.fire('Error', 'no se ha podido realizar el pedido');
-      }
-    }
-
-  }
+    }}}
   else{
     for(let i = this.productos.length -1 ; i>=0 ; i--){
-
       if(this.productos[i].unidadesMinimas<=this.cantidades[i] && this.productos[i].stock>=this.cantidades[i]){
         this.pedido.direccionEnvio = this.direccionEnvio;
         this.pedido.codigoPostal = this.comprador.codigoPostal;
@@ -136,17 +131,12 @@ async comprar(){
         this.compraService.crearPedido(this.pedido);
         
         this.quitarDelCarrito(i)
-  
-        // await this.crearTracking();
-
         Swal.fire('éxito', 'se realizo el pedido', 'success');
-        this.router.navigateByUrl('/mis-pedidos');
-        
+        this.router.navigateByUrl('/mis-pedidos');   
       }else{
         Swal.fire('Error', 'no se ha podido realizar el pedido');
       }
-  
-  
+
     }
     // if(JSON.parse(localStorage.getItem('items'))=="")
     // this.router.navigateByUrl('/');

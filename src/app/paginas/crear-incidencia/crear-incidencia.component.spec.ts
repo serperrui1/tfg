@@ -14,7 +14,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 import { SpamService } from 'src/app/services/spam.service';
 import { Proveedor } from 'src/app/models/proveedor';
 
-describe('Cambiar contraseña', () => {
+describe('Crear Incidencia', () => {
   let usuarioService:UsuarioService
   let chatService:ChatService
   let productoService:ProductoService
@@ -108,7 +108,7 @@ describe('Cambiar contraseña', () => {
 
   });
 
-   describe('Formulario Crear Chat', () => {
+   describe('Formulario Crear Incidencia', () => {
     it('Formulario: Iniciado correctamente', () => {
 
       let titulo = component.incidenciaForm.controls['titulo']

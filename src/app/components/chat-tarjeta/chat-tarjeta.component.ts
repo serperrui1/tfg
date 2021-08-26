@@ -38,25 +38,26 @@ export class ChatTarjetaComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.comp = await this.usuarioService.getComprador();
+    if(this.comp === null){
+      this.prov = await this.usuarioService.getProveedor();
+    }
     this.chat = this.data;
+    console.log(this.chat)
     for(let mensaje of this.chat.mensajes){
-      if(mensaje.includes(" - DEV/RCL: ")){
+      if(mensaje.includes("- DEV/RCL:")){
         this.pedidoId = mensaje.split(' - DEV/RCL: ').pop();
-        console.log(this.pedidoId);
         this.unPedido = await this.pedidosService.getPedidoPorID(this.pedidoId);
-        console.log(this.unPedido);
         this.producto = await this.productoService.getProductoPorID(this.unPedido.producto);
         this.flag = true;
+        
       } else {
         this.producto = await this.productoService.getProductoPorID(this.chat.productoId);
       }
     }
     
 
-    this.comp = await this.usuarioService.getComprador();
-    if(this.comp === null){
-      this.prov = await this.usuarioService.getProveedor();
-    }
+    
 
     if(this.comp && this.chat.ultimoEmisor != this.comp.uid && !this.chat.leido){
       this.notificacion = true;

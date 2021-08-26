@@ -11,7 +11,7 @@ import { Producto } from 'src/app/models/producto';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 
-describe('ProveedorTarjeta', () => {
+describe('Escaparate', () => {
   let usuarioService:UsuarioService
   let component: EscaparateComponent;
   let fixture: ComponentFixture<EscaparateComponent>;

@@ -18,7 +18,7 @@ export class MisChatsComponent implements OnInit {
   });
 
   public buscadorForm = this.fb.group({
-    chat:['']
+    chat:['mensajesMasRecientes']
   });
 
   public chats: Chat[];

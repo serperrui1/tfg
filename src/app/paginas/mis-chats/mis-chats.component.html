@@ -20,11 +20,11 @@
             </div>
             <div class="col-md-3 mt-4 ordena " style="margin-left:6% ">
                 <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
-                <form [formGroup]="orden " id="buscadorform " class="orden ">
-                    <select formControlName="orden " (change)="ordenar1() ">
-                        <option value="mensajesMasRecientes " selected="selected " >Mensajes más recientes primero</option> 
-                        <option value="mensajesMasAntiguos " >Mensajes más antiguos primeros</option>
-                        <option value="noLeidasPrimero " >No leídas primero</option>
+                <form [formGroup]="orden" id="buscadorform " class="orden">
+                    <select formControlName="orden" (change)="ordenar1() ">
+                        <option value="mensajesMasRecientes" selected="selected " >Mensajes más recientes primero</option> 
+                        <option value="mensajesMasAntiguos" >Mensajes más antiguos primeros</option>
+                        <option value="noLeidasPrimero" >No leídas primero</option>
                     </select>
                 </form>
             </div>
@@ -51,13 +51,13 @@
             </div>
             <div class="col-md-2 mt-4 ordena " style="margin-left: -2% ">
                 <a style="text-decoration: none; color: rgb(122, 122, 122); ">Ordenar por: </a>
-                <form [formGroup]="orden " id="buscadorform " class="orden ">
-                    <select formControlName="orden " (change)="ordenar2() ">
-                    <option value="mensajesMasRecientes " selected="selected " >Mensajes más recientes primero</option> 
-                    <option value="mensajesMasAntiguos " >Mensajes más antiguos primero</option>
-                    <option value="pedidosMasRecientes " >Pedidos más recientes primero</option>
-                    <option value="pedidosMasAntiguos " >Pedidos más antiguos primero</option>
-                    <option value="noLeidasPrimero " >No leídas primero</option>
+                <form [formGroup]="orden" id="buscadorform " class="orden">
+                    <select formControlName="orden" (change)="ordenar2() ">
+                    <option value="mensajesMasRecientes" selected="selected " >Mensajes más recientes primero</option> 
+                    <option value="mensajesMasAntiguos" >Mensajes más antiguos primero</option>
+                    <option value="pedidosMasRecientes" >Pedidos más recientes primero</option>
+                    <option value="pedidosMasAntiguos" >Pedidos más antiguos primero</option>
+                    <option value="noLeidasPrimero" >No leídas primero</option>
                 </select>
                 </form>
             </div>
@@ -67,7 +67,7 @@
         <div class="row centrado ">
             <div class="col-md-2 "></div>
             <div class="col-md-8 ">
-                <app-chat-tarjeta [data]="chat " id="chats2 " (chatSeleccionado)="verChat($event) " *ngFor="let chat of chats2 "></app-chat-tarjeta>
+                <app-chat-tarjeta [data]="chat" id="chats2" (chatSeleccionado)="verChat($event)" *ngFor="let chat of chats2"></app-chat-tarjeta>
             </div>
             <div class="col-md-2 "></div>
         </div>

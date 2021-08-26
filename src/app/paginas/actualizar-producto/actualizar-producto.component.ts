@@ -266,12 +266,20 @@ export class ActualizarProductoComponent implements OnInit {
   }
 
   borrarProducto( producto: Producto ) {
-
-    this.productoService.borrarProducto( producto._id )
+   
+    Swal.fire({
+      title: '¿Desea borrar el Producto?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrarlo'
+    }).then((result) => {
+      if (result.value) {
+        this.productoService.borrarProducto( producto._id )
         .subscribe( resp => {
           Swal.fire( 'Borrado', producto.titulo, 'success' );
           this.router.navigateByUrl("/mis-productos");
         });
+      }});
 
   }
   borrarImagen() {

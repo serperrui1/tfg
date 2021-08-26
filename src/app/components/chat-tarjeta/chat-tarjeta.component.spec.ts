@@ -90,6 +90,7 @@ describe('Chat tarjeta', () => {
       fixture = TestBed.createComponent(ChatTarjetaComponent);
       component = fixture.componentInstance;
       component.data = chatTest;
+      component.chat = chatTest;
       component.comp = compradorTest;
       component.producto = productoTest;
       component.notificacion =notificacion;

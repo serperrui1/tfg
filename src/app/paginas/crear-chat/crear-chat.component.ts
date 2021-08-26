@@ -7,7 +7,7 @@ import { Proveedor } from '../../models/proveedor';
 import Swal from 'sweetalert2';
 import { Producto } from '../../models/producto';
 import { ProductoService } from '../../services/producto.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SpamValidator } from '../../Validaciones-Customizadas.directive';
 import { Spam } from '../../models/spam';
@@ -36,7 +36,8 @@ export class CrearChatComponent implements OnInit {
   public spam: Spam;
   public expresionesSpam: string[];
 
-  constructor(private fb:FormBuilder,
+  constructor(private activatedRoute: ActivatedRoute,
+    private fb:FormBuilder,
     private chatService: ChatService,
     private productoService : ProductoService,
     private spamService: SpamService,
@@ -49,12 +50,15 @@ export class CrearChatComponent implements OnInit {
   async ngOnInit() {
 
     if(this.usuario === "comprador" && this.token != null){
+      this.activatedRoute.params.subscribe( params => {
+        this.productoId = params['id']; 
+      });
 
       this.comp = await this.usuarioService.getComprador();
       this.compradorNombre = this.comp.nombre;
       this.proveedorNombre = JSON.parse(localStorage.getItem('proveedorNombre'));
       this.proveedorId = JSON.parse(localStorage.getItem('proveedorId'));
-      this.productoId = JSON.parse(localStorage.getItem('productoId'));
+      
       this.producto = await this.productoService.getProductoPorID(this.productoId);
       this.autor = this.compradorNombre.trim() + ": ";
       this.spam = (await this.spamService.getSpam())[0];

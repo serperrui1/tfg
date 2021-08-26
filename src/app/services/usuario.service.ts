@@ -298,7 +298,6 @@ export class UsuarioService {
       }).subscribe(data =>{
         const administrador:Administrador = data["administrador"];
         resolve(administrador);
-        console.log(administrador)
       });
     } )
   }
